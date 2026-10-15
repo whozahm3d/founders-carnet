@@ -1,0 +1,13 @@
+{
+  "important": ["docs", "rag", "ml", "backend", "frontend", "scripts", ".claude", "CLAUDE.md", "README.md"],
+  "data_dirs": ["data", "datasets", "models"],
+  "exclude_dirs": ["node_modules", ".venv", "venv", "__pycache__", ".next", "dist", "build", ".git", ".pytest_cache", ".mypy_cache", ".ruff_cache", ".idea", ".vscode"],
+  "exclude_prefixes": [".claude/backups", "_backup_mirror"],
+  "max_file_mb": 20,
+  "data_max_file_mb": 500,
+  "snapshot_max_mb": 50,
+  "keep_days": 30,
+  "keep_zips": 10,
+  "mirror_dir": "_backup_mirror",
+  "zip_dir": null
+}

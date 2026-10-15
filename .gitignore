@@ -218,3 +218,38 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# ---- Added for the Claude Code setup ----
+# Claude Code backups (local only)
+_backup_mirror/
+.claude/backups/
+.claude/settings.local.json
+
+# Secrets (keep the example file)
+.env.*
+!.env.example
+
+# Python
+.venv/
+*.pyc
+.ipynb_checkpoints/
+
+# GSD Core working state (see SETUP.md section 10). Private to each person.
+.planning/
+
+# Node
+node_modules/
+.next/
+
+# Raw data and model weights stay out of git (CLAUDE.md data rules)
+/data/
+/datasets/
+/models/
+*.pt
+*.pth
+*.safetensors
+*.ckpt
+*.onnx
+
+# Anchor
+.anchor/

@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Blocks a commit if a staged file looks like it contains an API key.
+# Turn on once per clone:  git config core.hooksPath .githooks
+if command -v python >/dev/null 2>&1; then PY=python; else PY=py; fi
+"$PY" scripts/scan_for_keys.py --staged || {
+  echo "Commit stopped: possible key in a staged file."
+  exit 1
+}

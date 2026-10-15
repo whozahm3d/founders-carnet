@@ -1,0 +1,21 @@
+# Code owners, matching the owners table in CLAUDE.md.
+# GitHub reads this file only if every handle is a real account with access to the repo.
+# Turn on "Require review from Code Owners" in the protect-main ruleset to enforce it.
+
+# frontend: Shahzeb, Ali
+/frontend/   @whozahm3d @ShahzebMalik32
+
+# backend: Taha, Ali
+/backend/    @whozahm3d @tahanawaz27-jpg
+
+# rag: Ali, Shahzeb
+/rag/        @whozahm3d @ShahzebMalik32
+
+# ml: Taha, Ali
+/ml/         @whozahm3d @tahanawaz27-jpg
+
+# Safety setup and CI: change only with the whole team's agreement
+/.claude/    @whozahm3d @ShahzebMalik32 @tahanawaz27-jpg
+/.github/    @whozahm3d @ShahzebMalik32 @tahanawaz27-jpg
+/CLAUDE.md   @whozahm3d @ShahzebMalik32 @tahanawaz27-jpg
+/AGENTS.md   @whozahm3d @ShahzebMalik32 @tahanawaz27-jpg

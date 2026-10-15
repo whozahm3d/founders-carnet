@@ -1,0 +1,94 @@
+# Runs on every pull request into main (report NFR-23: linting and tests on every pull request).
+# Written without being run on GitHub. Check the first run in the Actions tab and fix what it reports.
+# Each job skips itself when its folder has nothing to check yet, so an empty scaffold passes.
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  key-scan:
+    name: Scan for API keys
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python scripts/scan_for_keys.py
+
+  python:
+    name: Python (${{ matrix.folder }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        folder: [backend, rag, ml]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check for Python code
+        id: has_code
+        run: |
+          if [ -d ${{ matrix.folder }} ] && { find ${{ matrix.folder }} -name '*.py' -not -path '*/.venv/*' | grep -q . || [ -f ${{ matrix.folder }}/requirements.txt ]; }; then
+            echo "found=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "found=false" >> "$GITHUB_OUTPUT"
+            echo "No Python code in ${{ matrix.folder }}/ yet, skipping."
+          fi
+      - uses: actions/setup-python@v5
+        if: steps.has_code.outputs.found == 'true'
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        if: steps.has_code.outputs.found == 'true'
+        working-directory: ${{ matrix.folder }}
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          pip install ruff pytest
+      - name: Lint (ruff)
+        if: steps.has_code.outputs.found == 'true'
+        working-directory: ${{ matrix.folder }}
+        run: ruff check .
+      - name: Tests (pytest)
+        if: steps.has_code.outputs.found == 'true'
+        working-directory: ${{ matrix.folder }}
+        run: |
+          # pytest exits with 5 when it finds no tests. That is fine until tests exist.
+          pytest || [ $? -eq 5 ]
+
+  frontend:
+    name: Frontend
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check for a frontend project
+        id: has_code
+        run: |
+          if [ -f frontend/package.json ]; then
+            echo "found=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "found=false" >> "$GITHUB_OUTPUT"
+            echo "No frontend/package.json yet, skipping."
+          fi
+      - uses: actions/setup-node@v4
+        if: steps.has_code.outputs.found == 'true'
+        with:
+          node-version: "24"
+      - name: Install
+        if: steps.has_code.outputs.found == 'true'
+        working-directory: frontend
+        run: |
+          if [ -f package-lock.json ]; then npm ci; else npm install; fi
+      - name: Lint, test, build
+        if: steps.has_code.outputs.found == 'true'
+        working-directory: frontend
+        run: |
+          npm run lint --if-present
+          npm test --if-present
+          npm run build --if-present
