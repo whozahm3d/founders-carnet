@@ -1,0 +1,16 @@
+# ml/requirements.txt
+# Packages used by ml/notebooks/dataset_claim_checks.ipynb
+# Pinned to versions installed in ml/.venv (Python 3.11)
+# Generated 2026-10-16
+
+pandas==3.0.6
+pyarrow==26.0.0
+pypdf==6.21.0
+jupyter==1.1.1
+ipykernel==7.4.0
+
+# Optional: only needed when there is no local Roman-Urdu-Parl folder on disk
+# (the notebook falls back to the Hugging Face metadata API).
+# Not yet installed in .venv. Install with:
+#   pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org datasets
+# datasets==<pin after install>

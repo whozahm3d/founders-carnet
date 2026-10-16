@@ -1,0 +1,766 @@
+{
+  "roman_urdu_parl": {
+    "name": "Roman-Urdu-Parl (HF split)",
+    "source": "Mavkif/Roman-Urdu-Parl-split",
+    "role": "Multilingual benchmark source",
+    "access_date": "2026-10-03",
+    "licence": "not stated in dataset card metadata",
+    "features": {
+      "Urdu text": "Value('string')",
+      "Roman-Urdu text": "Value('string')"
+    },
+    "splits": {
+      "train": 6333218,
+      "validation": 20719,
+      "test": 20741
+    },
+    "total_rows": 6374678,
+    "sample_20_pairs": [
+      {
+        "Urdu text": "وکیل",
+        "Roman-Urdu text": "wakeel"
+      },
+      {
+        "Urdu text": "وکیل",
+        "Roman-Urdu text": "wakeel"
+      },
+      {
+        "Urdu text": "وکیل ایک ایسی شخصیت کو کہا جاتا ہے کہ جو دوسرے اپنے صارف کی جانب سے یا اسکی بابت گفتگو کرے اس مضمون میں یہ گفتگو قانون سے متعلق تصور کی گئی ہے اور اس وجہ سے یہ مضمون صرف قانونی وکلا کے بارے میں ذکر کرتا ہے",
+        "Roman-Urdu text": "wakeel aik aisi shakhsiyat ko kaha jata hai ke jo dosray apne Sarif ki janib se ya uski baabat guftagu kere is mazmoon mein yeh guftagu qanoon se mutaliq tasawwur ki gayi hai aur is wajah se yeh mazmoon sirf qanooni wukla ke baray mein zikar karta hai"
+      },
+      {
+        "Urdu text": "وکیل قانون",
+        "Roman-Urdu text": "wakeel qanoon"
+      },
+      {
+        "Urdu text": "وکیل قانون ایک شخص جسے دوسرے شخص کی جگہ کام کرنے یا کی نمائندگی کرنے کا اختیار حاصل ہوتا ہے وکیل سفر ایک شخص جو تعطیلات اور سفر کا بندوبست کرتا ہے خفیہ وکیل ایک جاسوس",
+        "Roman-Urdu text": "wakeel qanoon 1 shakhs jisay dosray shakhs ki jagah kaam karne ya ki numaindagi karne ka ikhtiyar haasil hota hai wakeel safar 1 shakhs jo tatilat aur safar ka bandobast karta hai khufia wakeel aik jasoos"
+      },
+      {
+        "Urdu text": "وکیل بازار ضلع لاطینی ترکمانستان کا ایک ترکمانستان کے اضلاع جو صوبہ ماری میں واقع ہے",
+        "Roman-Urdu text": "wakeel bazaar zila lateeni turkmenistan ka aik turkmenistan ke azlaa jo soobah maari mein waqay hai"
+      },
+      {
+        "Urdu text": "وکیل والا ریلوے اسٹیشن وکیل والا میں واقع ہے",
+        "Roman-Urdu text": "wakeel wala railway station wakeel wala mein waqay hai"
+      },
+      {
+        "Urdu text": "وکیل والا ریلوے اسٹیشن پاکستان میں واقع ہے",
+        "Roman-Urdu text": "wakeel wala railway station Pakistan mein waqay hai"
+      },
+      {
+        "Urdu text": "وکیپیڈیا",
+        "Roman-Urdu text": "wikipedia"
+      },
+      {
+        "Urdu text": "وکیپیڈیا انگریزی پر یہ تصویر ميں نے ہی اپلوڈ کی تھی",
+        "Roman-Urdu text": "wikipedia angrezi par yeh tasweer mein ne hi aplod ki thi"
+      },
+      {
+        "Urdu text": "وکیپیڈیا خود کسی بھی ترتیب کو نافذ نہیں کرتا",
+        "Roman-Urdu text": "wikipedia khud kisi bhi tarteeb ko nafiz nahi karta"
+      },
+      {
+        "Urdu text": "وکیپیڈیا لوگو کے لیے نستعلیق خطاطی",
+        "Roman-Urdu text": "wikipedia logo ke liye nastalik khtati"
+      },
+      {
+        "Urdu text": "وکیپیڈیا میں اس سطر سے آپ تصاویر سادہ طریقے سے شامل کرسکتے ہیں",
+        "Roman-Urdu text": "wikipedia mein is satar se aap tasaveer saada tareeqay se shaamil kar saktay hain"
+      },
+      {
+        "Urdu text": "وکیپیڈیا میں خوش آمدید",
+        "Roman-Urdu text": "wikipedia mein khush aamdeed"
+      },
+      {
+        "Urdu text": "وکیپیڈیا میں کسی کے کو اس بات کی وجہ سے فوقیت حاصل نہیں کہ اس نے کس قدر وکیپیڈیا میں اضافہ کیا ہے",
+        "Roman-Urdu text": "wikipedia mein kisi ke ko is baat ki wajah se foqiat haasil nahi ke is ne kis qader wikipedia mein izafah kya hai"
+      },
+      {
+        "Urdu text": "وکیپیڈیا پالیسی",
+        "Roman-Urdu text": "wikipedia policy"
+      },
+      {
+        "Urdu text": "وکیپیڈیا پر صرف ہزار مضمون ہیں جن میں سے اصل مضمون شاید ہزار ہونگے",
+        "Roman-Urdu text": "wikipedia par sirf hazaar mazmoon hain jin mein se asal mazmoon shayad hazaar hunge"
+      },
+      {
+        "Urdu text": "وکیپیڈیا پر ہر صارف کا ابنا ایک صفحہ ہوتا ہے",
+        "Roman-Urdu text": "wikipedia par har Sarif ka abna aik safha hota hai"
+      },
+      {
+        "Urdu text": "وکیپیڈیا کے اعدادوشمار",
+        "Roman-Urdu text": "wikipedia ke adad o shumaar"
+      },
+      {
+        "Urdu text": "وکیپیڈیا کے صارفین کی اصل تصاویر",
+        "Roman-Urdu text": "wikipedia ke sarfeen ki asal tasaveer"
+      }
+    ]
+  },
+  "linkedin": {
+    "name": "LinkedIn-Dataset (Ayoobi et al.)",
+    "source": "https://github.com/navid-aub/LinkedIn-Dataset",
+    "role": "Profile-verification reference",
+    "access_date": "2026-10-03",
+    "licence": "no LICENSE file in repo",
+    "files": {},
+    "other_files_by_extension": {
+      ".pcl": 1,
+      ".md": 1
+    },
+    "size_mb": 25.19
+  },
+  "crunchbase_success": {
+    "name": "Kaggle: Startup Success/Fail (Crunchbase)",
+    "source": "https://www.kaggle.com/datasets/yanmaksi/big-startup-secsees-fail-dataset-from-crunchbase",
+    "role": "Schema proxy only",
+    "access_date": "2026-10-03",
+    "licence": "not stated",
+    "files": {
+      "big_startup_secsees_dataset.csv": {
+        "rows": 66368,
+        "columns": 14,
+        "dtypes": {
+          "permalink": "object",
+          "name": "object",
+          "homepage_url": "object",
+          "category_list": "object",
+          "funding_total_usd": "object",
+          "status": "object",
+          "country_code": "object",
+          "state_code": "object",
+          "region": "object",
+          "city": "object",
+          "funding_rounds": "int64",
+          "founded_at": "object",
+          "first_funding_at": "object",
+          "last_funding_at": "object"
+        },
+        "missing_pct": {
+          "homepage_url": 7.62,
+          "category_list": 4.74,
+          "country_code": 10.48,
+          "state_code": 12.88,
+          "region": 12.1,
+          "city": 12.1,
+          "founded_at": 22.93,
+          "first_funding_at": 0.04
+        },
+        "duplicate_rows": 0,
+        "low_cardinality_columns": {
+          "status": {
+            "operating": 53034,
+            "closed": 6238,
+            "acquired": 5549,
+            "ipo": 1547
+          }
+        },
+        "long_text_columns": {},
+        "sample_rows": [
+          {
+            "permalink": "/organization/-fame",
+            "name": "#fame",
+            "homepage_url": "http://livfame.com",
+            "category_list": "Media",
+            "funding_total_usd": "10000000",
+            "status": "operating",
+            "country_code": "IND",
+            "state_code": "16",
+            "region": "Mumbai",
+            "city": "Mumbai",
+            "funding_rounds": "1",
+            "founded_at": "nan",
+            "first_funding_at": "2015-01-05",
+            "last_funding_at": "2015-01-05"
+          },
+          {
+            "permalink": "/organization/-qounter",
+            "name": ":Qounter",
+            "homepage_url": "http://www.qounter.com",
+            "category_list": "Application Platforms|Real Time|Social Network Media",
+            "funding_total_usd": "700000",
+            "status": "operating",
+            "country_code": "USA",
+            "state_code": "DE",
+            "region": "DE - Other",
+            "city": "Delaware City",
+            "funding_rounds": "2",
+            "founded_at": "2014-09-04",
+            "first_funding_at": "2014-03-01",
+            "last_funding_at": "2014-10-14"
+          },
+          {
+            "permalink": "/organization/-the-one-of-them-inc-",
+            "name": "(THE) ONE of THEM,Inc.",
+            "homepage_url": "http://oneofthem.jp",
+            "category_list": "Apps|Games|Mobile",
+            "funding_total_usd": "3406878",
+            "status": "operating",
+            "country_code": "nan",
+            "state_code": "nan",
+            "region": "nan",
+            "city": "nan",
+            "funding_rounds": "1",
+            "founded_at": "nan",
+            "first_funding_at": "2014-01-30",
+            "last_funding_at": "2014-01-30"
+          }
+        ]
+      }
+    },
+    "other_files_by_extension": {
+      ".json": 1
+    },
+    "size_mb": 10.44
+  },
+  "crunchbase_invest": {
+    "name": "Kaggle: StartUp Investments (Crunchbase)",
+    "source": "https://www.kaggle.com/datasets/arindam235/startup-investments-crunchbase",
+    "role": "Schema proxy only",
+    "access_date": "2026-10-03",
+    "licence": "not stated",
+    "files": {
+      "investments_VC.csv": {
+        "rows": 54294,
+        "columns": 39,
+        "dtypes": {
+          "permalink": "object",
+          "name": "object",
+          "homepage_url": "object",
+          "category_list": "object",
+          " market ": "object",
+          " funding_total_usd ": "object",
+          "status": "object",
+          "country_code": "object",
+          "state_code": "object",
+          "region": "object",
+          "city": "object",
+          "funding_rounds": "float64",
+          "founded_at": "object",
+          "founded_month": "object",
+          "founded_quarter": "object",
+          "founded_year": "float64",
+          "first_funding_at": "object",
+          "last_funding_at": "object",
+          "seed": "float64",
+          "venture": "float64",
+          "equity_crowdfunding": "float64",
+          "undisclosed": "float64",
+          "convertible_note": "float64",
+          "debt_financing": "float64",
+          "angel": "float64",
+          "grant": "float64",
+          "private_equity": "float64",
+          "post_ipo_equity": "float64",
+          "post_ipo_debt": "float64",
+          "secondary_market": "float64",
+          "product_crowdfunding": "float64",
+          "round_A": "float64",
+          "round_B": "float64",
+          "round_C": "float64",
+          "round_D": "float64",
+          "round_E": "float64",
+          "round_F": "float64",
+          "round_G": "float64",
+          "round_H": "float64"
+        },
+        "missing_pct": {
+          "permalink": 8.94,
+          "name": 8.95,
+          "homepage_url": 15.3,
+          "category_list": 16.24,
+          " market ": 16.25,
+          " funding_total_usd ": 8.94,
+          "status": 11.36,
+          "country_code": 18.66,
+          "state_code": 44.45,
+          "region": 18.66,
+          "city": 20.21,
+          "funding_rounds": 8.94,
+          "founded_at": 28.99,
+          "founded_month": 29.12,
+          "founded_quarter": 29.12,
+          "founded_year": 29.12,
+          "first_funding_at": 8.94,
+          "last_funding_at": 8.94,
+          "seed": 8.94,
+          "venture": 8.94,
+          "equity_crowdfunding": 8.94,
+          "undisclosed": 8.94,
+          "convertible_note": 8.94,
+          "debt_financing": 8.94,
+          "angel": 8.94,
+          "grant": 8.94,
+          "private_equity": 8.94,
+          "post_ipo_equity": 8.94,
+          "post_ipo_debt": 8.94,
+          "secondary_market": 8.94,
+          "product_crowdfunding": 8.94,
+          "round_A": 8.94,
+          "round_B": 8.94,
+          "round_C": 8.94,
+          "round_D": 8.94,
+          "round_E": 8.94,
+          "round_F": 8.94,
+          "round_G": 8.94,
+          "round_H": 8.94
+        },
+        "duplicate_rows": 4855,
+        "low_cardinality_columns": {
+          "status": {
+            "operating": 41829,
+            "nan": 6170,
+            "acquired": 3692,
+            "closed": 2603
+          },
+          "round_H": {
+            "0.0": 49434,
+            "nan": 4856,
+            "50000000.0": 1,
+            "600000000.0": 1,
+            "49000000.0": 1,
+            "4600000.0": 1
+          }
+        },
+        "long_text_columns": {},
+        "sample_rows": [
+          {
+            "permalink": "/organization/waywire",
+            "name": "#waywire",
+            "homepage_url": "http://www.waywire.com",
+            "category_list": "|Entertainment|Politics|Social Media|News|",
+            " market ": " News ",
+            " funding_total_usd ": " 17,50,000 ",
+            "status": "acquired",
+            "country_code": "USA",
+            "state_code": "NY",
+            "region": "New York City",
+            "city": "New York",
+            "funding_rounds": "1.0",
+            "founded_at": "2012-06-01",
+            "founded_month": "2012-06",
+            "founded_quarter": "2012-Q2",
+            "founded_year": "2012.0",
+            "first_funding_at": "2012-06-30",
+            "last_funding_at": "2012-06-30",
+            "seed": "1750000.0",
+            "venture": "0.0",
+            "equity_crowdfunding": "0.0",
+            "undisclosed": "0.0",
+            "convertible_note": "0.0",
+            "debt_financing": "0.0",
+            "angel": "0.0",
+            "grant": "0.0",
+            "private_equity": "0.0",
+            "post_ipo_equity": "0.0",
+            "post_ipo_debt": "0.0",
+            "secondary_market": "0.0",
+            "product_crowdfunding": "0.0",
+            "round_A": "0.0",
+            "round_B": "0.0",
+            "round_C": "0.0",
+            "round_D": "0.0",
+            "round_E": "0.0",
+            "round_F": "0.0",
+            "round_G": "0.0",
+            "round_H": "0.0"
+          },
+          {
+            "permalink": "/organization/tv-communications",
+            "name": "&TV Communications",
+            "homepage_url": "http://enjoyandtv.com",
+            "category_list": "|Games|",
+            " market ": " Games ",
+            " funding_total_usd ": " 40,00,000 ",
+            "status": "operating",
+            "country_code": "USA",
+            "state_code": "CA",
+            "region": "Los Angeles",
+            "city": "Los Angeles",
+            "funding_rounds": "2.0",
+            "founded_at": "nan",
+            "founded_month": "nan",
+            "founded_quarter": "nan",
+            "founded_year": "nan",
+            "first_funding_at": "2010-06-04",
+            "last_funding_at": "2010-09-23",
+            "seed": "0.0",
+            "venture": "4000000.0",
+            "equity_crowdfunding": "0.0",
+            "undisclosed": "0.0",
+            "convertible_note": "0.0",
+            "debt_financing": "0.0",
+            "angel": "0.0",
+            "grant": "0.0",
+            "private_equity": "0.0",
+            "post_ipo_equity": "0.0",
+            "post_ipo_debt": "0.0",
+            "secondary_market": "0.0",
+            "product_crowdfunding": "0.0",
+            "round_A": "0.0",
+            "round_B": "0.0",
+            "round_C": "0.0",
+            "round_D": "0.0",
+            "round_E": "0.0",
+            "round_F": "0.0",
+            "round_G": "0.0",
+            "round_H": "0.0"
+          },
+          {
+            "permalink": "/organization/rock-your-paper",
+            "name": "'Rock' Your Paper",
+            "homepage_url": "http://www.rockyourpaper.org",
+            "category_list": "|Publishing|Education|",
+            " market ": " Publishing ",
+            " funding_total_usd ": " 40,000 ",
+            "status": "operating",
+            "country_code": "EST",
+            "state_code": "nan",
+            "region": "Tallinn",
+            "city": "Tallinn",
+            "funding_rounds": "1.0",
+            "founded_at": "2012-10-26",
+            "founded_month": "2012-10",
+            "founded_quarter": "2012-Q4",
+            "founded_year": "2012.0",
+            "first_funding_at": "2012-08-09",
+            "last_funding_at": "2012-08-09",
+            "seed": "40000.0",
+            "venture": "0.0",
+            "equity_crowdfunding": "0.0",
+            "undisclosed": "0.0",
+            "convertible_note": "0.0",
+            "debt_financing": "0.0",
+            "angel": "0.0",
+            "grant": "0.0",
+            "private_equity": "0.0",
+            "post_ipo_equity": "0.0",
+            "post_ipo_debt": "0.0",
+            "secondary_market": "0.0",
+            "product_crowdfunding": "0.0",
+            "round_A": "0.0",
+            "round_B": "0.0",
+            "round_C": "0.0",
+            "round_D": "0.0",
+            "round_E": "0.0",
+            "round_F": "0.0",
+            "round_G": "0.0",
+            "round_H": "0.0"
+          }
+        ]
+      }
+    },
+    "other_files_by_extension": {
+      ".json": 1
+    },
+    "size_mb": 11.95
+  },
+  "hse": {
+    "name": "HSE Resume-Job Matching",
+    "source": "https://www.kaggle.com/datasets/darysha/hse-hackathon",
+    "role": "Matching-pipeline practice proxy",
+    "access_date": "2026-10-03",
+    "licence": "not stated",
+    "files": {
+      "train.csv": {
+        "error": "ParserError: Error tokenizing data. C error: Expected 75 fields in line 3, saw 194\n"
+      }
+    },
+    "other_files_by_extension": {
+      ".json": 1
+    },
+    "size_mb": 973.06
+  },
+  "ats": {
+    "name": "ATS Dataset NLP+ML",
+    "source": "https://www.kaggle.com/datasets/amaymishra11/resume-screening-dataset-ats-and-nlp-ready",
+    "role": "Resume/JD text pairs as test inputs (scores ignored)",
+    "access_date": "2026-10-03",
+    "licence": "not stated",
+    "files": {
+      "ats_resume_dataset_elite_v3.csv": {
+        "rows": 6000,
+        "columns": 17,
+        "dtypes": {
+          "resume_id": "object",
+          "resume_text": "object",
+          "resume_skills": "object",
+          "experience_years": "int64",
+          "education_level": "object",
+          "projects": "object",
+          "certifications": "object",
+          "job_role": "object",
+          "required_skills": "object",
+          "job_experience_required": "int64",
+          "job_description": "object",
+          "skill_match_score": "float64",
+          "experience_match": "int64",
+          "education_match": "int64",
+          "final_score": "float64",
+          "shortlisted": "int64",
+          "similarity_score": "float64"
+        },
+        "missing_pct": {
+          "certifications": 34.3
+        },
+        "duplicate_rows": 0,
+        "low_cardinality_columns": {
+          "experience_years": {
+            "9": 597,
+            "3": 585,
+            "2": 556,
+            "5": 543,
+            "8": 543,
+            "10": 539,
+            "6": 537,
+            "7": 536,
+            "4": 528,
+            "1": 526,
+            "0": 510
+          },
+          "education_level": {
+            "Masters": 2050,
+            "PhD": 1993,
+            "Bachelors": 1957
+          },
+          "job_role": {
+            "Data Scientist": 1064,
+            "Software Engineer": 1017,
+            "Data Analyst": 991,
+            "Frontend Developer": 989,
+            "ML Engineer": 976,
+            "Backend Developer": 963
+          },
+          "job_experience_required": {
+            "3": 1037,
+            "5": 1032,
+            "4": 1030,
+            "6": 997,
+            "2": 967,
+            "1": 937
+          },
+          "experience_match": {
+            "1": 4129,
+            "0": 1871
+          },
+          "education_match": {
+            "1": 4043,
+            "0": 1957
+          },
+          "shortlisted": {
+            "1": 4553,
+            "0": 1447
+          },
+          "similarity_score": {
+            "1.0": 2495,
+            "1.0000000000000002": 2280,
+            "1.0000000000000004": 508,
+            "0.9999999999999998": 247,
+            "1.0000000000000009": 186,
+            "0.9999999999999996": 175,
+            "0.9999999999999992": 48,
+            "0.9999999999999994": 41,
+            "1.000000000000001": 11,
+            "0.999999999999999": 6,
+            "0.9999999999999988": 3
+          }
+        },
+        "long_text_columns": {
+          "resume_text": {
+            "mean_chars": 376,
+            "median_chars": 377
+          }
+        },
+        "pii_check": {
+          "email_patterns_in_first_5000_rows": 0,
+          "phone_patterns_in_first_5000_rows": 0
+        },
+        "sample_rows": [
+          {
+            "resume_id": "R0",
+            "resume_text": "Professional Summary:\nCandidate with 10 years of experience.\n\nSkills:\nMachine Learning, Python, Excel, Power BI, PyTorch, SQL, Docker, Java\n\nExperienc",
+            "resume_skills": "Machine Learning, Python, Excel, Power BI, PyTorch, SQL, Docker, Java",
+            "experience_years": "10",
+            "education_level": "PhD",
+            "projects": "Built a machine learning model for predicting customer churn; Implemented deep learning models using TensorFlow; Designed scalable backend systems usi",
+            "certifications": "nan",
+            "job_role": "Software Engineer",
+            "required_skills": "Python, TensorFlow, Data Analysis, Flask, Machine Learning, Power BI, C++",
+            "job_experience_required": "3",
+            "job_description": "We are hiring a Software Engineer.\nRequired experience: 3 years.\nSkills required: Python, TensorFlow, Data Analysis, Flask, Machine Learning, Power BI",
+            "skill_match_score": "0.43",
+            "experience_match": "1",
+            "education_match": "1",
+            "final_score": "[PHONE]",
+            "shortlisted": "1",
+            "similarity_score": "1.0"
+          },
+          {
+            "resume_id": "R1",
+            "resume_text": "Professional Summary:\nCandidate with 4 years of experience.\n\nSkills:\nNLP, Flask, Cloud Computing\n\nExperience:\n- Deployed applications using cloud serv",
+            "resume_skills": "NLP, Flask, Cloud Computing",
+            "experience_years": "4",
+            "education_level": "Bachelors",
+            "projects": "Created interactive dashboards using Power BI",
+            "certifications": "nan",
+            "job_role": "Data Scientist",
+            "required_skills": "Docker, Excel, Java, Django, TensorFlow",
+            "job_experience_required": "1",
+            "job_description": "We are hiring a Data Scientist.\nRequired experience: 1 years.\nSkills required: Docker, Excel, Java, Django, TensorFlow.",
+            "skill_match_score": "0.0",
+            "experience_match": "1",
+            "education_match": "0",
+            "final_score": "[PHONE]",
+            "shortlisted": "1",
+            "similarity_score": "[PHONE]"
+          },
+          {
+            "resume_id": "R2",
+            "resume_text": "Professional Summary:\nCandidate with 1 years of experience.\n\nSkills:\nSQL, TensorFlow, C++, Docker, Node.js, Machine Learning\n\nExperience:\n- Deployed a",
+            "resume_skills": "SQL, TensorFlow, C++, Docker, Node.js, Machine Learning",
+            "experience_years": "1",
+            "education_level": "Bachelors",
+            "projects": "Developed a web application using Flask and React; Created interactive dashboards using Power BI; Built a machine learning model for predicting custom",
+            "certifications": "nan",
+            "job_role": "ML Engineer",
+            "required_skills": "Docker, NLP, PyTorch, Node.js, Machine Learning, Cloud Computing",
+            "job_experience_required": "3",
+            "job_description": "We are hiring a ML Engineer.\nRequired experience: 3 years.\nSkills required: Docker, NLP, PyTorch, Node.js, Machine Learning, Cloud Computing.",
+            "skill_match_score": "0.5",
+            "experience_match": "0",
+            "education_match": "0",
+            "final_score": "[PHONE]",
+            "shortlisted": "1",
+            "similarity_score": "[PHONE]"
+          }
+        ]
+      }
+    },
+    "other_files_by_extension": {
+      ".json": 1
+    },
+    "size_mb": 4.73
+  },
+  "resume_pdf": {
+    "name": "Resume Dataset PDF",
+    "source": "https://www.kaggle.com/datasets/hadikp/resume-data-pdf",
+    "role": "Test inputs for resume optimizer",
+    "access_date": "2026-10-03",
+    "licence": "not stated",
+    "total_pdfs": 8905,
+    "pdfs_per_folder": {
+      "Accountant": 284,
+      "Accountant resumes": 67,
+      "Advocate": 247,
+      "Advocate resumes": 94,
+      "Agricultural": 199,
+      "Agricultural resumes": 68,
+      "Agriculture": 79,
+      "Apparel": 69,
+      "Apparel resumes": 51,
+      "Architect": 84,
+      "Architects resumes": 60,
+      "Arts": 255,
+      "Arts resumes": 68,
+      "Automobile": 73,
+      "Automobile resumes": 40,
+      "Aviation": 200,
+      "Aviation resumes": 51,
+      "BPO resumes": 29,
+      "Banking": 221,
+      "Banking resumes": 41,
+      "Blockchain": 24,
+      "Blockchain resumes": 8,
+      "Building _Construction resumes": 55,
+      "Business Analyst resumes": 56,
+      "BusinessAnalyst": 77,
+      "Civil Engineer resumes": 73,
+      "CivilEngineer": 76,
+      "Consult": 99,
+      "Consultant": 148,
+      "Consultant resumes": 71,
+      "DOT": 66,
+      "Data Science": 200,
+      "DataScience": 42,
+      "Database": 186,
+      "Database resumes": 63,
+      "Design": 67,
+      "Designer": 200,
+      "Designing resumes": 36,
+      "DevOps Engineer": 144,
+      "DevOps Engineer resumes": 72,
+      "DevOpsEngineer": 60,
+      "Digital": 85,
+      "Digital Media": 129,
+      "Digital Media resumes": 68,
+      "DotNet Developer resumes": 59,
+      "ETL": 30,
+      "ETL Developer": 154,
+      "ETL Developer resumes": 60,
+      "Education": 210,
+      "Education resumes": 53,
+      "Electrical Engineering resumes": 71,
+      "ElectricalEngineer": 105,
+      "Finance": 86,
+      "Finance resumes": 56,
+      "Food": 80,
+      "Food_Beverages resumes": 62,
+      "HR": 74,
+      "HR resumes": 85,
+      "HealthFitness": 56,
+      "Health_Fitness resumes": 76,
+      "Human Resources": 199,
+      "IT": 85,
+      "Information Technology": 139,
+      "Information Technology resumes": 46,
+      "Java Developer resumes": 67,
+      "JavaDeveloper": 72,
+      "Management": 248,
+      "Managment resumes": 52,
+      "Mechanical Engineer resumes": 103,
+      "MechanicalEngineer": 82,
+      "NSE": 69,
+      "Network Security Engineer resumes": 56,
+      "OperationManager": 69,
+      "Operations Manager resumes": 70,
+      "PBO": 73,
+      "PMO": 47,
+      "PMO resumes": 49,
+      "Public": 71,
+      "Public Relations resumes": 68,
+      "Python Developer": 142,
+      "Python Developer resumes": 48,
+      "PythonDeveloper": 50,
+      "React": 20,
+      "React Developer": 200,
+      "React Developer resumes": 18,
+      "SAP Developer": 150,
+      "SAP Developer resumes": 57,
+      "SAPDeveloper": 41,
+      "SQL": 57,
+      "SQL Developer resumes": 82,
+      "Sales": 74,
+      "Sales resumes": 90,
+      "Testing": 269,
+      "Testing resumes": 68,
+      "WebDesigning": 53,
+      "data science resumes": 60,
+      "web designing resumes": 59
+    },
+    "text_extraction_on_sample": {
+      "sample_size": 30,
+      "files_with_text": 0,
+      "pct_with_text": 0.0,
+      "median_chars": 0
+    },
+    "pii_check_on_sample": {
+      "email_patterns": 0,
+      "phone_patterns": 0
+    },
+    "masked_previews": [],
+    "non_pdf_files": {
+      ".json": 1
+    }
+  }
+}

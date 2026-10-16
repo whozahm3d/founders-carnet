@@ -23,6 +23,21 @@ The project report (`main.tex`) and the master document define the scope and the
 
 If the code and the report disagree, do not let it slide. Either fix the code or change the report, on purpose, and add a dated entry to `docs/DECISIONS.md` saying which one changed and why. The same applies to diagrams.
 
+## Project context (read before you plan or write code)
+
+Do not read the 2,300-line `main.tex` to learn the project. Short summaries of it are in `docs/context/`. Start with `docs/context/README.md`, then read what the task needs:
+
+- `scope.md`: what we build, the no-go list, constraints.
+- `ai-features.md`: which features are trained and which are prompted. Read before touching any AI feature.
+- `architecture.md`: client, gateway, six services, LLM Gateway, subsystems.
+- `requirements.md`: FR-1 to FR-31 and NFR-1 to NFR-23. Cite the IDs in code comments, tests, and pull requests.
+- `build-order.md`: delivery priority and the FYP-2 plan. Check it before starting a feature.
+- `coding-plan.md`: the Oct 19 to Nov 8 build plan. Per feature: report IDs, minimum slice, cut line, risk. Read it before starting any feature.
+- `corpus.md`: the 11 compliance documents, their versions and indexing rules. Read it before touching `rag/`. The file list with hashes is `rag/corpus_manifest.md`.
+- `decisions.md`: settled decisions. The full log is `docs/DECISIONS.md`.
+
+These files are summaries. If one disagrees with `main.tex`, the report wins. Say so, and fix the summary. When the report changes, update the matching file in the same pull request.
+
 ## Repo layout
 
 One monorepo, with folder-level ownership.
@@ -33,9 +48,9 @@ One monorepo, with folder-level ownership.
 | `backend/` | FastAPI gateway, services, LLM Gateway, database models and migrations, Celery jobs | Taha, Ali |
 | `rag/` | Compliance corpus, section-aware chunking, embedding, retrieval, answer validation | Ali, Shahzeb |
 | `ml/` | Dataset preprocessing and profiling, matching and re-ranker experiments, evaluation notebooks | Taha, Ali |
-| `docs/` | `DECISIONS.md` and short notes that explain the code | all |
+| `docs/` | `DECISIONS.md`, `context/` (report summaries), and short notes that explain the code | all |
 
-`ml/` is an addition to the three folders the sprint plan locked (`frontend`, `backend`, `rag`). It exists because the supervisor wants preprocessing and model testing to start alongside the app code. Anything in `ml/` that ships goes through `backend/` as a service, never as a notebook.
+`ml/` is an addition to the three folders the sprint plan locked (`frontend`, `backend`, `rag`). The report now lists all four folders. `ml/` exists because the supervisor wants preprocessing and model testing to start alongside the app code. Anything in `ml/` that ships goes through `backend/` as a service, never as a notebook.
 
 ## Architecture rules (do not break these)
 
@@ -58,7 +73,7 @@ Do not call a prompted feature "trained" or "fine-tuned" anywhere.
 
 ## Stack
 
-Next.js and React on Node.js 24 (the report still says 20; see `docs/pending-report-changes.md`), FastAPI, PostgreSQL with pgvector, Redis and Celery, Gemini through the LLM Gateway. Docker is deferred, not a day-one concern. Frontend deploys to Vercel and backend to Railway or Render, but nothing is deployed yet.
+Next.js and React on Node.js 24 (the report says 24 as of 2026-10-16; see `docs/DECISIONS.md`), FastAPI, PostgreSQL with pgvector, Redis and Celery, Gemini through the LLM Gateway. The report and the master document specify Docker Compose for local runs and CI. We add it after the first services run, so it is not a day-one concern, but the code must stay containerizable. Frontend deploys to Vercel and backend to Railway or Render, but nothing is deployed yet.
 
 LLM: Gemini 2.5 and below through the Google AI Studio free tier. Newer models were unreliable under free-tier load (see `docs/DECISIONS.md`). Keep model IDs in configuration, not in code. Fallback to an older model on failure belongs in the LLM Gateway.
 
@@ -79,7 +94,8 @@ Applies to `backend/`, `rag/`, and `ml/`. The report names Python 3.11, so use 3
 
 ## RAG rules
 
-- Index official sources only, from the corpus list in the report. Do not add documents without recording why.
+- Index official sources only, from the corpus list in the report (`docs/context/corpus.md`, `rag/corpus_manifest.md`). Do not add documents without recording why.
+- The 11 corpus files are committed in `rag/data/` (public official documents; this is the one exception to the raw-data rule). Do not change or replace one without updating `rag/corpus_manifest.md` and `docs/DECISIONS.md`. Check each file's SHA-256 against the manifest before indexing.
 - Use the versions the report fixes (Income Tax Ordinance amended up to 30 June 2026, the Seventh Schedule fees effective 20 April 2026). Never index a superseded version.
 - Tax answers come from the Income Tax Ordinance. PSEB pages are for registration procedure, documents, and fees only, never tax.
 - Answers cite their source. If the retrieved passages do not support an answer, the assistant says so instead of guessing.
@@ -118,12 +134,16 @@ No equity taking, no investment brokerage, no legal or tax advice, and no scrapi
 - Make one small change at a time and run it before moving on.
 - After each change, explain it in plain words: what each part does and which report section or diagram it implements.
 - If the code you are asked to write would differ from the report or a diagram, say so before writing it.
+- After finishing any piece of a feature, add a short entry to `docs/build-log.md`: date, who, feature and FR/NFR IDs, what was built, what was tested, what was cut. Do this in the same pull request as the code.
+- If what you built differs from the report in any way (a name, a field, a flow, a number, a cut feature), do two things in the same pull request: add a dated entry to `docs/DECISIONS.md` with the reason, and add a row to `docs/pending-report-changes.md` saying what the report says now and what it should say. The reason is required. Nobody updates the report from a difference with no reason.
 - Before using a dataset, record in `docs/datasets.md` what it contains, why it was chosen, and which user input it serves. Do not use a dataset that is not listed there.
 - The team works on Windows with PowerShell. Use commands and paths that work there. Prefer Python scripts to shell scripts.
 
 ## Skills
 
-Project skills live in `.claude/skills/`. They come from public repositories listed in `THIRD_PARTY.md`. Use one when it fits and ignore it when it does not. Do not add skills, plugins, or MCP servers without asking. `AGENTS.md` points other AI agents to this file.
+Project skills live in `.claude/skills/`. They come from public repositories listed in `THIRD_PARTY.md`. Use one when it fits and ignore it when it does not. Do not add skills, plugins, or MCP servers without asking. The one exception is the install list in `THIRD_PARTY.md` ("Final install list"), which the team approved on 2026-10-16: install exactly those, nothing else, and follow the notes on each row.
+
+`AGENTS.md` points other AI agents to this file. Codex and Antigravity read skills from `.agents/skills/`, not `.claude/skills/`. Run `python scripts/sync_agent_skills.py` to copy them across (it only copies, and `.agents/skills/` is not committed). `.claude/skills/` stays the one source.
 
 If the ECC plugin is installed (see `SETUP.md`), the safety rules and the git workflow in this file still win. ECC's own workflow rules suggest committing and pushing. Do not follow those parts.
 
@@ -155,3 +175,9 @@ The same holds for GSD Core if it is installed (`SETUP.md` section 10). Its comm
 | `humanizer`, `anti-ai-writing` | Only when the user asks to humanize report text, README text or comments. They edit prose, so name the file and show the change first |
 | `explore-data`, `statistical-analysis`, `validate-data` | Profiling a dataset and checking an analysis (supports `docs/datasets.md`) |
 | `sql-queries` | Writing and tuning Postgres queries |
+| `frontend-design` | Visual polish of UI. The Figma prototypes and `DESIGN.md` win if they disagree |
+| `claude-api` | Reference for prompt and gateway design only. We call Gemini, not Claude |
+| `git-workflow-and-versioning` | Branch and commit habits. The git rules in this file win |
+| `web-design-guidelines` | Reviewing UI against web guidelines (rules file is local, no live download) |
+
+Other installed items (launch, CI/CD, performance and observability skills, spec-kit, graphify, and the per-person installs) are listed in `THIRD_PARTY.md`. Add a row here for each skill once it is in `.claude/skills/`.

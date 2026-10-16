@@ -253,3 +253,37 @@ node_modules/
 
 # Anchor
 .anchor/
+
+# ---- Added 2026-10-16 ----
+# The 11 compliance corpus files in rag/data/ ARE committed (public official documents, about 59 MB)
+# Tool output that is regenerated (graphify, see THIRD_PARTY.md)
+graphify-out/
+# Copy of .claude/skills made for Codex and Antigravity by scripts/sync_agent_skills.py
+.agents/skills/
+
+# Dataset
+carnet_data/
+
+
+# OS and editor
+.DS_Store
+Thumbs.db
+.idea/
+
+# Frontend
+coverage/
+*.tsbuildinfo
+.vercel/
+
+# LaTeX build files (docs/report/)
+*.aux
+*.out
+*.toc
+*.bbl
+*.blg
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+
+# Local-only notes for the team lead, not for the repo
+_NOT_FOR_REPO/
