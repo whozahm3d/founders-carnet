@@ -73,7 +73,7 @@ def profile_pdf(path: Path) -> dict:
         if reader.is_encrypted:
             try:
                 reader.decrypt("")
-            except Exception:
+            except Exception:  # noqa: BLE001 - profiler must not stop on one bad file
                 rec["error"] = "encrypted, could not open"
                 return rec
 
@@ -90,7 +90,7 @@ def profile_pdf(path: Path) -> dict:
         for i, page in enumerate(pages):
             try:
                 txt = page.extract_text() or ""
-            except Exception:
+            except Exception:  # noqa: BLE001 - one unreadable page counts as empty text, not a crash
                 txt = ""
             if len(txt.strip()) >= MIN_CHARS_PER_PAGE:
                 text_pages += 1
@@ -108,7 +108,7 @@ def profile_pdf(path: Path) -> dict:
             rec["text_layer"] = "partial (some pages need OCR)"
         rec["words"] = total_words
         rec["page1_preview"] = preview or "(no extractable text on page 1)"
-    except Exception as exc:
+    except Exception as exc:  # noqa: BLE001 - profiler must record a bad PDF and keep going
         rec["error"] = f"{type(exc).__name__}: {exc}"
     return rec
 
@@ -173,13 +173,13 @@ def profile_url(url: str, snap_dir: Path) -> dict:
                 "very little text extracted; the page may load content with JavaScript. "
                 "Use the browser 'Save as PDF' copy as the corpus source instead."
             )
-    except Exception as exc:
+    except Exception as exc:  # noqa: BLE001 - profiler must record a bad web page and keep going
         rec["error"] = f"{type(exc).__name__}: {exc}"
     return rec
 
 
 def write_report(records: list, out_dir: Path) -> Path:
-    lines = [f"# Corpus profiling report", "", f"Run date: {TODAY}", ""]
+    lines = ["# Corpus profiling report", "", f"Run date: {TODAY}", ""]
 
     pdfs = [r for r in records if r["type"] == "pdf"]
     webs = [r for r in records if r["type"] == "web"]

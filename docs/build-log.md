@@ -16,6 +16,10 @@ One entry per finished piece of work, newest first. This is what we use to write
 
 ## Entries
 
+## 2026-10-17: CI ruff pinned and notebooks excluded from ruff (Ali, with Claude Code)
+
+- Pinned CI ruff to 0.17.1, added `ml/ruff.toml` (notebooks excluded), fixed `rag/corpus_profile/profile_corpus.py` (F541, four `# noqa: BLE001`) and the bare `raise` in `dataset_claim_checks.ipynb`; ruff 0.17.1 re-run in `rag/`, `ml/` and `backend/`, not yet run in GitHub Actions. Differs from the report? No. See `docs/DECISIONS.md` (2026-10-17, "CI ruff pinned").
+
 ## 2026-10-17: Skills install list applied; sync script copies references (Ali, with Claude Code)
 
 - **Feature and IDs:** Repository tooling, agent skills install (no FR/NFR directly)

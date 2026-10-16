@@ -2,6 +2,26 @@
 
 Dated entries, newest first. Each entry has the context, what was tried, what was found, what was decided, and why. Add an entry every time the code or the report is changed so the two agree.
 
+## 2026-10-17: CI ruff pinned to 0.17.1; notebooks excluded from ruff
+
+**Context:** The CI job "Python (rag)" failed on ruff in `rag/corpus_profile/profile_corpus.py`, and "Python (ml)" fails on the two notebooks in `ml/notebooks/`. `.github/workflows/ci.yml` installed ruff with no version (`pip install ruff pytest`) and the repo has no ruff config. This touches NFR-23 (linting on every pull request).
+
+**What we tried:** Ran ruff 0.17.1 with `uvx` in `rag/`, `ml/` and the repo root, and read the settings it resolved.
+
+**What we found:** With no config, ruff 0.17.1 enables 407 rules by default, including BLE001, FURB167, PLE0704, S112, RUF046 and SIM115, and it lints `.ipynb` and `.md` files too. `rag/` had one F541 and four deliberate broad excepts (BLE001). `ml/` had 30 errors, all in the two notebooks. The repo root had 280, of which 246 are in `.claude/skills/`, 3 in `.claude/hooks/guard.py` and 1 in `scripts/backup.py`. CI only lints inside `backend/`, `rag/` and `ml/`.
+
+**Decision:**
+
+- CI installs `ruff==0.17.1` (`ci.yml`, the install step). An unpinned install meant the default rules could change under us on any ruff release.
+- Notebooks are excluded from ruff with `ml/ruff.toml` (`extend-exclude = ["*.ipynb"]`), because they are analysis scratch work. `.py` files stay linted.
+- `rag/corpus_profile/profile_corpus.py`: removed the extra `f` prefix. The four broad excepts are deliberate (the profiler must record a bad file and keep going), so each carries `# noqa: BLE001` with a reason.
+- `ml/notebooks/dataset_claim_checks.ipynb`: the bare `raise` in `read_csv_chunks` now raises a `ValueError` that names the file. Nothing else in the notebook changed.
+- The repo root and `.claude/` are not linted by CI. No root ruff config was added, and `.claude/skills/`, `.claude/hooks/guard.py` and `scripts/backup.py` were not changed.
+
+**Why:** A pinned version keeps CI results the same until we choose to upgrade. Notebooks are for exploration, not shipped code, so linting them adds noise.
+
+**Follow-ups:** To upgrade ruff, change the pin on purpose and re-run the folders. Anything in `ml/` that ships moves into a `.py` module with tests, where ruff applies. The `.claude/hooks/guard.py` and `scripts/backup.py` findings are left for the team to decide.
+
 ## 2026-10-17: Skills install finished; what is and is not installed
 
 **Context:** The install run against the "Final install list" in `THIRD_PARTY.md`. It touches `.claude/skills/`, `.claude/references/` and `scripts/sync_agent_skills.py`. It corrects the 2026-10-16 entry "Skills and plugins install list fixed", which says spec-kit, graphify, awesome-design-md and rea are installed. That entry is left as it was, as history.
