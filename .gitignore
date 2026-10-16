@@ -287,3 +287,6 @@ coverage/
 
 # Local-only notes for the team lead, not for the repo
 _NOT_FOR_REPO/
+
+# Corpus profile snapshots (generated)
+rag/corpus_profile/snapshots/
