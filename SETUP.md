@@ -178,7 +178,7 @@ Open Claude Code in the repo folder and repeat tests 2 and 3 from section 2. The
 
 `AGENTS.md` in the repo root tells Gemini in Antigravity, Codex and similar agents to read `CLAUDE.md`, and repeats the key safety rules. `GEMINI.md` is a short pointer to `AGENTS.md` for Antigravity. Antigravity reads `AGENTS.md` (IDE 1.20.5 and later) or `GEMINI.md`; which one wins when both exist is not documented, so both say the same thing. If the agent skips them, start the session with: "Read AGENTS.md and CLAUDE.md first." These agents ignore `.claude/settings.json`, so for them the rules are instructions only, not blocks.
 
-Codex and Antigravity read skills from `.agents/skills/`, not `.claude/skills/`. After cloning or pulling, run `python scripts/sync_agent_skills.py`. It copies the skills across and never deletes. See section 11.
+Codex and Antigravity read skills from `.agents/skills/`, not `.claude/skills/`. After cloning or pulling, run `python scripts/sync_agent_skills.py`. It copies the skills across, and also copies `.claude/references/` to `.agents/references/` because the skills link to `../../references/`. It never deletes. See section 11.
 
 ## 8. Optional personal plugins (not in the repo)
 
@@ -255,7 +255,7 @@ The approved install list is in `THIRD_PARTY.md` under "Final install list". Ali
 For Taha and Shahzeb on Codex or Antigravity:
 
 1. Pull the latest `main`.
-2. Run `python scripts/sync_agent_skills.py`. It copies `.claude/skills/*` to `.agents/skills/`. It never deletes, and `.agents/skills/` is gitignored.
+2. Run `python scripts/sync_agent_skills.py`. It copies `.claude/skills/*` to `.agents/skills/` and `.claude/references/` to `.agents/references/`. It never deletes, and both copies are gitignored.
 3. Run it again after every pull that changes `.claude/skills/`.
 
 Per-person installs (docx, pdf, pptx, xlsx, the code-review plugin, rea, and the no-license repos) are never committed. See the table in `THIRD_PARTY.md`.

@@ -5,6 +5,8 @@ Why: Codex and Antigravity read skills from <repo>/.agents/skills/ and do not re
 .claude/skills/. This script keeps .claude/skills/ as the one source.
 
 What it does: copies every skill folder from .claude/skills/ to .agents/skills/.
+It also copies .claude/references/ to .agents/references/, because some skills link
+to ../../references/*.md and that path must exist next to .agents/skills/.
 What it never does: delete anything. A skill removed from .claude/skills/ stays
 in .agents/skills/ until you delete that folder yourself. .agents/skills/ is in
 .gitignore, so nothing here is committed.
@@ -51,6 +53,14 @@ def main() -> int:
         copied += 1
 
     print(f"{copied} skill(s) {'found' if args.dry_run else 'copied'} to {dst}")
+
+    refs_src = root / ".claude" / "references"
+    refs_dst = root / ".agents" / "references"
+    if refs_src.is_dir():
+        print(f"{'would copy' if args.dry_run else 'copy'} references")
+        if not args.dry_run:
+            shutil.copytree(refs_src, refs_dst, dirs_exist_ok=True)
+        print(f"references {'found' if args.dry_run else 'copied'} to {refs_dst}")
     return 0
 
 

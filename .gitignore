@@ -259,8 +259,9 @@ node_modules/
 # The 11 compliance corpus files in rag/data/ ARE committed (public official documents, about 59 MB)
 # Tool output that is regenerated (graphify, see THIRD_PARTY.md)
 graphify-out/
-# Copy of .claude/skills made for Codex and Antigravity by scripts/sync_agent_skills.py
+# Copies of .claude/skills and .claude/references made for Codex and Antigravity by scripts/sync_agent_skills.py
 .agents/skills/
+.agents/references/
 
 # Dataset
 carnet_data/

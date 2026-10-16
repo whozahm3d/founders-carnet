@@ -38,7 +38,7 @@ Skills the team uses are in `.claude/skills/<name>/SKILL.md`. They are plain Mar
 
 ## Using a different tool than Claude Code (Codex, Antigravity, Cursor)
 
-- Codex reads `AGENTS.md` and skills from `.agents/skills/`. Antigravity reads `AGENTS.md` or `GEMINI.md` and workspace skills from `.agents/skills/`. Neither reads `.claude/skills/`. Run `python scripts/sync_agent_skills.py` once after cloning or pulling. It copies `.claude/skills/*` to `.agents/skills/` and never deletes anything. `.agents/skills/` is not committed.
+- Codex reads `AGENTS.md` and skills from `.agents/skills/`. Antigravity reads `AGENTS.md` or `GEMINI.md` and workspace skills from `.agents/skills/`. Neither reads `.claude/skills/`. Run `python scripts/sync_agent_skills.py` once after cloning or pulling. It copies `.claude/skills/*` to `.agents/skills/` and `.claude/references/` to `.agents/references/`, and never deletes anything. Neither copy is committed.
 - If both `AGENTS.md` and `GEMINI.md` exist, Antigravity's order of precedence is not documented. Both files say the same thing: read `CLAUDE.md` first. Start a session with "Read AGENTS.md and CLAUDE.md first" if the agent seems to skip them.
 - Before you start a feature, read `docs/context/coding-plan.md` for its minimum slice, cut line and the FR and NFR IDs to cite.
 - Before you touch `rag/`, read `docs/context/corpus.md`. The 11 corpus files are committed in `rag/data/`.

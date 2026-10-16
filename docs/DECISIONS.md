@@ -2,6 +2,27 @@
 
 Dated entries, newest first. Each entry has the context, what was tried, what was found, what was decided, and why. Add an entry every time the code or the report is changed so the two agree.
 
+## 2026-10-17: Skills install finished; what is and is not installed
+
+**Context:** The install run against the "Final install list" in `THIRD_PARTY.md`. It touches `.claude/skills/`, `.claude/references/` and `scripts/sync_agent_skills.py`. It corrects the 2026-10-16 entry "Skills and plugins install list fixed", which says spec-kit, graphify, awesome-design-md and rea are installed. That entry is left as it was, as history.
+
+**What we tried:** Cloned each source repo into a scratch folder outside the repo, read the skills, checked licenses, pinned commits, and copied only what the list allows.
+
+**What we found:** `frontend-design`, `claude-api` (trimmed), `git-workflow-and-versioning`, `shipping-and-launch`, `ci-cd-and-automation`, `performance-optimization`, `observability-and-instrumentation`, `web-design-guidelines` (rules file saved locally, no live download) and four `ponytail` skills went into `.claude/skills/`. The upstream `references/` checklists went into `.claude/references/`, because the new and the older skills link to `../../references/`. Codex and Antigravity could not follow those links, because the sync script copied only the skills.
+
+**Decision:**
+
+- spec-kit is per person and not installed yet. Each person runs `uv tool install specify-cli==<version>` on their own laptop. Nothing is copied into the repo, and `specify init` needs its own OK.
+- graphify is skipped until `backend/` or `frontend/` has code.
+- `DESIGN.md` is not installed because the brand is undecided.
+- caveman was reviewed and skipped: its own README calls the gain "inside the noise", and most of its skills use the hosted Caveman Cloud gateway or rewrite `CLAUDE.md`-style files.
+- gstack was reviewed and skipped: it is not skills-only. It needs a runtime install, has hooks and a telemetry step, and some skills commit, push and deploy.
+- `scripts/sync_agent_skills.py` now also copies `.claude/references/` to `.agents/references/` (copy only, never deletes). `.agents/references/` is in `.gitignore` next to `.agents/skills/`. `SETUP.md`, `AGENTS.md`, `CLAUDE.md` and `THIRD_PARTY.md` say so.
+
+**Why:** Keep to the rules in `CLAUDE.md`: no hooks that run on their own, no tool that commits, pushes or deploys for us, and no hosted gateway between us and the model. Codex and Antigravity users should see the same skills and the same checklists as Claude Code.
+
+**Follow-ups:** Choose the `DESIGN.md` brand. Each person installs spec-kit when they want it. Run graphify once there is code. Read career-ops, financial-services and replica-skill before deciding on them. Do the per-person installs (docx, pdf, pptx, xlsx, the code-review plugin, rea, the no-license repos).
+
 ## 2026-10-17: Roman-Urdu-Parl split numbers discrepancy between files and report
 
 **Context:** The report (Chapter 3, Table of external datasets) states Roman-Urdu-Parl has 6,374,678 pairs (6,333,218 train, 20,719 validation, 20,741 test).

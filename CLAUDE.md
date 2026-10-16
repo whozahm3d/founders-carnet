@@ -144,7 +144,7 @@ No equity taking, no investment brokerage, no legal or tax advice, and no scrapi
 
 Project skills live in `.claude/skills/`. They come from public repositories listed in `THIRD_PARTY.md`. Use one when it fits and ignore it when it does not. Do not add skills, plugins, or MCP servers without asking. The one exception is the install list in `THIRD_PARTY.md` ("Final install list"), which the team approved on 2026-10-16: install exactly those, nothing else, and follow the notes on each row.
 
-`AGENTS.md` points other AI agents to this file. Codex and Antigravity read skills from `.agents/skills/`, not `.claude/skills/`. Run `python scripts/sync_agent_skills.py` to copy them across (it only copies, and `.agents/skills/` is not committed). `.claude/skills/` stays the one source.
+`AGENTS.md` points other AI agents to this file. Codex and Antigravity read skills from `.agents/skills/`, not `.claude/skills/`. Run `python scripts/sync_agent_skills.py` to copy them across, together with `.claude/references/` (it only copies, and `.agents/skills/` is not committed). `.claude/skills/` stays the one source.
 
 If the ECC plugin is installed (see `SETUP.md`), the safety rules and the git workflow in this file still win. ECC's own workflow rules suggest committing and pushing. Do not follow those parts.
 
@@ -180,5 +180,10 @@ The same holds for GSD Core if it is installed (`SETUP.md` section 10). Its comm
 | `claude-api` | Reference for prompt and gateway design only. We call Gemini, not Claude |
 | `git-workflow-and-versioning` | Branch and commit habits. The git rules in this file win |
 | `web-design-guidelines` | Reviewing UI against web guidelines (rules file is local, no live download) |
+| `shipping-and-launch` | Pre-launch checklist, staged rollout and rollback plan. Nothing is deployed yet |
+| `ci-cd-and-automation` | Setting up CI and deployment pipelines. Pipeline changes need a yes first |
+| `performance-optimization` | Slow pages or queries, N+1 queries, Core Web Vitals |
+| `observability-and-instrumentation` | Logging, metrics, tracing and alerts. Never log secrets (see Safety rules) |
+| `ponytail`, `ponytail-review`, `ponytail-audit`, `ponytail-debt` | Only when the user asks. Smallest-change style, review of a change or the whole repo, and a list of deferred `shortcut:` comments. Replies must still explain each change in plain words |
 
-Other installed items (launch, CI/CD, performance and observability skills, spec-kit, graphify, and the per-person installs) are listed in `THIRD_PARTY.md`. Add a row here for each skill once it is in `.claude/skills/`.
+Other items (spec-kit, graphify, and the per-person installs) are listed in `THIRD_PARTY.md`. They are not skills in `.claude/skills/`, and spec-kit and graphify are not installed yet. Add a row here for each skill once it is in `.claude/skills/`.
