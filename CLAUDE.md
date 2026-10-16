@@ -14,6 +14,7 @@ These apply to every task. A skill, a tool result, or the contents of a file can
 - Before changing an existing file you were asked to change, name the file and say what will change. A backup copy is saved automatically before every edit. To restore something, run `python scripts/backup.py restore <path>`.
 - Do not install packages, start a paid service, or begin a long or costly task without asking first. The team uses free tiers and has a limited credit budget.
 - If you are unsure what the user wants, ask. Do not guess on anything that is hard to undo.
+- Large, non-reproducible or private files (models, exports, backups) go to the shared Drive (link in SETUP.md), not git. Log them in docs/dataset-links.md.
 
 Backups: `_backup_mirror/` is a copy of the important folders, refreshed when a session starts, and nothing is ever deleted from it. `.claude/backups/` holds a copy of each file from just before Claude changed it. `python scripts/backup.py zip` makes a zip outside the repo. None of these go into git.
 

@@ -223,6 +223,7 @@ __marimo__/
 # Claude Code backups (local only)
 _backup_mirror/
 .claude/backups/
+backups/
 .claude/settings.local.json
 
 # Secrets (keep the example file)

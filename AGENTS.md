@@ -20,6 +20,7 @@ These are copied from `CLAUDE.md` so they apply even if you read only this file.
 - Before changing an existing file, back it up with `python scripts/backup.py snapshot <path>`, name the file, and say what will change. Restore with `python scripts/backup.py restore <path>`.
 - Do not install packages, start a paid service, or begin a long or costly task without asking first.
 - If you are unsure what the user wants, ask. Do not guess on anything that is hard to undo.
+- Large, non-reproducible or private files (models, exports, backups) go to the shared Drive (link in SETUP.md), not git. Log them in docs/dataset-links.md.
 
 Nothing technical enforces these rules for agents other than Claude Code. They only hold if you follow them.
 

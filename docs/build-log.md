@@ -16,6 +16,18 @@ One entry per finished piece of work, newest first. This is what we use to write
 
 ## Entries
 
+## 2026-10-17: Shared Drive rule added for non-git files (Ali)
+
+- **Feature and IDs:** Repository hygiene and data policy (no FR/NFR directly)
+- **Built:** Added "Files that don't go in git" rule across repository documentation:
+  - `SETUP.md`: added section with shared Google Drive link for non-reproducible files (own exports, trained models, backups, local datasets).
+  - `AGENTS.md` and `CLAUDE.md`: added rule directing large, non-reproducible or private files to the shared Drive and logging them in `docs/dataset-links.md`.
+  - `docs/dataset-links.md`: added Shared Drive heading and link at the top.
+  - Confirmed backup directories (`_backup_mirror/`, `.claude/backups/`) are in `.gitignore`.
+- **Tested:** Verified links, checked git status and diff.
+- **Cut or partial:** None.
+- **Differs from the report?** No.
+
 ## 2026-10-17: External dataset claim-check notebook bug fixes and profiling verification (Ali)
 
 - **Feature and IDs:** Dataset claim checks and external dataset profiling (Chapter 3 external datasets validation; supports preprocessing and matching baseline)

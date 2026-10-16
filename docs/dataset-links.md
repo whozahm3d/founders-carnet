@@ -1,5 +1,9 @@
 # Dataset links
 
+## Shared Drive
+
+Large, non-reproducible or private files (own exports, trained models, backups, local datasets) go in the shared Google Drive folder rather than git: https://drive.google.com/drive/folders/1KWdlT9GgGMjt6BUh4hpM-YoNCCS1PdMA?usp=sharing
+
 Reference list of the seven datasets downloaded and profiled on 2026-10-03. The raw files are on each person's machine only and are not in git. The entries with contents, role and status are in `docs/datasets.md`. If a link here disagrees with the report's references, fix this file.
 
 | Dataset | Link | Status |

@@ -261,3 +261,9 @@ For Taha and Shahzeb on Codex or Antigravity:
 Per-person installs (docx, pdf, pptx, xlsx, the code-review plugin, rea, and the no-license repos) are never committed. See the table in `THIRD_PARTY.md`.
 
 `rag/data/` (the 11 corpus documents) is committed, so a clone has them. `rag/corpus_manifest.md` has the SHA-256 hashes to check against.
+
+## 12. Files that don't go in git
+
+Anything that can't be re-downloaded or rebuilt from the repo (own exports, trained models, backups, local datasets) goes in the shared Google Drive folder, not the repo: https://drive.google.com/drive/folders/1KWdlT9GgGMjt6BUh4hpM-YoNCCS1PdMA?usp=sharing
+Add the file's name and a one-line description to docs/dataset-links.md, and tell the group in the team chat. Never commit these files. Never put keys or .env files on the Drive.
+
