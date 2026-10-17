@@ -50,7 +50,7 @@ Restore never overwrites a file you still have unless you pass `--force`. Withou
 
 ## 5. Python
 
-The report names Python 3.11, Node 20 and PostgreSQL 16. We are using Node 24 instead (see `docs/pending-report-changes.md`). FastAPI and sentence-transformers both support 3.11, so all three of you should use it. `CLAUDE.md` has the Python rules Claude follows.
+The report names Python 3.11, Node 24 and PostgreSQL 16 (the Node 20 to 24 change is logged in `docs/DECISIONS.md`, 2026-10-15 and 2026-10-16). FastAPI and sentence-transformers both support 3.11, so all three of you should use it. `CLAUDE.md` has the Python rules Claude follows.
 
 **Check your version** (PowerShell):
 
@@ -176,7 +176,9 @@ Open Claude Code in the repo folder and repeat tests 2 and 3 from section 2. The
 
 ## 7. Other agents (AGENTS.md)
 
-`AGENTS.md` in the repo root tells Gemini in Antigravity, Codex and similar agents to read `CLAUDE.md`, and repeats the key safety rules. I have not checked whether Antigravity reads `AGENTS.md` on its own. If it does not, start the session with: "Read AGENTS.md and CLAUDE.md first." These agents ignore `.claude/settings.json`, so for them the rules are instructions only, not blocks.
+`AGENTS.md` in the repo root tells Gemini in Antigravity, Codex and similar agents to read `CLAUDE.md`, and repeats the key safety rules. `GEMINI.md` is a short pointer to `AGENTS.md` for Antigravity. Antigravity reads `AGENTS.md` (IDE 1.20.5 and later) or `GEMINI.md`; which one wins when both exist is not documented, so both say the same thing. If the agent skips them, start the session with: "Read AGENTS.md and CLAUDE.md first." These agents ignore `.claude/settings.json`, so for them the rules are instructions only, not blocks.
+
+Codex and Antigravity read skills from `.agents/skills/`, not `.claude/skills/`. After cloning or pulling, run `python scripts/sync_agent_skills.py`. It copies the skills across, and also copies `.claude/references/` to `.agents/references/` because the skills link to `../../references/`. It never deletes. See section 11.
 
 ## 8. Optional personal plugins (not in the repo)
 
@@ -196,14 +198,14 @@ These are new files. None of them replaces anything from the scaffold zip (`docs
 
 | File | What to do |
 |---|---|
-| `env.example` | Rename it to `.env.example` (add the dot). It lists the settings the stack needs, with no values. Everyone copies it to `.env` and fills in their own keys. I could not create it with the dot because a tool in my environment blocks that file name. |
-| `.github/CODEOWNERS` | Only your handle is active. Replace `@SHAHZEB_GITHUB_HANDLE` and `@TAHA_GITHUB_HANDLE`, remove the `# ` in front of those lines, and keep the file only with real handles, or GitHub ignores it. Then turn on "Require review from Code Owners" in the `protect-main` ruleset. Do not turn it on before that, or no pull request can be approved. |
+| `.env.example` | Done: the file is in the repo. It lists the settings the stack needs, with no values. Everyone copies it to `.env` and fills in their own keys. |
+| `.github/CODEOWNERS` | All three handles are filled in (@whozahm3d, @ShahzebMalik32, @tahanawaz27-jpg). Turn on "Require review from Code Owners" in the `protect-main` ruleset once all three have accepted access to the repo. Not before, or no pull request can be approved. |
 | `.github/pull_request_template.md` | Appears automatically on new pull requests. |
 | `.github/workflows/ci.yml` | Runs the key scan, then ruff and pytest for `backend`, `rag` and `ml`, and lint, test and build for `frontend`. Each part skips itself while its folder is empty. I could not run it on GitHub. Look at the first run in the Actions tab and tell me what fails. |
 | `scripts/scan_for_keys.py` | Finds API keys and tracked `.env` files. Run `python scripts/scan_for_keys.py` any time. It is a simple pattern check, so use gitleaks if you want a stronger one. |
 | `.githooks/pre-commit` | Runs that scan before each commit. Turn it on once per clone: `git config core.hooksPath .githooks`. |
 | `docs/datasets.md` | The list of datasets, one entry each. Fill an entry before using a dataset. |
-| `docs/pending-report-changes.md` | Things the code has changed that the report does not say yet (so far: Node 20 to 24), with a draft `DECISIONS.md` entry. |
+| `docs/pending-report-changes.md` | Things the code has changed that the report does not say yet (now: the Chapter 6 rows and stale items), with a draft `DECISIONS.md` entry. |
 | `docs/decision-entry-template.md` | The format for new entries in `docs/DECISIONS.md`. |
 | `.claude/skills/report-code-sync/` | A skill we wrote. It makes Claude compare a change with the report, show the differences, and propose a `DECISIONS.md` entry. It asks you to paste the report section if `main.tex` is not in the repo. |
 
@@ -245,3 +247,23 @@ GSD Core (`open-gsd/gsd-core`, v1.17.0, MIT) is a planning framework for AI codi
    - Anything from `.planning/` that the team needs goes into `docs/DECISIONS.md` or the report by hand, in plain words. `.planning/config.json` can hold search API keys in plain text, which is another reason it stays out of git.
 
 I read the repo's file list, README, `package.json` and the installer's option list. I did not run the installer, and I did not read all 27 hooks line by line. The flags above come from the installer's own help text, not from a test.
+
+## 11. Skills install and keeping tools in step (added 2026-10-16)
+
+The approved install list is in `THIRD_PARTY.md` under "Final install list". Ali runs it in his own Claude Code with the prompt in `INSTALL_PROMPT.md` (kept outside the repo). It installs nothing outside the list.
+
+For Taha and Shahzeb on Codex or Antigravity:
+
+1. Pull the latest `main`.
+2. Run `python scripts/sync_agent_skills.py`. It copies `.claude/skills/*` to `.agents/skills/` and `.claude/references/` to `.agents/references/`. It never deletes, and both copies are gitignored.
+3. Run it again after every pull that changes `.claude/skills/`.
+
+Per-person installs (docx, pdf, pptx, xlsx, the code-review plugin, rea, and the no-license repos) are never committed. See the table in `THIRD_PARTY.md`.
+
+`rag/data/` (the 11 corpus documents) is committed, so a clone has them. `rag/corpus_manifest.md` has the SHA-256 hashes to check against.
+
+## 12. Files that don't go in git
+
+Anything that can't be re-downloaded or rebuilt from the repo (own exports, trained models, backups, local datasets) goes in the shared Google Drive folder, not the repo: https://drive.google.com/drive/folders/1KWdlT9GgGMjt6BUh4hpM-YoNCCS1PdMA?usp=sharing
+Add the file's name and a one-line description to docs/dataset-links.md, and tell the group in the team chat. Never commit these files. Never put keys or .env files on the Drive.
+
