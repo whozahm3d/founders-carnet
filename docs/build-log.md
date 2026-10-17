@@ -16,6 +16,23 @@ One entry per finished piece of work, newest first. This is what we use to write
 
 ## Entries
 
+## 2026-10-18: Dataset docs checked against dataset cards and papers (Claude)
+
+- **Feature and IDs:** External dataset documentation (Chapter 3 datasets table; no FR/NFR directly)
+- **Built:** Corrected `docs/datasets.md`, `docs/dataset-links.md`, `docs/DECISIONS.md` and `docs/pending-report-changes.md` after reading the Hugging Face cards and papers: Roman-Urdu-Parl split licence is Apache 2.0 (was "none"); Parl domain is "various informal online sources", not parliamentary (Butt et al., arXiv:2503.21530); Roman Urdu MS MARCO traced to Butt, Varanasi and Neumann (LowResNLP 2025, read from the PDF); Urdu-Multi-Domain-Benchmark authors are Haroon and Bashir (Zenodo v1.1, 2026); ERUPD authors are Furqan, Khaja and Habeeb; Mustafa et al. authors are Hammad Mustafa, Muhammad Faisal, Waqas Ahmed. Guessed author names and years replaced by repository usernames. Repaired a blank line that split the table in `docs/pending-report-changes.md`.
+- **Tested:** Compared each changed line with the source it came from. Kaggle uploader names were not re-checked against Kaggle.
+- **Cut or partial:** Kaggle dataset pages were not re-opened, so their licence and uploader fields still rest on the earlier run.
+- **Differs from the report?** Yes; two new rows in `docs/pending-report-changes.md`.
+
+## 2026-10-18: Dataset claim checks V2 fixed rerun and documented issues (Antigravity)
+
+- **Feature and IDs:** External dataset profiling and claim checks (Chapter 3 external datasets validation; the datasets table (\label{tab:datasets}))
+- **Built:** Created `dataset_claim_checks_v2.ipynb` to audit external datasets across 18 folders (14 full, 4 reference). First run encountered bugs (pyarrow string regex `\u` escapes, string threshold comparisons, split counts, LinkedIn pickle opcode false positives, blank rows, and job title mapping). Implemented bug-fixed re-run in new appended cells (cells 57 to 74) targeting `dataset_claim_check_v2_fixed_section.md` and `dataset_fit_scores_v2.csv`.
+- **Tested:** Fixed re-run executed across local dataset files. Verified that Census resolves to 433 usable rows, Investments to 49,438 usable rows (0 duplicates), Parl to 20,719 validation / 20,741 test rows, and LinkedIn to (3600, 39). S14 (IterateCV) and Step 3 (Pair Feasibility) crashed in the fixed run. Retrieval queries lexical baseline (char_wb TF-IDF) and MS MARCO script share values were not printed due to unexecuted blocks and missing optional scikit-learn dependency.
+- **Cut or partial:** Section S13 reference datasets dropped. S14 and Step 3 crashed; retrieval baseline and MS MARCO values unprinted.
+- **Next steps:** Prototype check, project zip, report PR.
+- **Differs from the report?** Yes; documented in `docs/DECISIONS.md` (2026-10-18 entries) and queued in `docs/pending-report-changes.md`.
+
 ## 2026-10-17: CI ruff pinned and notebooks excluded from ruff (Ali, with Claude Code)
 
 - Pinned CI ruff to 0.17.1, added `ml/ruff.toml` (notebooks excluded), fixed `rag/corpus_profile/profile_corpus.py` (F541, four `# noqa: BLE001`) and the bare `raise` in `dataset_claim_checks.ipynb`; ruff 0.17.1 re-run in `rag/`, `ml/` and `backend/`, not yet run in GitHub Actions. Differs from the report? No. See `docs/DECISIONS.md` (2026-10-17, "CI ruff pinned").
@@ -78,8 +95,3 @@ One entry per finished piece of work, newest first. This is what we use to write
 - **Tested:** Read the full file before and after; no duplicates introduced.
 - **Cut or partial:** None.
 - **Differs from the report?** Yes — all newly added rows describe differences. See the table in `docs/pending-report-changes.md`.
-
-
-
-
-

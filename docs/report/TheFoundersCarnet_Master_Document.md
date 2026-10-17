@@ -678,7 +678,7 @@ This keeps the human-in-the-loop role from the original design intact rather tha
 
 1. Self-register with investment thesis and stage focus, completing a LinkedIn OAuth handshake or SECP registration ID cross-check (FR-12) as one signal feeding into automated verification, escalated to human review only if ambiguous (Section 13.8), which gates the "Verified" badge and visibility to founders.
 2. Browse startups with a verified profile and a completed readiness assessment (FR-10); matched to founders by the ranking service.
-3. Send a match/intro request; the founder accepts or declines — identity is shared only on acceptance.
+3. Send a match request; the founder accepts or declines — identity is shared only on acceptance.
 4. Any resulting meeting or investment happens off-platform, through normal channels — the Carnet's role ends at the introduction (Section 18.1).
 
 ## 15.5 Compliance query (any founder)
@@ -714,7 +714,7 @@ This keeps the human-in-the-loop role from the original design intact rather tha
 |---|---|---|
 | FR-1 | Founders can create a profile and submit structured traction/business data. | Founder |
 | FR-2 | System generates AI mentor feedback and a dimension-level readiness score from submitted founder data. | Founder / Core Engine |
-| FR-3 | System simulates a multi-turn investor pitch session, scoring clarity, confidence, and content, with session history retained. | Founder / Core Engine |
+| FR-3 | System simulates a multi-turn investor pitch session, scoring clarity, market understanding, defensibility of numbers, and handling of pushback, with session history retained. | Founder / Core Engine |
 | FR-4 | System generates a market research summary (competitors, rough sizing) using live web search, clearly separating evidence from interpretation. | Founder / Core Engine |
 | FR-5 | Talent users can upload/enter a CV and LinkedIn/X profile text and receive AI-generated optimization suggestions. | Talent |
 | FR-6 | System displays a curated, filterable list of startup jobs/internships. | Talent |
