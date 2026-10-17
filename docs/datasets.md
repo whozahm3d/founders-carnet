@@ -19,6 +19,7 @@ Rules that apply to all of them (see the data rules in `CLAUDE.md`):
 - **Licence recorded as stated:** Licences are recorded strictly as stated on the dataset repository page or card metadata (or "No License Provided" / "Not stated").
 - **Conservative title matcher:** The title matcher uses word boundaries and avoids loose substring matching; because it misses specific tool/framework titles like "Php", "Laravel", "Java", or "React", reported tech shares are "at least".
 - **Category-list filter:** Crunchbase datasets use the category-list filter, which matches broad technology terms across pipe-separated categories.
+- **Status labels:** The `status` column in `ml/notebooks/dataset_fit_scores_v2.csv` was set by hand to match the final decisions in this file and in `docs/DECISIONS.md` (2026-10-18). Notebook-assigned labels differed for five datasets. This file and `DECISIONS.md` are authoritative.
 
 ## Filters used
 

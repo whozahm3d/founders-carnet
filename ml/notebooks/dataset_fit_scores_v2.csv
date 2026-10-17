@@ -2,18 +2,18 @@ dataset,status,checks_run,checks_passed,pass_rate_pct,rationale
 roman_urdu_parl_split_dataset,FINAL,5,4,80.0,Evaluated with 4/5 passing checks (80.0%). Metrics meet thresholds for primary project pipeline.
 Pakistan Startup Census,FINAL,5,4,80.0,Evaluated with 4/5 passing checks (80.0%). Metrics meet thresholds for primary project pipeline.
 Pakistan's Job Market,FINAL,4,3,75.0,Evaluated with 3/4 passing checks (75.0%). Metrics meet thresholds for primary project pipeline.
-Pakistan Job Market Dataset (Rozee.pk),FINAL,3,2,66.7,Evaluated with 2/3 passing checks (66.7%). Metrics meet thresholds for primary project pipeline.
+Pakistan Job Market Dataset (Rozee.pk),REFERENCE ONLY,3,2,66.7,Evaluated with 2/3 passing checks (66.7%). Retained as reference benchmark or baseline comparison.
 Startup SuccessFail Dataset from Crunchbase,FINAL,2,2,100.0,Evaluated with 2/2 passing checks (100.0%). Metrics meet thresholds for primary project pipeline.
 StartUp Investments (Crunchbase),FINAL,4,4,100.0,Evaluated with 4/4 passing checks (100.0%). Metrics meet thresholds for primary project pipeline.
 resume_dataset_by_haider_maseeh,FINAL,5,5,100.0,Evaluated with 5/5 passing checks (100.0%). Metrics meet thresholds for primary project pipeline.
-roman-urdu-retrieval-queries,FINAL,2,2,100.0,Evaluated with 2/2 passing checks (100.0%). Metrics meet thresholds for primary project pipeline.
-hassan7272urdu-finance-qa,FINAL,7,5,71.4,Evaluated with 5/7 passing checks (71.4%). Metrics meet thresholds for primary project pipeline.
+roman-urdu-retrieval-queries,REFERENCE ONLY,2,2,100.0,Evaluated with 2/2 passing checks (100.0%). Retained as reference benchmark or baseline comparison.
+hassan7272urdu-finance-qa,REFERENCE ONLY,7,5,71.4,Evaluated with 5/7 passing checks (71.4%). Retained as reference benchmark or baseline comparison.
 LinkedIn-Dataset-main,REFERENCE ONLY,3,3,100.0,Evaluated with 3/3 passing checks (100.0%). Retained as reference benchmark or baseline comparison.
 How Companies Screen Resumes ATS Dataset (NLP+ML),REFERENCE ONLY,3,2,66.7,Evaluated with 2/3 passing checks (66.7%). Retained as reference benchmark or baseline comparison.
-Resume Dataset,REFERENCE ONLY,5,5,100.0,Evaluated with 5/5 passing checks (100.0%). Retained as reference benchmark or baseline comparison.
+Resume Dataset,FINAL,5,5,100.0,Evaluated with 5/5 passing checks (100.0%). Metrics meet thresholds for primary project pipeline.
 iteratecv-resume-tailoring,REFERENCE ONLY,0,0,0.0,Evaluated with 0/0 passing checks (0.0%). Retained as reference benchmark or baseline comparison.
 roman-urdu-msmarco-dataset,REFERENCE ONLY,0,0,0.0,Evaluated with 0/0 passing checks (0.0%). Retained as reference benchmark or baseline comparison.
-hafiz-hassaan-saeedParallel-Urdu-Roman-Urdu-Corpus,EXCLUDE,0,0,0.0,Excluded by project decision: outside tech core domain or redundant with primary corpora.
-Khubaib01RUEmoCorp,EXCLUDE,0,0,0.0,Excluded by project decision: outside tech core domain or redundant with primary corpora.
-InferencelabRomanUrdu-NLP-Sentiment-Corpus,EXCLUDE,0,0,0.0,Excluded by project decision: outside tech core domain or redundant with primary corpora.
-Urdu-Multi-Domain-Benchmark,EXCLUDE,0,0,0.0,Excluded by project decision: outside tech core domain or redundant with primary corpora.
+hafiz-hassaan-saeedParallel-Urdu-Roman-Urdu-Corpus,DROPPED,0,0,0.0,"Dropped by project decision: failed quality, safety or scope gates."
+Khubaib01RUEmoCorp,DROPPED,0,0,0.0,"Dropped by project decision: failed quality, safety or scope gates."
+InferencelabRomanUrdu-NLP-Sentiment-Corpus,DROPPED,0,0,0.0,"Dropped by project decision: failed quality, safety or scope gates."
+Urdu-Multi-Domain-Benchmark,DROPPED,0,0,0.0,"Dropped by project decision: failed quality, safety or scope gates."
