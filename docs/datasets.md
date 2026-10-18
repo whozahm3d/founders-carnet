@@ -247,6 +247,21 @@ Rules that apply to all of them (see the data rules in `CLAUDE.md`):
   (3) Chosen for its recent 2024-2025 collection timeframe and explicit Pakistani city locations.
   (4) Lacks full job description text and contains non-merit fields (gender, age) that are strictly excluded.
 
+#### linkedin-fake-profiles-gpt4turbo-gulati (Gulati et al.)
+
+- **Status:** REFERENCE ONLY
+- **Reason:** Companion data of the paper we cite on LLM-generated fake profiles; used only to understand how GPT-4 Turbo profiles differ from legitimate ones.
+- **Counts (from the repository README, not yet profiled locally):** `cleaned_profiles.csv` 3,600 profiles (1,800 legitimate, 600 manually created fake, 1,200 GPT-3.5 generated); `generated_profiles_NEW.csv` 600 GPT-4 Turbo profiles. The README lists no columns and no labels for the second file. Local row and column counts to be added after profiling.
+- **Licence as stated:** Not stated (repository README has no licence and no data-use terms)
+- **Requirement served:** R4 readiness proxies (profile verification structure reference)
+- **Tech filter:** None applied
+- **Limitations:** No licence; the README does not say whether the legitimate profiles are real people's data or how they were anonymised, so treat all rows as possibly personal and never read or store individual profile text; no Pakistani profiles stated; `cleaned_profiles.csv` has the same size and label split as the LinkedIn-Dataset (Ayoobi et al.) and may overlap it (not checked); GPT-4 Turbo profiles come from few-shot prompts modelled on two legitimate examples; aggregate structure reference only.
+- **Description:**
+  (1) Data released with "Weak Links in LinkedIn: Enhancing Fake Profile Detection in the Age of LLMs" by Gulati, Kumar, Agarwal and Sharma (repository apoorva106/linkedin_fake_profile_detection on GitHub).
+  (2) Used for requirement R4 readiness proxies and profile verification as an aggregate structure reference only.
+  (3) Chosen because it is the only public set that adds GPT-4 Turbo generated profiles to the legitimate, fake and GPT-3.5 groups.
+  (4) No licence is stated, personal-data status of the legitimate profiles is unknown, and it may overlap the LinkedIn-Dataset above.
+
 ---
 
 ### DROPPED
