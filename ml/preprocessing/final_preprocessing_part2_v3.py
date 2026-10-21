@@ -417,7 +417,7 @@ def run_job3_roman_urdu_parl(
     # Deduplicated output destination
     dedup_out_path = output_dir / "parl_train_dedup_part2.csv"
     dedup_needed = not dedup_out_path.exists()
-    fout = open(dedup_out_path, "w", encoding="utf-8", newline="") if dedup_needed else None
+    fout = open(dedup_out_path, "w", encoding="utf-8", newline="") if dedup_needed else None  # noqa: SIM115
     writer = csv.writer(fout) if fout else None
 
     with open(train_path, "r", encoding="utf-8", errors="replace") as fin:
@@ -476,9 +476,8 @@ def run_job3_roman_urdu_parl(
                 matched_vt_roman.add(ru_str)
 
             # Write to dedup file if not overlapping
-            if writer:
-                if not is_overlap:
-                    writer.writerow(r)
+            if writer and not is_overlap:
+                writer.writerow(r)
 
     if fout:
         fout.close()

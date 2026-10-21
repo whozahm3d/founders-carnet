@@ -386,7 +386,6 @@ def run_job3_roman_urdu_parl(
     val_test_roman: set[str] = set()
 
     df_combined_val_test = pd.concat([df_val, df_test], ignore_index=True)
-    val_test_total_rows = len(df_combined_val_test)
 
     for u_str, ru_str in zip(df_combined_val_test.iloc[:, 0], df_combined_val_test.iloc[:, 1]):
         u_clean = str(u_str).strip()
