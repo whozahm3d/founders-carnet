@@ -1,15 +1,14 @@
 import json
 import logging
 import sys
-from types import ModuleType
-from types import SimpleNamespace
+from types import ModuleType, SimpleNamespace
 
 import pytest
 from google.genai.errors import ServerError
 
+import app.services.llm_gateway as gateway_module
 from app.services.compliance_assistant import GroundingValidation
 from app.services.compliance_retrieval import RetrievedChunk
-import app.services.llm_gateway as gateway_module
 from app.services.llm_gateway import GeminiGateway
 
 

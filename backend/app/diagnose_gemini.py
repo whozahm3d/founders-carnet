@@ -5,6 +5,8 @@ from __future__ import annotations
 from importlib.metadata import PackageNotFoundError, version
 from time import perf_counter
 
+import httpx
+
 from app.config import get_settings
 from app.services.llm_gateway import GeminiGateway, classify_provider_error
 
@@ -33,7 +35,7 @@ def main() -> int:
     started_at = perf_counter()
     try:
         gateway.diagnostic_ping()
-    except Exception as exc:
+    except (httpx.HTTPError, RuntimeError, ValueError) as exc:
         status_code = getattr(exc, "code", None) or getattr(exc, "status_code", None)
         print(
             "result=failed "

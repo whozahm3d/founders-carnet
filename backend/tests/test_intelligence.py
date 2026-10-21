@@ -1,11 +1,10 @@
 from fastapi.testclient import TestClient
 
-from app.feature_schemas import PitchTurnResult, ReadinessResult
 from app.database import get_db
-from app.models import Startup
+from app.feature_schemas import PitchTurnResult, ReadinessResult
 from app.main import app
+from app.models import Startup
 from app.services.feature_ai import get_encoder, get_gateway
-
 
 client = TestClient(app)
 fake_gateway = None

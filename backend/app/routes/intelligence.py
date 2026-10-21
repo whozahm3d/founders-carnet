@@ -1,15 +1,22 @@
 """Backend APIs for matching, startup readiness, and pitch practice."""
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, HTTPException, Query, status
+from fastapi import APIRouter, Depends, HTTPException, Query
+from rag.compliance.embeddings import SentenceTransformerEncoder
 from sqlalchemy import exists, select
 from sqlalchemy.orm import Session
 
 from app.database import get_db
 from app.dependencies import get_current_user, require_roles
-from app.feature_models import EcosystemProfile, MatchRecord, PitchSession, PitchTurn, ReadinessAssessment
+from app.feature_models import (
+    EcosystemProfile,
+    MatchRecord,
+    PitchSession,
+    PitchTurn,
+    ReadinessAssessment,
+)
 from app.feature_schemas import (
     EcosystemProfileRead,
     EcosystemProfileWrite,
@@ -17,8 +24,8 @@ from app.feature_schemas import (
     PitchAnswer,
     PitchSessionRead,
     PitchStart,
-    PitchTurnResult,
     PitchTurnRead,
+    PitchTurnResult,
     ReadinessRead,
     ReadinessResult,
 )
@@ -26,9 +33,12 @@ from app.models import FounderProfile, Startup, User
 from app.services.compliance_retrieval import cosine_similarity
 from app.services.feature_ai import get_encoder, get_gateway
 from app.services.llm_gateway import GeminiGateway
-from app.services.matching import combined_match_score, profile_match_text, score_profile, startup_match_text
-from rag.compliance.embeddings import SentenceTransformerEncoder
-
+from app.services.matching import (
+    combined_match_score,
+    profile_match_text,
+    score_profile,
+    startup_match_text,
+)
 
 router = APIRouter(prefix="/api/v1", tags=["startup intelligence"])
 SessionDep = Annotated[Session, Depends(get_db)]
@@ -58,7 +68,7 @@ def save_ecosystem_profile(payload: EcosystemProfileWrite, user: CurrentUser, db
         for key, value in values.items():
             setattr(profile, key, value)
         profile.consent_version = "ecosystem-profile-v1"
-        profile.consented_at = datetime.now(timezone.utc).replace(tzinfo=None)
+        profile.consented_at = datetime.now(UTC).replace(tzinfo=None)
     profile.embedding = list(vector)
     profile.embedding_model = encoder.model_name
     db.commit()
@@ -304,7 +314,7 @@ def answer_pitch_turn(session_id: int, payload: PitchAnswer, user: Founder, db: 
         raise HTTPException(status_code=502, detail="Pitch response could not be generated; the transcript is preserved") from exc
     if result.finished:
         session.status = "completed"
-        session.completed_at = datetime.now(timezone.utc).replace(tzinfo=None)
+        session.completed_at = datetime.now(UTC).replace(tzinfo=None)
         session.scores = {name: getattr(result, name).model_dump() for name in ("clarity", "confidence", "content")}
     else:
         db.add(PitchTurn(session_id=session.id, turn_number=len(previous) + 2, speaker="investor", content=result.next_question or ""))

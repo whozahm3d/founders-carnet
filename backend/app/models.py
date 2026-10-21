@@ -2,14 +2,15 @@ from __future__ import annotations
 
 from datetime import datetime
 
+from pgvector.sqlalchemy import VECTOR
 from sqlalchemy import (
+    JSON,
     Boolean,
     CheckConstraint,
     DateTime,
     ForeignKey,
     Index,
     Integer,
-    JSON,
     Numeric,
     String,
     Text,
@@ -17,8 +18,6 @@ from sqlalchemy import (
     func,
 )
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
-from pgvector.sqlalchemy import VECTOR
-
 
 VECTOR_TYPE = VECTOR().with_variant(JSON(), "sqlite")
 
@@ -231,4 +230,10 @@ class ComplianceCitation(Base):
 
 # Import after Base and the existing models are defined so all tables register
 # with the same metadata used by Alembic and SQLite tests.
-from app.feature_models import EcosystemProfile, MatchRecord, PitchSession, PitchTurn, ReadinessAssessment  # noqa: E402,F401
+from app.feature_models import (  # noqa: F401
+    EcosystemProfile,
+    MatchRecord,
+    PitchSession,
+    PitchTurn,
+    ReadinessAssessment,
+)

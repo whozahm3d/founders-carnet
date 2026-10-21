@@ -18,7 +18,6 @@ from app.services.compliance_retrieval import (
     retrieve_top_chunks,
 )
 
-
 PROMPT_VERSION = "compliance-answer-v1"
 INFORMATIONAL_NOTICE = "This information is not legal or tax advice."
 _ABSTENTION_MESSAGE = "I do not have a supported answer in the indexed corpus."

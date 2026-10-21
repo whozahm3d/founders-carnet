@@ -16,7 +16,6 @@ from pydantic import BaseModel
 from app.services.compliance_assistant import AnswerDraft, GroundingValidation
 from app.services.compliance_retrieval import RetrievedChunk
 
-
 ANSWER_PROMPT_VERSION = "compliance-answer-v1"
 VALIDATION_PROMPT_VERSION = "compliance-grounding-v1"
 GEMINI_REQUEST_TIMEOUT_MS = 60_000
@@ -265,7 +264,7 @@ class GeminiGateway:
                     continue
 
                 try:
-                    setattr(exc, "_carnet_generation_failure_logged", True)
+                    exc._carnet_generation_failure_logged = True
                 except (AttributeError, TypeError):
                     pass
                 elapsed_ms = int((perf_counter() - operation_started) * 1000)
@@ -315,7 +314,7 @@ class GeminiGateway:
         question: str,
         passages: Sequence[RetrievedChunk],
         system_instruction: str,
-        response_schema: type[AnswerDraft] | type[GroundingValidation],
+        response_schema: type[AnswerDraft | GroundingValidation],
         output_instruction: str,
     ) -> str:
         evidence = _select_evidence(

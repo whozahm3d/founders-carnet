@@ -6,18 +6,21 @@ from collections.abc import Sequence
 from dataclasses import dataclass
 from pathlib import Path
 
+from rag.compliance.chunking import CitationChunk, chunk_pages
+from rag.compliance.documents import (
+    ExtractedPage,
+    NoExtractableTextError,
+    extract_pdf_pages,
+)
+from rag.compliance.embeddings import SentenceTransformerEncoder
+from rag.compliance.ingestion import CorpusDocument, parse_manifest, verify_corpus_file
+from rag.compliance.scoping import apply_corpus_scope
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.config import get_settings
 from app.database import SessionLocal
 from app.models import ComplianceChunk, ComplianceDocument
-from rag.compliance.chunking import CitationChunk, chunk_pages
-from rag.compliance.documents import ExtractedPage, NoExtractableTextError, extract_pdf_pages
-from rag.compliance.embeddings import SentenceTransformerEncoder
-from rag.compliance.ingestion import CorpusDocument, parse_manifest, verify_corpus_file
-from rag.compliance.scoping import apply_corpus_scope
-
 
 _SCOPE_EXCLUSIONS = {
     "PSEB Industry Facilitation page.pdf": (

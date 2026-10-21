@@ -1,11 +1,11 @@
 from functools import lru_cache
 
 from fastapi import HTTPException, status
+from rag.compliance.embeddings import SentenceTransformerEncoder
 
 from app.config import get_settings
 from app.services.compliance_assistant import ComplianceAnswerService
 from app.services.llm_gateway import GeminiGateway
-from rag.compliance.embeddings import SentenceTransformerEncoder
 
 
 @lru_cache(maxsize=1)

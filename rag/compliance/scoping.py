@@ -7,7 +7,6 @@ import re
 from rag.compliance.documents import ExtractedPage
 from rag.compliance.ingestion import CorpusDocument
 
-
 _PART_HEADING = re.compile(r"^\s*PART\s+([IVXLCDM]+)\b", re.IGNORECASE)
 _SECTION_HEADING = re.compile(
     r"^\s*(\d+[A-Z]?)\.\s+\S",
@@ -116,9 +115,7 @@ def _filter_income_tax_ordinance(
 
             if current_section == "154A" or (
                 current_section == "2" and current_subsection == "62A"
-            ):
-                kept_lines.append(line)
-            elif in_first_schedule and in_target_division:
+            ) or in_first_schedule and in_target_division:
                 kept_lines.append(line)
 
         _append_filtered_page(filtered, page, kept_lines)

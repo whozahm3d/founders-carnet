@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from contextlib import asynccontextmanager
+from typing import Annotated
 
 from fastapi import Depends, FastAPI, HTTPException, Request, Response, status
 from fastapi.exceptions import RequestValidationError
@@ -15,9 +16,9 @@ from app.routes.compliance import router as compliance_router
 from app.routes.founders import router as founders_router
 from app.routes.intelligence import router as intelligence_router
 from app.schemas import TokenResponse, UserLoginRequest, UserRead, UserRegisterRequest
-from app.services.wiring import close_compliance_answer_service
-from app.services.feature_ai import clear_feature_clients
 from app.security import create_access_token, hash_password, verify_password
+from app.services.feature_ai import clear_feature_clients
+from app.services.wiring import close_compliance_answer_service
 
 
 @asynccontextmanager
@@ -53,7 +54,7 @@ async def sanitized_validation_error(
 
 
 @app.post("/api/v1/auth/register", response_model=UserRead, status_code=status.HTTP_201_CREATED)
-def register_user(payload: UserRegisterRequest, db: Session = Depends(get_db)) -> User:
+def register_user(payload: UserRegisterRequest, db: Annotated[Session, Depends(get_db)]) -> User:
     """Register a user with explicit role assignment for the foundations slice.
 
     FR-22, FR-23, NFR-4, NFR-5, NFR-8.
@@ -82,7 +83,7 @@ def register_user(payload: UserRegisterRequest, db: Session = Depends(get_db)) -
 
 
 @app.post("/api/v1/auth/login", response_model=TokenResponse)
-def login_user(payload: UserLoginRequest, db: Session = Depends(get_db)) -> TokenResponse:
+def login_user(payload: UserLoginRequest, db: Annotated[Session, Depends(get_db)]) -> TokenResponse:
     """Sign in and issue a JWT for role-scoped access.
 
     FR-23, NFR-4, NFR-5.
@@ -102,8 +103,8 @@ def login_user(payload: UserLoginRequest, db: Session = Depends(get_db)) -> Toke
 
 @app.post("/api/v1/auth/logout", status_code=status.HTTP_204_NO_CONTENT)
 def logout_user(
-    current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db),
+    current_user: Annotated[User, Depends(get_current_user)],
+    db: Annotated[Session, Depends(get_db)],
 ) -> Response:
     """Invalidate every token issued before this logout (FR-23, NFR-5)."""
     db.execute(
@@ -116,7 +117,7 @@ def logout_user(
 
 
 @app.get("/api/v1/users/me", response_model=UserRead)
-def read_current_user(current_user: User = Depends(get_current_user)) -> User:
+def read_current_user(current_user: Annotated[User, Depends(get_current_user)]) -> User:
     """Return the current authenticated user's profile.
 
     NFR-5: protected endpoints require a valid token and caller role.
@@ -125,7 +126,7 @@ def read_current_user(current_user: User = Depends(get_current_user)) -> User:
 
 
 @app.get("/api/v1/admin/stats")
-def admin_stats(current_user: User = Depends(require_roles("admin"))) -> dict[str, str]:
+def admin_stats(current_user: Annotated[User, Depends(require_roles("admin"))]) -> dict[str, str]:
     """Admin-only endpoint for the first access-control slice.
 
     FR-23, NFR-5.

@@ -4,7 +4,6 @@ from pathlib import Path
 from pydantic import AliasChoices, Field, SecretStr, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-
 _REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
 _DEFAULT_EMBEDDING_MODEL = "sentence-transformers/paraphrase-multilingual-mpnet-base-v2"
 

@@ -8,7 +8,6 @@ from dataclasses import dataclass
 from rag.compliance.documents import ExtractedPage
 from rag.compliance.ingestion import CorpusDocument
 
-
 _SECTION_HEADING = re.compile(
     r"^\s*(?:(?i:section)\s+)?(?P<section>\d+[A-Z]?(?:\([0-9A-Z]+\))*)"
     r"(?:[.):])\s+(?P<title>[A-Z][^\n]{2,})\s*$",

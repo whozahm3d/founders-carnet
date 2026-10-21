@@ -1,3 +1,5 @@
+from typing import Annotated
+
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPAuthorizationCredentials
 from sqlalchemy.orm import Session
@@ -8,8 +10,8 @@ from app.security import decode_access_token, security
 
 
 def get_current_user(
-    credentials: HTTPAuthorizationCredentials = Depends(security),
-    db: Session = Depends(get_db),
+    credentials: Annotated[HTTPAuthorizationCredentials | None, Depends(security)],
+    db: Annotated[Session, Depends(get_db)],
 ) -> User:
     if credentials is None:
         raise HTTPException(
@@ -44,7 +46,7 @@ def get_current_user(
 
 
 def require_roles(*allowed_roles: str):
-    def role_checker(current_user: User = Depends(get_current_user)) -> User:
+    def role_checker(current_user: Annotated[User, Depends(get_current_user)]) -> User:
         if current_user.role not in allowed_roles:
             raise HTTPException(
                 status_code=status.HTTP_403_FORBIDDEN,
