@@ -41,6 +41,127 @@ Dated entries, newest first. Each entry has the context, what was tried, what wa
 **Why:** It records schema changes as ordered revisions and supports rebuilding a fresh database, which directly meets NFR-22.
 
 **Follow-ups:** Apply migrations to the configured PostgreSQL 16 database and verify the pgvector extension and vector column there before corpus indexing.
+## 2026-10-18: Pitch simulator uses one four-area rubric everywhere
+
+**Context:** Prototype review (12 screens, 2026-10-18) found three conflicting pitch rubrics: master document section 13.2 and the prototypes use four areas (clarity, market understanding, defensibility of numbers, handling pushback); FR-3 in the master document says "clarity, confidence, and content"; the approved data dictionary `pitch_feedback.feedback_area` lists five values (clarity, problem_framing, traction, ask, delivery).
+
+**What we tried:** Compared the three against the prototypes and the pipeline description in section 13.2.
+
+**What we found:** The prototypes and section 13.2 already agree, and the four areas are what a prompted rubric can score from a transcript. "Confidence" and "delivery" need audio or video, which is out of scope until Phase 2 (video pitch upload).
+
+**Decision:** The rubric is four areas: clarity, market understanding, defensibility of numbers, handling pushback. Stored values for `pitch_feedback.feedback_area`: `clarity`, `market_understanding`, `number_defensibility`, `pushback_handling`. FR-3 wording changes to match. Applied to the master document markdown and the data dictionary markdown only; the master `.docx`, `data_dictionary_section.tex` and `main.tex` follow later.
+
+**Why:** One rubric means the prototype, the prompt, the stored data and the report describe the same thing.
+
+**Follow-ups:** Rebuild the master `.docx`; update Chapter 4 FR-3 text, Section 4.8 and the data dictionary table in `main.tex` (see `docs/pending-report-changes.md`); tell Shahzeb to use the same four labels on the pitch feedback screen.
+
+## 2026-10-18: The match action is called "Request match" on every screen
+
+**Context:** Prototype investor screens say "Request intro"; founder and talent screens say "Request match"; Section 4.8 text and the use case say "Request match". `SPEC_NAV_fig07-11.md` used "Request intro" for the investor figure.
+
+**Decision:** Use "Request match" everywhere (buttons, navigation edge labels, captions, report text). Figure 10 now reads "Request match" and "Match requests"; the caption says "match requests".
+
+**Why:** Matches the use case and FR-7 (contact revealed only on mutual acceptance). "Intro" suggests a warm introduction by a person, which the platform does not make.
+
+**Follow-ups:** Shahzeb changes the investor screens; `Section_4_8_GUI.tex` already uses "Request match".
+
+## 2026-10-18: Final dataset selection and classification of statuses (analysis run 2026-10-17)
+
+**Context:** External dataset profiling and validation for Chapter 3 (Section 3.3.3 and the datasets table (\label{tab:datasets})) supporting matching, discovery, readiness, and multilingual baselines.
+
+**What we tried:** Ran comprehensive dataset claim checks across 18 folders (14 full, 4 reference) in `ml/notebooks/dataset_claim_checks_v2.ipynb` to evaluate size, duplicate rates, tech relevance, missingness, PII risks, and licensing clarity.
+
+**What we found:** Seven datasets satisfy core requirements for final adoption: Roman-Urdu-Parl (6,407,268 pairs), Pakistan Startup Census (433 usable rows), Pakistan's Job Market (6,680 rows), Crunchbase Startup Success/Fail (66,368 rows), Crunchbase Investments (49,438 usable rows), snehaanbhawal Resume Dataset (2,484 rows), and haider Resume Dataset (6,000 tech rows). Seven datasets are retained as reference benchmarks or negative controls (LinkedIn, ATS, IterateCV, MS MARCO, retrieval-queries, finance-qa, Rozee). Four datasets failed quality and safety gates (Hafiz Hassaan Saeed, RUEmoCorp, Inferencelab, Urdu-Multi-Domain-Benchmark) and are dropped. Earlier candidates (HSE Hackathon, Resume PDF, Maaz, Rankistan, Pakistani Startups Hub, ERUPD) remain excluded.
+
+**Decision:** Formally adopt the 7 FINAL datasets as primary platform design and evaluation inputs. Classify the remaining datasets into REFERENCE ONLY, DROPPED, and EXCLUDED EARLIER. Update `docs/datasets.md`, `docs/dataset-links.md`, and the datasets table (\label{tab:datasets}).
+
+**Why:** Establishes disciplined data governance and ensures no unvetted, unconsented, or non-tech datasets leak into model evaluation.
+
+**Follow-ups:** Update Chapter 3 Section 3.3.3 and the datasets table (\label{tab:datasets}) in the report pull request.
+
+## 2026-10-18: Tech-only filtering rules and conservative title matcher (analysis run 2026-10-17)
+
+**Context:** Project scope discipline restricting the platform exclusively to tech startups and technical talent. Touches Chapter 3 methodology and data quality sections.
+
+**What we tried:** Tested loose substring keyword matching against a compiled word-boundary regex (`\b`) on job titles and resume titles across Rozee, Pakistan's Job Market, and ATS datasets. Evaluated Crunchbase pipe-separated category lists.
+
+**What we found:** Loose keyword matching inflated technical shares (for example, IterateCV showed 100% tech share, likely caused by short tokens such as 'it' and 'ai'; the strict-matcher rerun on IterateCV did not complete). The strict word-boundary regex eliminates false positives on non-tech roles like "Sales Associate" or "Accountant", but misses specific tool names like "Php", "Laravel", "Java", or "React". Crunchbase category-list filtering identifies 28,695 tech rows (45.4% of rows with a category) in Startup Success/Fail and 20,542 tech rows (45.2%) in Investments.
+
+**Decision:** Standardize on two explicit tech filters: (1) Crunchbase category-list filter for venture records; (2) compiled strict word-boundary title matcher for job titles and resumes. State in the report that reported title tech shares are "at least" lower bounds.
+
+**Why:** Prevents artificial inflation of tech shares while maintaining strict scope boundaries for the Pakistani tech ecosystem.
+
+**Follow-ups:** Add filter keyword lists to `docs/datasets.md` and document the "at least" lower-bound wording in `main.tex`.
+
+## 2026-10-18: Dataset exclusions and quality gate drop decisions (analysis run 2026-10-17)
+
+**Context:** Quality, safety, and ethical screening of candidate multilingual and emotional text corpora for Chapter 3.
+
+**What we tried:** Profiled candidate corpora for toxic language, exposed personal identifiers (PII), schema integrity, and licensing restrictions.
+
+**What we found:** Hafiz Hassaan Saeed corpus contained an 18.0% toxic content rate with profanity and an unpopulated metadata card. RUEmoCorp and Inferencelab have labels; reason = no emotion or sentiment feature in the project, and some person names remain in rows. Urdu-Multi-Domain-Benchmark contained 26 fragmented per-domain licences, executable rebuild scripts, and offensive content instances.
+
+**Decision:** Drop Hafiz Hassaan Saeed, RUEmoCorp, Inferencelab, and Urdu-Multi-Domain-Benchmark from the active project registry. Confirm earlier exclusions: HSE Hackathon (Russian language and geographic mismatch); Resume PDF (0 of 30 sampled files had text); Maaz (no licence listed, partly AI-generated, skipped by the team); Rankistan (named personal profiles and GitHub-versus-LinkedIn source leakage); Pakistani Startups Hub (self-described demo build with composite quotes); ERUPD (75,146 sentence pairs per the paper; no data release or licence seen).
+
+**Why:** Excludes datasets that lack project feature alignment, have unvetted toxicity, or expose named personal profiles.
+
+**Follow-ups:** Record dropped statuses in `docs/datasets.md` and `docs/dataset-links.md`.
+
+## 2026-10-18: ATS dataset exclusion reversed to reference-only smoke test (analysis run 2026-10-17)
+
+**Context:** Test input selection for resume parsing and optimizer pipelines (R1, R2) in Chapter 3 and Chapter 4.
+
+**What we tried:** Evaluated `ats_resume_dataset_elite_v3.csv` (6,000 rows, 17 columns) for realism, schema structure, and text length distributions.
+
+**What we found:** Resume text median is 377 characters and job description median is 131 characters, with near-uniform experience and education distributions consistent with synthetic generation. However, the dataset contains zero duplicates and clean structured schema fields.
+
+**Decision:** Reverse the previous full exclusion of the ATS dataset to REFERENCE ONLY. Use it strictly as a synthetic smoke test; never training or accuracy claims.
+
+**Why:** Provides a safe synthetic tabular test fixture for automated testing without risking exposure of real candidate resumes.
+
+**Follow-ups:** Update the datasets table (\label{tab:datasets}) in `main.tex` and entry in `docs/datasets.md`.
+
+## 2026-10-18: LinkedIn dataset retained as aggregate structure reference; Gulati profiles deferred to FYP-2 (analysis run 2026-10-17)
+
+**Context:** Mentor and investor profile verification (FR-12 to FR-21) and fake profile structural indicators in Chapter 3 and Chapter 4.
+
+**What we tried:** Examined Ayoobi et al. pickle dataset (3,600 rows x 39 columns) using a safe restricted unpickler. Reviewed recent fake profile detection literature by Gulati et al. (arXiv:2507.16860).
+
+**What we found:** Ayoobi et al. contains 1,800 legitimate, 600 fake, and 1,200 ChatGPT-generated profiles. It includes a Full Name column. No Pakistani labeled real/fake LinkedIn-style dataset exists. Gulati et al. demonstrated that detectors not retrained on specific LLM profiles fail, but retraining on GPT profiles restores false accept rate (FAR) to 1 to 7%; their study is English-only with one LLM family.
+
+**Decision:** Retain Ayoobi LinkedIn dataset as REFERENCE ONLY for aggregate profile structure statistics. Strictly forbid printing, logging, or storing personal name fields. Defer Gulati et al. 600 GPT-4 Turbo profiles to FYP-2 as an optional extension. Maintain rule-based profile verification checks for FYP-1.
+
+**Why:** Complies with strict privacy constraints while utilizing structural insights on legitimate versus synthetic profiles.
+
+**Follow-ups:** Note aggregate-only role and Pakistani data limitation in Chapter 3 and Chapter 4.
+
+## 2026-10-18: Resume optimizer test plan and pair feasibility evaluation rules (analysis run 2026-10-17)
+
+**Context:** Evaluation protocol for resume optimization (R1) and candidate-job matching (R2) in Chapter 4 and Chapter 6.
+
+**What we tried:** Planned a cross-product feasibility pairing between public technical resumes (Haider, Snehaan Bhawal) and Pakistani job descriptions (Rozee, Job Market). The pair-feasibility cell (Step 3) crashed in the fixed rerun, so no pair statistics are reported.
+
+**What we found:** Public datasets come from disparate sources; artificial cross-product pairs lack ground-truth suitability labels. True candidate-job application decisions in Pakistan are proprietary and unavailable publicly.
+
+**Decision:** Test the resume optimizer exclusively on the team's own and consented resumes in a controlled pilot of tens of cases. Make no match-accuracy claims from artificially constructed pairs.
+
+**Why:** Preserves academic rigor and prevents misleading accuracy claims derived from ungrounded synthetic pairings.
+
+**Follow-ups:** Document pilot evaluation protocol in Chapter 4 methodology and Chapter 6 test plan.
+
+## 2026-10-18: Evaluator framing and baseline dataset freeze (analysis run 2026-10-17)
+
+**Context:** Dataset versioning, benchmarking discipline, and evaluator protocol across all project sprints.
+
+**What we tried:** Surveyed external datasets across Kaggle, Hugging Face, and Open Data Pakistan.
+
+**What we found:** Ad-hoc dataset substitutions introduce moving evaluation baselines and risk invalidating earlier profiling.
+
+**Decision:** Freeze the current set of 7 FINAL and 7 REFERENCE datasets as the official project baseline. A new dataset is adopted only if it strictly beats the baseline on formal selection criteria (tech niche, Pakistani relevance, licensing clarity, and privacy compliance) with an explicit DECISIONS entry and report update.
+
+**Why:** Guarantees reproducibility and maintains stable benchmarks for thesis evaluation.
+
+**Follow-ups:** Enforce freeze across all future model testing and report documentation.
 
 ## 2026-10-17: CI ruff pinned to 0.17.1; notebooks excluded from ruff
 

@@ -169,7 +169,7 @@ No model has been trained or evaluated yet. So the report makes no accuracy clai
 \chapter{Introduction}
 Pakistan's startup ecosystem is growing. The Pakistan Software Export Board (PSEB) annual report for 2025 lists 9,400 registered companies and 16,300 registered freelancers. ICT exports reached USD 3.8 billion in FY 2024-25 \cite{ref:psebannual2025}. The StartupBlink Global Startup Ecosystem Index 2026 ranks Pakistan 67th in the world and 2nd in South Asia. In 2023 it was 76th \cite{ref:startupblink2026}.
 
-But support is still hard to reach. Accelerators usually take founders in competitive cohorts on fixed dates, so a founder who misses one has few other options. The Securities and Exchange Commission of Pakistan (SECP) says that access to experienced mentors is limited and that many entrepreneurs do not know what resources and funding exist. It also says most tech hubs are in Islamabad, Lahore, and Karachi, so founders in smaller cities have less access \cite{ref:secpposition}.
+But support is still hard to reach. Accelerators usually take founders in competitive cohorts on fixed dates, so a founder who misses one has few other options. The Securities and Exchange Commission of Pakistan (SECP) says that access to experienced mentors is limited and that many entrepreneurs do not know what resources and funding exist. It also says most tech hubs are in Islamabad, Lahore, and Karachi, so founders in smaller cities have less access \cite{ref:secpposition}. A 2026 preprint of 3,734 LinkedIn IT postings from late 2023 agrees: Lahore has 1,198, Karachi 858, and Islamabad 720, though its authors say postings from one platform are not a census \cite{ref:mustafa2026itjobs}.
 
 The rules make this harder. SECP, the State Bank of Pakistan (SBP), the Federal Board of Revenue (FBR), the Special Technology Zones Authority, and SMEDA all define a startup in a different way. SECP says startups may find these frameworks hard to follow \cite{ref:secpposition}. The law also splits it. The Income Tax Ordinance 2001 (section 2(62A)) and the Companies Act 2017 (section 2(1)(67A)) each define a startup, with different thresholds.
 
@@ -287,7 +287,7 @@ The goal is to give people outside Pakistan's cohort-based accelerators access t
 \end{enumerate}
 
 \section{Project Scope}\label{sec:scope}
-Phase 1 designs and demonstrates the platform for all five user roles. Founders get the readiness score, pitch practice, and market research. Talent users get the resume and LinkedIn optimizer and a board of startup jobs and internships. Matching uses similarity ranking in FYP-1 and a trained re-ranker in FYP-2. Contact details are shown only after both sides accept.
+Phase 1 designs and demonstrates the platform for all five user roles. The platform serves one niche, technology: the startups, jobs, and datasets we use are filtered to tech, so that the scope fits three people. Founders get the readiness score, pitch practice, and market research. Talent users get the resume and LinkedIn optimizer and a board of startup jobs and internships. Matching uses similarity ranking in FYP-1 and a trained re-ranker in FYP-2. Contact details are shown only after both sides accept.
 
 The compliance assistant answers from SECP, FBR, and PSEB documents. Phase 1 also has hybrid profile verification, an admin review console, and a one-time appeal. Users get curated resource links, an events calendar, and usage guides. The stack is React and Next.js, FastAPI, and PostgreSQL with pgvector. Every language model call goes through a gateway that does not depend on one provider.
 
@@ -509,7 +509,7 @@ Schein et al. \cite{ref:schein2002} & Cold-start methods against simple baseline
 \subsubsection{Summary of the Research Items}
 Yu, Zhang, and Yu \cite{ref:yu2024confit} present ConFit, which treats resume-job matching as person-job fit. The problem is sparse labels: job seekers apply to few jobs, so recorded interactions cover a small part of all possible pairs. ConFit uses data augmentation and a contrastive learning objective. ConFit v2 \cite{ref:yu2025confitv2} (Findings of ACL 2025) adds hypothetical resume embedding and runner-up hard-negative mining. ConFit v3 \cite{ref:yu2026confitv3}, a 2026 preprint, moves to large language model (LLM) re-rankers of 8 to 32 billion parameters trained on thousands of labeled pairs. It notes that embedding methods lack control and explainability. Qin et al. \cite{ref:qin2023talent}, a preprint, survey artificial intelligence (AI) for talent analytics. Guo et al. \cite{ref:guo2021linkedin}, an industry preprint, describe LinkedIn's deep NLP models for five production search tasks and the trade-off between accuracy and delay at that scale.
 
-Matching works only if profiles are real. Ayoobi, Shahriar, and Mukherjee \cite{ref:ayoobi2023} collected 3,600 LinkedIn profiles between June 2022 and February 2023: 1,800 real, 600 fake, and 1,200 made with ChatGPT. Their SSTE method embeds the profile text together with tags for the section and subsection of each word. With BERT embeddings it reached an average accuracy of 96.33\% in separating real from fake profiles. Gulati et al. \cite{ref:gulati2025} (ASONAM 2025) limit this result. Existing detectors reach about 96\% F1 on hand-made fakes but only about 68\% F1 on LLM-generated profiles. The false accept rate is 42 to 52\% on GPT-generated profiles and 6 to 7\% on hand-made fakes. They added 600 GPT-4-Turbo profiles and proposed GPT-assisted adversarial training.
+Matching works only if profiles are real. Ayoobi, Shahriar, and Mukherjee \cite{ref:ayoobi2023} collected 3,600 LinkedIn profiles between June 2022 and February 2023: 1,800 real, 600 fake, and 1,200 made with ChatGPT. Their SSTE method embeds the profile text together with tags for the section and subsection of each word. With BERT embeddings it reached an average accuracy of 96.33\% in separating real from fake profiles. Gulati et al. \cite{ref:gulati2025} (ASONAM 2025) limit this result. Existing detectors reach about 96\% F1 on hand-made fakes but only about 68\% F1 on LLM-generated profiles. The false accept rate is 42 to 52\% on GPT-generated profiles and 6 to 7\% on hand-made fakes. They added 600 GPT-4-Turbo profiles and proposed GPT-assisted adversarial training, which brings the false accept rate on GPT-generated profiles back to 1 to 7\%. Their study covers English-language profiles only, and the fake profiles and the adversarial training both use one LLM family.
 
 \subsubsection{Critical Analysis}
 ConFit's evidence comes from resumes and job postings. Founder-mentor and founder-investor pairs carry different signals. So ConFit explains the sparsity problem and the methods for it, but its accuracy will not carry over to this platform. ConFit v3 shows what large labeled sets and large models can do, and its needs are beyond a seed-scale project. Qin et al. and Guo et al. are preprints, and Guo et al. describe a scale no new platform will reach. We use them for the documented delay limit only. For verification, the two detection studies must be read together. Ayoobi et al. show that profile section structure helps detection. Gulati et al. show that this advantage mostly disappears against LLM-written text, which is what anyone faking a profile today is likely to use.
@@ -517,7 +517,7 @@ ConFit's evidence comes from resumes and job postings. Founder-mentor and founde
 \subsubsection{Relationship to the Proposed Work}
 ConFit shows that interaction sparsity is a known problem in person-job matching. This describes our project too, since the re-ranker trains on a seed set of 150 to 300 labeled pairs. ConFit-style contrastive and triplet learning is the method for our optional goal of fine-tuning the embedding model. We do this only if the multilingual benchmark finds a gap and enough labeled data exists. We do not follow ConFit v3, because its labels, compute, and delay are beyond our means. Its remark on poor explainability supports a feature-based re-ranker that can show the main factors behind each match. Talent-to-startup matching uses the same re-ranker.
 
-For verification, the platform uses rule-based checks on profile completeness and structure. Given the Gulati et al. results, these checks make casual fakes harder, but we do not claim they stop a determined attacker using an LLM. So human review stays part of verification, especially for mentor onboarding. We use the LinkedIn dataset of Ayoobi et al. only as an aggregate reference for profile structure (Section 3.3).
+For verification, the platform uses rule-based checks on profile completeness and structure. Given the Gulati et al. results, these checks make casual fakes harder, but we do not claim they stop a determined attacker using an LLM. So human review stays part of verification, especially for mentor onboarding. We use the LinkedIn dataset of Ayoobi et al. \cite{ref:linkedindataset} only as an aggregate reference for profile structure. It has no Pakistani profiles.
 
 \subsubsection{Summary Table: Person-Job and Opportunity Matching}
 The seven works cover two problems: matching people to opportunities (the three ConFit papers, Qin et al., and Guo et al.) and detecting fake profiles (Ayoobi et al. and Gulati et al.). Table~\ref{tab:lr-matching} gives the method, result, and limitation of each. The last two rows belong together: the high accuracy of Ayoobi et al. drops against LLM-generated profiles, where Gulati et al. measure about 68\% F1.
@@ -541,7 +541,7 @@ Guo et al. \cite{ref:guo2021linkedin} & Deep NLP for five LinkedIn production se
 \hline
 Ayoobi et al. \cite{ref:ayoobi2023} & SSTE over 3,600 real, fake, and ChatGPT-generated profiles & 96.33\% average accuracy with BERT & Advantage drops against LLM-generated profiles \\
 \hline
-Gulati et al. \cite{ref:gulati2025} & Detector evaluation with 600 GPT-4-Turbo profiles; adversarial training & About 96\% F1 on hand-made fakes, about 68\% on LLM profiles; false accept rate 42 to 52\% & Single LinkedIn dataset \\
+Gulati et al. \cite{ref:gulati2025} & Detector evaluation with 600 GPT-4-Turbo profiles; adversarial training & About 96\% F1 on hand-made fakes, about 68\% on LLM profiles; false accept rate 42 to 52\% & English only; one LLM family \\
 \hline
 \end{tabular}
 \label{tab:lr-matching}
@@ -677,22 +677,22 @@ The largest multilingual embedding benchmark is MMTEB \cite{ref:enevoldsen2025mm
 
 Pakistani researchers have built Urdu similarity resources at word level. Fatima et al. \cite{ref:fatima2021} produced CL-SWS-UL-19, with 1,945 English-Urdu word pairs scored by 11 native speakers. Their best baseline reached a Pearson correlation of 0.71. Muneer et al. \cite{ref:muneer2023} produced USWS-21, with 518 Urdu word pairs annotated by 12 annotators. They tested 19 Sentence Transformer methods and five word embedding methods. The best single off-the-shelf multilingual model, LaBSE, reached a Pearson correlation of 0.57, and their best combined method reached 0.67. At sentence level, Ahmed et al. \cite{ref:ahmed2026} classify Urdu paraphrase and text reuse with semi-supervised siamese graph networks and reach 0.722 accuracy on USTRC.
 
-ROMEVA \cite{ref:khan2026romeva}, a 2026 preprint, documents Roman Urdu. In 36,130 Roman Urdu YouTube comments, 60.3\% of the vocabulary occurs only once. Spelling varies widely: the word for ``very'' has five spellings, and the most common (\textit{bahut}) is only 31.8\% of cases. Alam and Hussain \cite{ref:alam2022romanurduparl} released Roman-Urdu-Parl, a parallel Urdu and Roman Urdu corpus reported at 6,365,808 sentence pairs. On the generation side, researchers at KICS, UET Lahore tested seven pre-trained language models zero-shot on 17 Urdu tasks and 22 datasets, including 13.8 hours of speech \cite{ref:tahir2025kics}. They later adapted Llama models for Urdu with instruction tuning and released evaluation resources \cite{ref:tahir2026urdullama}.
+ROMEVA \cite{ref:khan2026romeva}, a 2026 preprint, documents Roman Urdu. In 36,130 Roman Urdu YouTube comments, 60.3\% of the vocabulary occurs only once. Spelling varies widely: the word for ``very'' has five spellings, and the most common (\textit{bahut}) is only 31.8\% of cases. Alam and Hussain \cite{ref:alam2022romanurduparl} released Roman-Urdu-Parl, a parallel Urdu and Roman Urdu corpus reported at 6,365,808 sentence pairs. On the generation side, researchers at KICS, UET Lahore tested seven pre-trained language models zero-shot on 17 Urdu tasks and 22 datasets, including 13.8 hours of speech \cite{ref:tahir2025kics}. They later adapted Llama models for Urdu with instruction tuning and released evaluation resources \cite{ref:tahir2026urdullama}. Butt, Varanasi, and Neumann \cite{ref:butt2025romanurduir} built the first Roman Urdu retrieval dataset by translating MS MARCO into Urdu and then transliterating it. On their 6,980 queries, BM25 reaches an MRR@10 of 0.0846 and a fine-tuned mT5 re-ranker 0.1903.
 
 \subsubsection{Critical Analysis}
-These sources together show that no published benchmark measures semantic similarity or retrieval in Roman Urdu. MMTEB covers it only through sentiment classification. ROMEVA deals with vocabulary and sentiment. Fatima et al. and Muneer et al. work at word level in Urdu script, and Ahmed et al. work on classification in Urdu script. The 518-pair Urdu corpus reported in 2021 as USWS-19 and in 2023 as USWS-21 has the same size, annotator count, and make-up, so it appears to be one resource under two names. ROMEVA is a preprint with small internal inconsistencies, so we cite it for corpus statistics and not for method. Its own result is also a warning: its method kept embedding geometry best, but simple fine-tuning did better on every downstream measure. The KICS studies measure Urdu-script tasks and do not test cross-language retrieval.
+These sources together leave a narrower gap than none at all. MMTEB covers Roman Urdu only through sentiment classification. The one Roman Urdu retrieval dataset, from Butt et al., is general search text produced by two machine steps, and we found no benchmark for startup or regulatory text across English, Urdu script, and Roman Urdu. ROMEVA deals with vocabulary and sentiment. Fatima et al. and Muneer et al. work at word level in Urdu script, and Ahmed et al. work on classification in Urdu script. The 518-pair Urdu corpus reported in 2021 as USWS-19 and in 2023 as USWS-21 has the same size, annotator count, and make-up, so it appears to be one resource under two names. ROMEVA is a preprint with small internal inconsistencies, so we cite it for corpus statistics and not for method. Its own result is also a warning: its method kept embedding geometry best, but simple fine-tuning did better on every downstream measure. The KICS studies measure Urdu-script tasks and do not test cross-language retrieval.
 
 \subsubsection{Relationship to the Proposed Work}
-This literature defines the multilingual part of the project, planned for the second semester of the Final Year Project (FYP-2). The baseline benchmark embeds about 30 to 50 short profile and idea descriptions per language. Each says the same thing in English, Urdu script, and Roman Urdu. We use off-the-shelf multilingual models such as LaBSE, paraphrase-multilingual-mpnet-base-v2, and multilingual-e5. We test whether same-meaning pairs stay close and different ideas stay apart. This benchmark extends MMTEB, and the missing Roman Urdu similarity and retrieval task is the gap it covers.
+This literature defines the multilingual part of the project, planned for the second semester of the Final Year Project (FYP-2). The baseline benchmark embeds about 30 to 50 short profile and idea descriptions per language. Each says the same thing in English, Urdu script, and Roman Urdu. We use off-the-shelf multilingual models such as LaBSE, paraphrase-multilingual-mpnet-base-v2, and multilingual-e5. We test whether same-meaning pairs stay close and different ideas stay apart. This benchmark extends MMTEB with a Roman Urdu similarity test on startup-style text, which neither MMTEB nor the Roman Urdu MS MARCO covers.
 
 Muneer et al. set realistic expectations: if the best off-the-shelf model reaches 0.57 on Urdu-script word pairs, we cannot assume strong Roman Urdu results. This is why we measure performance before building on it. ROMEVA's spelling data gives common spelling variants for the Roman Urdu test items, and Roman-Urdu-Parl is the source of parallel text (Section 3.3). Fine-tuning the embedding model with triplet learning is an optional goal. We do it only if the benchmark finds a gap and enough labeled data exists.
 
 \subsubsection{Summary Table: Urdu and Roman Urdu Processing}
-The eight works include the MMTEB benchmark, three Urdu-script studies (Fatima et al.; Muneer et al.; Ahmed et al.), two Roman Urdu resources (ROMEVA; Roman-Urdu-Parl), and two Urdu language-model studies from KICS at UET Lahore. Table~\ref{tab:lr-urdu} gives the method, result, and limitation of each. The limitation column shows the gap we target: none of the eight measures semantic similarity or retrieval in Roman Urdu.
+The nine works include the MMTEB benchmark, three Urdu-script studies (Fatima et al.; Muneer et al.; Ahmed et al.), three Roman Urdu resources (ROMEVA; Roman-Urdu-Parl; Roman Urdu MS MARCO), and two Urdu language-model studies from KICS at UET Lahore. Table~\ref{tab:lr-urdu} gives the method, result, and limitation of each. The limitation column shows the gap we target: none of the nine covers Roman Urdu similarity or retrieval on startup or regulatory text.
 \begin{table}[!ht]
 \centering
 \caption{Summary: Urdu and Roman Urdu processing}
-\capdesc{Method, result, and limitation of eight works on Urdu and Roman Urdu processing.}
+\capdesc{Method, result, and limitation of nine works on Urdu and Roman Urdu processing.}
 \begin{tabular}{|p{3cm}|p{4cm}|p{4cm}|p{3cm}|}
 \hline
 \textbf{Author} & \textbf{Method} & \textbf{Results} & \textbf{Limitations} \\
@@ -708,6 +708,8 @@ Ahmed et al. \cite{ref:ahmed2026} & Siamese graph networks for Urdu paraphrase a
 Khan et al. (ROMEVA) \cite{ref:khan2026romeva} & Vocabulary expansion for Roman Urdu language models & 60.3\% of vocabulary occurs once; wide spelling variation & Preprint; internal inconsistencies \\
 \hline
 Alam and Hussain \cite{ref:alam2022romanurduparl} & Urdu and Roman Urdu parallel corpus & 6,365,808 sentence pairs reported & No similarity benchmark \\
+\hline
+Butt et al. \cite{ref:butt2025romanurduir} & Roman Urdu MS MARCO: English to Urdu translation, then transliteration & BM25 MRR@10 0.0846; fine-tuned mT5 re-ranker 0.1903 on 6,980 queries & Machine-made general search text \\
 \hline
 Tahir et al. (KICS) \cite{ref:tahir2025kics} & Zero-shot benchmark of seven pre-trained LLMs & 17 tasks, 22 datasets, 13.8 hours of speech & Urdu script; no cross-language retrieval \\
 \hline
@@ -855,7 +857,7 @@ In this section, we describe the data limits, the regulatory corpus, the externa
 No public dataset pairs Pakistani founders with mentors or investors. The platform collects personal data only through self-registration and consent, and never by scraping. So the re-ranker is trained on 150 to 300 relevance-labeled pairs, a size set by the cost of expert labeling. LegalBench-RAG \cite{ref:pipitone2024legalbench} estimates that the CUAD contract dataset \cite{ref:hendrycks2021cuad} took more than 40 lawyers a year to produce about 13,000 annotations, and that copying it would cost about USD 2,000,000. External datasets are used only as schema proxies, references, or benchmark sources. None of them trains the deployed re-ranker.
 
 \subsection{Regulatory Corpus}
-The compliance assistant answers only from the official documents in Table~\ref{tab:corpus}. We recorded the page count, version or date, and text layer of each one. We also saved a SHA-256 hash of each file so the indexed corpus can be reproduced. Web pages are saved as dated snapshots, because a live page can change after it is cited.
+The compliance assistant answers only from the official documents in Table~\ref{tab:corpus}. We recorded the page count, version or date, and text layer of each one. We also saved a SHA-256 hash of each file so the indexed corpus can be reproduced. The files are committed in the repository under \texttt{rag/data/}, and their hashes are listed in a manifest file next to them. Web pages are saved as dated snapshots, because a live page can change after it is cited.
 
 \begin{table}[!ht]
 \centering
@@ -896,29 +898,29 @@ Three rules apply to the corpus. Tax answers come only from the Ordinance and th
 Two reviewed documents are kept out of the index. One is the FBR Iris login manual, whose ten pages are images with no procedural text. The other is a 2015 Urdu-language FBR registration guide, whose extracted text has reversed digits and broken letter joins.
 
 \subsection{External Datasets}
-Table~\ref{tab:datasets} lists the datasets we downloaded and profiled. None states a license except the LinkedIn dataset, whose repository limits use to research \cite{ref:linkedindataset}. All are used only for internal profiling and schema design and are not redistributed. We exclude personal fields such as names, birth dates, age, gender, and contact details. Age and gender are never used as matching features.
+Table~\ref{tab:datasets} lists the seven external datasets we adopted after profiling them in October 2026. The platform targets tech startups and technical talent, so we filter general datasets to tech where we can. Crunchbase rows are filtered by a broad category list, which counts terms such as internet, mobile, and e-commerce as tech. Job and resume titles are filtered by a word-boundary matcher that misses names such as Php and Laravel, so the tech shares we report are lower bounds. The table gives each licence as stated on the dataset page. We use the datasets only for profiling, schema design, and aggregate baselines, we do not redistribute them, and none trains the deployed re-ranker. We exclude names, birth dates, age, gender, and contact fields, and age and gender are never matching features. A dataset is replaced only after its table row is updated and the reason is logged.
 
 \begin{table}[!ht]
 \centering
-\caption{External datasets, profiled October 2026}
-\capdesc{Contents, role, and status of each dataset downloaded and profiled.}
-\begin{tabular}{|p{3.6cm}|p{4.2cm}|p{3.4cm}|p{2.6cm}|}
+\caption{External datasets adopted, profiled October 2026}
+\capdesc{Contents, role, licence, and main limitation of each adopted dataset.}
+\begin{tabular}{|p{3.0cm}|p{4.0cm}|p{2.8cm}|p{4.0cm}|}
 \hline
-\textbf{Dataset} & \textbf{Contents as loaded} & \textbf{Role} & \textbf{Status} \\
+\textbf{Dataset} & \textbf{Contents as loaded} & \textbf{Role} & \textbf{Licence and main limitation} \\
 \hline
-Roman-Urdu-Parl split \cite{ref:romanurduparlhf,ref:alam2022romanurduparl} & 6,374,678 Urdu and Roman Urdu pairs (6,333,218 train, 20,719 validation, 20,741 test) & Parallel text for the multilingual benchmark & Kept \\
+Roman-Urdu-Parl split \cite{ref:romanurduparlhf,ref:alam2022romanurduparl} & 6,407,268 Urdu and Roman Urdu pairs (6,365,808 train, 20,719 validation, 20,741 test) & Parallel text for the multilingual benchmark & Apache 2.0 on the split card. Sentences come from informal online sources \cite{ref:butt2025translit}, not startup or regulatory text \\
 \hline
-LinkedIn-Dataset \cite{ref:linkedindataset,ref:ayoobi2023} & 3,600 profiles, 39 columns: 1,800 legitimate, 600 fake, and 600 each generated by ChatGPT from legitimate and from fake profile statistics & Aggregate reference for profile structure & Kept; aggregate use only \\
+Pakistan Startup Census \cite{ref:usmani2021census} & 433 usable rows of 553, 7 columns including name, location, category, and description & Schema and location profile for startup discovery & No licence provided; research use only. A 2021 snapshot; tech share at least 11.78\% \\
 \hline
-Startup Success/Fail Dataset from Crunchbase \cite{ref:kaggle_crunchbase_success} & 66,368 rows, 14 columns, with an operating status field & Schema proxy & Kept \\
+Pakistan's Job Market \cite{ref:usmani2021jobs} & 6,680 postings, 9 columns, December 2019 to March 2021; Lahore 2,046, Islamabad 1,921, Karachi 1,700 & Job titles and cities for the job board and matching tests & ODbL on the Open Data Pakistan copy. Descriptions cut at 250 characters; 19.64\% duplicates; tech share at least 26.8\% \\
 \hline
-StartUp Investments (Crunchbase) \cite{ref:kaggle_crunchbase_invest} & 54,294 rows, 39 columns, of which 4,855 are duplicates & Schema proxy & Kept \\
+Startup Success/Fail Dataset from Crunchbase \cite{ref:kaggle_crunchbase_success} & 66,368 rows, 14 columns, with an operating status field & Schema proxy for readiness signals & Licence not stated. Global data; founding dates from 1015 to 2914; founded date missing in 22.9\% \\
 \hline
-Resume-Job Matching Dataset \cite{ref:kaggle_resumejob} & 150,493 parsed resume and vacancy pairs, 91 columns; 86.1\% rejected, 13.9\% invited; 65,714 resumes, 43,756 vacancies & Practice data for the matching pipeline & Kept; Russian-language data \\
+StartUp Investments (Crunchbase) \cite{ref:kaggle_crunchbase_invest} & 49,438 usable rows of 54,294, 39 columns, no duplicates on usable rows & Schema proxy for funding rounds and stages & Licence not stated. Global data; dates as early as year 0001; funding total missing in about 24.7\% \\
 \hline
-Resume Dataset PDF \cite{ref:kaggle_resumepdf} & 8,905 PDF files; none of a 30-file sample had extractable text & Test inputs for the resume optimizer & Excluded: image-only files \\
+Resume Dataset (Bhawal) \cite{ref:kaggle_resume_bhawal} & 2,484 resumes in 24 categories; 120 Information-Technology and 118 Engineering & Resume optimizer inputs, technical slice & CC0. Scraped from LiveCareer examples, so international formats and not Pakistani \\
 \hline
-How Companies Screen Resumes: ATS Dataset (NLP+ML) \cite{ref:kaggle_ats} & 6,000 rows; resume text averaging 376 characters; near-uniform experience and education & Test inputs for the resume optimizer & Excluded: short texts consistent with synthetic generation \\
+Resume Dataset (Maseeh) \cite{ref:kaggle_resume_maseeh} & 9,000 resumes in 9 categories; 6 technical categories hold 6,000 rows and 4,170 unique texts & Resume optimizer inputs and skill extraction & CC BY-NC-SA 4.0. Source not named; 30.5\% duplicate texts in the technical categories \\
 \hline
 \end{tabular}
 \label{tab:datasets}
@@ -930,14 +932,14 @@ No model has been trained or evaluated yet, so we report no model results here. 
     \item The PSEB Industry Facilitation page, reviewed in October 2026, says the clause 133 tax exemption is valid until 30 June 2026 and that startups claim exemption under section 100D. The Ordinance shows that the Finance Act 2021 omitted clause 133, and even the clause's own text ended the exemption on 30 June 2025. Section 100D concerns builders and developers.
     \item Two official FBR sources disagree on company registration. The Register for Income Tax page tells companies to register in person at a facilitation counter. The 2018 Virtual One Stop Shop circular says the NTN is issued automatically once a company is incorporated with SECP.
     \item Correct answers depend on dates. The Finance Act 2026 extended the 0.25\% rate on IT export proceeds for PSEB-registered exporters to tax year 2029. The Seventh Schedule raises several fees by 10\% each year. In the version effective from 20 April 2026, the electronic registration fee for a company with nominal capital up to Rs. 100,000 is Rs. 6,655, which is 10\% above the Rs. 6,050 in the November 2025 version.
-    \item The datasets differ from their descriptions. The Roman-Urdu-Parl split loaded with 6,374,678 pairs, while the paper reports 6,365,808. The resume-job labels are heavily imbalanced, with 86.1\% rejections.
+    \item The datasets differ from their descriptions. The Roman-Urdu-Parl split loaded with 6,407,268 pairs, because its 41,460 validation and test pairs sit on top of the 6,365,808 train pairs that match the paper. The two Crunchbase files hold impossible dates, from year 0001 to 2914, and StartUp Investments has 4,856 blank rows, so both need cleaning before any time feature is built.
 \end{enumerate}
 
 \subsection{Work in Progress}
-We have not collected the re-ranker's relevance labels yet, because they depend on self-registration and a partner pilot. We are writing the gold question set for the compliance assistant from the corpus, and it includes questions that test the conflicts and dates above. We are also cleaning the PSEB page of its tax sections and site navigation before indexing. Fee amounts will be rechecked against the SECP schedule after each annual increase. We are considering the Companies Regulations, 2024 as an addition, because they set out the incorporation procedure and replaced the earlier Incorporation Regulations of 2017. The resume optimizer has no suitable external test data, so we will test it on the team's own resumes and on resumes shared with consent. The multilingual benchmark is planned for FYP-2.
+We have not collected the re-ranker's relevance labels yet, because they depend on self-registration and a partner pilot. We are writing the gold question set for the compliance assistant from the corpus, and it includes questions that test the conflicts and dates above. We are also cleaning the PSEB page of its tax sections and site navigation before indexing. Fee amounts will be rechecked against the SECP schedule after each annual increase. We are considering the Companies Regulations, 2024 as an addition, because they set out the incorporation procedure and replaced the earlier Incorporation Regulations of 2017. The resume optimizer has no suitable external test data, so we will test it in a pilot of tens of cases on the team's own resumes and on resumes shared with consent. The multilingual benchmark is planned for FYP-2.
 
 \section{Conclusion}
-The literature supports the main design choices. For matching, the two-stage architecture follows Covington et al., and using embedding similarity as one feature beside structured attributes follows Grbovic and Cheng. Schein et al. advise reporting a trained re-ranker against a simple baseline. ConFit shows that sparse labels are a known condition in person-job matching, and the small samples in pitch prediction support keeping the readiness score and pitch simulator as prompted modules. For the compliance assistant, Magesh et al. found commercial legal research tools hallucinating 17 to 33\% of the time, and Joren et al. show that checking context sufficiency improves selective answering. We found no published benchmark for Roman Urdu similarity or retrieval, and Muneer et al. report that the best off-the-shelf model reaches only 0.57 on Urdu-script word similarity.
+The literature supports the main design choices. For matching, the two-stage architecture follows Covington et al., and using embedding similarity as one feature beside structured attributes follows Grbovic and Cheng. Schein et al. advise reporting a trained re-ranker against a simple baseline. ConFit shows that sparse labels are a known condition in person-job matching, and the small samples in pitch prediction support keeping the readiness score and pitch simulator as prompted modules. For the compliance assistant, Magesh et al. found commercial legal research tools hallucinating 17 to 33\% of the time, and Joren et al. show that checking context sufficiency improves selective answering. We found no Roman Urdu similarity or retrieval benchmark on startup or regulatory text, and Muneer et al. report that the best off-the-shelf model reaches only 0.57 on Urdu-script word similarity.
 
 The corpus review gave direct reasons for citation and abstention. An official PSEB page states a tax exemption that the Ordinance shows was omitted in 2021, and two FBR sources give conflicting company registration procedures. The Investor Founder Discovery Platform is the closest existing platform. None combines a startup employment pathway, a cited compliance assistant, Urdu and Roman Urdu support, and an evaluated matching model. Chapter 4 sets out the requirements that follow.
 
@@ -1066,7 +1068,7 @@ FR-1 & Founders can create a profile, submit traction and business data. & Found
 
 FR-2 & The system gives AI mentor feedback and a readiness score for each dimension. & Founder, System & FYP-1 \\ \hline
 
-FR-3 & The system simulates a multi-turn investor pitch and scores clarity, confidence, and content. & Founder & FYP-1 \\ \hline
+FR-3 & The system simulates a multi-turn investor pitch and scores clarity, market understanding, defensibility of numbers, and handling of pushback. & Founder & FYP-1 \\ \hline
 
 FR-4 & The system summarizes competitors and market size from live web search and keeps evidence apart from interpretation. & Founder & FYP-1 \\ \hline
 
@@ -1655,240 +1657,144 @@ The software used to build and run the system is listed below. Pinned versions a
     \item Firecrawl and Playwright for collecting public web data
     \item Docker, Git, GitHub Actions, and pytest for containers, version control, and automated checks
     \item Vercel for the frontend and Railway or Render for the backend and workers
+    \item Claude Code, Codex, Antigravity, and Gemini as coding assistants
     \item Figma, Claude Design, and diagrams.net for design and diagrams
     \item Google Colab for GPU work
 \end{itemize}
 
-shadcn/ui is MIT licensed. Firecrawl's core is AGPL-3.0 licensed, and we use only its hosted service through its MIT-licensed client. Both retrieval tools read only published public sources and collect no personal profiles.
+shadcn/ui is MIT licensed. Firecrawl's core is AGPL-3.0 licensed, and we use only its hosted service through its MIT-licensed client. Both retrieval tools read only published public sources and collect no personal profiles. The coding assistants follow rules in the repository files \texttt{AGENTS.md} and \texttt{CLAUDE.md}, which protect existing files and bar pushes to the main branch. Every change still goes through a pull request that someone other than its author reviews.
 
+
+\providecommand{\guishot}[3]{%
+  \begin{minipage}[t]{0.48\textwidth}\centering
+    {\setlength{\fboxsep}{0pt}\fbox{\includegraphics[width=\linewidth]{#1}}}\\[3pt]
+    {\footnotesize #2\\ #3}
+  \end{minipage}}
 
 \section{Graphical User Interface (GUI)}
 \label{sec:gui}
-We are building interactive prototypes of the main user flows in FYP-1 and will add their screenshots in the next deliverable. This section lists each user type's screens in a table, with the use cases and requirements each covers, and shows the navigation flow as a figure. Use case names come from Section~4.6 (Figure~\ref{fig:usecases}) and requirement identifiers from Section~4.2. The design targets the NFR-17 contrast ratio in both themes. The prototype does not yet cover market research (FR-4), usage guides (FR-18), job listing management (FR-24), or consent and account deletion (FR-27). These requirements are specified in Section~4.2, and their screens will be designed when they are built. All five user types sign in on one authentication screen and land on a dashboard whose sidebar lists the screens that role can reach. In the figures the sidebar items sit in one band because each opens from any screen, so the arrows show only task-driven transitions.
 
-\subsection{Authentication and Appeal}
-Table~\ref{tab:gui-common} lists the two screens shared by the registered user types.
+The platform has five user types: founder, talent, mentor, investor and admin. Every user opens the authentication screen first and then lands on a dashboard built for their role, with a sidebar that lists the screens that role can reach. This section shows the 12 screens of the prototype with sample data. Under every screenshot a tag names the use case or functional requirement the screen covers. Each user type also has a navigation flow figure. In those figures the sidebar items sit inside one band because each of them opens from any screen, so the arrows show only the transitions that a task causes. The navigation figures show the full designed flow. Ten of its screens are not built yet and will be added in D3: the Appeal form, the compliance assistant, the talent Profile, Resume optimizer and Matches screens, the mentor Profile and Requests screens, and the investor Profile, Founders and Requests screens. The prototype also does not yet cover market research (FR-4), usage guides (FR-18), job listing management (FR-24), or consent and account deletion (FR-27). These requirements are specified in Section~4.2, and their screens will be designed when they are built.
 
-\begin{longtable}{|p{0.16\textwidth}|p{0.49\textwidth}|p{0.25\textwidth}|}
-\caption{Shared screens: authentication and appeal}
-\label{tab:gui-common}\\[-10pt]
-\capdesclt{3}{What each shared screen shows and which use cases and requirements it covers.}
-\hline
-\textbf{Screen} & \textbf{Content} & \textbf{Covers} \\ \hline
-\endfirsthead
-\hline
-\textbf{Screen} & \textbf{Content} & \textbf{Covers} \\ \hline
-\endhead
+\subsection{Authentication and appeal}
 
-Authentication &
-Login and Register tabs, LinkedIn sign-in, and the consent notice. &
-Register and Accept the Consent Notice; FR-17, FR-22, FR-23 \\ \hline
+The authentication screen (Figure~\ref{fig:gui-common}) has a Login tab and a Register tab. Registering takes an email address, a password and a role, and LinkedIn sign-in is offered as an alternative. The role list offers founder, talent, mentor and investor. Admin is not offered. The consent and data notice appears before the account is created, and the user must tick the agreement box to continue (FR-17).
 
-Appeal form &
-Opens from a rejected profile. One appeal with added evidence, and the decision is final. &
-Appeal a Rejected Profile; FR-21 \\ \hline
+The Appeal form opens from the Profile screen of a user whose profile was rejected automatically. The user submits evidence as text and the appeal goes to human review. A profile can be appealed once, and a rejection by a reviewer is final (FR-21). All four registered user types use the same form, and its screen is added in D3.
 
-\end{longtable}
+\begin{figure}[!htb]
+\centering
+\guishot{Figures/gui/auth.png}{Authentication}{Register and accept the consent notice; FR-17, FR-22}
+{\caption{\label{fig:gui-common}\textbf{Authentication screen.}}}
+\capdesc{The authentication screen is shared by all users and shows the consent notice before the account is created.}
+\end{figure}
 
 \subsection{Founder}
-Table~\ref{tab:gui-founder} lists the founder screens, and Figure~\ref{fig:nav-founder} shows the navigation flow. In FYP-1 matches are ranked by embedding similarity and feature weights, and the trained re-ranker follows in FYP-2. The compliance assistant is for founders only.
 
-\begin{longtable}{|p{0.16\textwidth}|p{0.49\textwidth}|p{0.25\textwidth}|}
-\caption{Founder screens}
-\label{tab:gui-founder}\\[-10pt]
-\capdesclt{3}{What each founder screen shows and which use cases and requirements it covers.}
-\hline
-\textbf{Screen} & \textbf{Content} & \textbf{Covers} \\ \hline
-\endfirsthead
-\hline
-\textbf{Screen} & \textbf{Content} & \textbf{Covers} \\ \hline
-\endhead
+After logging in, the founder lands on the dashboard (Figure~\ref{fig:gui-founder-1}a). It opens with a banner that shows the verification status of the startup, followed by the readiness score, next actions, recent pitch feedback and a preview of matches. The sidebar lists Dashboard, Profile, Readiness score, Pitch practice, Session feedback and Matches (Figure~\ref{fig:nav-founder}).
 
-Dashboard &
-Verification banner, readiness score, next actions, pitch feedback, and match preview. &
-FR-15 \\ \hline
+On the Profile screen the founder edits the startup profile and sees its review status, and an automatically rejected profile links to the Appeal form (Figure~\ref{fig:gui-founder-1}b). The Readiness score screen lists the seven dimension scores and the overall score, with buttons to recalculate the score and to practise a pitch (Figure~\ref{fig:gui-founder-1}c). In Pitch practice the founder chooses an investor persona and a startup, then talks with the simulated investor while a rubric panel and a session timer stay on screen (Figure~\ref{fig:gui-founder-1}d). Ending the session opens the Session feedback screen, which shows rubric feedback, progress across sessions and next steps, with links to practise again or return to the dashboard (Figure~\ref{fig:gui-founder-2}a).
 
-Profile &
-Startup profile form and review status. &
-Submit a Startup Profile for Review; FR-1, FR-14, FR-15 \\ \hline
+The Matches screen lists mentors and investors and can be filtered by role, sector and stage (Figure~\ref{fig:gui-founder-2}b). The founder sends a request with the Request match button, which then reads Requested and, once the other side accepts, Accepted. Contact details stay locked until then. In this version matches are ranked by embedding similarity, and the trained re-ranker is planned for the second semester. The compliance assistant opens as a panel from any founder screen. It answers a question about business registration with sources and their effective dates, and when no grounded answer exists it says so. The assistant answers in English in this version, and its screen is added in D3.
 
-Readiness score &
-Overall score and the seven dimension scores. &
-Generate a Readiness Score; FR-2 \\ \hline
-
-Pitch practice &
-Chat with a simulated investor, with a rubric panel and timer. &
-Run a Pitch Practice Session; FR-3 \\ \hline
-
-Session feedback &
-Rubric feedback, progress across sessions, and next steps. &
-Run a Pitch Practice Session; FR-3, FR-28 \\ \hline
-
-Matches &
-Mentors and investors with filters. Contact details stay locked until acceptance. &
-Request a Match and Reveal Contact Details; FR-7 \\ \hline
-
-Compliance assistant &
-A panel on every founder screen with cited answers, or a statement that no grounded answer exists. &
-Ask a Compliance Question; Abstain When No Grounded Answer Exists; FR-8 \\ \hline
-
-\end{longtable}
-
-\begin{figure}[H]
+\begin{figure}[!htb]
 \centering
-\safeimg{0.8\textwidth}{Figures/fig07_nav_founder.png}
-\caption{Navigation flow for the founder role}
-\label{fig:nav-founder}
-\capdesc{Navigation among the six sidebar screens of the founder role.}
+\guishot{Figures/gui/founder_dashboard.png}{(a) Dashboard}{Verification status shown; FR-15}\hfill
+\guishot{Figures/gui/founder_profile.png}{(b) Profile}{Submit a startup profile; FR-1, FR-14, FR-15}\\[8pt]
+\guishot{Figures/gui/founder_readiness.png}{(c) Readiness score}{Generate a readiness score; FR-2}\hfill
+\guishot{Figures/gui/founder_pitch.png}{(d) Pitch practice}{Run a pitch practice session; FR-3}
+{\caption{\label{fig:gui-founder-1}\textbf{Founder screens: dashboard, profile, readiness score and pitch practice.}}}
+\capdesc{Screens of the founder interface with sample data. Each tag names the use case or requirement the screen covers.}
+\end{figure}
+
+\begin{figure}[!htb]
+\centering
+\guishot{Figures/gui/founder_feedback.png}{(a) Session feedback}{Run a pitch practice session; FR-3}\hfill
+\guishot{Figures/gui/founder_matches.png}{(b) Matches}{Request a match and reveal contact details; FR-7}
+{\caption{\label{fig:gui-founder-2}\textbf{Founder screens: session feedback and matches.}}}
+\capdesc{Screens of the founder interface with sample data. Each tag names the use case or requirement the screen covers.}
+\end{figure}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=0.8\textwidth]{Figures/fig07_nav_founder.png}
+{\caption{\label{fig:nav-founder}\textbf{Navigation flow for the founder role.}}}
+\capdesc{After registering or logging in, a founder moves between the dashboard, profile, readiness score, pitch practice, session feedback and matches screens from the sidebar, with the appeal form and compliance assistant reached from specific actions.}
 \end{figure}
 
 \subsection{Talent}
-Table~\ref{tab:gui-talent} lists the talent screens, and Figure~\ref{fig:nav-talent} shows the navigation flow.
 
-\begin{longtable}{|p{0.16\textwidth}|p{0.49\textwidth}|p{0.25\textwidth}|}
-\caption{Talent screens}
-\label{tab:gui-talent}\\[-10pt]
-\capdesclt{3}{What each talent screen shows and which use cases and requirements it covers.}
-\hline
-\textbf{Screen} & \textbf{Content} & \textbf{Covers} \\ \hline
-\endfirsthead
-\hline
-\textbf{Screen} & \textbf{Content} & \textbf{Covers} \\ \hline
-\endhead
+The talent dashboard (Figure~\ref{fig:gui-talent}a) shows profile strength, a resume optimizer card marked paid tier, the user's applications and recommended jobs, and a shortcut to find a mentor. The sidebar lists Dashboard, Profile, Resume optimizer, Job board and Matches (Figure~\ref{fig:nav-talent}). The Job board (Figure~\ref{fig:gui-talent}b) lists startup jobs and internships with filters, and each listing has Apply and Save buttons. The Profile, Resume optimizer and Matches screens are added in D3. The Profile screen holds the talent profile and its review status, and an automatically rejected profile links to the Appeal form. The Resume optimizer takes a resume and shows the suggested changes next to the original, and it is part of the paid tier. The Matches screen lets talent request a match, with contact details locked until the other side accepts.
 
-Dashboard &
-Profile strength, applications, recommended jobs, and a mentor shortcut. &
-FR-25 \\ \hline
-
-Profile &
-Talent profile and review status. &
-Verify a Profile Automatically; FR-14, FR-15 \\ \hline
-
-Resume optimizer &
-The resume with suggested changes beside the original. &
-FR-5 \\ \hline
-
-Job board &
-Startup jobs and internships with filters, Apply, and Save. &
-FR-6, FR-25 \\ \hline
-
-Matches &
-Mentors and founders. Contact details stay locked until acceptance. &
-Request a Match and Reveal Contact Details; FR-7 \\ \hline
-
-\end{longtable}
-
-\begin{figure}[!htbp]
+\begin{figure}[!htb]
 \centering
-\safeimg{0.8\textwidth}{Figures/fig08_nav_talent.png}
-\caption{Navigation flow for the talent role}
-\label{fig:nav-talent}
-\capdesc{Talent navigation, including the appeal route for a rejected profile.}
+\guishot{Figures/gui/talent_dashboard.png}{(a) Dashboard}{Overview of talent features}\hfill
+\guishot{Figures/gui/talent_jobs.png}{(b) Job board}{Job and internship listings; FR-6, FR-25}
+{\caption{\label{fig:gui-talent}\textbf{Talent screens: dashboard and job board.}}}
+\capdesc{Screens of the talent interface with sample data. Each tag names the use case or requirement the screen covers.}
+\end{figure}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=0.8\textwidth]{Figures/fig08_nav_talent.png}
+{\caption{\label{fig:nav-talent}\textbf{Navigation flow for the talent role.}}}
+\capdesc{A talent user reaches the resume optimizer, job board and mentor matches from the dashboard or the sidebar, and can appeal an automatically rejected profile.}
 \end{figure}
 
 \subsection{Mentor}
-Table~\ref{tab:gui-mentor} lists the mentor screens, and Figure~\ref{fig:nav-mentor} shows the navigation flow. Accepting a request reveals contact details, and declining closes it.
 
-\begin{longtable}{|p{0.16\textwidth}|p{0.49\textwidth}|p{0.25\textwidth}|}
-\caption{Mentor screens}
-\label{tab:gui-mentor}\\[-10pt]
-\capdesclt{3}{What each mentor screen shows and which use cases and requirements it covers.}
-\hline
-\textbf{Screen} & \textbf{Content} & \textbf{Covers} \\ \hline
-\endfirsthead
-\hline
-\textbf{Screen} & \textbf{Content} & \textbf{Covers} \\ \hline
-\endhead
+The mentor dashboard (Figure~\ref{fig:gui-mentor}) shows new requests, active matches, an availability toggle, recommended founders and talent, pending requests with Accept and Decline buttons, and the mentor's areas of expertise with an Edit expertise link. The sidebar lists Dashboard, Profile and Requests (Figure~\ref{fig:nav-mentor}). The Profile and Requests screens are added in D3. The Profile screen holds the expertise and availability details and the review status. The Requests screen lists incoming requests. Accepting a request activates the match and reveals contact details, and declining closes the request.
 
-Dashboard &
-New requests, active matches, an open-to-mentees toggle, and expertise. &
-FR-29 \\ \hline
-
-Profile &
-Expertise, availability, and review status. &
-Verify a Profile Automatically; FR-12, FR-14, FR-15 \\ \hline
-
-Requests &
-Incoming match requests with Accept and Decline. &
-Request a Match and Reveal Contact Details; FR-7 \\ \hline
-
-\end{longtable}
-
-\begin{figure}[H]
+\begin{figure}[!htb]
 \centering
-\safeimg{0.85\textwidth}{Figures/fig09_nav_mentor.png}
-\caption{Navigation flow for the mentor role}
-\label{fig:nav-mentor}
-\capdesc{Mentor navigation; accepting a request reveals contact details.}
+\guishot{Figures/gui/mentor_dashboard.png}{Dashboard}{Overview of mentor features}
+{\caption{\label{fig:gui-mentor}\textbf{Mentor dashboard.}}}
+\capdesc{Screen of the mentor interface with sample data. The tag names the feature the screen covers.}
+\end{figure}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=0.85\textwidth]{Figures/fig09_nav_mentor.png}
+{\caption{\label{fig:nav-mentor}\textbf{Navigation flow for the mentor role.}}}
+\capdesc{A mentor manages expertise and incoming requests from the dashboard; accepting a request activates the match and reveals contact details, while declining closes it.}
 \end{figure}
 
 \subsection{Investor}
-Table~\ref{tab:gui-investor} lists the investor screens, and Figure~\ref{fig:nav-investor} shows the navigation flow. The founders screen lists only verified startups with a completed readiness assessment and shows the readiness score as information, not as a filter (FR-10).
 
-\begin{longtable}{|p{0.16\textwidth}|p{0.49\textwidth}|p{0.25\textwidth}|}
-\caption{Investor screens}
-\label{tab:gui-investor}\\[-10pt]
-\capdesclt{3}{What each investor screen shows and which use cases and requirements it covers.}
-\hline
-\textbf{Screen} & \textbf{Content} & \textbf{Covers} \\ \hline
-\endfirsthead
-\hline
-\textbf{Screen} & \textbf{Content} & \textbf{Covers} \\ \hline
-\endhead
+The investor dashboard (Figure~\ref{fig:gui-investor}) shows match requests, the investor's investment profile with an Edit investment profile link, and recommended founders with View founder and Request match buttons. The sidebar lists Dashboard, Profile, Founders and Requests (Figure~\ref{fig:nav-investor}). The Profile, Founders and Requests screens are added in D3. The Profile screen holds the investment profile and the review status. The Founders screen lists only startups that have a verified profile and a completed readiness assessment (FR-10). The readiness score appears as information and does not filter the list. The Requests screen tracks the match requests the investor has sent.
 
-Dashboard &
-Match requests, the investment profile, and recommended founders. &
-Request a Match and Reveal Contact Details; FR-7 \\ \hline
-
-Profile &
-Investment profile and review status. &
-Verify a Profile Automatically; FR-12, FR-14, FR-15 \\ \hline
-
-Founders &
-Verified startups, each with its readiness score as information. &
-Request a Match and Reveal Contact Details; FR-7, FR-10 \\ \hline
-
-Requests &
-The match requests the investor has sent and their status. &
-Request a Match and Reveal Contact Details; FR-7 \\ \hline
-
-\end{longtable}
-
-\begin{figure}[H]
+\begin{figure}[!htb]
 \centering
-\safeimg{0.85\textwidth}{Figures/fig10_nav_investor.png}
-\caption{Navigation flow for the investor role}
-\label{fig:nav-investor}
-\capdesc{Investor navigation: browse verified founders and track match requests.}
+\guishot{Figures/gui/investor_dashboard.png}{Dashboard}{Overview of investor features}
+{\caption{\label{fig:gui-investor}\textbf{Investor dashboard.}}}
+\capdesc{Screen of the investor interface with sample data. Each tag names the use case or requirement the screen covers.}
+\end{figure}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=0.85\textwidth]{Figures/fig10_nav_investor.png}
+{\caption{\label{fig:nav-investor}\textbf{Navigation flow for the investor role.}}}
+\capdesc{An investor browses verified founders and sends match requests, tracks them on the requests screen, and maintains an investment profile; only verified startups with a completed readiness assessment are listed.}
 \end{figure}
 
 \subsection{Admin}
-The admin signs in on the authentication screen and lands on the console, the only item in the admin sidebar. Table~\ref{tab:gui-admin} describes it, and Figure~\ref{fig:nav-admin} shows the navigation flow.
 
-\begin{longtable}{|p{0.16\textwidth}|p{0.49\textwidth}|p{0.25\textwidth}|}
-\caption{Admin screen}
-\label{tab:gui-admin}\\[-10pt]
-\capdesclt{3}{What the admin console shows and which use cases and requirements it covers.}
-\hline
-\textbf{Screen} & \textbf{Content} & \textbf{Covers} \\ \hline
-\endfirsthead
-\hline
-\textbf{Screen} & \textbf{Content} & \textbf{Covers} \\ \hline
-\endhead
+The admin signs in on the authentication screen with Login only and lands on the console (Figure~\ref{fig:gui-admin}), which is the only item in the admin sidebar (Figure~\ref{fig:nav-admin}). The console shows the review queue. It holds profiles escalated because automatic verification was ambiguous, and appeals of automatically rejected profiles. The admin approves or rejects each one, and a rejection is final (FR-26).
 
-Admin console &
-The review queue of escalated profiles and appeals. The admin approves or rejects each with a reason. &
-Review an Escalated Profile; Appeal a Rejected Profile; FR-26 \\ \hline
-
-\end{longtable}
-
-\begin{figure}[H]
+\begin{figure}[!htb]
 \centering
-\safeimg{0.6\textwidth}{Figures/fig11_nav_admin.png}
-\caption{Navigation flow for the admin role}
-\label{fig:nav-admin}
-\capdesc{Admin navigation: log in, open the review queue, approve or reject.}
+\guishot{Figures/gui/admin_console.png}{Admin console}{Review an escalated profile; Appeal a rejected profile; FR-26}
+{\caption{\label{fig:gui-admin}\textbf{Admin console.}}}
+\capdesc{The review queue where an admin decides on escalated profiles and appeals.}
 \end{figure}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=0.6\textwidth]{Figures/fig11_nav_admin.png}
+{\caption{\label{fig:nav-admin}\textbf{Navigation flow for the admin role.}}}
+\capdesc{An admin logs in, opens the review queue and approves or rejects each escalated profile or appeal; a reviewer rejection is final.}
+\end{figure}
+
 
 \section{Database Design}
 The system stores its data in PostgreSQL. The current schema has 41 tables in five modules, and tables deferred to FYP-2 are drawn in gray and tagged. The table and attribute counts are planning figures and may change when the schema is built, under the policy in Section~\ref{sec:dbchange}.
@@ -2024,7 +1930,7 @@ The design follows six rules. We start with the simplest thing we can evaluate, 
 \subsection{Development Methods}
 Sprints are short and recorded in a sprint plan. They follow the delivery priority in Section~\ref{sec:fallback}: foundations, the compliance assistant, matching, then the remaining prompted modules.
 
-Requirements (Chapter 4) and this design come before the code, though components are still built and revised inside a sprint. We rejected Waterfall because some answers only appear once something exists, such as the chunking strategy for the regulatory corpus or whether reciprocal rank fusion improves retrieval on the gold question set. The Rational Unified Process was too heavy for three developers. Decisions go into a dated log with the reason, code reaches the main branch through pull requests that run linting and tests (NFR-23), and schema changes are versioned migrations (NFR-22).
+Requirements (Chapter 4) and this design come before the code, though components are still built and revised inside a sprint. We rejected Waterfall because some answers only appear once something exists, such as the chunking strategy for the regulatory corpus or whether reciprocal rank fusion improves retrieval on the gold question set. The Rational Unified Process was too heavy for three developers. Decisions go into a dated log with the reason, code reaches the main branch through pull requests, and a GitHub Actions workflow for linting and tests (NFR-23) is written but has not yet run on GitHub, and schema changes are versioned migrations (NFR-22).
 
 \section{System Architecture}
 Figure~\ref{fig:architecture} shows the parts: a client, one application programming interface (API) gateway, six services, a shared database, and a background queue. Table~\ref{tab:components} says what each one does.
@@ -2218,7 +2124,7 @@ Figure~\ref{fig:seq-compliance} shows a compliance question. The service embeds 
 The project is one repository with four top-level directories: frontend, backend, retrieval (rag), and machine learning (ml) code. A change that crosses the API boundary is reviewed as one pull request.
 
 \subsection{Coding Guidelines and Conventions}
-The backend is Python with type annotations on module interfaces and validated request and response models, and the frontend is TypeScript. Both are linted on every pull request, and a failing run blocks the merge (NFR-23). A formatter handles style.
+The backend is Python with type annotations on module interfaces and validated request and response models, and the frontend is TypeScript. Both are meant to be linted on every pull request, with a failing run blocking the merge (NFR-23). The workflow is written but not yet confirmed on GitHub. A formatter handles style.
 
 \subsection{Testing}
 Unit tests check the scoring and ranking logic against known inputs. Integration tests call the endpoints with no token, a wrong-role token, and before and after acceptance, to check role-scoped access (NFR-5) and that no response carries contact details before mutual acceptance (NFR-6). The compliance assistant is tested on a hand-verified gold question set for citation correctness, retrieval recall, and correct abstention on questions outside the corpus.
@@ -2248,7 +2154,7 @@ This chapter reviews what we did in FYP-1, what we found, where each objective s
 The Founder's Carnet is an AI platform where founders, startup-focused talent, mentors, investors, and an admin role share one reasoning engine. It only makes introductions. In FYP-1 we split the problem into five parts and tied each part to a feature (Chapter 2). We reviewed nine research areas and seven platforms (Chapter 3) and profiled the official documents the compliance assistant will index, along with external datasets. Chapter 4 turned this into requirements, ten use cases, a database design, and 19 risks, and Chapter 5 gave the architecture.
 
 \section{Findings}
-No model has been trained yet, so these findings come from the literature, the platform audits, and the profiling work. Schein et al. advise comparing a trained model with a simple baseline, and our evaluation plan does this. Labels are the bigger problem, because no public dataset pairs Pakistani founders with mentors or investors. For that reason the re-ranker stays small with a pilot fallback, and readiness scoring and pitch practice stay as prompted modules. Retrieval alone does not make answers reliable. Commercial legal research tools still hallucinated in 17 to 33\% of answers, so our assistant requires citations and abstains when it cannot support an answer. The official sources also disagree: a Pakistan Software Export Board (PSEB) page states a tax exemption that the Ordinance omitted in 2021, and two Federal Board of Revenue (FBR) sources describe different registration procedures. We store the effective date of every source. No published benchmark measures Roman Urdu retrieval (Section~3.2.6). Among the audited platforms, none combines a startup job pathway, a cited compliance assistant, Urdu and Roman Urdu support, and an evaluated matching model.
+No model has been trained yet, so these findings come from the literature, the platform audits, and the profiling work. Schein et al. advise comparing a trained model with a simple baseline, and our evaluation plan does this. Labels are the bigger problem, because no public dataset pairs Pakistani founders with mentors or investors. For that reason the re-ranker stays small with a pilot fallback, and readiness scoring and pitch practice stay as prompted modules. Retrieval alone does not make answers reliable. Commercial legal research tools still hallucinated in 17 to 33\% of answers, so our assistant requires citations and abstains when it cannot support an answer. The official sources also disagree: a Pakistan Software Export Board (PSEB) page states a tax exemption that the Ordinance omitted in 2021, and two Federal Board of Revenue (FBR) sources describe different registration procedures. We store the effective date of every source. The only Roman Urdu retrieval dataset we found is general search text and not startup or regulatory text (Section~3.2.6). Among the audited platforms, none combines a startup job pathway, a cited compliance assistant, Urdu and Roman Urdu support, and an evaluated matching model.
 
 \section{Scope and Objectives}
 Table~\ref{tab:objectives-status} compares each objective of Section~\ref{sec:goals} with what this report delivers and what is left.
@@ -2286,7 +2192,7 @@ Table~\ref{tab:objectives-status} compares each objective of Section~\ref{sec:go
 The matching evaluation is the most exposed part of the project. There is no public dataset for Pakistani founder and mentor matching, and our first partner conversation did not lead to a partnership, so the re-ranker labels now depend on self-registration and a pilot. The regulatory sources caused different trouble. PSEB, FBR, and the Securities and Exchange Commission of Pakistan (SECP) contradict each other in places, and one fee schedule was replaced while we were working, which is why every answer carries a date. The higher Gemini models were unreliable under free-tier load, so we use Gemini 2.5 or lower, and the free-tier rate limit is where the five-request limit in NFR-2 comes from. RAG and multilingual NLP were new to the team (Section~\ref{sec:teamexp}), so we started with the compliance assistant to learn it early.
 
 \section{Limitations and Items Left Out}
-No model has been trained or evaluated, and the report makes no accuracy claim. The readiness score has not been compared with human reviewers and does not predict funding. No lawyer or SECP has reviewed the fee model, so we claim no regulatory compliance. The FYP-1 build is English only, billing is mocked, and the demo runs on seeded data. Fairness-aware ranking is not implemented, and the Chapter 2 exclusions on equity, brokerage, forums, and legal advice still hold. Interface screenshots are missing because the prototype is still being built. The 41-table schema is a design estimate and may change once it is connected to the frontend.
+No model has been trained or evaluated, and the report makes no accuracy claim. The readiness score has not been compared with human reviewers and does not predict funding. No lawyer or SECP has reviewed the fee model, so we claim no regulatory compliance. The FYP-1 build is English only, billing is mocked, and the demo runs on seeded data. The external datasets are global or dated: the Pakistani startup census is a 2021 snapshot and the Pakistani job postings end in March 2021, so they inform schema and profiling only. Fairness-aware ranking is not implemented, and the Chapter 2 exclusions on equity, brokerage, forums, and legal advice still hold. Interface screenshots are missing because the prototype is still being built. The 41-table schema is a design estimate and may change once it is connected to the frontend.
 
 \section{Recommendations and Future Work}
 The most useful next step is a partner pilot. A partner incubator or a group of consenting mentors and investors would give real relevance labels and a user pool. We also recommend a legal review of the introduction-only boundary and the fee model before any launch, and real billing only after an incorporated entity exists. The corpus needs upkeep: fee schedules and tax provisions should be rechecked after each annual revision, and the Companies Regulations, 2024 are worth adding. BM25 with reciprocal rank fusion and embedding fine-tuning wait until they earn their place, the first only if it improves retrieval on the gold question set, the second only if the benchmark finds a gap and enough labeled data exists. Fairness in matching needs its own study with metrics and ethical review.

@@ -42,16 +42,6 @@ Data folder: `E:\Documents\advanced_statistics\fyp\founders-carnet\carnet_data\d
 | Crunchbase investments | columns | 39 | 39 | PASS |
 | Crunchbase investments | duplicate rows | 4855 | 4855 | PASS |
 | Crunchbase investments | columns that look like personal fields (report: excluded, never used) | (no number in report) | ['name'] | INFO |
-| HSE resume-job | columns | 91 | 91 | PASS |
-| HSE resume-job | columns that look like personal fields (report: excluded, never used) | (no number in report) | ['gender', 'age'] | INFO |
-| HSE resume-job | pairs (rows) | 150493 | 150493 | PASS |
-| HSE resume-job | unique resumes | 65714 | 65714 | PASS |
-| HSE resume-job | unique vacancies | 43756 | 43756 | PASS |
-| HSE resume-job | cv_status values | (no number in report) | {'Отказ': 129503, 'Приглашение': 20990} | INFO |
-| HSE resume-job | rejected % | 86.1 | 86.1 | PASS |
-| HSE resume-job | invited % | 13.9 | 13.9 | PASS |
-| Resume Dataset PDF | PDF files | 8905 | 8905 | PASS |
-| Resume Dataset PDF | files with extractable text in the 30-file sample | 0 | 0 | PASS |
 | ATS dataset | file used | (no number in report) | ats_resume_dataset_elite_v3.csv | INFO |
 | ATS dataset | rows | 6000 | 6000 | PASS |
 | ATS dataset | columns that look like personal fields (report: excluded, never used) | (no number in report) | none | INFO |
@@ -91,5 +81,3 @@ Data folder: `E:\Documents\advanced_statistics\fyp\founders-carnet\carnet_data\d
 | Roman-Urdu-Parl | 'Roman-Urdu text': Latin chars % | (no number in report) | 81.4% | INFO |
 | LinkedIn | columns with >50% missing | (no number in report) | {} | INFO |
 | LinkedIn | columns with 0% missing | (no number in report) | ['Intro', 'Connections', 'Photo', 'Followers', 'About', 'Experiences', 'Number of Experiences', 'Educations', 'Number of Educations', 'Licenses', 'Number of Licenses', 'Volunteering', 'Number of Volunteering', 'Skills', 'Number of Skills', 'Recommendations', 'Number of Recommendations', 'Projects', 'Number of Projects', 'Publications', 'Number of Publications', 'Courses', 'Number of Courses', 'Honors', 'Number of Honors', 'Scores', 'Number of Scores', 'Languages', 'Number of Languages', 'Organizations', 'Number of Organizations', 'Interests', 'Number of Interests', 'Activities', 'Number of Activities', 'Label'] | INFO |
-| HSE resume-job | 'idVacancy': Cyrillic char % | (no number in report) | 0.0% (expected >50% for Russian) | INFO |
-| HSE resume-job | 'localityName': Cyrillic char % | (no number in report) | 83.8% (expected >50% for Russian) | INFO |
