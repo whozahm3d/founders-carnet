@@ -31,7 +31,7 @@ Nothing technical enforces these rules for agents other than Claude Code. They o
 | `frontend/` | Next.js client |
 | `backend/` | FastAPI gateway, services, LLM Gateway, database, Celery jobs |
 | `rag/` | Compliance corpus, chunking, embedding, retrieval, answer validation |
-| `ml/` | Dataset preprocessing and profiling, matching and re-ranker experiments |
+| `ml/` | Dataset preprocessing and profiling, matching and re-ranker experiments, supporting classifiers |
 | `docs/` | `DECISIONS.md`, `context/` (report summaries) and notes |
 
 Skills the team uses are in `.claude/skills/<name>/SKILL.md`. They are plain Markdown. Read one when its topic fits your task.
@@ -47,3 +47,4 @@ Skills the team uses are in `.claude/skills/<name>/SKILL.md`. They are plain Mar
 - Do not install any skill, plugin or MCP server that is not on the list in `THIRD_PARTY.md`.
 - After finishing any piece of a feature, add a short entry to `docs/build-log.md`: date, who, feature and FR/NFR IDs, what was built, what was tested, what was cut. Do this in the same pull request as the code.
 - If what you built differs from the report in any way (a name, a field, a flow, a number, a cut feature), do two things in the same pull request: add a dated entry to `docs/DECISIONS.md` with the reason, and add a row to `docs/pending-report-changes.md` saying what the report says now and what it should say. The reason is required. Nobody updates the report from a difference with no reason.
+- Only the matching re-ranker is a trained model inside the platform. Three supporting classifiers (resume role, startup outcome, follow-on funding) are trained offline on FINAL datasets, as set out in `docs/datasets.md`. Do not call a prompted feature trained, and never show a classifier output to a user as a probability of success, failure or funding. Do not train on a dataset before its cleaning items in `docs/datasets.md` are done.
