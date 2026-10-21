@@ -4,6 +4,8 @@ Changes the code or tooling has already made that the report (`main.tex`), the m
 
 | Date | What changed | Report says | Now | Where to fix | DECISIONS entry |
 | --- | --- | --- | --- | --- | --- |
+| 2026-10-17 | Provisional compliance embedding default | Compare multilingual sentence-transformer candidates on the planned benchmark before choosing | The backend defaults to `paraphrase-multilingual-mpnet-base-v2` for local operation; model evaluation remains pending | `main.tex` Chapter 3 embedding method and Chapter 6 evaluation | 2026-10-17 "Configure a provisional multilingual embedding default" |
+| 2026-10-17 | PSEB page snapshot retrieval date | Last modified 19 August 2026; accessed 4 October 2026 | Current official snapshot retrieved 17 October 2026; last-modified date remains 19 August 2026 | `main.tex` Table `tab:corpus` | 2026-10-17 "Use a current, scope-filtered PSEB page snapshot" |
 | 2026-10-16 | Scope: all 12 FYP-1 features attempted; unfinished work moves to FYP-2 | Chapter 6 objectives table lists "Main flows in FYP-2" | Update after Nov 8 to match what was actually cut | `main.tex` Chapter 6 objectives table (about line 2258) | 2026-10-16 "All 12 FYP-1 features" |
 | 2026-10-16 | Limitations | Chapter 6 limitations (about line 2288) | Add every feature that is cut or partial on Nov 8 | `main.tex` Chapter 6 | same |
 | 2026-10-16 | Data dictionary FR numbers | Data dictionary (approved 5 Oct) cites FR-1 to FR-6 and FR-22 to FR-26 under an older numbering; its pitch table has 5 feedback areas, FR-3 says clarity, confidence and content | Use the Chapter 4 numbering; reconcile the pitch areas | Data dictionary, before it goes into Chapter 4 or 5 | to add |

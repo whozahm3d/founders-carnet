@@ -2,6 +2,46 @@
 
 Dated entries, newest first. Each entry has the context, what was tried, what was found, what was decided, and why. Add an entry every time the code or the report is changed so the two agree.
 
+## 2026-10-17: Configure a provisional multilingual embedding default
+
+**Context:** Compliance settings were loaded from `.env` relative to the process working directory. Starting FastAPI from `backend/` therefore missed a repository-root `.env`. The embedding model was also unset, so the compliance service returned 503.
+
+**What we tried:** Compared the report's multilingual sentence-transformer candidates and checked that the encoder accepts a model ID from configuration. The report-named `paraphrase-multilingual-mpnet-base-v2` candidate works with the encoder's existing raw-text input interface.
+
+**Decision:** Load the repository-root `.env` by absolute path, map the documented JWT environment names, ignore frontend-only variables, and rewrite a bare PostgreSQL URL to the installed psycopg 3 driver. Use `sentence-transformers/paraphrase-multilingual-mpnet-base-v2` as the provisional default. `EMBEDDING_MODEL_NAME` can override it, but one model ID must be used consistently for indexing and queries. The model has not been benchmarked on the project's gold set, so this default is operational only, not a validated model choice.
+
+**Why:** This fixes the working-directory mismatch and gives local setup a concrete model setting, while preserving the report's requirement to evaluate embeddings before making quality claims.
+
+**Follow-ups:** Set `GEMINI_API_KEY` in the repository-root `.env`, use PostgreSQL with pgvector, index the approved corpus, then run the gold-question evaluation before reporting compliance performance.
+
+## 2026-10-17: Use a current, scope-filtered PSEB page snapshot
+
+**Context:** The report's corpus table specifies the PSEB Industry Facilitation web page, last modified 19 August 2026 and accessed 4 October 2026, scoped to registration documents, fees, and renewal. The workspace contained a PDF copy instead, and the dated HTML capture was unavailable.
+
+**What we tried:** Retrieved the official page on 17 October 2026 and checked its modified-date metadata. Reviewed the page text and isolated its registration, renewal, fees, payment, and processing sections. The page also contains unrelated FAQs, including tax topics.
+
+**What we found:** The current page still reports a last-modified date of 19 August 2026. The October 4 capture was not present, so it could not be used or recreated honestly. The live page includes material beyond the corpus scope.
+
+**Decision:** Keep the complete October 17 HTML capture for provenance, index a reviewed text extract of registration documents, fees, renewal, and processing only, and mark the old PDF inactive while retaining it. Do not index the page's FAQ or tax material. Update the report's access date to 17 October 2026.
+
+**Why:** This uses the report-designated official source and scope, records the true retrieval date, preserves the captured source, and prevents unrelated page content from entering retrieval.
+
+**Follow-ups:** Update the access date in `docs/report/main.tex` Table `tab:corpus`; `docs/pending-report-changes.md` tracks this. The corpus summary now matches the report's 11 logical documents.
+
+## 2026-10-17: Use Alembic for backend migrations
+
+**Context:** NFR-22 requires every schema change to be versioned and the database to rebuild from migration history. The coding plan left the migration tool undecided.
+
+**What we tried:** Added an Alembic environment and tested an empty SQLite database upgrade through the initial users migration and the compliance tables migration.
+
+**What we found:** The migration history creates the declared ORM schema without relying on application startup `create_all`. The test uses in-memory SQLite; PostgreSQL with pgvector has not yet been exercised.
+
+**Decision:** Use Alembic for backend schema migrations.
+
+**Why:** It records schema changes as ordered revisions and supports rebuilding a fresh database, which directly meets NFR-22.
+
+**Follow-ups:** Apply migrations to the configured PostgreSQL 16 database and verify the pgvector extension and vector column there before corpus indexing.
+
 ## 2026-10-17: CI ruff pinned to 0.17.1; notebooks excluded from ruff
 
 **Context:** The CI job "Python (rag)" failed on ruff in `rag/corpus_profile/profile_corpus.py`, and "Python (ml)" fails on the two notebooks in `ml/notebooks/`. `.github/workflows/ci.yml` installed ruff with no version (`pip install ruff pytest`) and the repo has no ruff config. This touches NFR-23 (linting on every pull request).
@@ -182,3 +222,24 @@ Dated entries, newest first. Each entry has the context, what was tried, what wa
 **Reason:** It is the evidence for the Chapter 3 corpus profiling (profile_report.md). It is a public page, about 2 MB.
 
 **Note:** These are profiling copies, not corpus files. They are not in rag/corpus_manifest.md. Do not index them without a manifest row and a reason here.
+
+
+## 2026-10-17: Hand-transcribe the VOSS circular for indexing
+
+**Context:** The FBR VOSS circular is a one-page scanned PDF and cannot be indexed by the current text extractor.
+
+**Decision:** Keep the scanned PDF in the corpus as inactive provenance and add a reviewed hand transcription as the active indexable source. The transcription records normalized punctuation and the omitted serial number, signature and distribution list.
+
+**Why:** This follows the corpus rule to OCR or transcribe the source while retaining the official scan for review. It adds no new logical corpus document.
+
+**Follow-ups:** Check the transcription against the scan during the corpus review; rerun manifest/hash verification before indexing.
+
+## 2026-10-17: Matching baseline weights and blend (implementation default)
+
+**Context:** The report and coding plan name cosine similarity and five matching factors, but do not give numeric weights.
+
+**Implementation default:** Use factor weights of sector 0.25, stage 0.20, skill overlap 0.25, availability 0.15, and ticket fit 0.15. Normalize cosine similarity to the 0–1 range and combine it equally with the weighted factor score.
+
+**Why:** This keeps the FYP-1 ranking deterministic, makes the factor contribution visible, and leaves the trained re-ranker for FYP-2. All weights and the blend are centralized so the team can change them without changing the API or stored factor explanations.
+
+**Follow-ups:** Review these pilot defaults against a seeded demo set and state the final weights in the evaluation notes. They are not validated model parameters.
