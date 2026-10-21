@@ -4,7 +4,7 @@ Record every dataset here before it is used. `CLAUDE.md` says no dataset is used
 
 Rules that apply to all of them (see the data rules in `CLAUDE.md`):
 
-- External datasets are for profiling, schema design, and aggregate baselines only. None of them trains the deployed re-ranker.
+- External datasets are for profiling, schema design, aggregate baselines and, for three FINAL datasets only, training supporting classifiers (see "Supporting classifiers" below). None of them trains the deployed re-ranker, the compliance assistant or the prompted LLM features.
 - Age and gender are never matching features.
 - Do not store names, birth dates, or contact fields from external datasets.
 - Do not redistribute a dataset. Raw data stays out of git.
@@ -14,11 +14,12 @@ Rules that apply to all of them (see the data rules in `CLAUDE.md`):
 
 - **Tech niche:** The platform focuses on tech startups and technical talent only. General sector datasets are filtered to tech where possible.
 - **Pakistan first:** Local Pakistani datasets are prioritized where available. Foreign datasets serve only as structure or method proxies.
-- **Aggregates only:** External datasets are used for profiling, schema design, and aggregate baseline comparisons only. Deployed matching models do not train on external data.
+- **Use of external data:** External datasets are used for profiling, schema design, aggregate baseline comparisons and the three supporting classifiers below. The deployed matching re-ranker does not train on external data; it trains only on the team's own labeled pairs in FYP-2.
 - **No personal data:** Never store, print, or expose individual names, contact fields, or personal identifiers from external datasets.
 - **Licence recorded as stated:** Licences are recorded strictly as stated on the dataset repository page or card metadata (or "No License Provided" / "Not stated").
 - **Conservative title matcher:** The title matcher uses word boundaries and avoids loose substring matching; because it misses specific tool/framework titles like "Php", "Laravel", "Java", or "React", reported tech shares are "at least".
 - **Category-list filter:** Crunchbase datasets use the category-list filter, which matches broad technology terms across pipe-separated categories.
+- **Supervisor guidance on datasets (2026-10-21):** Ms. Khaleel said there are many dataset links and we may use whatever seems fine for training initially. We keep the seven FINAL datasets and treat the rest as reference only.
 - **Status labels:** The `status` column in `ml/notebooks/dataset_fit_scores_v2.csv` was set by hand to match the final decisions in this file and in `docs/DECISIONS.md` (2026-10-18). Notebook-assigned labels differed for five datasets. This file and `DECISIONS.md` are authoritative.
 
 ## Filters used
@@ -29,6 +30,41 @@ Rules that apply to all of them (see the data rules in `CLAUDE.md`):
 - **LinkedIn Intro keyword list (informational only):** software, engineer, developer, data, machine learning, artificial intelligence, cloud, devops, backend, frontend, full stack, programmer, analytics, cyber security, saas, startup, tech, computer science, information technology.
 - **Finance QA keywords:** secp, fbr, tax, company, registration, bank, zakat, license, return, filing (generic words included, so shares are indicative). Authority terms: sbp, secp, fbr, state bank, federal board of revenue, securities and exchange.
 
+## Supporting classifiers (adopted 2026-10-19; approved by the supervisor, Ms. Khaleel)
+
+Three FINAL datasets also train small supervised classifiers that support the platform. Each is a trained model; nothing else in the product is. Ms. Khaleel approved the plan; the approval is logged in `docs/DECISIONS.md` (2026-10-21), and the choice itself on 2026-10-19.
+
+| Dataset | Classifier | Label | Main rules |
+| --- | --- | --- | --- |
+| Resume Dataset (haider) | Resume role classifier (R1) | The 6 tech categories (Java Developers, Web Developer, SQL Developers, Network and Systems Administrators, Datawarehousing/ETL, Business Intelligence) | Deduplicate texts before splitting; macro-F1. Bhawal IT (120) and Engineering (118) resumes are an external check: report how they spread across the six predicted categories, with no per-class accuracy claim because Bhawal uses different labels. |
+| Startup Success/Fail (Crunchbase) | Startup outcome classifier (R4) | Closed against survived or exited (operating, acquired, ipo) | Filter founded_at to 1990-2015; drop funding columns and any field recorded after the outcome (for example a closing date); macro-F1 because ipo is small (429 tech rows). |
+| StartUp Investments (Crunchbase) | Follow-on funding classifier (R4) | Raised a follow-on round | Drop round-count and total-funding columns from the features; check how many rows keep the label (funding_total_usd is missing for about 24.7% of rows). |
+
+Not trained on external data: the compliance assistant (RAG over 11 official documents with citations and abstention), resume rewriting, pitch feedback and readiness explanations (prompted LLM calls), and the matching re-ranker (own labeled pairs, FYP-2; cosine-similarity baseline in FYP-1). Optional FYP-2 only: fine-tune a Roman Urdu embedding on Roman-Urdu-Parl if the R5 benchmark shows a gap.
+
+Exact column names, split ratios and the Investments label rule are fixed when the training scripts are written, and logged in `docs/DECISIONS.md`. Ranking metrics for the FYP-2 re-ranker are NDCG@K, Precision@K and Recall@K.
+
+## Preprocessing results (runs of 2026-10-19 and 2026-10-21, `preprocessing_summary.csv`)
+
+All seven FINAL datasets passed. The cleaned copies are kept outside git.
+
+| Dataset | Raw rows | Cleaned rows | Tech rows | Note |
+| --- | --- | --- | --- | --- |
+| Roman-Urdu-Parl split | 6,407,268 | 6,374,808 | 6,374,808 | Kept whole. 32,460 validation and test pairs removed from the train file, which leaves 6,333,348 train rows; validation and test (41,460) unchanged |
+| Pakistan Startup Census | 553 | 433 | 51 | 120 blank rows removed; 11.78% tech |
+| Pakistan's Job Market | 6,680 | 5,368 | 1,469 | 19.64% duplicates removed; 27.4% tech on the cleaned file |
+| Startup Success/Fail (Crunchbase) | 66,368 | 49,766 | not recounted | founded_at filter to 1990-2015 applied. 15,221 rows have no usable founding date. 8.0% of the kept startups are closed |
+| StartUp Investments (Crunchbase) | 54,294 | 49,438 | 20,542 | 4,856 blank rows removed |
+| Resume Dataset (snehaanbhawal) | 2,484 | 2,484 | 238 | IT 120 + Engineering 118 |
+| Resume Dataset (haider) | 9,000 | 9,000 | 4,170 | Exact-text deduplication applied to the 6,000 tech resumes: 4,170 remain. Java Developers is the smallest category at 447 |
+
+Notes on this run:
+
+- The Parl cleaned total is the 6,333,348 train rows plus the 41,460 validation and test pairs. The Hugging Face card gives 6,333,218 train and 6,374,678 in total. Our figure is 130 higher. That is the number of fully blank rows, which is my arithmetic and has not been confirmed by the run itself.
+- In the Parl train file, 37.1% of the pairs are exact repeats. In a validation sample, 76.8% of the Urdu column is in Arabic script.
+- The Success/Fail tech-row count was not recomputed after the date filter, so the earlier 28,695 figure applies to the unfiltered file only.
+- Some counts from the Gemini run are not used because they did not agree with its own CSV (the under-3-word count, the strict phone-pattern counts and the "strict subsets" claim).
+
 ## Datasets in use
 
 ### FINAL
@@ -36,16 +72,16 @@ Rules that apply to all of them (see the data rules in `CLAUDE.md`):
 #### Roman-Urdu-Parl split
 
 - **Status:** FINAL
-- **Reason:** Only large parallel Urdu and Roman Urdu text found; clean train/test split with zero pair overlap.
-- **Counts:** Train 6,365,808; validation 20,719; test 20,741; total 6,407,268; 2 columns ("Urdu text", "Roman-Urdu text").
+- **Reason:** Only large parallel Urdu and Roman Urdu text found, with a ready train, validation and test split. The train file in our copy overlapped validation and test; we removed the overlap (see Counts).
+- **Counts:** Our files: train 6,365,808; validation 20,719; test 20,741; total 6,407,268; 2 columns ("Urdu text", "Roman-Urdu text"). The train file contains 32,460 validation and test pairs; after removing them, train is 6,333,348 and the cleaned total is 6,374,808. The Hugging Face card gives train 6,333,218, validation 20,719, test 20,741 (41,460 together) and 6,374,678 in total. The 130-row gap to the card matches the number of fully blank rows (my arithmetic, not confirmed by the run).
 - **Licence as stated:** Apache 2.0 in the card metadata of the Mavkif split repository (the original dataset's licence was not checked)
 - **Requirement served:** R5 multilingual benchmark
 - **Tech filter:** Kept whole (general language domain)
-- **Limitations:** Butt et al. (arXiv:2503.21530) describe the source sentences as "collected from various informal online sources", not startup or regulatory text; validation and test (41,460 pairs) sit on top of the original count of 6,365,808 that the split card states.
+- **Limitations:** Butt et al. (arXiv:2503.21530) describe the source sentences as "collected from various informal online sources", not startup or regulatory text; 37.1% of the pairs in the train file are exact repeats; in a validation sample, 76.8% of the Urdu column is in Arabic script; the Apache 2.0 licence is on the split card only, and the original dataset's licence was not checked.
 - **Description:**
   (1) Parallel Urdu and Roman Urdu text pairs created by Mavkif on Hugging Face based on the paper by Alam and Hussain (ACM TALLIP 2022).
   (2) Used for requirement R5 as parallel text benchmark and language representation for Urdu and Roman Urdu.
-  (3) Chosen as the only large parallel Urdu and Roman Urdu corpus available with zero pair-level split overlap.
+  (3) Chosen as the only large parallel Urdu and Roman Urdu corpus with a ready split. Our copy's train file overlapped validation and test by 32,460 pairs, which we removed.
   (4) Sentences come from general informal online sources rather than startup or regulatory text, and the Apache 2.0 licence is stated on the split repository only.
 
 #### Pakistan Startup Census
@@ -70,7 +106,7 @@ Rules that apply to all of them (see the data rules in `CLAUDE.md`):
 - **Counts:** 6,680 rows, 9 columns (2019-12-18 to 2021-03-15; Lahore 2,046, Islamabad 1,921, Karachi 1,700); duplicates on title+company+date 19.64%.
 - **Licence as stated:** ODbL on Open Data Pakistan copy; Kaggle shows "Data files (c) Original Authors" (cite Open Data Pakistan copy; attribution required).
 - **Requirement served:** R2 matching and job board (job-description side of resume-JD tests)
-- **Tech filter:** Strict tech share at least 26.8%
+- **Tech filter:** Strict tech share at least 26.8% in the earlier profiling run; 27.4% (1,469 of 5,368) on the cleaned file after duplicates are removed
 - **Limitations:** Job description text is cut at 250 characters; historical data from 2019 to 2021; 19.64% duplicates on title+company+date.
 - **Description:**
   (1) Pakistani job postings dataset uploaded by Zeeshan-ul-hassan Usmani on Kaggle and Open Data Pakistan.
@@ -82,16 +118,16 @@ Rules that apply to all of them (see the data rules in `CLAUDE.md`):
 
 - **Status:** FINAL
 - **Reason:** Closest public shape of startup operating outcomes, survival statuses, and sector classifications.
-- **Counts:** 66,368 rows, 14 columns.
+- **Counts:** 66,368 rows, 14 columns. After the founded_at filter to 1990-2015, 49,766 rows remain; 15,221 rows have no usable founding date; 8.0% of the kept startups are closed.
 - **Licence as stated:** Not stated (Kaggle)
-- **Requirement served:** R4 readiness proxies
+- **Requirement served:** R4 readiness proxies; trains the startup outcome classifier (closed against survived or exited)
 - **Tech filter:** Category-list tech filter yields 28,695 tech rows (45.4% of rows with a category); status inside tech: operating 23,211, acquired 2,834, closed 2,221, ipo 429.
-- **Limitations:** Impossible founded_at dates (1015 to 2914) requiring filtering to 1990-2015 before time features; global rather than Pakistani startups; licence not stated.
+- **Limitations:** Impossible founded_at dates (1015 to 2914), handled by the 1990-2015 filter (applied 2026-10-21, which also drops 15,221 rows with no usable date); global rather than Pakistani startups; licence not stated.
 - **Description:**
   (1) Crunchbase startup outcomes dataset uploaded to Kaggle by Yan Maksi.
   (2) Used for requirement R4 readiness proxies and schema proxy for startup operating status and milestone fields.
   (3) Chosen as the closest public shape of startup operating outcomes and survival statuses.
-  (4) Global data rather than Pakistan-specific, with extreme outlier dates (1015 to 2914) requiring 1990-2015 filtering.
+  (4) Global data rather than Pakistan-specific, with extreme outlier dates (1015 to 2914) that the 1990-2015 filter removes.
 
 #### StartUp Investments (Crunchbase)
 
@@ -99,7 +135,7 @@ Rules that apply to all of them (see the data rules in `CLAUDE.md`):
 - **Reason:** Adds granular round-level funding columns, investment amounts, and investor stage categories.
 - **Counts:** 54,294 raw rows, 39 columns; 4,856 blank rows, 49,438 usable rows, 0 duplicates on usable rows (earlier 4,855 duplicates were blank rows).
 - **Licence as stated:** Not stated (Kaggle)
-- **Requirement served:** R4 readiness proxies
+- **Requirement served:** R4 readiness proxies; trains the follow-on funding classifier
 - **Tech filter:** Category-list tech filter yields 20,542 tech rows (45.2% of rows with a category).
 - **Limitations:** 4,856 blank rows; impossible date outliers (as early as year 0001); funding_total_usd missing for ~24.7% of rows; global coverage.
 - **Description:**
@@ -114,7 +150,7 @@ Rules that apply to all of them (see the data rules in `CLAUDE.md`):
 - **Reason:** Public CC0 parsed multi-category CVs with clean text extracts across structured technical roles.
 - **Counts:** 2,484 rows locally (the Kaggle card says 2,485 files), 4 columns (ID, Resume_str, Resume_html, Category), 24 categories; Information-Technology 120, Engineering 118.
 - **Licence as stated:** CC0 (Kaggle)
-- **Requirement served:** R1 resume optimizer inputs (IT slice)
+- **Requirement served:** R1 resume optimizer inputs (IT slice); external check for the resume role classifier (not used for training)
 - **Tech filter:** Information-Technology (120) and Engineering (118) categories; CSV text used only.
 - **Limitations:** Scraped from LiveCareer examples; international English formatting rather than Pakistani conventions; use CSV text only (PDFs counted, never opened).
 - **Description:**
@@ -127,9 +163,9 @@ Rules that apply to all of them (see the data rules in `CLAUDE.md`):
 
 - **Status:** FINAL
 - **Reason:** High volume of technical developer and system administrator resume texts for skills extraction.
-- **Counts:** 9,000 rows (9 categories x 1,000), columns category, job_title, Text; tech categories have 6,000 rows, 4,170 unique texts, 30.5% duplicates; median text 11,168 characters.
+- **Counts:** 9,000 rows (9 categories x 1,000), columns category, job_title, Text; tech categories have 6,000 rows, 4,170 unique texts, 30.5% duplicates; median text 11,168 characters. After exact-text deduplication (applied 2026-10-21) 4,170 resumes remain; Java Developers is the smallest category at 447.
 - **Licence as stated:** CC BY-NC-SA 4.0 (Kaggle)
-- **Requirement served:** R1 resume optimizer inputs
+- **Requirement served:** R1 resume optimizer inputs; trains the resume role classifier
 - **Tech filter:** 6 tech categories (Java Developers, Web Developer, SQL Developers, Network and Systems Administrators, Datawarehousing/ETL, Business Intelligence); 3 excluded (Business Analyst, Project Manager, Recruiter); unique texts only.
 - **Limitations:** Provenance unclear (sourced only from "publicly accessible sources"); non-commercial licence; 30.5% duplicate text rate; non-Pakistani origin.
 - **Description:**
@@ -257,7 +293,7 @@ Rules that apply to all of them (see the data rules in `CLAUDE.md`):
 - **Tech filter:** None applied
 - **Limitations:** No licence; the README does not say whether the legitimate profiles are real people's data or how they were anonymised, so treat all rows as possibly personal and never read or store individual profile text; no Pakistani profiles stated; `cleaned_profiles.csv` has the same size and label split as the LinkedIn-Dataset (Ayoobi et al.) and may overlap it (not checked); GPT-4 Turbo profiles come from few-shot prompts modelled on two legitimate examples; aggregate structure reference only.
 - **Description:**
-  (1) Data released with "Weak Links in LinkedIn: Enhancing Fake Profile Detection in the Age of LLMs" by Gulati, Kumar, Agarwal and Sharma (repository apoorva106/linkedin_fake_profile_detection on GitHub).
+  (1) Data released with "Weak Links in LinkedIn: Enhancing Fake Profile Detection in the Age of LLMs" by Gulati, Kumar, Agarwal and Sharma (repository apoorva106/linkedin_fake_profile_detection on GitHub). Published in Social Networks Analysis and Mining, ASONAM 2025, edited by An, Cuzzocrea and Hu, Lecture Notes in Computer Science vol. 16323, Springer, Cham, 2026, DOI 10.1007/978-3-032-13821-7_31. The author order above is the Springer order.
   (2) Used for requirement R4 readiness proxies and profile verification as an aggregate structure reference only.
   (3) Chosen because it is the only public set that adds GPT-4 Turbo generated profiles to the legitimate, fake and GPT-3.5 groups.
   (4) No licence is stated, personal-data status of the legitimate profiles is unknown, and it may overlap the LinkedIn-Dataset above.

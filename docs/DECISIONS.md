@@ -2,6 +2,79 @@
 
 Dated entries, newest first. Each entry has the context, what was tried, what was found, what was decided, and why. Add an entry every time the code or the report is changed so the two agree.
 
+## 2026-10-21: Supervisor approves the supporting classifiers and the dataset plan
+
+**Context:** The 2026-10-19 entry adopted three supporting classifiers (resume role, startup outcome, follow-on funding) with the supervisor's approval pending. Ms. Khaleel has since answered.
+
+**What we found:** She approved the classifier plan. On datasets she said there are many links and we may use whatever seems fine for training initially.
+
+**Decision:** The three classifiers stay as planned, as offline FYP-2 studies. The re-ranker is still the only model that ships. We keep the seven FINAL datasets and treat the rest as reference only. Column names, split sizes and the Investments label rule are still set when the training scripts are written, and logged then.
+
+**Why:** Her answer settles the open approval and removes the need for a fallback plan.
+
+**Follow-ups:** `datasets.md`, the master document (sections 9 and 13.9, objective 8) and the pending-changes table now say "approved". `main.tex` carried no "approval pending" wording, so it needed no change.
+
+## 2026-10-21: Roman-Urdu-Parl overlap resolved; remaining preprocessing results
+
+**Context:** The 2026-10-17 entry recorded that our Parl files did not match the Hugging Face card, and the 2026-10-19 pending table asked for a recount and an overlap test before the report was submitted. The Gemini preprocessing run finished and the results were checked against its CSV.
+
+**What we found:**
+
+- The train file holds 6,365,808 rows, and 32,460 of them are validation or test pairs. The earlier claim that the splits do not overlap was wrong for our copy.
+- Removing those pairs leaves 6,333,348 train rows. The card gives 6,333,218. The 130-row gap equals the number of fully blank rows. That is my arithmetic, not something the run confirmed.
+- Card figures: train 6,333,218, validation 20,719, test 20,741, validation plus test 41,460, total 6,374,678. Our files total 6,407,268. After cleaning, our total is 6,374,808.
+- In the train file, 37.1% of the pairs are exact repeats. In a validation sample, 76.8% of the Urdu column is in Arabic script. The Apache 2.0 licence is on the split card only, and the sentences come from informal online sources.
+- Success/Fail: the 1990-2015 founded_at filter keeps 49,766 of 66,368 rows. 15,221 rows have no usable founding date. 8.0% of the kept startups are closed.
+- Haider: exact-text deduplication of the 6,000 tech resumes leaves 4,170. Java Developers is the smallest category at 447.
+- Job Market: the tech share is at least 26.8% in the earlier raw run and 27.4% (1,469 of 5,368) after cleaning. Both are reported.
+- Not used: the Gemini under-3-word count (67,669), its strict phone-pattern counts and its "strict subsets" claim, because they did not agree with its own CSV.
+
+**Decision:** Remove the 32,460 overlapping pairs from the Parl train file. Report the file numbers, the overlap, the 6,333,348 result and the card figures side by side. This supersedes the "keep as FAIL" decision in the 2026-10-17 Parl entry and the "zero pair overlap" reason in `datasets.md`.
+
+**Why:** Training or testing on pairs that sit in both splits would inflate any result. Reporting the card numbers next to ours lets a reader check the difference.
+
+**Follow-ups:** Applied to `main.tex` (Section 3.3.3, Table 3.11 and the dataset limitations list), `datasets.md` and the master document. The three 2026-10-19 rows for the Parl recount, the card facts and the remaining preprocessing are closed in `pending-report-changes.md`.
+
+## 2026-10-21: Bibliography cut from 103 to 35 entries; non-paper sources move to Appendix A
+
+**Context:** The reference list was much longer than a report of this size needs, and many entries were web pages, datasets and official documents rather than papers.
+
+**What we found:** `bib_trim_plan_2026-10-19.md` (v2) sorted the 103 entries into 34 papers to keep, 34 non-paper sources for an appendix and 35 to cut. After reading each paper's citation context, four plan "keeps" went (Tahir 2025 KICS benchmark, Giuggioli 2025, Spigel 2017, Rysman 2009) and four plan "cuts" stayed (Peng 2025, Niu 2024, G-Eval, Caillaud 2003). The SECP position paper stays in References.
+
+**Decision:** `fypbib.bib` has 35 entries (34 papers plus the SECP position paper). Appendix A, "Data and Web Sources", lists 32 non-paper sources: P1 to P5, A1 to A9, D1 to D7 and R1 to R11. The body cites them with `\src{P1}`, `\src{A1}`, `\src{D1}` and `\src{R1}`. Every `\cite` key in `main.tex` resolves, and no bib entry is uncited. In `Chapter3_Source_Register_v2.md`, the papers cut from the report stay as evidence, marked "not cited in the report", and the sources moved to the appendix are marked "moved to Appendix A".
+
+**Why:** A shorter list of papers the report actually relies on is easier to defend, and web, dataset and regulatory sources fit better in an appendix than among the references.
+
+**Follow-ups:** Ali adds the P5 access date (18 Oct) by hand. A stray extra closing brace after the Gulati entry in `fypbib.bib` was removed on 2026-10-21; it would have broken BibTeX.
+
+## 2026-10-21: Gulati et al. citation verified against Springer
+
+**Context:** The 2026-10-18 pending row followed the arXiv author order because the Springer page was not checked.
+
+**Decision:** The published citation is Gulati, Kumar, Agarwal and Sharma (2026), "Weak Links in LinkedIn: Enhancing Fake Profile Detection in the Age of LLMs", in An, Cuzzocrea and Hu (eds), Social Networks Analysis and Mining, ASONAM 2025, Lecture Notes in Computer Science vol. 16323, Springer, Cham, DOI 10.1007/978-3-032-13821-7_31. The order matches arXiv. The `\cite` key `ref:gulati2025` is unchanged.
+
+**Why:** The report should cite the published version, not the preprint.
+
+## 2026-10-19: Supporting classifiers trained on three FINAL datasets; matching-data wording; preprocessing results
+
+**Context:** The seven FINAL datasets were chosen for profiling and schema design, and the plan said none of them trains a model. The team wants some real supervised training on the final data. Preprocessing of the seven datasets also finished (`preprocessing_summary.csv`). Touches Chapter 3 (datasets), Chapter 4 (features) and the slides. Adopted by the team on 2026-10-19; the supervisor has been sent a one-page overview. Update 2026-10-21: she approved it (see the entry above).
+
+**What we tried:** Checked each FINAL dataset for a label that can be defended, and checked each feature for whether training would help or only add risk.
+
+**What we found:** Three datasets carry usable labels: Haider resumes (6 tech categories), Startup Success/Fail (status) and StartUp Investments (funding rounds). The compliance assistant needs cited official text, and resume rewriting, pitch feedback and readiness explanations are prompted LLM calls, so training on external data would not improve them. We found no public labeled dataset for Pakistani founder-mentor or investor matching, so the re-ranker can only use our own labeled pairs. Preprocessing passed for all seven datasets and the counts match `datasets.md`, except: Success/Fail still needs the 1990-2015 founded_at filter, Haider still has its 30.5% duplicates in the cleaned file, and the Job Market tech share is 27.4% (1,469 of 5,368) on the cleaned file.
+
+**Decision:**
+
+- Train three supporting classifiers: a resume role classifier on Haider (R1; Bhawal IT and Engineering as an external check, with no per-class accuracy claim), a startup outcome classifier on Success/Fail (R4; closed against survived or exited), and a follow-on funding classifier on Investments (R4; label is "raised a follow-on round"). Rules: deduplicate before splitting, drop funding columns and post-outcome fields from the outcome classifier, drop round-count and total-funding columns from the funding classifier, macro-F1 where classes are small. Full detail is in `docs/datasets.md`.
+- The matching re-ranker stays trained only on the team's own 150 to 300 labeled pairs in FYP-2, with a cosine-similarity baseline in FYP-1 and NDCG@K, Precision@K and Recall@K as metrics. The compliance assistant and the prompted LLM features are not trained.
+- Optional in FYP-2: fine-tune a Roman Urdu embedding on Roman-Urdu-Parl, only if the R5 benchmark shows a gap.
+- Wording: write "we found no public labeled dataset for Pakistani founder-mentor or investor matching" in the report and slides. Do not write "confirmed absent". The three-layer matching design stays: public data fills profiles, retrieval uses filters and cosine similarity, the FYP-2 re-ranker trains on our own pairs.
+- Apply the 1990-2015 filter and deduplicate Haider in the training scripts. Correct the Job Market tech share to 27.4% on the cleaned file wherever it is reported.
+
+**Why:** Gives the final datasets a real modelling role without claiming accuracy that no data can support, and keeps trained models limited to places where labels exist.
+
+**Follow-ups:** Update `docs/context/*`, `CLAUDE.md`, `AGENTS.md`, `docs/pending-report-changes.md`, the master document markdown and `main.tex` (Chapter 3 datasets text and table, Chapter 4 features, Chapter 6 limitations). Fix the exact column names, split ratios and the Investments label rule when the scripts are written, and log them here. This entry supersedes earlier wording that says no FINAL dataset trains any model; entries before it are left as history. The supervisor approved the plan, so no change is needed (2026-10-21).
+
 ## 2026-10-18: Pitch simulator uses one four-area rubric everywhere
 
 **Context:** Prototype review (12 screens, 2026-10-18) found three conflicting pitch rubrics: master document section 13.2 and the prototypes use four areas (clarity, market understanding, defensibility of numbers, handling pushback); FR-3 in the master document says "clarity, confidence, and content"; the approved data dictionary `pitch_feedback.feedback_area` lists five values (clarity, problem_framing, traction, ask, delivery).
@@ -88,7 +161,7 @@ Dated entries, newest first. Each entry has the context, what was tried, what wa
 
 **What we tried:** Examined Ayoobi et al. pickle dataset (3,600 rows x 39 columns) using a safe restricted unpickler. Reviewed recent fake profile detection literature by Gulati et al. (arXiv:2507.16860).
 
-**What we found:** Ayoobi et al. contains 1,800 legitimate, 600 fake, and 1,200 ChatGPT-generated profiles. It includes a Full Name column. No Pakistani labeled real/fake LinkedIn-style dataset exists. Gulati et al. demonstrated that detectors not retrained on specific LLM profiles fail, but retraining on GPT profiles restores false accept rate (FAR) to 1 to 7%; their study is English-only with one LLM family.
+**What we found:** Ayoobi et al. contains 1,800 legitimate, 600 fake, and 1,200 ChatGPT-generated profiles. It includes a Full Name column. We found no public Pakistani labeled real/fake LinkedIn-style dataset. Gulati et al. demonstrated that detectors not retrained on specific LLM profiles fail, but retraining on GPT profiles restores false accept rate (FAR) to 1 to 7%; their study is English-only with one LLM family.
 
 **Decision:** Retain Ayoobi LinkedIn dataset as REFERENCE ONLY for aggregate profile structure statistics. Strictly forbid printing, logging, or storing personal name fields. Defer Gulati et al. 600 GPT-4 Turbo profiles to FYP-2 as an optional extension. Maintain rule-based profile verification checks for FYP-1.
 
@@ -176,6 +249,8 @@ Dated entries, newest first. Each entry has the context, what was tried, what wa
 **Decision:** Treat the unlabeled split in the files as train and keep the claim check as FAIL. State that the source of 6,333,218 is unknown. Do not claim it is wrong until the Hugging Face dataset card is checked.
 
 **Why:** The files and the report disagree. Keeping the claim as FAIL ensures the mismatch is tracked honestly and logged for resolution.
+
+**Update 2026-10-21:** Resolved. The train file contains 32,460 validation and test pairs; they are removed (see the 2026-10-21 Parl entry).
 
 **Follow-ups:** Check the Hugging Face dataset card for `Mavkif/Roman-Urdu-Parl-split`. Update the report to the file numbers (6,365,808 train; 6,407,268 total) unless a source for 6,333,218 is found. Logged in `docs/pending-report-changes.md`.
 

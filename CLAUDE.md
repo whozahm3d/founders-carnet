@@ -48,7 +48,7 @@ One monorepo, with folder-level ownership.
 | `frontend/` | Next.js (React) client, dashboards for the five roles | Shahzeb, Ali |
 | `backend/` | FastAPI gateway, services, LLM Gateway, database models and migrations, Celery jobs | Taha, Ali |
 | `rag/` | Compliance corpus, section-aware chunking, embedding, retrieval, answer validation | Ali, Shahzeb |
-| `ml/` | Dataset preprocessing and profiling, matching and re-ranker experiments, evaluation notebooks | Taha, Ali |
+| `ml/` | Dataset preprocessing and profiling, matching and re-ranker experiments, supporting classifiers, evaluation notebooks | Taha, Ali |
 | `docs/` | `DECISIONS.md`, `context/` (report summaries), and short notes that explain the code | all |
 
 `ml/` is an addition to the three folders the sprint plan locked (`frontend`, `backend`, `rag`). The report now lists all four folders. `ml/` exists because the supervisor wants preprocessing and model testing to start alongside the app code. Anything in `ml/` that ships goes through `backend/` as a service, never as a notebook.
@@ -68,6 +68,7 @@ One monorepo, with folder-level ownership.
 Keep these separate in code, comments, and docs.
 
 - **Trained:** the matching re-ranker (embeddings plus a trainable re-ranker). The full training is FYP-2. FYP-1 uses the cosine-similarity baseline.
+- **Trained offline on external data (adopted 2026-10-19, supervisor approval pending):** three supporting classifiers. A resume role classifier on the haider resumes, a startup outcome classifier on Startup Success/Fail, and a follow-on funding classifier on StartUp Investments. Labels and rules are in `docs/datasets.md`. They are offline studies. Never show their output to a user as a probability of success, failure or funding. None has been trained yet, so make no accuracy claim.
 - **Prompted LLM calls:** readiness assessment, pitch practice, market research synthesis, resume and profile suggestions, compliance answers, and the portfolio link check.
 
 Do not call a prompted feature "trained" or "fine-tuned" anywhere.
@@ -105,10 +106,12 @@ Applies to `backend/`, `rag/`, and `ml/`. The report names Python 3.11, so use 3
 ## Data rules
 
 - No data without consent. Do not request partner or founder datasets outside the approved pathway in the report.
-- External datasets are for profiling and schema design only. None of them trains the deployed re-ranker.
+- External datasets are for profiling, schema design and, for three FINAL datasets only, the supporting classifiers listed above. None of them trains the deployed re-ranker, the compliance assistant or the prompted features.
+- Before training on a dataset, finish its cleaning items in `docs/datasets.md` (for example the haider deduplication and the Success/Fail 1990 to 2015 date filter). Deduplicate before splitting.
 - Age and gender are never matching features. Do not store names, birth dates, or contact fields from external datasets.
 - Do not redistribute external datasets. Raw data and model weights stay out of git (see `.gitignore`).
-- The resume optimizer has no external test data. Test it on the team's own resumes and on resumes shared with consent.
+- The resume optimizer has no external test data. Test it on the team's own resumes and on resumes shared with consent. The public resume datasets are used only for the resume role classifier and its external check.
+- Write "we found no public labeled dataset for Pakistani founder-mentor or investor matching". Do not write that none exists or that its absence is confirmed.
 
 ## Scope limits
 

@@ -24,6 +24,7 @@ Reference list of candidate, reference, dropped, and excluded datasets profiled 
 | roman-urdu-retrieval-queries | masoodd (Hugging Face username) | Hugging Face | <https://huggingface.co/datasets/masoodd/roman-urdu-retrieval-queries> (code: <https://github.com/masooddahmedd/roman-urdu-retrieval>) | Queries CC BY 4.0; Corpus CC BY-SA 4.0 | 2026-10-17 to 2026-10-18 | masoodd (Hugging Face, queries CC BY 4.0) | REFERENCE ONLY |
 | hassan7272/urdu-finance-qa | Muhammad Hassan Shahbaz | Hugging Face | <https://huggingface.co/datasets/hassan7272/urdu-finance-qa> | CC BY 4.0 stated by author | 2026-10-17 to 2026-10-18 | Shahbaz (Hugging Face, FinGuard) | REFERENCE ONLY |
 | Pakistan Job Market Dataset (Rozee.pk) 2024 | Syeda Zainish Fatima and Syed Wajdan Zeerak | Kaggle | <https://www.kaggle.com/datasets/zincly/pakistan-job-market-dataset-rozee-pk> | Apache 2.0 | 2026-10-17 to 2026-10-18 | Fatima & Zeerak (Kaggle, 2024, Apache 2.0) | REFERENCE ONLY |
+| linkedin-fake-profiles-gpt4turbo-gulati (Gulati et al.) | Gulati, Kumar, Agarwal, Sharma (repository owner apoorva106) | GitHub | <https://github.com/apoorva106/linkedin_fake_profile_detection> | Not stated (README has no licence) | 2026-10-17 to 2026-10-18 | Gulati et al. (arXiv:2507.16860) | REFERENCE ONLY |
 | Parallel Urdu-Roman Urdu Corpus | Hafiz Hassaan Saeed | Hugging Face | <https://huggingface.co/datasets/hafiz-hassaan-saeed/Parallel-Urdu-Roman-Urdu-Corpus> | Not stated | 2026-10-17 to 2026-10-18 | Saeed (Hugging Face) | DROPPED |
 | RUEmoCorp | Khubaib01 | Hugging Face | <https://huggingface.co/datasets/Khubaib01/RUEmoCorp> | CC BY 4.0 in metadata, Apache 2.0 in text | 2026-10-17 to 2026-10-18 | Khubaib01 (Hugging Face) | DROPPED |
 | RomanUrdu-NLP-Sentiment-Corpus | InferenceLab | Hugging Face | <https://huggingface.co/datasets/Inferencelab/RomanUrdu-NLP-Sentiment-Corpus> | Not stated | 2026-10-17 to 2026-10-18 | InferenceLab (Hugging Face) | DROPPED |
@@ -35,8 +36,6 @@ Reference list of candidate, reference, dropped, and excluded datasets profiled 
 | awesome-pakistani | usman2x (GitHub username) | GitHub | <https://github.com/usman2x/awesome-pakistani> | MIT | 2026-10-17 to 2026-10-18 | usman2x (GitHub) | EXCLUDED EARLIER |
 | Pakistani Startups Hub | Community curators | Web | <https://www.pakistanistartups.com/> | No reuse terms seen | 2026-10-17 to 2026-10-18 | Pakistani Startups Hub Demo | EXCLUDED EARLIER |
 | ERUPD | Furqan, Khaja, Habeeb | arXiv | <https://arxiv.org/abs/2412.17562> | No data release or licence seen | 2026-10-17 to 2026-10-18 | Furqan et al. (arXiv:2412.17562, 2024) | EXCLUDED EARLIER |
-
-Note: Optional FYP-2 LinkedIn extension: Gulati et al. (arXiv:2507.16860), repository at <https://github.com/apoorva106/linkedin_fake_profile_detection> (not downloaded).
 
 ## Sources to cite (not datasets)
 
