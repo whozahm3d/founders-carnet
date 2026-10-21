@@ -15,7 +15,14 @@ import sys
 from pathlib import Path
 
 # Folders with third-party text that may contain example keys.
-SKIP_PREFIXES = (".claude/skills/", "third_party_licenses/", "_backup_mirror/", ".claude/backups/")
+# rag/data/ holds unmodified official source snapshots.
+SKIP_PREFIXES = (
+    ".claude/skills/",
+    "third_party_licenses/",
+    "_backup_mirror/",
+    ".claude/backups/",
+    "rag/data/",
+)
 SKIP_NAMES = {"scan_for_keys.py"}
 SKIP_SUFFIXES = (".png", ".jpg", ".jpeg", ".gif", ".pdf", ".zip", ".pt", ".pth", ".safetensors", ".onnx", ".ckpt", ".ico", ".woff", ".woff2")
 MAX_BYTES = 2_000_000

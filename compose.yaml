@@ -1,0 +1,19 @@
+services:
+  db:
+    image: pgvector/pgvector:pg17
+    environment:
+      POSTGRES_DB: founders_carnet
+      POSTGRES_USER: founders_carnet
+      POSTGRES_PASSWORD: ${CARNET_DB_PASSWORD:?Set CARNET_DB_PASSWORD in the repository-root .env}
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - founders_carnet_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U founders_carnet -d founders_carnet"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  founders_carnet_pgdata:

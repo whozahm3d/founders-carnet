@@ -58,9 +58,12 @@ jobs:
       - name: Tests (pytest)
         if: steps.has_code.outputs.found == 'true'
         working-directory: ${{ matrix.folder }}
+        env:
+          # Repo root so `rag.*` imports work, and the job folder so `app.*` imports work.
+          PYTHONPATH: ${{ github.workspace }}:${{ github.workspace }}/${{ matrix.folder }}
         run: |
           # pytest exits with 5 when it finds no tests. That is fine until tests exist.
-          pytest || [ $? -eq 5 ]
+          python -m pytest || [ $? -eq 5 ]
 
   frontend:
     name: Frontend

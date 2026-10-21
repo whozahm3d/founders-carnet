@@ -152,7 +152,6 @@ Cut items are reported in Chapter 6 limitations and moved to FYP-2. Do not leave
 
 - Which `DESIGN.md` brand to use. Not decided; discuss after most of the functionality is done. Do not copy a `DESIGN.md` until then.
 - Who the 2 or 3 readiness reviewers are, and how the SECP cross-check works. Not decided; to be discussed later.
-- Migration tool (Alembic is the usual choice for FastAPI; needs a `docs/DECISIONS.md` entry). Not answered yet.
 - Where verification, admin console, consent and guides sit in the build order (proposal above).
 - Lint tool beyond `ruff`, and Railway versus Render.
 - Feature freeze date (proposed Nov 6).
