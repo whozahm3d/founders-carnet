@@ -2,6 +2,39 @@
 
 Dated entries, newest first. Each entry has the context, what was tried, what was found, what was decided, and why. Add an entry every time the code or the report is changed so the two agree.
 
+## 2026-11-02 (later): Master document synced with the report; two cross-references fixed
+
+**Context:** The master .md and .docx had drifted from the report (F26-090 plus the 2 November main.tex). A comparison found that the report cites three works the master did not list, states numbers the master lacked, and has a Chapter 4 and 5 level of detail (31 FRs, 23 numbered NFRs, 17 features, 19 risks, 10 use cases, 14 assumptions, 12 GUI screens, 41 tables) that the master held only in summary form. Two cross-references in the master were also wrong.
+
+**What we tried:** A script compared the bib keys, the appendix sources and the numbers in the report's prose against the master, then patched the master from main.tex.
+
+**What we found:** Missing references: Liu et al. 2022, Butt, Varanasi and Neumann 2025, Mustafa et al. 2026 (P5), and the Rozee.pk, Indeed and Glassdoor sources (A7 to A9). Missing facts: 0.747 versus 0.743, ObliQA 27,869, Butt BM25 0.0846 and mT5 0.1903, 19.64% duplicates, 4.5:1 contrast, 41 tables and 264 attributes, about one shared vCPU with 512 MB to 1 GB, Python 3.11. Wrong cross-references: Section 7 said Section 15 (it is Section 18) and Section 9 said Section 14 (it is Section 20).
+
+**Decision:** Fix both cross-references. Add the three references, the appendix sources and a map of the report's 32 Appendix A codes. Replace the master's objectives with the report's nine, and label the third SDG as supported but not targeted. Add Section 11.5 (six services, seven strategies, policies), FR-22 to FR-31, NFR-1 to NFR-23, assumptions, ten use cases, hardware and software, GUI, database design (16.4 to 16.8), the R-1 to R-19 register (19.1) and the FYP-2 plan. Rebuild the .docx (64 pages, 15 diagram placeholders).
+
+**Why:** The master is the source of truth, so the report must not state anything it lacks. FR rows 22 to 31 show the actors from the report, because the report does not assign them modules.
+
+**Follow-ups:** Ali replaces the master .md and .docx in the Project and the local copy (the tool cannot write the 210 KB file). Diagram images still need inserting into the .docx from the diagram files.
+
+## 2026-11-02: Chapter 3 summary tables back to four columns; spelling and wording pass
+
+**Context:** On 2026-10-21 the Chapter 3 tables were shortened for the submitted report (F26-090, 89 pages). Only the cell text was meant to shrink, but the Method and Results columns merged into one "Finding" cell. The literature tables then had three header cells on a four-column spec and printed narrower than the page. On 2026-10-22 Ali said every Chapter 3 table has four columns, and the team planned to restore them after the mid evaluation. The mid evaluation is done.
+
+**What we tried:** Compared the submitted `main.tex` with the 2026-10-19 version (Author, Method, Results, Limitations; Application, Features, Relevance, Limitations). Split each shortened "Finding" cell back into Method and Results and kept the 2026-10-21 wording. Read the whole file for spelling and wording, ran a spell check, and checked cite keys, labels and table rows by script.
+
+**What we found:** The (V), (A) and (P) basis marks were also missing from the related applications table, although its caption still explains them. The corpus table had been a five-column table (with Size) cut to three, and the datasets table had lost its Contents column and its license information. There was one real typo ("tarined") and several broken sentences in Chapter 6 and in the Chapter 2 Problem Domain Overview ("Only English is taught in FYP-1"). Some wording broke standing rules: "small cohorts" (no source), and platform claims stated flatly ("No platform had Urdu or Roman Urdu support", IFDP features). `fypbib.bib` needed no change.
+
+**Decision:**
+
+- Literature tables: Author, Method, Results, Limitations, widths 3.0, 4.0, 2.8 and 4.0 cm as before. Related applications: Application, Features, Relevance, Limitations, with the (V), (A), (P) marks back. Corpus table: Document, Issuer, Version or date, Scope in the corpus (the Size column is not restored). Datasets table: Dataset, Contents as loaded, Role, License and main limitation.
+- Wording: "competitive cohorts" instead of "small cohorts"; "We saw no Urdu or Roman Urdu support on the platforms we reviewed"; "On its public pages, the Investor Founder Discovery Platform shows no mentor profile, compliance feature or AI ranking"; "No AI seen" for PakStartups.org; FR-3 says "defensibility of numbers" (the four-area pitch rubric). The Chapter 6 legal-sources sentence now says what Chapter 3 found: a PSEB page against the Ordinance, and two FBR sources on company registration.
+- Left as they are on Ali's instruction: the Section 2.6 team-roles sentence, and Stakeholders Summary as Section 2.7.1 under Business Opportunity.
+- The master document (`.md` and `.docx`) was synced with the wording rules above. Its scope, design and references did not change.
+
+**Why:** The four columns are what the department template and the earlier version had, and the cell text was already short. The wording rules protect claims that the team cannot back with a dated source.
+
+**Follow-ups:** Ali compiles the new `main.tex` and checks the table widths and page count. The submitted PDF is not touched. Two master-document cross-references are known to be wrong and were not changed (Section 7 says Section 15 for legal exposure, which is Section 18; Section 9 says Section 14 for the anchor partner, which is Section 20). Logged in `pending-report-changes.md`.
+
 ## 2026-10-21: Supervisor approves the supporting classifiers and the dataset plan
 
 **Context:** The 2026-10-19 entry adopted three supporting classifiers (resume role, startup outcome, follow-on funding) with the supervisor's approval pending. Ms. Khaleel has since answered.
