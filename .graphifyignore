@@ -1,0 +1,5 @@
+# Keep these out of any graphify run. See docs/build-log.md, "graphify safe use".
+# Paths are anchored to the repository root.
+/docs/
+/rag/data/
+/backend/app.db

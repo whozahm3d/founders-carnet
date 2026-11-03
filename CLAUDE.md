@@ -181,6 +181,7 @@ The same holds for GSD Core if it is installed (`SETUP.md` section 10). Its comm
 | `sql-queries` | Writing and tuning Postgres queries |
 | `frontend-design` | Visual polish of UI. The Figma prototypes and `DESIGN.md` win if they disagree |
 | `claude-api` | Reference for prompt and gateway design only. We call Gemini, not Claude |
+| `graphify` | Code graph (`/graphify`) for context and token savings. Only when the user asks. Do not index the repo, run `graphify hook install` or `graphify claude install` without a yes. Its description is trimmed so it does not start on its own. Personal tool, not required by the FYP |
 | `git-workflow-and-versioning` | Branch and commit habits. The git rules in this file win |
 | `web-design-guidelines` | Reviewing UI against web guidelines (rules file is local, no live download) |
 | `shipping-and-launch` | Pre-launch checklist, staged rollout and rollback plan. Nothing is deployed yet |
@@ -189,4 +190,4 @@ The same holds for GSD Core if it is installed (`SETUP.md` section 10). Its comm
 | `observability-and-instrumentation` | Logging, metrics, tracing and alerts. Never log secrets (see Safety rules) |
 | `ponytail`, `ponytail-review`, `ponytail-audit`, `ponytail-debt` | Only when the user asks. Smallest-change style, review of a change or the whole repo, and a list of deferred `shortcut:` comments. Replies must still explain each change in plain words |
 
-Other items (spec-kit, graphify, and the per-person installs) are listed in `THIRD_PARTY.md`. They are not skills in `.claude/skills/`, and spec-kit and graphify are not installed yet. Add a row here for each skill once it is in `.claude/skills/`.
+Other items (spec-kit and the per-person installs) are listed in `THIRD_PARTY.md`. They are not skills in `.claude/skills/`. spec-kit is a per-person tool, installed on Ali's machine, and `specify init` has not been run. Add a row here for each skill once it is in `.claude/skills/`.

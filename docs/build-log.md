@@ -156,7 +156,7 @@ One entry per finished piece of work, newest first. This is what we use to write
   - Copied the upstream `references/` checklists to `.claude/references/`. Copied the licenses to `third_party_licenses/`.
   - `scripts/sync_agent_skills.py` now also copies `.claude/references/` to `.agents/references/`. Added `.agents/references/` to `.gitignore`. Updated `SETUP.md`, `AGENTS.md`, `CLAUDE.md` (five skill rows added) and `THIRD_PARTY.md` (rows, pins, licenses, "Not installing" lines).
 - **Tested:** Ran the sync script with `--dry-run` and for real: 40 skills and the references copied, and `.agents/skills/<skill>/../../references` resolves. `command.md` SHA-256 matches the recorded value. `python scripts/scan_for_keys.py` found no keys in 309 tracked files, and a separate key-pattern search over `.claude/skills/` and `.claude/references/` found none. Read `git diff` for `CLAUDE.md` and `THIRD_PARTY.md`. Not tested: using the new skills inside Claude Code, Codex or Antigravity.
-- **Cut or partial:** spec-kit is per person and not installed yet. graphify is skipped until there is code. `DESIGN.md` is not installed (brand undecided). caveman and gstack were reviewed and skipped. The per-person installs were not done in this run. career-ops, financial-services and replica-skill have not been read.
+- **Cut or partial:** spec-kit is per person and not installed yet. graphify is skipped until there is code. `DESIGN.md` is not installed (brand undecided). caveman and gstack were reviewed and skipped. **Update 2026-11-03:** caveman approved (hooks profile only, pinned clone); gstack stays skipped. The per-person installs were not done in this run. career-ops, financial-services and replica-skill have not been read.
 - **Differs from the report?** No, this is tooling only. See `docs/DECISIONS.md` (2026-10-17, "Skills install finished").
 
 ## 2026-10-17: Shared Drive rule added for non-git files (Ali)
@@ -220,3 +220,162 @@ One entry per finished piece of work, newest first. This is what we use to write
 - **Tested:** Compared the transcription with the extracted page image; manifest/hash verification still needs to be run after all corpus edits.
 - **Cut or partial:** No OCR package was installed; transcription is manual and explicitly annotated. Corpus indexing and gold-set evaluation remain.
 - **Differs from the report?** No; this implements the report corpus source with the hand-transcription method allowed by the corpus plan.
+
+## 2026-11-02: graphify installed, skill-only (Ali, with Claude Code)
+
+- **Feature and IDs:** Developer tooling for context and token savings (no FR/NFR).
+- **Built:** `uv tool install graphifyy==0.9.100` (isolated uv tool, on Ali's machine only). Then `graphify install --project --platform agents`, which wrote the skill to `.agents/skills/graphify/` (gitignored). Copied `SKILL.md` and `references/` to `.claude/skills/graphify/`, left out the `.graphify_version` marker. Copied the Apache-2.0, MIT and NOTICE files to `third_party_licenses/`. One local edit: the `SKILL.md` description now says "Use only when the user asks for /graphify", same as ponytail.
+- **Tested:** `graphify --version` prints 0.9.100. After the install, `git status` showed no change to `CLAUDE.md` or `.claude/settings.json`. Scanned the copied files for download, delete, commit and push commands: only documentation of `graphify hook install` in `references/hooks.md`. The graph itself has **not** been built (`/graphify .` not run).
+- **Cut or partial:** Did not use plain `graphify install --project` as `THIRD_PARTY.md` said. Reading `install.py` showed that command also appends a section to `CLAUDE.md` and writes a `PreToolUse` hook into `.claude/settings.json`; both are off limits here. `graphify hook install` and `graphify claude install` must not be run. Set `GRAPHIFY_QUERY_LOG_DISABLE=1` in your shell profile (not done by Claude).
+- **Differs from the report?** No. The report does not mention graphify. It differs from the install steps in `THIRD_PARTY.md`, which are corrected there.
+
+## 2026-11-02: spec-kit CLI installed, personal (Ali, with Claude Code)
+
+- **Feature and IDs:** Developer tooling for spec-driven work (no FR/NFR).
+- **Built:** `uv tool install specify-cli==1.2.6` (isolated uv tool, Ali's machine only). The README's own install line is `uv tool install specify-cli`; PyPI 1.2.6 matches the GitHub tag `v1.2.6` (commit 9eacc24). Nothing copied into the repo.
+- **Tested:** `specify --help` runs. **`specify init` was not run**; it writes `.specify/` and agent command files and needs its own OK. The source has no telemetry; its only network call is an optional update check to the GitHub releases API.
+- **Cut or partial:** Not initialised in this repo. Overlaps the `spec-driven-development` skill, so use one of the two per feature, not both.
+- **Differs from the report?** No.
+
+## 2026-11-02: docx/pdf/pptx/xlsx skills and code-review plugin, personal (Ali, with Claude Code)
+
+- **Feature and IDs:** Developer tooling (no FR/NFR).
+- **Built:** `docx`, `pdf`, `pptx`, `xlsx`: nothing installed. They already load from Ali's claude.ai account (`anthropic-skills:*`) and are not on disk, so there is nothing to copy. Anthropic's licence is all rights reserved, so they never go into the repo. `code-review` plugin: `claude plugin install code-review@claude-plugins-official --scope user`, version 1.0.1, Apache-2.0. It was already in the local marketplace copy, so no clone was needed.
+- **Tested:** `claude plugin list` shows `code-review@claude-plugins-official` enabled at user scope. The command was **not run** on a PR. Read the plugin: one command file, no hooks, no MCP server. It posts to GitHub only with `--comment`, and `gh` is not installed on this machine.
+- **Cut or partial:** Use `/code-review` without `--comment` unless a person asks for a post. The plugin command and the built-in `code-review` skill share a name, so check which one runs.
+- **Differs from the report?** No.
+
+## 2026-11-02: my-claude-skills and awesome-claude-skills, personal only (Ali, with Claude Code)
+
+- **Feature and IDs:** Developer tooling (no FR/NFR).
+- **Built:** Cloned both repos to `~/claude-tools/` (outside the project). Copied all 6 skills of my-claude-skills (commit a67d698) and 6 of 864 from awesome-claude-skills (commit be2a406) to `~/.claude/skills/`. Neither repo has a LICENSE file, so nothing was copied into this repo, `.claude/skills/` or `third_party_licenses/`.
+- **Tested:** Scanned every `.py` file and `SKILL.md` for downloads, pipe-to-shell, deletes, network calls, `eval`/`exec` and instruction overrides. my-claude-skills: local scanners only; the one `git clone` and `rmtree` are in the auditor's optional repo-URL mode and act on its own temp folder. awesome-claude-skills: the six installed are single-file prompt skills with no scripts. Not run on any project file, and not every line of every file was read.
+- **Cut or partial:** awesome-claude-skills: 832 of 864 skills are Composio connectors that need Rube MCP (hosted by Composio) and an OAuth connection per service, so they were **not** installed (corrected 2026-11-03; first written as "account and API key"). Also skipped: 10 duplicates of skills already in the claude.ai account, and skills that post to Slack, read chat history, download videos, or move files. Tell Claude if you want any of those.
+- **Differs from the report?** No.
+
+## 2026-11-02: career-ops, replica-skill (personal) and financial-services (skipped) (Ali, with Claude Code)
+
+- **Feature and IDs:** Developer tooling (no FR/NFR).
+- **Built:** Cloned career-ops (20b9fd3), financial-services (6056506) and replica-skill (77c9436) to `~/claude-tools/`. career-ops: `PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npm install` in its own folder (7 packages, 0 vulnerabilities reported). It is not installed as a plugin, because the plugin's `SessionStart` hook runs a Node script on its own. replica-skill: copied `replica-recon`, `replica-diff`, `replica-test`, `replica-design`, `replica-build` to `~/.claude/skills/`. Nothing was copied into the repo.
+- **Tested:** Read each README, `package.json`, hook files and MCP config, and grepped for download, delete, deploy and key patterns. career-ops was not started and no CV or key was entered. The replica skills were not run. Not every file was read: career-ops has about 3,000.
+- **Cut or partial:** financial-services was read and **not installed**: wrong domain, about 13 paid data connectors, and our scope excludes investment advice. Chromium was not downloaded, so career-ops PDF generation and browser checks will not work until `npx playwright install chromium` is run. replica-skill: backend, architect, brand, entrepreneur, launch and deploy were left out. **Update 2026-11-03:** brand, entrepreneur and launch were added after reading all six; architect, backend and deploy stay out. `replica-design` and `replica-build` are built to rebuild another app's design system; the Figma prototypes and `DESIGN.md` still win for Founder's Carnet.
+- **Differs from the report?** No.
+
+## 2026-11-02: optional personal plugins from SETUP.md section 8 (Ali, with Claude Code)
+
+- **Feature and IDs:** Developer tooling (no FR/NFR).
+- **Built:** Nothing installed. `claude-md-management` and `claude-code-setup` already load from Ali's claude.ai account (and exist in `claude-plugins-official`). `claude-context-optimizer` was cloned to `~/claude-tools/` (1fb7a86, v5.1.1, MIT) and read.
+- **Tested:** Read `hooks/hooks.json`. Not every source file was read and nothing was run.
+- **Cut or partial:** `claude-context-optimizer` skipped: it registers six hooks that run on its own, against the hooks rule in `CLAUDE.md`. A skills-only copy (6 skills) was possible and was declined. **Superseded 2026-11-03:** Ali reversed this; it is approved for the separate hooks profile only, via `--plugin-dir` from the pinned clone (1fb7a86). See the THIRD_PARTY.md install log. `SETUP.md` section 8 still says v4.12.1 and should be corrected by a person.
+- **Differs from the report?** No.
+
+## 2026-11-02: rea read, install parked (Ali, with Claude Code)
+
+- **Feature and IDs:** Developer tooling (no FR/NFR).
+- **Built:** Nothing installed. Cloned `morluto/rea` to `~/claude-tools/rea` (920d634, npm `rea-agents` 6.8.0, MIT) and read its README, install docs, `server.json`, `DISCLAIMER.md` and `SECURITY.md`.
+- **Tested:** Nothing was run, including `rea setup --dry-run`. The MCP entry format was taken from the project's own tests, not generated. Not every file was read: the repo has about 7,000.
+- **Cut or partial:** Parked by Ali ("full install later") until Node is upgraded to 24.22.1 or newer; the machine has 24.18.0. 172 tools and a large default catalog (about 496 KB), so narrow it with `--tool-families` when installing. No Founder's Carnet requirement needs it.
+- **Differs from the report?** No.
+
+## 2026-11-02: gsd-core read, dry-run, skipped (Ali, with Claude Code)
+
+- **Feature and IDs:** Developer tooling (no FR/NFR).
+- **Built:** Nothing installed. Cloned `open-gsd/gsd-core` to `~/claude-tools/gsd-core` (bfab824, MIT). Ran `npx -y @opengsd/gsd-core@1.19.0 --claude --global --profile=core --dry-run`.
+- **Tested:** The dry-run printed only a legacy-cleanup note ("would remove" an update-cache file under `~/.cache/gsd`) and no install plan. `~/.claude/settings.json` had the same hash before and after (512 bytes). The clone's own `bin/install.js --help` fails on a missing file, so installer flags and the hook list come from reading the source, not from a run.
+- **Cut or partial:** Skipped by Ali. The installer has no hooks-off flag and a global install adds about 25 auto-running hooks to `~/.claude/settings.json`, against the hooks rule and the no-global-install rule. Version answer for `SETUP.md` section 10: npm `latest` is 1.19.0; 1.17.0 and 1.12.0 are older, so the open mismatch should be closed by pinning 1.19.0 if it is ever installed.
+- **Differs from the report?** No.
+
+## 2026-11-03: ECC read, skipped (Ali, with Claude Code)
+
+- **Feature and IDs:** Developer tooling (no FR/NFR).
+- **Built:** Nothing installed. Cloned `affaan-m/ECC` to `~/claude-tools/ecc` (b38be6a, MIT; npm `ecc-universal` 2.2.3 is `latest`). Read `SETUP.md` section 6, `.claude/settings.json`, `.claude/hooks/guard.py`, ECC's `scripts/setup.js`, `claude-plugin-setup.js`, `hook-flags.js`, `plugin.json` and `hooks/hooks.json`.
+- **Tested:** Nothing was run, including `setup --dry-run`. Hook gating was read from source, not observed. Most of the repo's 4,701 files were not read. Whether the project deny rules still win over ECC hooks was not tested.
+- **Cut or partial:** Skipped by Ali on conflict. **Superseded 2026-11-03:** Ali reversed this; approved via `--plugin-dir` from the pinned clone (b38be6a) in the separate hooks profile only, hooks disabled by `ECC_HOOKS_ENABLED=false`, rules `common` + `python` (16 files) copied to `C:\Users\pakistan\.claude-hooks\rules\ecc\`. Correction: the plugin has 27 hook entries across 8 events, not 26 across 9. (1) Global scope against the no-global-installs rule. (2) "Hooks off" is a plugin option; the 27 hook entries stay registered and each starts `node` before exiting, and the option defaults to on if missing. (3) If hooks were enabled, `pre:config-protection` and `pre:edit-write:gateguard-fact-force` overlap `guard.py`'s Write/Edit matcher. `SETUP.md` section 6 should be corrected: "hooks off" does not remove the hooks.
+- **Differs from the report?** No.
+
+## 2026-11-03: setup docs corrected after the installs (Ali, with Claude Code)
+
+- **Feature and IDs:** Documentation hygiene (no FR/NFR).
+- **Built:** With Ali's OK, edited four existing files. `THIRD_PARTY.md`: graphify setup steps rewritten (skill-only `--platform agents`, pinned 0.9.100, Gemini-key and `rm -f` warnings), section D table given a status column, "Left out" updated, and the stale "not installed yet" lines for spec-kit and graphify fixed. `CLAUDE.md`: added the `graphify` row to the skills table and corrected the "not installed yet" sentence (backup saved first with `python scripts/backup.py snapshot CLAUDE.md`). `SETUP.md`: claude-context-optimizer v4.12.1 to v5.1.1 with its six hooks, a note under section 6 that ECC "hooks off" only disables the hooks, and a version note under section 10 for gsd-core (1.19.0 is `latest`).
+- **Tested:** Cheap line-grep scan of the graphify skill and 17 personal skill folders (report kept outside the repo). `scripts/scan_for_keys.py` clean. Project Python checked read-only: only `ml/.venv` exists (3.11.9); `backend/` and `rag/` had no `.venv` in this checkout. No installed tool was run on a project file.
+- **Cut or partial:** Nothing committed. The `SETUP.md` section 6 and 10 notes are short annotations, not rewrites of those sections.
+- **Differs from the report?** No.
+
+## 2026-11-03: graphify safe use (Ali, with Claude Code)
+
+- **Feature and IDs:** Developer tooling (no FR/NFR). Operating note, not a decision.
+- **Rules:** Do not run `/graphify` on the repo root or on `docs/`. Anything that is not code (docs, PDFs, images) goes to an LLM for the semantic pass. Start with `backend/` only, code only (`--code-only`), and keep `docs/report/` and the four protected report files out. Before any run, check that `GEMINI_API_KEY` and `GOOGLE_API_KEY` are unset, or set `GRAPHIFY_BACKEND=none`. With a Gemini key set, non-code files go to Gemini instead of staying in the Claude session.
+- **Checked 2026-11-03:** both variables unset in process, user and machine scope; no real `.env` in the repo, only `.env.example`.
+- **Output:** `graphify-out/` is already in `.gitignore`. Delete it by hand to undo a run.
+
+## 2026-11-03: graphify ignore file, venv wording, separate hooks profile folders (Ali, with Claude Code)
+
+- **Feature and IDs:** Developer tooling and setup docs (no FR/NFR).
+- **Built:** Added `.graphifyignore` (anchored: `/docs/`, `/rag/data/`, `/backend/app.db`). `SETUP.md` section 5 now says `py -3.11 -m venv .venv` (backup `.claude/backups/20261103-030913-636522/SETUP.md`). Created two empty folders outside the repo for a separate hooks profile: `C:\Users\pakistan\.claude-hooks` (to be used as `CLAUDE_CONFIG_DIR`) and `C:\Users\pakistan\claude-lab` (launch folder). `~/.claude/settings.json` has the same hash as before (0ee16cd1…).
+- **Tested:** `python scripts/scan_for_keys.py`: no keys in 493 files. Not tested: how graphify treats the anchored patterns, and `CLAUDE_CONFIG_DIR` behaviour on this machine (read in the docs only).
+- **Cut or partial:** No hook-based tool installed yet. The PowerShell launch helper was shown, not written.
+- **Differs from the report?** No.
+
+## 2026-11-03: ECC, caveman approved (hooks profile only); gstack kept skipped (Ali, with Claude Code)
+
+- **Feature and IDs:** Developer tooling (no FR/NFR).
+- **Built:** Nothing installed. ECC (pinned clone b38be6a) and caveman (pinned clone 2e068f7) are approved to be used only through `claude --plugin-dir` in the separate hooks profile (`CLAUDE_CONFIG_DIR=C:\Users\pakistan\.claude-hooks`). 16 ECC rule files (`common` 10, `python` 6) copied to `C:\Users\pakistan\.claude-hooks\rules\ecc\`. `~/.claude/settings.json` hash unchanged (0ee16cd1…).
+- **Tested:** Nothing run. Hook lists come from `hooks.json` and `plugin.json`. Correction: ECC has 27 hook entries across 8 events (earlier notes said 26 across 9).
+- **Cut or partial:** gstack kept skipped: hardcoded `~/.claude` paths in all 62 skills, needs Bun, and ship/land-and-deploy workflows conflict with CLAUDE.md. caveman must not be active in founders-carnet. Not verified: caveman's default mode, gstack's telemetry destination.
+- **Differs from the report?** No.
+
+## 2026-11-03: codebase-memory-mcp installed in reduced form, hooks profile only (Ali, with Claude Code)
+
+- **Feature and IDs:** Developer tooling (no FR/NFR).
+- **Built:** Downloaded release v0.12.1 `codebase-memory-mcp-windows-amd64.zip` and `checksums.txt` to `C:\Users\pakistan\claude-tools\cbm\v0.12.1\`, verified SHA-256, extracted. Registered the unsigned exe as an MCP server only in the profile `C:\Users\pakistan\.claude-hooks` (`claude mcp add --scope user`, `CBM_CACHE_DIR` inside the profile) and set `watcher_enabled false`. `install.ps1` was not run.
+- **Tested:** `--version` prints 0.12.1. Main `settings.json` hash unchanged (0ee16cd1…); no `codebase-memory` entry in the main `.claude.json` or `installed_plugins.json`; no `~/.cache/codebase-memory-mcp` folder created; no process left running. One script check printed "unchanged" from empty values (a PowerShell alias clash on my helper name `H`) and was redone with `sha256sum`. Not tested: the server inside a Claude session, any indexing, the Sigstore bundle.
+- **Cut or partial:** No hooks, agents, PATH change or daemon install. The repo is not indexed and must not be until Ali says so. Overlaps graphify. **Dropped by Ali later on 2026-11-03** (graphify kept); removal is by hand, see the entry below.
+- **Differs from the report?** No.
+
+## 2026-11-03: claude-swarm, screenshot-to-code, AgentForge-AIOrchestrator read, kept as reference clones (Ali, with Claude Code)
+
+- **Feature and IDs:** Developer tooling (no FR/NFR).
+- **Built:** Nothing installed. Cloned the three to `C:\Users\pakistan\claude-tools\` (9b1c556, a813977, f19bcd6) and read their READMEs, package files and key use.
+- **Tested:** Nothing run. Grep only for keys, process execution and analytics words.
+- **Cut or partial:** None is a skill pack (no `SKILL.md` in any). All three need paid keys or an account (Anthropic; OpenAI, Anthropic or Gemini plus Replicate; Supabase plus OpenRouter and NVIDIA). AgentForge has no licence. Ali chose reference clones only.
+- **Differs from the report?** No.
+
+## 2026-11-03: four personal skills restored after an accidental deletion (Ali, with Claude Code)
+
+- **Feature and IDs:** Developer tooling (no FR/NFR).
+- **Built:** Re-copied `replica-design`, `replica-build` (from `~/claude-tools/replica-skill`, 77c9436) and `ci-cd-pipeline-builder`, `performance-profiler` (from `~/claude-tools/my-claude-skills`, a67d698) into `C:\Users\pakistan\.claude\skills\`. Personal only; nothing in the repo.
+- **Tested:** Both clones were at the expected commits with no uncommitted changes before copying. `diff -r` of each restored folder against its clone showed no differences. File counts 3, 1, 7 and 3 as expected.
+- **Cut or partial:** None. The rows stay "installed".
+- **Differs from the report?** No.
+
+## 2026-11-03: replica-skill: the other 6 read, 3 offline helpers added (Ali, with Claude Code)
+
+- **Feature and IDs:** Developer tooling (no FR/NFR).
+- **Built:** Copied `replica-brand`, `replica-entrepreneur` and `replica-launch` (8 files) from `~/claude-tools/replica-skill` (77c9436) to `C:\Users\pakistan\.claude\skills\`. Personal only. `diff -r` against the clone showed no differences.
+- **Tested:** Nothing run. Read all six remaining skills: no hooks, no `allowed-tools`; `sweep.py`, `reviews.py` and `listing.py` use only the standard library and showed no network, subprocess or environment-variable use by grep. Not line by line.
+- **Cut or partial:** `replica-architect`, `replica-backend` and `replica-deploy` not installed: they default to a stack (Supabase or Neon, Drizzle or Prisma, Next.js, Stripe) that conflicts with the project's architecture rules, and `replica-deploy` is a go-live workflow. The skills' documented commands use `python3`, which is usually absent on Windows.
+- **Differs from the report?** No.
+
+## 2026-11-03: awesome-claude-skills: list of the other 858 written, nothing installed (Ali, with Claude Code)
+
+- **Feature and IDs:** Developer tooling (no FR/NFR).
+- **Built:** Wrote `C:\Users\pakistan\claude-tools\awesome-skills-list.md` (outside the repo): 858 numbered rows = 26 general skills + 832 Composio connectors, with purpose, whether Composio/Rube auth is needed, and a keyword-scan note on posting or reading outside services. Generated by a read-only script from the clone at be2a406.
+- **Tested:** Row count checks out (858 = 864 SKILL.md files minus the 6 installed). The "outside services" column is a keyword scan of SKILL.md text only; a blank means no keyword matched, not that the skill is safe. Nothing was run.
+- **Cut or partial:** No skill installed. Waiting on Ali to pick names from the list. The 832 connectors all route data through Composio's hosted Rube MCP.
+- **Differs from the report?** No.
+
+## 2026-11-03: decisions after report B (Ali, with Claude Code)
+
+- **Feature and IDs:** Developer tooling and setup docs (no FR/NFR).
+- **Built:** `SETUP.md` sections 6 and 8 corrected to match the separate-profile decision. `replica-design` and `replica-build` copied (byte-identical) to `C:\Users\pakistan\.claude-hooks\skills\`. A proposed `docs/DECISIONS.md` entry written to `C:\Users\pakistan\claude-tools\decisions-proposal.md`, outside the repo, for Ali to paste.
+- **Tested:** `diff -r` of both copied skills against the clone and the main copies: identical. Main `settings.json` hash unchanged.
+- **Cut or partial:** codebase-memory-mcp dropped (graphify kept); Claude deleted nothing, and Ali removes the binary folders, the profile cache and the MCP registration by hand. No virtual environments created (Ali's decision). career-ops and the code-review plugin kept. **Update 2026-11-03 (later):** Ali decided `replica-design` and `replica-build` stay in the main config; the profile copies are redundant and may be removed by Ali.
+- **Differs from the report?** No.
+
+## 2026-11-03: placement plan adjusted: normal config versus personal-tools profile (Ali, with Claude Code)
+
+- **Feature and IDs:** Developer tooling (no FR/NFR).
+- **Built:** Nothing installed or moved. Plan: hook-free personal tools in the normal config, every hook-based tool in `C:\Users\pakistan\.claude-hooks`, launched only outside the FYP repo. All tools logged on 2 and 3 November 2026 are personal tools, not required by the FYP.
+- **Tested:** Sizes measured for the profile (104 KB) and four plugin clones (1.4 MB, 34 MB, 105 MB, 116 MB). None of last round's removals has been run.
+- **Cut or partial:** Decided: replica-design/build stay in the main config; codebase-memory-mcp stays dropped; gstack stays skipped; the profile does not sync the claude.ai account (`C:\Users\pakistan\.claude-hooks\settings.json` written with `syncClaudeAiPlugins` and `syncClaudeAiSkills` set to `false`).
+- **Differs from the report?** No.

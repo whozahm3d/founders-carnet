@@ -58,13 +58,13 @@ The report names Python 3.11, Node 24 and PostgreSQL 16 (the Node 20 to 24 chang
 python --version
 ```
 
-If it is not 3.11.x, install 3.11 from python.org and tick "Add python.exe to PATH". If `python` is not found but `py` works, use `py -3.11` in place of `python` below.
+If it is not 3.11.x, install 3.11 from python.org and tick "Add python.exe to PATH". If `python` is not found, or points to a different version (for example 3.14), create each environment with `py -3.11` as shown below. Once the environment is active, `python` is the 3.11 one inside it.
 
 **Create a virtual environment**, one per folder that has Python code. Example for the backend:
 
 ```
 cd backend
-python -m venv .venv
+py -3.11 -m venv .venv
 .venv\Scripts\Activate.ps1
 python -m pip install --upgrade pip
 ```
@@ -99,9 +99,11 @@ ruff check .
 
 `.venv/`, `__pycache__/` and similar are in `.gitignore`, so they stay out of git.
 
-## 6. ECC (optional, installed on your machine, not in the repo)
+## 6. ECC (optional, installed on your machine, not in the repo; personal tool, not required by the FYP)
 
 ECC is Affaan Mustafa's plugin of agents, skills and commands. It installs into your own Claude Code, so it applies to every project, not only this repo. Each teammate who wants it must install it.
+
+**How Ali uses it (decided 3 November 2026):** not in his main Claude Code configuration. ECC is used only through `claude --plugin-dir C:\Users\pakistan\claude-tools\ecc` in a separate profile (`CLAUDE_CONFIG_DIR=C:\Users\pakistan\.claude-hooks`), launched from `C:\Users\pakistan\claude-lab` and never from inside this repo, with its hooks disabled (`ECC_HOOKS_ENABLED=false`). The rule files are in `C:\Users\pakistan\.claude-hooks\rules\ecc\`. The steps below are the generic ones for a teammate who installs ECC into a main configuration; they are not what Ali did, and the `/plugin marketplace add` route pulls the unpinned GitHub head.
 
 ECC's own guide says to pick one install method, not several. Do not mix them. Do sections 1 and 2 first, so you know the safety setup works before ECC is added.
 
@@ -123,7 +125,7 @@ npx ecc-universal@2.2.3 setup
 
 When the wizard asks:
 - **Scope:** choose Global user. Do not choose project, because that would write into this repo's settings, which are protected.
-- **Hooks:** choose **off**. ECC's hooks run on their own, which goes against the rule that Claude changes nothing until told. You keep the skills, agents and commands.
+- **Hooks:** choose **off**. ECC's hooks run on their own, which goes against the rule that Claude changes nothing until told. You keep the skills, agents and commands. **Note (read from ECC 2.2.3 source on 3 November 2026, not tested):** "off" only sets the plugin option `hooks_enabled: false`. The plugin still registers 27 hook entries (8 events) that start `node` and exit early, and the option defaults to on if it is missing. Ali skipped ECC for this reason.
 
 Start a new Claude Code session and run `/plugin list`. `ecc@ecc` should show as enabled.
 
@@ -139,6 +141,8 @@ That install turns hooks on by default. Run the `setup` wizard above afterwards 
 ### Step 2. Copy the rules
 
 Rules are not part of the plugin, so they are copied by hand. ECC recommends the `common` folder plus one folder for your language. Backend, RAG and ML people use `python`. Frontend people use `typescript`.
+
+If you use a separate profile as described above, replace `$HOME\.claude` in the commands below with the profile folder (for example `$env:CLAUDE_CONFIG_DIR`), so the rules do not land in your main configuration.
 
 Clone ECC to a folder **outside** the repo, for example your Downloads folder, not inside `founders-carnet`:
 
@@ -180,15 +184,15 @@ Open Claude Code in the repo folder and repeat tests 2 and 3 from section 2. The
 
 Codex and Antigravity read skills from `.agents/skills/`, not `.claude/skills/`. After cloning or pulling, run `python scripts/sync_agent_skills.py`. It copies the skills across, and also copies `.claude/references/` to `.agents/references/` because the skills link to `../../references/`. It never deletes. See section 11.
 
-## 8. Optional personal plugins (not in the repo)
+## 8. Optional personal plugins (not in the repo; personal tools, not required by the FYP)
 
-Plugins install per person, so they cannot travel with the repo. These three are from the plugin directory in your Claude account. In Claude Code, run `/plugin`, search for the name, and install it. I did not run these installs, so the menu wording may differ.
+Plugins install per person, so they cannot travel with the repo. These three are from the plugin directory in your Claude account. In Claude Code, run `/plugin`, search for the name, and install it. I did not run these installs, so the menu wording may differ. The third row (`claude-context-optimizer`) is the exception: see its note.
 
 | Plugin | What it does | Notes |
 |---|---|---|
 | `claude-md-management` | Suggests cleanups to `CLAUDE.md` (`claude-md-improver`) and can add lessons from a session (`/revise-claude-md`) | Only changes `CLAUDE.md` when you run it. Read its suggestion before accepting. Do not let it touch the safety section. |
 | `claude-code-setup` | Looks at the repo and recommends Claude Code settings, hooks and skills (`claude-automation-recommender`) | Advice only. Do not apply a recommendation that loosens `.claude/settings.json`. |
-| `claude-context-optimizer` (v4.12.1, MIT) | Shows what is using up Claude's context | It ships hooks that run automatically, which goes against the "nothing runs until told" rule. Install it only if sessions feel slow, and turn it off when you are done. |
+| `claude-context-optimizer` (v5.1.1, MIT) | Shows what is using up Claude's context | It ships six hooks that run automatically (PreToolUse on Read, PostToolUse, UserPromptSubmit, PreCompact, SessionStart, SessionEnd), which goes against the "nothing runs until told" rule, so do not install it into your main configuration. Ali uses it only through `claude --plugin-dir C:\Users\pakistan\claude-tools\claude-context-optimizer` in the separate profile described in section 6 (decided 3 November 2026). It also reads the main profile's transcripts by home path. |
 
 After installing any plugin, repeat tests 2 and 3 from section 2.
 
@@ -211,9 +215,9 @@ These are new files. None of them replaces anything from the scaffold zip (`docs
 
 The scan was tested on a throwaway repo (it flagged a fake key and a tracked `.env`, and passed a clean tree). The pre-commit hook and CI file were not run.
 
-## 10. GSD Core (optional, installed on your machine, not in the repo)
+## 10. GSD Core (optional, installed on your machine, not in the repo; personal tool, not required by the FYP)
 
-GSD Core (`open-gsd/gsd-core`, v1.17.0, MIT) is a planning framework for AI coding agents. It runs a loop of discuss, plan, execute, verify and ship, one phase at a time, and keeps its state in a `.planning/` folder. Its README says to use its installer and not to copy its files by hand, so I did not put it in the zip. It cannot be bundled the way the skills were.
+GSD Core (`open-gsd/gsd-core`, v1.19.0 is npm `latest` as of 3 November 2026; this section was written for v1.17.0; MIT; Ali skipped it because the installer has no hooks-off flag) is a planning framework for AI coding agents. It runs a loop of discuss, plan, execute, verify and ship, one phase at a time, and keeps its state in a `.planning/` folder. Its README says to use its installer and not to copy its files by hand, so I did not put it in the zip. It cannot be bundled the way the skills were.
 
 **What it brings:** 72 skills, about 60 agents and a set of hooks that run automatically. The installer's help text says the full install adds about 12,000 tokens of descriptions to every session. The `core` profile adds about 700.
 
