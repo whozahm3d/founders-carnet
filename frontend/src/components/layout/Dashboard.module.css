@@ -1,0 +1,111 @@
+/* Dashboard.module.css — Responsive grid patterns for dashboard pages */
+
+.pageContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  width: 100%;
+}
+
+/* Stat cards grid:
+   - Mobile (<640px): 1 column
+   - Tablet (640px - 1023px): 2 columns
+   - Laptop & up (1024px+): 4 columns (wireframe standard)
+*/
+.statGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .statGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .statGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Two-column card section (Readiness + Pitch Practice):
+   - Mobile: 1 column
+   - Tablet: 1 or 2 columns based on content
+   - Laptop & up: 2 equal columns (wireframe standard)
+*/
+.twoColumnGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+  width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .twoColumnGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Matches & lists grid:
+   - Mobile: 1 column
+   - Tablet: 2 columns
+   - Laptop & up: 2 or 3 columns matching wireframe
+*/
+.matchesGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .matchesGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Header section with flex wrap support */
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-3);
+  margin-block-end: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.sectionTitle {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.sectionSubtitle {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  margin-block-start: var(--space-1);
+}
+
+.progressList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.feedbackBox {
+  background-color: var(--color-bg-secondary);
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-relaxed);
+}
+
+/* Scrollable container for tables / wide content inside cards (NFR requirement) */
+.tableScrollContainer {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}

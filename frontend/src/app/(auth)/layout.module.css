@@ -1,0 +1,206 @@
+/* AuthLayout.module.css — Mobile-first responsive split layout */
+
+/* Mobile (default): single column with short brand header above full-width card */
+.wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-bg);
+  width: 100%;
+}
+
+.leftPanel {
+  background-color: var(--color-sidebar);
+  color: var(--color-sidebar-text);
+  padding: var(--space-6) var(--space-4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border-bottom: 1px solid var(--color-sidebar-hover);
+}
+
+.brandContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  max-width: 440px;
+}
+
+.logoBadge {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  background-color: var(--color-accent);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-base);
+  letter-spacing: -0.02em;
+}
+
+.brandTitle {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: #ffffff;
+  line-height: var(--line-height-tight);
+  letter-spacing: -0.02em;
+}
+
+.brandTagline {
+  font-size: var(--font-size-xs);
+  color: var(--color-sidebar-muted);
+  line-height: var(--line-height-relaxed);
+}
+
+/* Feature bullets hidden on mobile to keep the top panel short */
+.featureList {
+  display: none;
+}
+
+.panelFooter {
+  display: none;
+}
+
+.mainArea {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+  width: 100%;
+}
+
+.cardWrapper {
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.card {
+  background-color: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-sm);
+  width: 100%;
+}
+
+.mobileDisclaimer {
+  text-align: center;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  padding: 0 var(--space-2);
+}
+
+/* ---------- Tablet & Up (640px+) ----------
+   TODO: Wireframe split-screen layout where left side is dark charcoal brand panel
+   and right side is centered form card.
+*/
+@media (min-width: 640px) {
+  .wrapper {
+    flex-direction: row;
+    min-height: 100vh;
+  }
+
+  .leftPanel {
+    width: 38%;
+    min-width: 280px;
+    max-width: 480px;
+    padding: var(--space-10) var(--space-8);
+    text-align: left;
+    align-items: flex-start;
+    justify-content: space-between;
+    border-bottom: none;
+    border-right: 1px solid var(--color-sidebar-hover);
+  }
+
+  .brandContent {
+    align-items: flex-start;
+    gap: var(--space-4);
+  }
+
+  .logoBadge {
+    width: 48px;
+    height: 48px;
+    font-size: var(--font-size-lg);
+  }
+
+  .brandTitle {
+    font-size: var(--font-size-3xl);
+  }
+
+  .brandTagline {
+    font-size: var(--font-size-sm);
+  }
+
+  .featureList {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    margin-top: var(--space-6);
+  }
+
+  .featureItem {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-2);
+    font-size: var(--font-size-xs);
+    color: var(--color-sidebar-muted);
+    line-height: var(--line-height-relaxed);
+  }
+
+  .featureBullet {
+    color: var(--color-accent);
+    font-size: var(--font-size-base);
+    line-height: 1;
+  }
+
+  .panelFooter {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--font-size-xs);
+    color: var(--color-sidebar-muted);
+    margin-top: var(--space-8);
+  }
+
+  .footerDot {
+    opacity: 0.5;
+  }
+
+  .mainArea {
+    flex: 1;
+    padding: var(--space-8);
+  }
+
+  .card {
+    padding: var(--space-8);
+    border-radius: var(--radius-xl);
+  }
+}
+
+/* ---------- Laptop & Large Desktop (1024px+) ---------- */
+@media (min-width: 1024px) {
+  .leftPanel {
+    width: 42%;
+    padding: var(--space-12) var(--space-10);
+  }
+
+  .brandTitle {
+    font-size: var(--font-size-4xl);
+  }
+
+  .brandTagline {
+    font-size: var(--font-size-base);
+  }
+
+  .featureItem {
+    font-size: var(--font-size-sm);
+  }
+}

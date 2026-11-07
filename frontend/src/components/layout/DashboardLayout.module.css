@@ -1,0 +1,247 @@
+/* DashboardLayout.module.css — Mobile-first responsive layout */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--color-bg);
+  width: 100%;
+}
+
+/* Mobile top header (<640px) */
+.mobileHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--header-height);
+  background-color: var(--color-sidebar);
+  color: #ffffff;
+  padding: 0 var(--space-4);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid var(--color-sidebar-hover);
+}
+
+.menuButton {
+  background: none;
+  border: none;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  padding: 0;
+  margin-inline-start: -8px;
+}
+
+.menuButton:hover {
+  background-color: var(--color-sidebar-hover);
+}
+
+.mobileBrand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.mobileLogoBadge {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-accent);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: var(--font-weight-bold);
+}
+
+.mobileTitle {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -0.01em;
+}
+
+.mobileUserBadge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+}
+
+/* Content Area */
+.contentArea {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - var(--header-height));
+  width: 100%;
+  margin-inline-start: 0;
+}
+
+/* Top bar (demo switcher + session tag) */
+.topBar {
+  background-color: var(--color-card);
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--font-size-xs);
+  position: sticky;
+  top: var(--header-height);
+  z-index: 40;
+  overflow-x: auto;
+}
+
+.workspaceIndicator {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.workspaceLabel {
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-weight: var(--font-weight-medium);
+}
+
+.dividerDot {
+  color: var(--color-text-muted);
+}
+
+.topLogoutBtn {
+  background: none;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 3px 8px;
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  margin-inline-start: var(--space-2);
+  transition: all var(--transition-fast);
+}
+
+.topLogoutBtn:hover {
+  background-color: var(--color-border-light);
+  color: var(--color-text-primary);
+}
+
+.userBadge {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-medium);
+  flex-shrink: 0;
+}
+
+.userNameText {
+  display: none;
+}
+
+.statusDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--color-success);
+  flex-shrink: 0;
+}
+
+.roleTag {
+  color: var(--color-accent);
+  text-transform: capitalize;
+  font-weight: var(--font-weight-semibold);
+}
+
+/* Main Content */
+.mainContent {
+  flex: 1;
+  padding: var(--space-4);
+  width: 100%;
+}
+
+.mainContentInner {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.loadingWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  gap: var(--space-4);
+  color: var(--color-text-secondary);
+}
+
+/* ==========================================================================
+   Tablet (640px to 1023px)
+   TODO: Sidebar transforms into an icon rail (68px). Content adjusts margin.
+   ========================================================================== */
+@media (min-width: 640px) {
+  .container {
+    flex-direction: row;
+  }
+
+  .mobileHeader {
+    display: none;
+  }
+
+  .contentArea {
+    margin-inline-start: var(--sidebar-width-rail);
+    min-height: 100vh;
+  }
+
+  .topBar {
+    top: 0;
+    padding: 0 var(--space-6);
+    height: 52px;
+  }
+
+  .userNameText {
+    display: inline;
+  }
+
+  .mainContent {
+    padding: var(--space-6);
+  }
+}
+
+/* ==========================================================================
+   Laptop (1024px to 1439px) — Wireframe Canonical Layout
+   Sidebar 240px persistent, content fills remaining width, tested on 1366x768
+   ========================================================================== */
+@media (min-width: 1024px) {
+  .contentArea {
+    margin-inline-start: var(--sidebar-width);
+  }
+
+  .topBar {
+    padding: 0 var(--space-8);
+  }
+
+  .mainContent {
+    padding: var(--space-8);
+  }
+}
+
+/* ==========================================================================
+   Large Desktop (1440px+)
+   TODO: Cap main content inner width at 1280px to avoid awkward stretching
+   ========================================================================== */
+@media (min-width: 1440px) {
+  .mainContentInner {
+    max-width: var(--content-max-width);
+  }
+}
