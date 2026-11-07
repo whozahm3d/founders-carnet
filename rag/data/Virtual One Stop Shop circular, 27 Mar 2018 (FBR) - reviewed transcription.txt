@@ -1,0 +1,29 @@
+Government of Pakistan
+Revenue Division
+Federal Board of Revenue
+Information Technology Wing
+27 March 2018
+
+Virtual One Stop Shop (VOSS) for Company Registration
+
+The Federal Board of Revenue (FBR) and the Securities and Exchange Commission of Pakistan (SECP) have launched a one-window facility for company incorporation and National Tax Number (NTN) registration. This facility enables companies to be registered with SECP and FBR in one go without having to visit FBR offices or its website. For the convenience of all stakeholders, the process to be followed is outlined as under:
+
+Step 1. Taxpayer will visit the SECP website (https://www.secp.gov.pk) and complete the company incorporation application as before;
+
+Step 2. As soon as company is incorporated, data of the company and its directors will be forwarded to FBR through an automated web service;
+
+Step 3. FBR system will run an auto-process to verify if all the directors registered taxpayers of FBR. If all the directors are already registered taxpayers, then process will jump to Step 6;
+
+Step 4. If any Director(s) are not registered with FBR, system will automatically register each unregistered director on the basis of data provided by SECP;
+
+Step 5. System will send confirmation email and SMS to each director on successful registration;
+
+Step 6. System will automatically create FBR registration application on behalf of company, process the application and register the company within FBR;
+
+Step 7. System will send confirmation email and SMS to company representative on successful registration;
+
+Step 8. FBR will intimate SECP about registration of Taxpayer within FBR.
+
+It may also be noted that the process from Step-3 to Step-8 is totally system-based without any human involvement which will save time and effort of the taxpayer and improve the efficiency of the system.
+
+Transcription note: Hand-transcribed from the one-page scanned circular. Line breaks, capitalization and punctuation are normalized; document serial number, signature and distribution list are omitted. Verify against the retained PDF before relying on ambiguous wording.

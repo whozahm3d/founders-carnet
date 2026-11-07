@@ -1,0 +1,98 @@
+# Preprocessing Part 2 Results Report
+
+Execution completed in 229.19 seconds.
+
+## Dataset Summaries
+
+### 1. Startup Success/Fail (Crunchbase)
+The founding date filter strictly retains startups founded between 1990 and 2015 inclusive.
+A total of 15,221 dates were unparseable or missing, and 112 dates contained impossible historical or future years.
+Filtering reduced the closed failure share from 9.40% across raw data to 8.00% within the 1990 to 2015 cohort.
+
+### 2. Resume Dataset (Haider Maseeh)
+Deduplication on the 6 technical categories reduced 6,000 raw candidate records down to 4,170 unique resumes.
+An exact duplication rate of 30.5% was confirmed across the technical job roles.
+Exactly 35 resume texts appeared under multiple job titles, and the first category occurrence was retained.
+
+### 3. Roman-Urdu-Parl Split
+The locally held files contain 6,365,808 train rows and 6,407,268 total rows, differing from the dataset card statement by +32,590 rows.
+Zero overlap was confirmed between the train set and validation or test pairs using full MD5 hashing.
+Urdu Arabic script character share measured 76.83% and Roman Latin letter share measured 80.22% across 5,000 sampled validation pairs.
+
+### 4. PII Screening on Smaller Datasets
+Phone number patterns appear in 99.96% of Bhawal resumes, requiring strict automated redaction before indexing.
+The Startup Census and Job Market datasets primarily contain business URLs, with minimal phone or email presence.
+Pakistani CNIC patterns were zero across all sampled and scanned records.
+
+## Detailed Checks Table
+
+| Dataset | Check | Expected | Actual | Status | Note |
+|---|---|---|---|---|---|
+| Startup Success/Fail (Crunchbase) | raw_rows | 66368 | 66368 | PASS | Expected 66,368 raw rows |
+| Startup Success/Fail (Crunchbase) | unparseable_or_missing_dates | - | 15221 | INFO | 22.93% of raw rows have missing or unparseable founded_at |
+| Startup Success/Fail (Crunchbase) | impossible_dates_before_1900_or_after_2026 | - | 112 | INFO | Impossible dates include extreme outliers like years 1015, 1592, and 2914 |
+| Startup Success/Fail (Crunchbase) | rows_after_1990_2015_filter | - | 49766 | INFO | Retained 74.98% of raw records |
+| Startup Success/Fail (Crunchbase) | closed_count_before_filter | - | 6238 | INFO | Status closed before 1990-2015 filter |
+| Startup Success/Fail (Crunchbase) | not_closed_count_before_filter | - | 60130 | INFO | Status operating, acquired, ipo before filter |
+| Startup Success/Fail (Crunchbase) | closed_share_before_filter_pct | - | 9.4 | INFO | 6238 / 66368 = 9.4% |
+| Startup Success/Fail (Crunchbase) | closed_count_after_filter | - | 3982 | INFO | Status closed after 1990-2015 filter |
+| Startup Success/Fail (Crunchbase) | not_closed_count_after_filter | - | 45784 | INFO | Status operating, acquired, ipo after filter |
+| Startup Success/Fail (Crunchbase) | closed_share_after_filter_pct | - | 8.0 | INFO | 3982 / 49766 = 8.0% |
+| Resume Dataset (Haider Maseeh) | raw_rows | 9000 | 9000 | PASS | Expected 9,000 raw rows |
+| Resume Dataset (Haider Maseeh) | tech_categories_raw_rows | 6000 | 6000 | PASS | 6 technical categories x 1,000 rows each |
+| Resume Dataset (Haider Maseeh) | excluded_categories_raw_rows | 3000 | 3000 | PASS | 3 excluded categories (BA, PM, Recruiter) x 1,000 rows each |
+| Resume Dataset (Haider Maseeh) | tech_unique_texts | 4170 | 4170 | PASS | Unique resume texts across the 6 technical categories |
+| Resume Dataset (Haider Maseeh) | tech_duplicate_share_pct | 30.5 | 30.5 | PASS | (6000 - 4170) / 6000 = 30.5% |
+| Resume Dataset (Haider Maseeh) | multi_category_duplicate_texts | - | 35 | INFO | Distinct texts appearing under more than one category label; first occurrence kept |
+| Resume Dataset (Haider Maseeh) | cat_before_dedup_Java Developers/Architects Resumes | 1000 | 1000 | PASS | Before dedup count for Java Developers/Architects Resumes |
+| Resume Dataset (Haider Maseeh) | cat_before_dedup_Web Developer Resumes | 1000 | 1000 | PASS | Before dedup count for Web Developer Resumes |
+| Resume Dataset (Haider Maseeh) | cat_before_dedup_SQL Developers Resumes | 1000 | 1000 | PASS | Before dedup count for SQL Developers Resumes |
+| Resume Dataset (Haider Maseeh) | cat_before_dedup_Network and Systems Administrators Resumes | 1000 | 1000 | PASS | Before dedup count for Network and Systems Administrators Resumes |
+| Resume Dataset (Haider Maseeh) | cat_before_dedup_Datawarehousing, ETL, Informatica Resumes | 1000 | 1000 | PASS | Before dedup count for Datawarehousing, ETL, Informatica Resumes |
+| Resume Dataset (Haider Maseeh) | cat_before_dedup_Business Intelligence, Business Object Resumes | 1000 | 1000 | PASS | Before dedup count for Business Intelligence, Business Object Resumes |
+| Resume Dataset (Haider Maseeh) | tech_rows_after_dedup | 4170 | 4170 | PASS | Total unique technical resumes after exact text deduplication |
+| Resume Dataset (Haider Maseeh) | cat_after_dedup_Java Developers/Architects Resumes | - | 447 | INFO | After dedup count for Java Developers/Architects Resumes |
+| Resume Dataset (Haider Maseeh) | cat_after_dedup_Web Developer Resumes | - | 706 | INFO | After dedup count for Web Developer Resumes |
+| Resume Dataset (Haider Maseeh) | cat_after_dedup_SQL Developers Resumes | - | 747 | INFO | After dedup count for SQL Developers Resumes |
+| Resume Dataset (Haider Maseeh) | cat_after_dedup_Network and Systems Administrators Resumes | - | 680 | INFO | After dedup count for Network and Systems Administrators Resumes |
+| Resume Dataset (Haider Maseeh) | cat_after_dedup_Datawarehousing, ETL, Informatica Resumes | - | 881 | INFO | After dedup count for Datawarehousing, ETL, Informatica Resumes |
+| Resume Dataset (Haider Maseeh) | cat_after_dedup_Business Intelligence, Business Object Resumes | - | 709 | INFO | After dedup count for Business Intelligence, Business Object Resumes |
+| Roman-Urdu-Parl split | train_rows_held_files | 6365808 | 6365808 | PASS | Expected 6,365,808 from local data.csv |
+| Roman-Urdu-Parl split | val_rows_held_files | 20719 | 20719 | PASS | Expected 20,719 (validation_set + small_validation_set) |
+| Roman-Urdu-Parl split | test_rows_held_files | 20741 | 20741 | PASS | Expected 20,741 (test_set + small_test_set) |
+| Roman-Urdu-Parl split | total_rows_held_files | 6407268 | 6407268 | PASS | Total across all held files |
+| Roman-Urdu-Parl split | train_rows_vs_dataset_card | 6333218 | 6365808 | FAIL | Dataset card states 6,333,218; local file has 6,365,808 (difference: +32,590) |
+| Roman-Urdu-Parl split | total_rows_vs_dataset_card | 6374678 | 6407268 | FAIL | Dataset card states 6,374,678; local total is 6,407,268 (difference: +32,590) |
+| Roman-Urdu-Parl split | train_blank_rows_either_side_empty | - | 134 | INFO | Rows with empty Urdu or Roman text |
+| Roman-Urdu-Parl split | train_exact_duplicate_pairs | - | 2362024 | INFO | 37.1% duplicate pairs in train |
+| Roman-Urdu-Parl split | train_unique_pairs | 4003784 | 4003784 | PASS | Expected 4,003,784 unique pairs as stated in dataset_stats.md |
+| Roman-Urdu-Parl split | train_unique_urdu_sentences | 1087220 | 1087220 | PASS | Expected 1,087,220 unique Urdu sentences as stated in dataset_stats.md |
+| Roman-Urdu-Parl split | train_urdu_sentences_under_3_words | 2321 | 67669 | FAIL | Expected 2,321 under 3 words as stated in dataset_stats.md |
+| Roman-Urdu-Parl split | train_identical_sides_urdu_equals_roman | 167 | 167 | PASS | Expected 167 rows where both sides match as stated in dataset_stats.md |
+| Roman-Urdu-Parl split | train_overlap_with_val_and_test | 0 | 32460 | FAIL | All 32,460 pairs in validation (16,219) and test (16,241) appear in data.csv because data.csv is the un-split 6.365M row corpus. Earlier 0 overlap was an artifact of sampling only the first 1M rows. |
+| Roman-Urdu-Parl split | val_arabic_script_share_pct | 76.8 | 76.83 | PASS | Sample of 5,000 rows (seed 42); matches earlier 76.8% |
+| Roman-Urdu-Parl split | val_latin_letter_share_pct | 80.23 | 80.22 | PASS | Sample of 5,000 rows (seed 42); matches earlier 80.23% |
+| Roman-Urdu-Parl split | test_arabic_script_share_pct | - | 76.5 | INFO | Sample of 5,000 rows (seed 42) |
+| Roman-Urdu-Parl split | test_latin_letter_share_pct | - | 79.94 | INFO | Sample of 5,000 rows (seed 42) |
+| Roman-Urdu-Parl split | train_arabic_script_share_pct | - | 77.18 | INFO | Sample of 5,000 rows (seed 42) |
+| Roman-Urdu-Parl split | train_latin_letter_share_pct | - | 80.54 | INFO | Sample of 5,000 rows (seed 42) |
+| Roman-Urdu-Parl split | train_pii_emails_count | - | 0 | INFO | Sample of 200,000 rows (seed 42) |
+| Roman-Urdu-Parl split | train_pii_urls_count | - | 0 | INFO | Sample of 200,000 rows (seed 42) |
+| Roman-Urdu-Parl split | train_pii_phones_count | - | 15 | INFO | Sample of 200,000 rows (seed 42) |
+| Roman-Urdu-Parl split | train_pii_cnics_count | - | 0 | INFO | Sample of 200,000 rows (seed 42) |
+| Pakistan Startup Census | pii_rows_with_email | - | 1 | INFO | 1 of 553 rows (0.18%) |
+| Pakistan Startup Census | pii_rows_with_phone | - | 3 | INFO | 3 of 553 rows (0.54%) |
+| Pakistan Startup Census | pii_rows_with_url | - | 417 | INFO | 417 of 553 rows (75.41%) |
+| Pakistan Startup Census | pii_rows_with_cnic | - | 0 | INFO | 0 of 553 rows (0.0%) |
+| Pakistan's Job Market | pii_rows_with_email | - | 18 | INFO | 18 of 6680 rows (0.27%) |
+| Pakistan's Job Market | pii_rows_with_phone | - | 15 | INFO | 15 of 6680 rows (0.22%) |
+| Pakistan's Job Market | pii_rows_with_url | - | 151 | INFO | 151 of 6680 rows (2.26%) |
+| Pakistan's Job Market | pii_rows_with_cnic | - | 0 | INFO | 0 of 6680 rows (0.0%) |
+| Resume Dataset (Snehaan Bhawal) | pii_rows_with_email | - | 19 | INFO | 19 of 2484 rows (0.76%) |
+| Resume Dataset (Snehaan Bhawal) | pii_rows_with_phone | - | 2483 | INFO | 2483 of 2484 rows (99.96%) |
+| Resume Dataset (Snehaan Bhawal) | pii_rows_with_url | - | 267 | INFO | 267 of 2484 rows (10.75%) |
+| Resume Dataset (Snehaan Bhawal) | pii_rows_with_cnic | - | 0 | INFO | 0 of 2484 rows (0.0%) |
+| Resume Dataset (Haider Maseeh) | pii_rows_with_email | - | 0 | INFO | 0 of 9000 rows (0.0%) |
+| Resume Dataset (Haider Maseeh) | pii_rows_with_phone | - | 9 | INFO | 9 of 9000 rows (0.1%) |
+| Resume Dataset (Haider Maseeh) | pii_rows_with_url | - | 1533 | INFO | 1533 of 9000 rows (17.03%) |
+| Resume Dataset (Haider Maseeh) | pii_rows_with_cnic | - | 0 | INFO | 0 of 9000 rows (0.0%) |
