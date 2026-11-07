@@ -7,7 +7,7 @@ name = "founders-carnet-rag"
 version = "0.1.0"
 requires-python = ">=3.11,<3.12"
 dependencies = [
-    "pypdf==6.21.1",
+    "pypdf==6.21.4",
     "pgvector==0.5.1",
     "sentence-transformers==6.1.0",
 ]
