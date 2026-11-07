@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import { User, LoginCredentials, RegisterData } from '@/types/auth';
 import { authStorage, loginApi, registerApi } from '@/lib/auth';
 
@@ -20,22 +20,18 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<User | null>(null);
-  const [token, setToken] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    // Restore saved session on mount if one exists
+  const [user, setUser] = useState<User | null>(() => {
     const savedToken = authStorage.getToken();
     const savedUser = authStorage.getUser();
+    return savedToken && savedUser ? savedUser : null;
+  });
 
-    if (savedToken && savedUser) {
-      setUser(savedUser);
-      setToken(savedToken);
-    }
-    // No auto-login: with no saved session, user stays null and routes redirect to /login
-    setIsLoading(false);
-  }, []);
+  const [token, setToken] = useState<string | null>(() => {
+    const savedToken = authStorage.getToken();
+    const savedUser = authStorage.getUser();
+    return savedToken && savedUser ? savedToken : null;
+  });
+  const [isLoading, setIsLoading] = useState(false);
 
   const login = async (credentials: LoginCredentials): Promise<User> => {
     setIsLoading(true);

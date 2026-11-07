@@ -15,11 +15,6 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
   // Mobile menu drawer state
   const [drawerOpen, setDrawerOpen] = useState(false);
 
-  // Close drawer on route change
-  useEffect(() => {
-    setDrawerOpen(false);
-  }, [pathname]);
-
   // Close drawer on Escape key press (a11y)
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
     if (e.key === 'Escape') {
