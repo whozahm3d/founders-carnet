@@ -145,8 +145,20 @@ Cut items are reported in Chapter 6 limitations and moved to FYP-2. Do not leave
 - No contact details in any API response before both sides accept (NFR-6).
 - Unit tests on the factor scoring and ranking (matching).
 - Compliance gold-set run with the three measures above, results saved for Chapter 6.
-- CI (NFR-23): lint and tests on every pull request. `ci.yml` has not run on GitHub yet. Push a trivial branch early in Sprint 6 to confirm it works.
+- CI (NFR-23): lint and tests on every pull request. `ci.yml` has now run on GitHub (see CI status below). Keep the pull request check green before merging.
 - Versioned migrations rebuild an empty database (NFR-22).
+
+## CI status (Nov 10)
+
+First lint run on GitHub (`npm run lint` in `frontend/`) failed with 2 errors and 1 warning. Only errors fail the job.
+
+| File | Line | Rule | Severity | Fix |
+| --- | --- | --- | --- | --- |
+| `frontend/src/components/layout/DashboardLayout.tsx` | 20 | `react-hooks/set-state-in-effect` | error | Remove the effect that calls `setDrawerOpen(false)` on route change. Store the path the drawer was opened on (`openedAt`) and derive `drawerOpen = openedAt === pathname`. The Escape-key effect stays, since it subscribes to a DOM event. |
+| `frontend/src/context/AuthContext.tsx` | 33 | `react-hooks/set-state-in-effect` | error | Read the saved user and token from `localStorage` in the `useState` initializers (guard with `typeof window === "undefined"`) and delete the restore effect. Keep "no auto-login". If a hydration mismatch appears, use `useSyncExternalStore`, or as a last resort a scoped `eslint-disable-next-line` with a reason. |
+| `frontend/src/app/(dashboard)/admin/dashboard/page.tsx` | 9 | `@typescript-eslint/no-unused-vars` | warning | Remove `ReviewItem`, or use it to type the escalated-profiles list (FR-26). |
+
+Done when `npm run lint --if-present` exits 0 on the pull request. The backend lint and test jobs are not covered here; check them in the same run.
 
 ## Not in report (open, team decides)
 
