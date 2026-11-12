@@ -1,0 +1,22 @@
+/* Card.module.css — White rounded card container (wireframes) */
+
+.card {
+  background-color: var(--color-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  padding: var(--space-6);
+  transition: box-shadow var(--transition-base);
+}
+
+.cardHoverable:hover {
+  box-shadow: var(--shadow-md);
+}
+
+/* Size variants */
+.cardCompact {
+  padding: var(--space-4);
+}
+
+.cardFlush {
+  padding: 0;
+}

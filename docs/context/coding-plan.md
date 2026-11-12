@@ -18,6 +18,7 @@ If work falls behind, items lower in this list are dropped first.
 4. Readiness, then pitch simulator, then market research.
 5. Resume optimizer and job board.
 6. English, Urdu, Roman Urdu benchmark (FYP-2, not built now).
+7. Supporting classifiers on the FINAL datasets (FYP-2, not built now). Only the dataset cleaning in `docs/datasets.md` can start in FYP-1.
 
 Where verification, the admin console, consent, usage guides and job posting sit in this order is **not in report**. The proposal below puts verification, admin console and consent right after foundations (they gate investor visibility, FR-10, and contact reveal, NFR-6), guides last (FR-18 is text), and job posting with the job board.
 
@@ -114,11 +115,21 @@ Owners are proposals: Ali (AI/ML), Shahzeb (frontend), Taha (backend). Every fea
 - Slice: team-written guides reachable from every dashboard. Static pages.
 - Risk: none. Do it last.
 
+### 12. Supporting classifiers (FYP-2; not an FYP-1 feature)
+
+- Adopted 2026-10-19; supervisor approval pending. Three offline classifiers: resume role (haider, Bhawal as external check), startup outcome (Success/Fail), follow-on funding (Investments). Labels and rules are in `docs/datasets.md`.
+- FYP-1 slice: only the cleaning of the datasets (the Success/Fail 1990 to 2015 date filter and the haider deduplication). No training and no FR or NFR ID.
+- Never: show a classifier output to a user as a probability of success, failure or funding; claim accuracy before a run exists.
+- Cut: all of it. It sits below everything else and is dropped first.
+- Risk: low for the build, medium for the claims. The two Crunchbase sets are global data.
+
 ## Cut order if time runs short
 
 Cut from the bottom of this list upward. The first items go first.
 
 1. Usage guides polish, query-log view.
+0. Supporting classifier work, including the dataset cleaning for it.
+1. Usage guides polish, consent purge job, query-log view.
 2. Job board filters and saved listings; job posting extras.
 3. Resume optimizer.
 4. Market research caching; market research itself.
@@ -135,8 +146,20 @@ Cut items are reported in Chapter 6 limitations and moved to FYP-2. Do not leave
 - No contact details in any API response before both sides accept (NFR-6).
 - Unit tests on the factor scoring and ranking (matching).
 - Compliance gold-set run with the three measures above, results saved for Chapter 6.
-- CI (NFR-23): lint and tests on every pull request. `ci.yml` has not run on GitHub yet. Push a trivial branch early in Sprint 6 to confirm it works.
+- CI (NFR-23): lint and tests on every pull request. `ci.yml` has now run on GitHub (see CI status below). Keep the pull request check green before merging.
 - Versioned migrations rebuild an empty database (NFR-22).
+
+## CI status (Nov 10)
+
+First lint run on GitHub (`npm run lint` in `frontend/`) failed with 2 errors and 1 warning. Only errors fail the job.
+
+| File | Line | Rule | Severity | Fix |
+| --- | --- | --- | --- | --- |
+| `frontend/src/components/layout/DashboardLayout.tsx` | 20 | `react-hooks/set-state-in-effect` | error | Remove the effect that calls `setDrawerOpen(false)` on route change. Store the path the drawer was opened on (`openedAt`) and derive `drawerOpen = openedAt === pathname`. The Escape-key effect stays, since it subscribes to a DOM event. |
+| `frontend/src/context/AuthContext.tsx` | 33 | `react-hooks/set-state-in-effect` | error | Read the saved user and token from `localStorage` in the `useState` initializers (guard with `typeof window === "undefined"`) and delete the restore effect. Keep "no auto-login". If a hydration mismatch appears, use `useSyncExternalStore`, or as a last resort a scoped `eslint-disable-next-line` with a reason. |
+| `frontend/src/app/(dashboard)/admin/dashboard/page.tsx` | 9 | `@typescript-eslint/no-unused-vars` | warning | Remove `ReviewItem`, or use it to type the escalated-profiles list (FR-26). |
+
+Done when `npm run lint --if-present` exits 0 on the pull request. The backend lint and test jobs are not covered here; check them in the same run.
 
 ## Not in report (open, team decides)
 
@@ -145,3 +168,4 @@ Cut items are reported in Chapter 6 limitations and moved to FYP-2. Do not leave
 - Where verification, admin console, consent and guides sit in the build order (proposal above).
 - Lint tool beyond `ruff`, and Railway versus Render.
 - Feature freeze date (proposed Nov 6).
+- Classifier column names, split sizes and the Investments label rule. Set them when the scripts are written and log them in `docs/DECISIONS.md`.

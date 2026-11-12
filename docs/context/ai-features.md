@@ -4,7 +4,7 @@ Source: report Chapter 5 (System Overview, Goals and Guidelines), Risk Analysis 
 
 Keep these separate in code, comments, and docs. Do not call a prompted feature "trained" or "fine-tuned".
 
-## The one trained model
+## The trained matching model
 
 | Feature | Detail |
 | --- | --- |
@@ -17,6 +17,23 @@ If there are too few labeled pairs, the reported result is the cosine baseline p
 Matching never calls a language model. It uses embeddings (sentence-transformers), pgvector similarity search, and the re-ranker.
 
 A cross-encoder or neural listwise re-ranker was rejected: too expensive, and likely to overfit on 150 to 300 pairs.
+
+## Supporting classifiers (trained offline on FINAL public datasets)
+
+Adopted 2026-10-19 (see `docs/DECISIONS.md`; supervisor approval pending). These are the only models trained on external data. Labels, leakage rules and splits are in `docs/datasets.md`.
+
+| Classifier | Dataset | Label |
+| --- | --- | --- |
+| Resume role classifier (R1) | Resume Dataset (haider), 6 tech categories | Category. Bhawal IT and Engineering resumes are an external check only |
+| Startup outcome classifier (R4) | Startup Success/Fail (Crunchbase) | Closed against survived or exited |
+| Follow-on funding classifier (R4) | StartUp Investments (Crunchbase) | Raised a follow-on round |
+
+Rules:
+
+- Deduplicate before splitting. Report macro-F1 where classes are small. No accuracy claim until a run exists.
+- The two Crunchbase classifiers are offline studies on global data. Never show their output to a user as a probability of success, failure or funding (see the scope no-go list).
+- Until the scripts exist and are evaluated, treat them as planned, not built. Whether a classifier feeds a user-facing feature is decided after evaluation and logged in `docs/DECISIONS.md`.
+- Keep each one a normal trained model in code and docs. Do not mix it with prompted calls.
 
 ## Prompted LLM calls (Gemini, through the LLM Gateway only)
 
@@ -45,7 +62,8 @@ Readiness scores store their reasoning. Match results store their factors. "Why 
 
 ## Things we decided not to do
 
+- No training on external data for the compliance assistant, the prompted features or the matching re-ranker. Only the three supporting classifiers above use external data.
 - No fine-tuning on the regulatory corpus. It changes (a fee schedule was replaced during the project), and a fine-tuned model cannot cite a passage.
 - No answering from model memory without retrieval. Commercial legal research tools hallucinated 17 to 33% of the time.
-- Embedding fine-tuning waits until a benchmark finds a gap and there is enough labeled data. BM25 with reciprocal rank fusion only if it improves retrieval on the gold question set.
-- No accuracy claim for any model. None has been trained or evaluated yet.
+- Embedding fine-tuning (optionally on Roman-Urdu-Parl, FYP-2) waits until a benchmark finds a gap and there is enough labeled data. BM25 with reciprocal rank fusion only if it improves retrieval on the gold question set.
+- No accuracy claim for any model. None has been trained or evaluated yet, including the supporting classifiers.

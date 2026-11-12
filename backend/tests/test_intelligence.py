@@ -4,14 +4,15 @@ from fastapi.testclient import TestClient
 from sqlalchemy import select
 from sqlalchemy.dialects import postgresql
 
-from app.feature_schemas import PitchTurnResult, ReadinessResult
 from app.database import get_db
 from app.feature_models import ProfileVerification
 from app.models import EcosystemProfile, Startup, User
 from app.main import app
 from app.routes.intelligence import _matching_candidates_query
+from app.feature_schemas import PitchTurnResult, ReadinessResult
+from app.main import app
+from app.models import Startup
 from app.services.feature_ai import get_encoder, get_gateway
-
 
 client = TestClient(app)
 fake_gateway = None

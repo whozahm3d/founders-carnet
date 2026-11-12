@@ -1,3 +1,5 @@
+import itertools
+
 from rag.compliance.chunking import chunk_pages
 from rag.compliance.documents import ExtractedPage
 from rag.compliance.ingestion import CorpusDocument
@@ -48,5 +50,5 @@ def test_long_section_splits_with_overlap_without_exceeding_limit():
     assert all(chunk.section == "4" for chunk in chunks)
     assert any(
         set(first.text.split()) & set(second.text.split())
-        for first, second in zip(chunks, chunks[1:])
+        for first, second in itertools.pairwise(chunks)
     )

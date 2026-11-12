@@ -1,15 +1,15 @@
 import hashlib
 from pathlib import Path
 
+from rag.compliance.documents import ExtractedPage
+from rag.compliance.ingestion import CorpusDocument
+from rag.compliance.scoping import apply_corpus_scope
 from sqlalchemy import create_engine, select
 from sqlalchemy.orm import Session
 from sqlalchemy.pool import StaticPool
 
 from app.models import Base, ComplianceChunk, ComplianceDocument
 from app.services.corpus_indexer import index_corpus
-from rag.compliance.documents import ExtractedPage
-from rag.compliance.ingestion import CorpusDocument
-from rag.compliance.scoping import apply_corpus_scope
 
 
 class FakeEncoder:
@@ -149,7 +149,7 @@ def test_indexer_repairs_missing_chunks_and_null_embeddings_without_duplicates(t
     Base.metadata.create_all(bind=engine)
 
     with Session(engine) as session:
-        first = index_corpus(
+        index_corpus(
             session,
             manifest_path=manifest_path,
             corpus_dir=corpus_dir,

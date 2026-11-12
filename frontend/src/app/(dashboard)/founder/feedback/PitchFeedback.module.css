@@ -1,0 +1,205 @@
+/* PitchFeedback.module.css — Matching wireframe 06_Pitch_Feedback.png */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  width: 100%;
+}
+
+.mainLayout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+  width: 100%;
+  align-items: start;
+}
+
+@media (min-width: 1024px) {
+  .mainLayout {
+    grid-template-columns: 1.8fr 1fr;
+  }
+}
+
+.leftCol {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.card {
+  background-color: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.headerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.cardTitle {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+.averageText {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+.averageScore {
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+.rubricList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.rubricItem {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.itemHeader {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+}
+
+.track {
+  width: 100%;
+  height: 6px;
+  background-color: #E5E7EB;
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.bar {
+  height: 100%;
+  background-color: var(--color-accent);
+  border-radius: var(--radius-full);
+}
+
+.feedbackNote {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+}
+
+/* Struggled questions */
+.struggledList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.struggledItem {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.struggledIcon {
+  width: 18px;
+  height: 18px;
+  border-radius: var(--radius-sm);
+  background-color: #111827;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.struggledContent {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.questionText {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+}
+
+.suggestionText {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+/* Transcript card */
+.transcriptLink {
+  font-size: var(--font-size-xs);
+  color: var(--color-accent);
+  text-decoration: none;
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+}
+
+.transcriptLink:hover {
+  text-decoration: underline;
+}
+
+/* Right column */
+.rightCol {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.progressItem {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.progressItemHeader {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--font-size-xs);
+}
+
+.sessionDate {
+  color: var(--color-text-secondary);
+}
+
+.sessionScore {
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+.checklist {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.checklistItem {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-relaxed);
+  cursor: pointer;
+}
+
+.checkboxInput {
+  margin-top: 2px;
+  accent-color: var(--color-accent);
+}

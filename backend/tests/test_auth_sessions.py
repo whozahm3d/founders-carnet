@@ -1,11 +1,10 @@
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
 from fastapi.testclient import TestClient
 from jose import jwt
 
 from app.config import get_settings
 from app.main import app
-
 
 client = TestClient(app)
 
@@ -88,7 +87,7 @@ def test_expired_token_is_rejected():
             "sub": "1",
             "role": "founder",
             "ver": 0,
-            "exp": datetime.now(timezone.utc) - timedelta(seconds=1),
+            "exp": datetime.now(UTC) - timedelta(seconds=1),
         },
         settings.secret_key,
         algorithm=settings.algorithm,

@@ -1,5 +1,4 @@
 import pytest
-
 from rag.compliance.embeddings import EmbeddingError, SentenceTransformerEncoder
 
 

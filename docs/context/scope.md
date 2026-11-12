@@ -16,6 +16,7 @@ An AI platform for the Pakistani startup ecosystem. It connects founders, startu
 6. Hybrid profile verification: automated score for clear cases, human reviewer for unclear ones, every decision logged, one appeal.
 7. A benchmark of retrieval and generation in English, Urdu, and Roman Urdu (FYP-2).
 8. A small legal footprint.
+9. Three supporting classifiers trained on FINAL public datasets (resume role, startup outcome, follow-on funding), evaluated offline. See `ai-features.md`.
 
 ## No-go list
 
@@ -27,7 +28,7 @@ Stop and flag it if a feature drifts toward any of these.
 - No scraping of individual personal profiles. Users register themselves.
 - No open community forum, no team or project-management tools, no paid cohort training with human staff.
 - We do not host events. The calendar only lists events run by others.
-- The readiness score is not a probability. The platform does not predict funding.
+- The readiness score is not a probability. The platform does not predict funding. The startup outcome and follow-on funding classifiers are offline studies on global Crunchbase data; never show their output to users as a probability of success, failure or funding.
 - Gender or location weighting in matching was considered and rejected. Fairness needs its own metrics and ethical review first. Age and gender are never matching features.
 - A State Bank foreign exchange and offshore structures corpus was rejected as too risky.
 - No data without consent. Personal data comes only from self-registration, consented pilot data, manual authoring, or synthetic data. Never from scraping social media, messaging apps, or public profiles (PECA 2016, R-10).
@@ -41,7 +42,7 @@ No lawyer or SECP has reviewed the fee model (R-15). We claim no regulatory comp
 - Three people, two semesters, no designer, tester, or ops person. Ali leads AI and ML, Shahzeb the frontend, Taha the backend. Each feature must be small enough to build and explain.
 - No paid infrastructure. Vercel (frontend), Railway or Render (backend and workers), free Gemini tier.
 - Gemini 2.5 or lower. Higher models were unreliable under free-tier load.
-- No public dataset pairs Pakistani founders with mentors or investors. No incubator partnership yet (R-16).
+- We found no public labeled dataset for Pakistani founder-mentor or investor matching. No incubator partnership yet (R-16).
 - FYP-1 is English only. Urdu and Roman Urdu come in FYP-2.
 - RAG and multilingual NLP are new to the team. Start with a baseline, try advanced work only when the baseline is stable.
 
@@ -49,4 +50,4 @@ No lawyer or SECP has reviewed the fee model (R-15). We claim no regulatory comp
 
 FYP-1: SRS and design documents, interactive prototypes, code for main flows, a compliance assistant prototype with citations and abstention, a hybrid matching prototype (cosine baseline plus feature weights).
 
-FYP-2: re-ranker training and testing, the Urdu and Roman Urdu benchmark, a larger compliance corpus, placement fee billing (mocked), events calendar, resource links, user manual.
+FYP-2: re-ranker training and testing, training and evaluating the three supporting classifiers, the Urdu and Roman Urdu benchmark, a larger compliance corpus, placement fee billing (mocked), events calendar, resource links, user manual.

@@ -6,15 +6,16 @@ from concurrent.futures import ThreadPoolExecutor
 from types import ModuleType
 from types import SimpleNamespace
 from threading import Event
+from types import ModuleType, SimpleNamespace
 
 import pytest
 from google.genai.errors import ServerError
 from pydantic import BaseModel
 from sqlalchemy import select
 
+import app.services.llm_gateway as gateway_module
 from app.services.compliance_assistant import GroundingValidation
 from app.services.compliance_retrieval import RetrievedChunk
-import app.services.llm_gateway as gateway_module
 from app.services.llm_gateway import GeminiGateway
 from app.services.llm_cache import StructuredResponseDiskCache
 from app.services.llm_gateway_logging import write_gateway_call_log

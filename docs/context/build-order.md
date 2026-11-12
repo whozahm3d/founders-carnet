@@ -13,6 +13,7 @@ Authentication, role-based access, and user profiles. Every feature depends on t
 3. Readiness score, then pitch simulator, then market research synthesis.
 4. Resume optimizer and the job and internship board.
 5. English, Urdu, and Roman Urdu benchmark (already planned for FYP-2).
+6. Supporting classifiers on the FINAL datasets (resume role, startup outcome, follow-on funding). Offline work; not on the critical path. Dropped before anything above it.
 
 If work falls behind, items lower in the list are dropped first.
 
@@ -38,11 +39,13 @@ Foundations, the compliance assistant, matching, then the remaining prompted mod
 | 2 | Matching: collect 150 to 300 labeled pairs, train re-ranker, compare with cosine baseline | NDCG@K and MRR against the baseline, or a stated pilot result |
 | 3 | Prompted modules: readiness, pitch simulator, market research, resume optimizer, job board | Readiness score vs. 2 or 3 human reviewers on 10 to 15 ideas (Spearman) |
 | 4 | Benchmark English, Urdu, Roman Urdu on 30 to 50 parallel descriptions per language, then add FR-9 | Results per language; fine-tuning only if a gap is found |
+| 4b | Train and evaluate the three supporting classifiers (`docs/datasets.md`): clean and deduplicate first, then macro-F1 against a simple baseline | Results reported per classifier, or a stated pilot result |
 | 5 | Mocked placement fee billing, events calendar, resource links, user manual | FR-11, FR-30, FR-31 demonstrated |
 | 6 | Load test, usability walkthrough, in-university survey, founder and talent interviews | NFR-1, NFR-2, NFR-3, NFR-16 checked |
 
 ## Working rules
 
+- No training on a dataset until its preprocessing items in `docs/datasets.md` are done (for example the Haider deduplication and the Success/Fail date filter).
 - Start with the simplest thing we can evaluate and measure against a stated baseline.
 - Requirements and design come before code, but parts are still built and revised inside a sprint.
 - Code reaches `main` only through pull requests that run linting and tests (NFR-23).

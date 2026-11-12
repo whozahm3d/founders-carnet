@@ -1,9 +1,7 @@
 from pathlib import Path
 
 import pytest
-
 from rag.compliance.documents import NoExtractableTextError, extract_pdf_pages
-
 
 RAG_ROOT = Path(__file__).resolve().parents[1]
 

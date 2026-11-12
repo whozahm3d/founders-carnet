@@ -14,7 +14,6 @@ from app.services.compliance_assistant import (
 )
 from app.services.wiring import get_compliance_answer_service
 
-
 router = APIRouter(prefix="/api/v1/compliance", tags=["compliance"])
 FounderDep = Annotated[User, Depends(require_roles("founder"))]
 SessionDep = Annotated[Session, Depends(get_db)]

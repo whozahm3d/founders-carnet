@@ -1,6 +1,7 @@
 import logging
 
 import pytest
+from google.genai.errors import ServerError
 from sqlalchemy import create_engine, event, select
 from sqlalchemy.orm import Session
 from sqlalchemy.pool import StaticPool
@@ -13,7 +14,6 @@ from app.services.compliance_assistant import (
     GroundingValidation,
 )
 from app.services.llm_gateway import GeminiGateway
-from google.genai.errors import ServerError
 
 
 class FakeEncoder:
@@ -59,10 +59,11 @@ def _database(
     engine = create_engine("sqlite://", poolclass=StaticPool)
     Base.metadata.create_all(bind=engine)
     session = Session(engine)
+    fake_password_hash = "not-a-real-password-hash"
     user = User(
         email="founder@example.test",
         full_name="Test Founder",
-        hashed_password="not-a-real-password-hash",
+        hashed_password=fake_password_hash,
         role="founder",
     )
     document = ComplianceDocument(
@@ -308,9 +309,11 @@ def test_retrieval_error_is_logged_and_failed_query_is_recorded(caplog):
         embedding_model="candidate-v1",
     )
 
-    with caplog.at_level(logging.ERROR, logger="app.services.compliance_assistant"):
-        with pytest.raises(ComplianceServiceUnavailable) as caught:
-            assistant.ask(session, user_id=user.id, question="What does the source say?")
+    with (
+        caplog.at_level(logging.ERROR, logger="app.services.compliance_assistant"),
+        pytest.raises(ComplianceServiceUnavailable) as caught,
+    ):
+        assistant.ask(session, user_id=user.id, question="What does the source say?")
 
     saved_query = session.scalar(select(ComplianceQuery))
     assert str(caught.value) == "Compliance retrieval failed"
@@ -336,9 +339,11 @@ def test_gemini_error_is_logged_and_failed_query_is_recorded(caplog):
         minimum_similarity=0.8,
     )
 
-    with caplog.at_level(logging.ERROR, logger="app.services.compliance_assistant"):
-        with pytest.raises(ComplianceServiceUnavailable) as caught:
-            assistant.ask(session, user_id=user.id, question="What procedure is described?")
+    with (
+        caplog.at_level(logging.ERROR, logger="app.services.compliance_assistant"),
+        pytest.raises(ComplianceServiceUnavailable) as caught,
+    ):
+        assistant.ask(session, user_id=user.id, question="What procedure is described?")
 
     saved_query = session.scalar(select(ComplianceQuery))
     assert str(caught.value) == "Compliance answer generation failed"
@@ -376,9 +381,8 @@ def test_gateway_generation_failure_is_logged_once_and_failed_query_is_saved(cap
         minimum_similarity=0.8,
     )
 
-    with caplog.at_level(logging.ERROR):
-        with pytest.raises(ComplianceServiceUnavailable):
-            assistant.ask(session, user_id=user.id, question="What does the source say?")
+    with caplog.at_level(logging.ERROR), pytest.raises(ComplianceServiceUnavailable):
+        assistant.ask(session, user_id=user.id, question="What does the source say?")
 
     saved_query = session.scalar(select(ComplianceQuery))
     assert saved_query is not None and saved_query.outcome == "failed"
@@ -412,9 +416,11 @@ def test_failed_query_write_does_not_mask_original_provider_error(caplog):
     )
 
     try:
-        with caplog.at_level(logging.ERROR, logger="app.services.compliance_assistant"):
-            with pytest.raises(ComplianceServiceUnavailable) as caught:
-                assistant.ask(session, user_id=user.id, question="What does the source say?")
+        with (
+            caplog.at_level(logging.ERROR, logger="app.services.compliance_assistant"),
+            pytest.raises(ComplianceServiceUnavailable) as caught,
+        ):
+            assistant.ask(session, user_id=user.id, question="What does the source say?")
     finally:
         event.remove(ComplianceQuery, "before_insert", reject_failed_query)
 

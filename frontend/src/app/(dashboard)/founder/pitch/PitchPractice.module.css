@@ -1,0 +1,234 @@
+/* PitchPractice.module.css — Matching wireframe 05_Pitch_Practice.png */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  width: 100%;
+}
+
+.selectorBar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.dropdownGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  align-items: center;
+}
+
+.selectBox {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.selectLabel {
+  font-size: 11px;
+  color: var(--color-text-secondary);
+}
+
+.disclaimerText {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+/* Two-column layout: chat on left (wide), rubric + timer on right */
+.mainLayout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+  width: 100%;
+  align-items: start;
+}
+
+@media (min-width: 1024px) {
+  .mainLayout {
+    grid-template-columns: 2fr 1fr;
+  }
+}
+
+/* Chat container */
+.chatCard {
+  background-color: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  min-height: 520px;
+  overflow: hidden;
+}
+
+.chatHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-4) var(--space-6);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.chatTitle {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+.mobileTimerText {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+.chatMessages {
+  flex: 1;
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  overflow-y: auto;
+  max-height: 480px;
+}
+
+.messageWrapperAi {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 80%;
+}
+
+.messageWrapperUser {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  align-self: flex-end;
+  max-width: 80%;
+}
+
+.senderLabel {
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  margin-block-end: 4px;
+}
+
+.bubbleAi {
+  background-color: #F3F4F6;
+  color: var(--color-text-primary);
+  padding: var(--space-4) var(--space-5);
+  border-radius: var(--radius-lg) var(--radius-lg) var(--radius-lg) 2px;
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+}
+
+.bubbleUser {
+  background-color: var(--color-accent);
+  color: #ffffff;
+  padding: var(--space-4) var(--space-5);
+  border-radius: var(--radius-lg) var(--radius-lg) 2px var(--radius-lg);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+}
+
+.inputBar {
+  display: flex;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-6);
+  border-top: 1px solid var(--color-border);
+  background-color: #ffffff;
+  flex-wrap: wrap;
+}
+
+.chatInput {
+  flex: 1;
+  min-width: 180px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 10px var(--space-4);
+  font-size: 16px;
+  outline: none;
+  font-family: var(--font-family);
+}
+
+@media (min-width: 640px) {
+  .chatInput {
+    font-size: var(--font-size-sm);
+  }
+}
+
+.chatInput:focus {
+  border-color: var(--color-accent);
+}
+
+/* Right column: Rubric & Session timer */
+.rightCol {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.rubricCard {
+  background-color: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.rubricTitle {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+.rubricItem {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.rubricRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-primary);
+}
+
+.rubricTrack {
+  width: 100%;
+  height: 6px;
+  background-color: #E5E7EB;
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.rubricBar {
+  height: 100%;
+  background-color: var(--color-accent);
+  border-radius: var(--radius-full);
+}
+
+.timerCard {
+  background-color: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.timerTitle {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+.timerValue {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}

@@ -1,10 +1,10 @@
 from pathlib import Path
 
-from alembic import command
 from alembic.config import Config
 from sqlalchemy import create_engine, inspect, text
 from sqlalchemy.pool import StaticPool
 
+from alembic import command
 
 BACKEND_ROOT = Path(__file__).resolve().parents[1]
 

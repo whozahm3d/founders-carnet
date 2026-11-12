@@ -1,6 +1,6 @@
+from rag.compliance.chunking import chunk_pages
 from rag.compliance.documents import ExtractedPage
 from rag.compliance.ingestion import CorpusDocument
-from rag.compliance.chunking import chunk_pages
 
 
 def test_chunks_keep_sections_page_numbers_and_citation_metadata():

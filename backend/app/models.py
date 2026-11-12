@@ -2,14 +2,15 @@ from __future__ import annotations
 
 from datetime import datetime
 
+from pgvector.sqlalchemy import VECTOR
 from sqlalchemy import (
+    JSON,
     Boolean,
     CheckConstraint,
     DateTime,
     ForeignKey,
     Index,
     Integer,
-    JSON,
     Numeric,
     String,
     Text,
@@ -17,8 +18,6 @@ from sqlalchemy import (
     func,
 )
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
-from pgvector.sqlalchemy import VECTOR
-
 
 VECTOR_TYPE = VECTOR().with_variant(JSON(), "sqlite")
 
@@ -298,4 +297,10 @@ from app.feature_models import (  # noqa: E402,F401
     LLMGatewayCallLog,
     TalentProfile,
     VerificationSignal,
+from app.feature_models import (  # noqa: F401
+    EcosystemProfile,
+    MatchRecord,
+    PitchSession,
+    PitchTurn,
+    ReadinessAssessment,
 )

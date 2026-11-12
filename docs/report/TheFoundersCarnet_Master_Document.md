@@ -17,13 +17,13 @@ Department of Artificial Intelligence & Data Science, FAST NUCES, Lahore
 
 **Brief Description:** An AI-native platform connecting Pakistani startup founders, startup-specific talent (job/internship seekers), mentors, and investors on one shared AI reasoning engine — readiness scoring, pitch practice, market research synthesis, resume/profile optimization, ecosystem matching via a trained re-ranking model, and a compliance RAG assistant grounded in SECP/FBR/PSEB sources.
 
-**UN SDGs targeted:**
+**UN SDGs targeted (two, as in the report):**
 - **SDG 8 — Decent Work and Economic Growth:** a dedicated, curated pathway into startup employment and internships for job-seekers currently unserved by general job boards.
 - **SDG 9 — Industry, Innovation and Infrastructure:** AI-native infrastructure supporting early-stage venture creation and founder-investor-mentor connectivity in Pakistan's startup ecosystem.
-- **SDG 5 / SDG 10 — Gender Equality / Reduced Inequalities:** deliberate outreach to women-led founders and women in tech during anchor-partner recruitment (Section 8), addressing a documented ~1% women-led-business gap the government's own Ignite-backed WISE Lab initiative was created to address.
+- **Also supported, not a targeted SDG (SDG 5 / SDG 10, Gender Equality / Reduced Inequalities):** deliberate outreach to women-led founders and women in tech during anchor-partner recruitment (Section 8), addressing a documented ~1% women-led-business gap the government's own Ignite-backed WISE Lab initiative was created to address.
 
 **Algorithms and knowledge used from Core Courses:**
-- Artificial Intelligence / Machine Learning — embedding-based semantic matching, supervised ranking (re-ranker training), contrastive/triplet fine-tuning
+- Artificial Intelligence / Machine Learning — embedding-based semantic matching, supervised ranking (re-ranker training), supervised classification (three offline classifiers, Section 13.9), contrastive/triplet fine-tuning
 - Natural Language Processing — retrieval-augmented generation, multilingual embeddings, prompt engineering
 - Database Systems — relational schema design, pgvector similarity search
 - Software Engineering — requirements engineering, modular service architecture, iterative development
@@ -113,13 +113,17 @@ The problem The Founder's Carnet addresses is therefore two-sided and specific: 
 
 ## 2.1 Objectives
 
-1. Design and build an AI-native platform connecting five distinct stakeholder types — founders/startups, talent, mentors, investors, and admin/moderation — on one shared reasoning engine, rather than as disconnected single-purpose tools.
-2. Train and evaluate a hybrid semantic + structured-feature re-ranking model for founder-mentor, founder-investor, and startup-talent matching, benchmarked against a cosine-similarity-only baseline (NDCG@K, MRR).
-3. Build a retrieval-augmented compliance assistant grounded exclusively in official SECP/FBR/PSEB sources, with mandatory source citation and a no-guessing fallback when no confident grounded answer exists.
-4. Deliver AI-assisted founder readiness scoring, investor pitch simulation, market research synthesis, and resume/LinkedIn optimization as prompted (not trained) LLM features, each validated against a defined evaluation approach (Section 17).
-5. Support English, Urdu, and Roman Urdu in AI-generated conversational output, with per-language quality benchmarked rather than assumed equal (Section 13.7).
-6. Keep the platform's legal and business-model footprint deliberately narrow — no equity taken, no investment brokered on-platform, no scraping of individual personal profiles — so the system's regulatory exposure stays comparable to a job board or professional directory, not a licensed financial intermediary (Section 18).
-7. Demonstrate the above as a working, deployable prototype within a three-person, six-month build (Section 22), with a documented fallback order (Section 22) if scope needs to compress.
+1. Design one AI reasoning engine for five roles (founders and startups, talent, mentors, investors, and admin), with role-based access control and mutual acceptance before contact details are shown. Design is done in FYP-1, and the main flows are built across both FYPs.
+2. Build a retrieval-augmented compliance assistant that answers only from official SECP, FBR and PSEB documents and the Finance Act 2026, cites every answer, and declines when the evidence is not enough (Section 13.6). FYP-1 indexes company, tax and PSEB registration, and FYP-2 expands the corpus.
+3. Build a two-stage matching engine: pgvector retrieval, then a supervised re-ranker on structured features such as sector fit, stage fit and skill overlap, compared with a cosine-similarity-only baseline using NDCG@K and MRR (Section 13.5). FYP-1 prototypes the baseline, and FYP-2 trains and evaluates the re-ranker.
+4. Build readiness scoring, pitch simulation and market research synthesis as prompted language model modules, each with its own evaluation (Section 17), in the order of the fallback plan (Section 22), starting with the readiness score.
+5. Give job seekers a curated board of startup jobs and internships and a resume and LinkedIn optimizer with line-level suggestions. Talent users can also request mentor and founder matches.
+6. Verify profiles in a hybrid way: an automated score decides clear cases, a human reviewer decides unclear ones, every decision is logged with its reason, and a rejected user can appeal once (Section 13.8).
+7. Benchmark retrieval and generation quality in English, Urdu and Roman Urdu. This is planned for FYP-2 (Section 13.7).
+8. Keep the legal footprint small: no equity, no investment brokerage, no financial transactions, and personal data only through self-registration, in line with PECA 2016 (Section 18).
+9. Train three small supporting classifiers on public data: resume role, startup outcome and follow-on funding (Section 13.9). They are offline studies in FYP-2, reported with macro-F1 against a simple baseline, and none is shown to users as a prediction. Approved by the supervisor.
+
+The objectives are delivered as a working prototype by a three-person team (Section 22), with the fallback order in Section 22 if scope needs to compress.
 
 # 3. Literature / Research Foundation
 
@@ -133,6 +137,8 @@ This section grounds the technical design in established research rather than tr
 
 **Learning-to-Rank.** The matching engine's core research framing: given a query entity and a candidate set, learn a scoring function that ranks relevant candidates above irrelevant ones, using pairwise or graded relevance judgments as training signal and NDCG@K / MRR as evaluation metrics. This is what separates the matching engine from "an LLM that suggests people" — it is a trained, benchmarked model with a baseline comparison.
 
+**How the report organizes this section.** Chapter 3 of the report reviews nine topics, and each has a summary, a critical analysis, how the work is used, and a summary table with four columns (Author, Method, Results, Limitations): (1) two-stage retrieval and re-ranking; (2) person-job and person-opportunity matching; (3) retrieval-augmented generation for regulated domains; (4) abstention and calibration in question answering; (5) evaluation methodology for retrieval, generation and ranking; (6) Urdu and Roman Urdu language processing; (7) startup readiness and pitch evaluation; (8) entrepreneurial ecosystems and multi-sided platforms; (9) related applications (six platforms, compared by features, relevance and limitations, with the basis of each check marked as hands-on audit, public site check or public pages only). The report cites the 35 references listed in Section 25 and the sources in its Appendix A.
+
 # 4. Competitive Analysis
 
 The team conducted direct, hands-on audits — creating accounts and inspecting live product screens — for four platforms structurally closest to The Founder's Carnet: InnoCollab.pk, PakStartups.org, PakLaunch, and StartupNetwork.pk. Pitch Pakistan was in the September 2026 audit set but was removed from the report on 13 October 2026 (it is not an investor or venture platform, and its site was unreachable on that date). One platform from the original ecosystem scan, Startup.pk, remains unaudited (public web presence only) and is flagged accordingly in Section 4.2 rather than blended in as if equally verified.
@@ -141,7 +147,7 @@ The team conducted direct, hands-on audits — creating accounts and inspecting 
 
 | Platform | What it offers | Confirmed limitation |
 |---|---|---|
-| **InnoCollab.pk** | AI pitch practice, AI market research, AI pitch-deck generator, AI co-founder matching, mentor booking, investor discovery (as described on the public page), gamified pitch streaks/leaderboards, cofounder compatibility quiz | The bundled "Talent/Entrepreneur" *role* is founder self-promotion (submit an idea, connect with investors/mentors/team) — confirmed by direct audit, not a candidate-facing job pathway. **Re-verified September 2026:** a separate "Meet Our Talented Innovators" directory complicates a one-line summary of this — individual profiles tagged by skill (digital marketing, SEO, content writing, data analytics, Java/C++) with a "Sign up to Connect" action, closer to a genuine skills directory than founder self-promotion. Both exist on the platform simultaneously; neither is a startup-specific job/internship board with real listings (detail in Appendix A). No government compliance content. English only. No real-world events, only in-app messaging. |
+| **InnoCollab.pk** | AI pitch practice, AI market research, AI pitch-deck generator, AI co-founder matching, mentor booking, investor discovery (as described on the public page), gamified pitch streaks/leaderboards, cofounder compatibility quiz | The bundled "Talent/Entrepreneur" *role* is founder self-promotion (submit an idea, connect with investors/mentors/team) — confirmed by direct audit, not a candidate-facing job pathway. **Re-verified September 2026:** a separate "Meet Our Talented Innovators" directory complicates a one-line summary of this — individual profiles tagged by skill (digital marketing, SEO, content writing, data analytics, Java/C++) with a "Sign up to Connect" action, closer to a genuine skills directory than founder self-promotion. Both exist on the platform simultaneously; neither is a startup-specific job/internship board with real listings (detail in Appendix A). No government compliance content. No Urdu or Roman Urdu support seen. No real-world events, only in-app messaging. |
 | **PakStartups.org** | Startup directory (verified by funding stage), co-founder matchmaking engine, Ecosystem Directory (incubators/accelerators/VCs/government programs), a Knowledge Vault with incorporation guides and SAFE templates, events calendar, active Reddit and Discord communities | No AI anywhere on the platform — no scoring, matching AI, or generation. **Re-verified August–September 2026** (direct account walkthrough, Appendix A): the Startup Directory is genuinely populated, not empty — 100+ real listings confirmed by direct visit, including full detail pages with named founders (e.g., Artbazaar.pk, founders Fatima, Ahsan, and Abdul Rafay). This corrects an earlier snapshot of the same platform that found several features unpopulated; the platform has clearly been built out since. The site's own stated figures — 100+ verified startups, 14,000+ members in its r/PakStartups Reddit community — are confirmed by direct visit. However, the Ecosystem Directory ("0 of 0 organizations"), the Events calendar (one listed event, zero RSVPs), and the Knowledge Vault's "Learning Guides" subsection ("0 guides," featured guide marked "Coming Soon") were all confirmed still empty or near-empty on the same September 2026 visit — the build-out reached the Startup Directory specifically, not the platform as a whole. **Not yet independently re-confirmed:** whether the separate Find Co-Founder matching tool is similarly populated with real (rather than curated/example) listings — protocol in Appendix B. |
 | **PakLaunch** | A large, active diaspora network — founded in San Francisco (April 2020) by Aly Fahd as a single WhatsApp group; states 400K+ members as of August 2025 (the site's own pages show inconsistent figures — 300K–500K members and $80–130M+ facilitated funding depending on which page is checked; cite as a range with this caveat, never a single hard number). **Directly audited September 2026** (registered account, Appendix A): a real, active member community — genuine founder posts soliciting investment and co-founders, real regional meetups (Toronto, Hong Kong, Singapore, Riyadh) organized by named members, an embedded AI assistant ("Halo"), a real job board, LMS-style learning resources (Product Management, Design Thinking, and similar short courses), and a named testimonial from Asif Awan of Indus Valley Capital (already a Wave 2 outreach target, Section 20) confirming real fundraising outcomes attributed to the community. | In the team's September 2026 test, Halo declined SECP/FBR/SBP regulatory questions when asked directly — corroborates the compliance-assistant gap (Section 5) rather than undermining it — but Halo's own in-chat membership pricing ($50/$500/$1,000 tiers) does not match the platform's live pricing page ($300/$1,000/$3,000 tiers), a concrete real-world example of the ungrounded-answer failure mode Section 13.6 is built to avoid. The job board has real postings, but they are general-professional (Video Editor, Real Estate Analyst, AWS Consultant) and stale (~7–9 months old at audit time) — not curated for startup-specific or entry-level roles. Forum/group content is real but only lightly moderated: includes members openly soliciting trading capital and promoting personal investment platforms inside discussion groups, exactly the kind of unmoderated financial solicitation this project's scope (Section 6.2, Section 18.1) deliberately stays away from. Not an AI-native, open self-registration platform — its strength is human network and live events, not algorithmic matching or scoring. |
 | **StartupNetwork.pk** | A classifieds-style directory, job board, and events aggregator explicitly positioning itself around startups, investors, and job seekers. | **Directly audited September 2026** (registered account, Appendix A): the startup directory is real and populated — 37 listings confirmed by direct visit, mixing tech startups with traditional SMBs (an IP law firm, a clothing manufacturer, a resort). Registration offers exactly two roles, Startup or Investor — **no talent/job-seeker registration path exists at all**, despite the platform's own "job seekers" positioning. The Events tab and the Jobs tab both return "There are no listings matching your search" despite full filter UIs (vacancy type, qualification, salary, date range). This replaces an earlier, less precise claim that the whole site returned no listings — the directory itself is real; the job-board and events functionality are the parts that are empty. No AI anywhere on the platform. |
@@ -177,7 +183,7 @@ One platform from the original ecosystem scan remains unaudited. **Basis: public
 
 | Platform | What it actually is | Relevant gap for The Founder's Carnet |
 |---|---|---|
-| **IFDP** (Invest2Innovate) | An approval-gated directory of startups, founders, and investors. Registration is open to all three profile types; profiles publish only after i2i approval. Its own stated flow is: submit a request → "Get Verified & Go Live — Once approved, your profile goes live" → "Curated Matchmaking — If you opt in, we'll connect you with relevant startups, founders, or investors." Startup listings carry structured fields (founding year, team size with gender split, funding raised and type, last round date, instruments, valuation, lead investor, stage, competitors, sectors, regions). Discovery is taxonomy filtering. | **Two-sided only** — no talent/jobs side and no mentor profile type. **No compliance or regulatory features.** **No AI matching, ranking, or search** — the i2i policy brief that proposes scaling IFDP nationally describes its AI modules as *planned*, and none are observable on the live platform. Verification method is not described beyond a statement that it "ensures that all community members are genuine." No user counts are published. |
+| **IFDP** (Invest2Innovate) | An approval-gated directory of startups, founders, and investors. Registration is open to all three profile types; profiles publish only after i2i approval. Its own stated flow is: submit a request → "Get Verified & Go Live — Once approved, your profile goes live" → "Curated Matchmaking — If you opt in, we'll connect you with relevant startups, founders, or investors." Startup listings carry structured fields (founding year, team size with gender split, funding raised and type, last round date, instruments, valuation, lead investor, stage, competitors, sectors, regions). Discovery is taxonomy filtering. | On its public pages: **two-sided only** — no talent/jobs side and no mentor profile type. **No compliance or regulatory features.** **No AI matching, ranking, or search** — the i2i policy brief that proposes scaling IFDP nationally describes its AI modules as *planned*, and none are observable on the live platform. Verification method is not described beyond a statement that it "ensures that all community members are genuine." No user counts are published. |
 
 **Evidence discipline applied to this entry.** i2i's policy brief *Closing the Funding Gap for Startups in Pakistan* (June 2025) describes IFDP as having "soft-KYC verification, curated startup and investor profiles, and warm-introduction tools." Of these, the public pages describe curated matchmaking; the staff-mediated introduction step was observed only in the team's logged-in session (screenshots retained) and is reported here as observed, not independently verifiable by a reader. The brief's headline description of IFDP is copied from i2i's own platform marketing copy, and the brief itself was co-developed by i2i and supported by Visa Foundation, which also funds IFDP — so its description of IFDP is not an independent assessment. This document therefore records what the live platform demonstrably does, and marks the remainder as claimed rather than verified.
 
@@ -195,7 +201,7 @@ Cross-referencing the problem statement against the audited landscape leaves fou
 
 1. **A genuine startup-employment pathway.** Confirmed absent from InnoCollab.pk (whose bundled "Talent/Entrepreneur" role is founder self-promotion — though a separate skills-tagged directory on the same platform means this can't be summarized in one line without a caveat, Section 4.1) and from StartupNetwork.pk (registration offers no talent/job-seeker role at all, and its own Jobs tab returns zero results despite a full filter UI, Section 4.1). PakLaunch has a real, working job board — the closest actual threat to this gap of anything directly audited — but its listings are general-professional and stale (~7–9 months old at audit time), not curated for startup-specific or entry-level roles (Section 4.1). PakStartups.org's overlap here remains an open, specifically-scoped question: its Startup Directory is confirmed populated (Section 4.1), but whether its separate "Find Co-Founder" tool functions as genuine talent/employment matching, or is comparatively sparse, is being tested directly with real registered test profiles (Appendix B) rather than assumed either way.
 2. **An interactive, cited compliance assistant** grounded in SECP/FBR/PSEB sources. PakStartups.org has a static Knowledge Vault — and its "Learning Guides" subsection specifically returns zero results at present (Appendix A), a step below even "static but complete" — and Startup.pk's regulatory content (Section 4.2) is the same static-article model. PakLaunch's embedded AI assistant, Halo, corroborates this gap directly rather than closing it: when the team asked about SECP/FBR/SBP rules in September 2026, it stated it had no knowledge of them rather than guessing (Section 4.1; a dated observation, not a standing claim about the product). No audited or scanned platform offers a grounded, query-able Q&A interface for compliance questions.
-3. **English, Urdu, and Roman Urdu accessibility** in AI-generated content — every audited or scanned platform, including IFDP, is English-only.
+3. **English, Urdu, and Roman Urdu accessibility** in AI-generated content — we saw no Urdu or Roman Urdu support on any audited or scanned platform, including IFDP.
 4. **Integration on one shared AI reasoning engine**, rather than separate products for separate audiences — and, specifically versus PakStartups.org, an AI layer at all: its directory, matching, and listing features are static/manual with no scoring, matching AI, or generation anywhere on the platform.
 
 The founder-mentorship and investor-matching features individually already exist elsewhere (most notably InnoCollab.pk); the directory/community model already exists elsewhere (most notably PakStartups.org, whose Startup Directory is confirmed populated with 100+ real listings and whose community channels report 14,000+ members, concentrated in its r/PakStartups Reddit community specifically). Neither is claimed as novel in isolation — the differentiation rests on the four points above, combined, plus a research-grade evaluated matching engine (Section 13) that none of these platforms have published evidence of.
@@ -244,7 +250,7 @@ What follows is scoped as the FYP deliverable — realistic for a three-person s
 - **Team size:** three students (Ali Ahmad — AI/ML and system design, Shahzeb Imran — frontend, Taha Nawaz — backend), with no dedicated designer, QA, or DevOps role.
 - **Timeline:** two semesters, approximately eight months end-to-end (Section 22), including validation interviews, build, evaluation, and defense preparation.
 - **Budget:** no paid infrastructure — free/low-cost tiers only (Vercel, Railway/Render, university-provided GPU access for model fine-tuning), and no real payment-gateway integration during the FYP (Section 23) since the team has no incorporated legal entity to hold a merchant account.
-- **Data availability:** no existing Pakistani startup-ecosystem dataset at any credible scale; every labeled dataset (matching relevance labels, multilingual benchmark/fine-tuning triples) must be built from self-registration, consented pilot data, manual authorship, or LLM-assisted synthetic generation (Sections 9, 13.7) — never scraped.
+- **Data availability:** we found no public labeled dataset for Pakistani founder-mentor or investor matching, and no Pakistani startup-ecosystem dataset at a credible scale; every labeled dataset (matching relevance labels, multilingual benchmark/fine-tuning triples) must be built from self-registration, consented pilot data, manual authorship, or LLM-assisted synthetic generation (Sections 9, 13.7) — never scraped.
 - **Regulatory:** the platform must stay outside SECP's broker-dealer/financial-intermediary licensing territory (the specific mechanism SECP has used to test crowdfunding-adjacent activity is the Regulatory Sandbox Guidelines, 2019 — not a standalone "Equity-Based Crowdfunding Regulations," a name that does not check out against SECP's own published regulations) and comply with PECA's data-collection rules (Section 18) — this rules out equity-taking, on-platform deal brokering, and any scraping of individual personal profiles, and shapes the business model, data sourcing rules, and feature scope throughout this document.
 - **Team expertise:** none of the three team members has prior hands-on experience with RAG pipelines, contrastive/triplet embedding fine-tuning, or production-scale multilingual NLP — these are learned during the build (background technical grounding, not a formal literature review) before implementation, which is reflected in the conservative, staged approach to the multilingual and matching-engine work (baseline first, fine-tuning only as a validated stretch goal).
 
@@ -262,7 +268,7 @@ The Founder's Carnet does not monetize the side that has no money (founders) or 
 | **Investors** | Flat subscription for dealflow access and investment-matching tools | A flat fee for access and tooling — never a fee contingent on a specific investment outcome — keeps this a software subscription, not a security or brokerage arrangement, avoiding broker-dealer or financial-intermediary classification under SECP's securities framework (Section 18.1). |
 | **Startups (talent-hiring side only)** | Cash placement fee, charged to the startup only when it successfully hires a candidate sourced through the Carnet's job/internship board | Standard, well-precedented recruiting revenue model (the same mechanism Wellfound, LinkedIn Recruiter, and traditional recruiters use). No equity, no investment link, no licensing complexity. |
 
-**On investor–startup deals specifically:** the Carnet's role stops at a mutually-accepted introduction. Any resulting meeting, negotiation, term sheet, or closed investment happens **off-platform**, through the parties' own channels — The Founder's Carnet does not track, verify, mediate, or take any fee tied to whether a deal closes. This is a deliberate design choice, not an oversight: a platform that takes a cut of a deal it cannot see or verify creates both an unenforceable business promise and a real regulatory exposure (see Section 15). Earlier drafts of this project considered a success-fee-on-investment model; it was dropped for exactly this reason.
+**On investor–startup deals specifically:** the Carnet's role stops at a mutually-accepted introduction. Any resulting meeting, negotiation, term sheet, or closed investment happens **off-platform**, through the parties' own channels — The Founder's Carnet does not track, verify, mediate, or take any fee tied to whether a deal closes. This is a deliberate design choice, not an oversight: a platform that takes a cut of a deal it cannot see or verify creates both an unenforceable business promise and a real regulatory exposure (see Section 18). Earlier drafts of this project considered a success-fee-on-investment model; it was dropped for exactly this reason.
 
 ## 7.1 Business Opportunity
 
@@ -343,9 +349,23 @@ Every dataset below is either self-registered, publicly sourced with attribution
 | Multilingual fine-tuning triples (stretch) | Consented pilot-user profiles + manually authored/LLM-assisted synthetic profiles, labeled (anchor, positive, negative) by the team — sourcing locked to Section 13.7's rules, never scraped | Go/no-go threshold set and checked at the Month 4 checkpoint (Section 13.7); attempted only if met | Contrastive/triplet fine-tuning of the multilingual embedding model — a second, stretch-goal trained artifact, contingent on legitimately-sourced labeled data actually materializing |
 | Readiness-score calibration set | Team- and mentor-authored sample startup ideas, independently rated by 2–3 human reviewers | 20–30 | Correlation check between the LLM-scored rubric and human judgment |
 
-**External datasets, profiled 3 October 2026 (none trains the deployed re-ranker).** Five are kept: the Roman-Urdu-Parl Hugging Face split (6,374,678 Urdu and Roman Urdu pairs, multilingual benchmark source); the LinkedIn-Dataset of Ayoobi et al. (3,600 profiles, research use only, aggregate use only); two Crunchbase schema proxies on Kaggle (Startup Success/Fail, 66,368 rows; StartUp Investments, 54,294 rows with 4,855 duplicate rows); and the Kaggle Resume-Job Matching Dataset (150,493 resume-vacancy pairs, 86.1% rejected, Russian market, practice data only). Two were screened and excluded: Resume Dataset PDF (image-only files) and an ATS resume-screening dataset (short texts consistent with synthetic generation). None states a licence except the LinkedIn README, so all are used for internal profiling and schema design only, never redistributed, and names, birth dates, age, gender and contact fields are excluded. Full profiles are in `Chapter3_Source_Register_v2.md`, Section E.
+**Final external datasets (seven), profiled 3 October 2026 and preprocessed between 19 and 21 October 2026.** None of them trains the matching re-ranker; the re-ranker trains only on the team's own labeled pairs (FYP-2). The seven are: the Roman-Urdu-Parl split (source for the multilingual benchmark); the Pakistan Startup Census (startup discovery); Pakistan's Job Market (matching and the job board); Startup Success/Fail and StartUp Investments, both from Crunchbase (readiness proxies and the two offline classifiers in Section 13.9); and two resume datasets, one by Bhawal (CC0) and one by Haider Maseeh (CC BY-NC-SA 4.0), which serve the resume optimizer and the role classifier. The LinkedIn-Dataset, the Russian-market Resume-Job Matching Dataset, the image-only Resume Dataset PDF and the ATS resume-screening dataset are not in the final set. Names, birth dates, age, gender and contact fields are excluded, and nothing is redistributed. We found no public labeled dataset for Pakistani founder-mentor or investor matching, which is why the relevance labels above are built by the team. Full profiles are in `Chapter3_Source_Register_v2.md`, Section E, and per-dataset notes are in `docs/datasets.md`.
 
-**Why this table matters more than it looks:** the single largest execution risk in this entire project is the human relevance-label dataset. Everything downstream — the re-ranker, its evaluation, the academic claim that this is "more than an API wrapper" — depends on it existing at a credible scale. That is why Section 14 (anchor-partner strategy) is not a marketing nicety; it is the actual mechanism by which this dataset gets built at all, and the realistic 150–300 target above (rather than the 1,000+ aspirational figure) reflects what a 3-person team can plausibly source in a 6-month window through one real institutional relationship. The multilingual fine-tuning triples carry the same discipline for the same reason, at a smaller scale — Section 13.7 locks down exactly which sources are and are not legitimate for that dataset, because the temptation to shortcut data collection is highest on the smallest, most tedious dataset.
+**Preprocessing results (19 to 21 October 2026, all checks passed).**
+
+| Dataset | Raw rows | Cleaned rows | Tech rows | Note |
+|---|---|---|---|---|
+| Roman-Urdu-Parl split | 6,407,268 | 6,374,808 | n/a (not tagged) | 32,460 train pairs that also appear in validation or test removed; train file 6,365,808 before and 6,333,348 after; 37.1% of train pairs are exact repeats |
+| Pakistan Startup Census | 553 | 433 | 51 (11.78%) | |
+| Pakistan's Job Market | 6,680 | 5,368 | 1,469 (27.4% of cleaned) | 1,312 duplicates removed (19.64% of the raw rows); the raw file gives a tech share of at least 26.8% |
+| Startup Success/Fail (Crunchbase) | 66,368 | 49,766 | not recomputed | founded_at 1990 to 2015 filter applied; 15,221 rows have no usable founding date; 8.0% of kept startups closed |
+| StartUp Investments (Crunchbase) | 54,294 | 49,438 | 20,542 | 4,856 blank rows removed |
+| Resume Dataset (Bhawal) | 2,484 | 2,484 | 238 | |
+| Resume Dataset (Haider Maseeh) | 9,000 | 9,000 | 4,170 of 6,000 (unique texts) | exact-text duplicates removed in the six technical categories; smallest class is Java Developers with 447 |
+
+The classifier plan that uses three of these datasets was agreed inside the team on 19 October 2026 and approved by the supervisor (Section 13.9).
+
+**Why this table matters more than it looks:** the single largest execution risk in this entire project is the human relevance-label dataset. Everything downstream — the re-ranker, its evaluation, the academic claim that this is "more than an API wrapper" — depends on it existing at a credible scale. That is why Section 20 (anchor-partner strategy) is not a marketing nicety; it is the actual mechanism by which this dataset gets built at all, and the realistic 150–300 target above (rather than the 1,000+ aspirational figure) reflects what a 3-person team can plausibly source in a 6-month window through one real institutional relationship. The multilingual fine-tuning triples carry the same discipline for the same reason, at a smaller scale — Section 13.7 locks down exactly which sources are and are not legitimate for that dataset, because the temptation to shortcut data collection is highest on the smallest, most tedious dataset.
 
 # 10. Project Pipeline & Workflow
 
@@ -425,7 +445,7 @@ This is the layer that answers "what is actually trained here, versus what is ju
 - **Matching re-ranker — the core trained model in this system, guaranteed regardless of how other stretch goals land.** A lightweight, supervised ranking model (logistic regression or a gradient-boosted ranker, chosen by validation performance rather than complexity for its own sake) combining embedding similarity with structured compatibility features (sector fit, stage fit, skill overlap, geography, availability, ticket range where relevant). Trained on the human relevance-judgment dataset (Section 9), evaluated against a cosine-similarity-only baseline using NDCG@K and MRR on a held-out split. If the multilingual fine-tuning stretch goal (above) is also completed, it becomes a second trained artifact in the system — both are labeled explicitly as trained, everything else in this layer stays labeled prompted, so the distinction never blurs regardless of how many stretch goals land.
 - **LLM Gateway:** a provider-agnostic abstraction, designed to sit in front of any provider's API without other services needing to know which one is behind it. Centralizes prompt templates (so a prompt is versioned and changed in one place, not scattered across services), enforces per-request token budgets and rate limits, validates that structured-output calls actually return valid schema-conforming JSON, logs model/provider/version on every call for evaluation traceability, and keeps a fallback-to-older-model retry path for when the primary model is unavailable. **Current provider (2026-09-10, see DECISIONS.md): Gemini 2.5 and below, via Google AI Studio's free tier.** This is a cost-driven choice for the FYP build, not a permanent architectural commitment, the gateway's provider-agnostic design means swapping to Claude, OpenAI, or a paid Gemini tier later is a configuration change, not a rework. If paid API access becomes necessary, the department has indicated it can help arrange this.
 - **RAG pipeline:** ingestion (whitelist official sources only) → section-aware chunking (not arbitrary character windows) → embedding → pgvector retrieval → optional lexical re-ranking of retrieved passages → generation constrained to only the retrieved evidence → citation/source-metadata attachment → a validation pass checking that the answer doesn't make claims the retrieved passages don't support.
-- **Everything else in this system is a prompted LLM call, not a trained model** — readiness scoring (a structured rubric prompt), pitch feedback (persona-driven multi-turn prompting against a fixed rubric), market-research synthesis (evidence-first prompting over retrieved sources), the resume/LinkedIn optimizer (prompted rewriting grounded in the parsed CV and, optionally, a target role), and the portfolio/product link consistency check in profile verification (Section 13.8, evidence-first prompting over one fetched page, the same retrieval-grounded pattern as market research synthesis). Stating this distinction explicitly in the proposal is what lets the team credibly answer "why isn't this just an LLM wrapper" — because it isn't hiding the fact that most features *are* LLM calls; it's being precise about which one isn't.
+- **Apart from the three offline classifiers in Section 13.9, everything else in this system is a prompted LLM call, not a trained model** — readiness scoring (a structured rubric prompt), pitch feedback (persona-driven multi-turn prompting against a fixed rubric), market-research synthesis (evidence-first prompting over retrieved sources), the resume/LinkedIn optimizer (prompted rewriting grounded in the parsed CV and, optionally, a target role), and the portfolio/product link consistency check in profile verification (Section 13.8, evidence-first prompting over one fetched page, the same retrieval-grounded pattern as market research synthesis). Stating this distinction explicitly in the proposal is what lets the team credibly answer "why isn't this just an LLM wrapper" — because it isn't hiding the fact that most features *are* LLM calls; it's being precise about which one isn't.
 
 ## 11.4 Integration — how the layers actually talk to each other
 
@@ -435,6 +455,20 @@ This is the layer that answers "what is actually trained here, versus what is ju
 - **AI outputs are never re-generated for display** — because every output is persisted with its evidence/feature metadata at generation time (Section 10.1, step 6), the frontend requesting "why was I matched with this mentor" is a database read, not a new LLM call, which keeps explanation-display fast and consistent between page loads.
 - **Deployment integration:** Docker Compose runs all services plus Postgres and Redis together for local development; GitHub Actions runs lint/test on every pull request and builds/deploys on merge to main; the frontend deploys to Vercel and the backend/workers to Railway or Render; provider API keys and other secrets are injected via environment configuration, never committed to the repository or shipped to the client bundle.
 
+
+## 11.5 Architectural strategies and design policies (as in the report, Chapter 5)
+
+The report counts six services behind the API gateway: startup intelligence, compliance retrieval, matching and ranking, authentication, profiles, and administration with moderation. The LLM gateway is the shared seventh component that every prompted feature calls, and all of them share one PostgreSQL database with pgvector, with Redis and Celery for slow jobs. The report's seven architectural strategies are:
+
+1. A single internal gateway for every language model call (prompt templates, concurrency limit in NFR-2, logging, provider swap by configuration).
+2. Relational records and vectors in one store (PostgreSQL with pgvector, NFR-20); no separate vector database.
+3. Two-stage matching: cosine similarity with hard filters, then a short-list re-rank; a cross-encoder was ruled out for cost and overfitting on 150 to 300 labeled pairs.
+4. Grounded generation with abstention; no fine-tuning on the regulatory corpus because it keeps changing and a fine-tuned model cannot cite a passage.
+5. Services separated by responsibility in code but deployed together as a few containers, because three developers and free hosting tiers cannot run one instance per service.
+6. Deferred work through a queue (embedding, ingestion, directory seeding, link checks, FYP-2 re-ranker training).
+7. Visible degradation: queued requests are shown as queued, a failed model call keeps the previous assessment, and a missing verification signal sends more profiles to human review.
+
+The domain model in the report has 23 classes in five modules, and four sequence diagrams cover registration, verification with appeal, match request with contact reveal, and a compliance question with abstention. Policies: one repository with four directories (frontend, backend, retrieval (rag), machine learning (ml)); type-annotated Python and TypeScript; linting and tests on every pull request (NFR-23) with approval from someone other than the last pusher; versioned schema migrations (NFR-22); prompts, rubrics and corpus documents versioned like code, with an effective date on every fee or rate (NFR-14); credentials from environment configuration with a pipeline scan for API keys (NFR-8); provider, model tier, concurrency limits and verification thresholds kept as configuration; container images with one compose file locally and deployment from the main branch planned (frontend on Vercel, backend and workers on Railway or Render).
 
 # 12. Core AI Reasoning Engine — the shared pattern
 
@@ -507,13 +541,13 @@ The technical thesis of this project is that one reasoning pattern — **structu
 
 **Evaluation:** qualitative user feedback (does the suggested rewrite genuinely read better, does it introduce factual errors about the person's actual experience) rather than a formal metric — this is a product-quality feature, not a research claim.
 
-**Test inputs (decided 4 October 2026):** no suitable external resume dataset survived screening (one was image-only, one consistent with synthetic generation), so the optimizer is tested on the team's own resumes and on resumes shared with consent.
+**Test inputs (decided 4 October 2026):** no suitable external resume dataset survived screening (one was image-only, one consistent with synthetic generation), so the optimizer is tested on the team's own resumes and on resumes shared with consent. The two resume datasets in the final set (Bhawal and Haider Maseeh) are used only for the role classifier in Section 13.9, not to test or tune the optimizer.
 
 ## 13.5 Ecosystem Matching & Re-Ranking Engine — the primary ML contribution
 
 **Problem it solves:** founders, mentors, investors, and talent all need to find relevant counterparts, and simple keyword or popularity-based matching produces poor, unexplainable results at any real scale.
 
-**Design:** a two-stage hybrid ranker, described in full architectural detail in Section 11.3. Stage one (candidate generation) prioritizes recall using embedding similarity plus hard filters (sector, stage, geography). Stage two (re-ranking) is the actual trained model, combining semantic similarity with structured compatibility features. This is the one component in the entire system that is genuinely trained, evaluated against a baseline, and where "why was I matched with this person" has a real, loggable answer (feature contributions), not a post-hoc LLM-invented explanation.
+**Design:** a two-stage hybrid ranker, described in full architectural detail in Section 11.3. Stage one (candidate generation) prioritizes recall using embedding similarity plus hard filters (sector, stage, geography). Stage two (re-ranking) is the actual trained model, combining semantic similarity with structured compatibility features. This is the one trained model that ships in the product, evaluated against a baseline, and where "why was I matched with this person" has a real, loggable answer (feature contributions), not a post-hoc LLM-invented explanation.
 
 ![Two-stage matching and re-ranking engine](diagrams/matching_engine.png)
 
@@ -547,7 +581,7 @@ The technical thesis of this project is that one reasoning pattern — **structu
 
 ## 13.7 Multilingual Support (English, Urdu, Roman Urdu)
 
-**Problem it solves:** every audited competitor is English-only, but a meaningful share of Pakistani founders and talent are more comfortable expressing ideas, pitches, and questions in Urdu or Roman Urdu.
+**Problem it solves:** we saw no Urdu or Roman Urdu support on any audited competitor, but a meaningful share of Pakistani founders and talent are more comfortable expressing ideas, pitches, and questions in Urdu or Roman Urdu.
 
 **Design and honest framing:** this is treated as an evaluated research dimension, not a marketing claim — and for good reason. Roman Urdu has no standard orthography and frequent English code-switching, and current research confirms this remains a genuinely open, underexplored problem for multilingual language models generally (not a solved, off-the-shelf capability). The project does not assume equal performance across the three languages; it measures it.
 
@@ -623,6 +657,22 @@ This keeps the human-in-the-loop role from the original design intact rather tha
 
 **Evaluation (Phase 1):** the proportion of profiles auto-verified vs. auto-rejected vs. escalated to human review (expected to skew heavily toward escalation at launch, narrowing as thresholds are tuned on observed behavior); review turnaround time for the escalated subset; qualitative spot-checks of both the automated decisions and the human ones, rather than a formal precision/recall metric, since confirmed ground truth on fraud is still too thin at this scale to compute one honestly.
 
+## 13.9 Supporting Classifiers (offline, FYP-2, supervisor approved)
+
+**Status.** The team agreed this plan on 19 October 2026 and the supervisor approved it. The classifiers are trained offline in FYP-2, and none of them ships in the product.
+
+**What they are.** Three classifiers trained offline in FYP-2 on the final external datasets (Section 9). They are trained models, so they are labeled as trained here, separately from the prompted features. The matching re-ranker stays the only trained model that ships in the product.
+
+1. **Resume role classifier.** Trained on Haider Maseeh's six tech categories (Java Developers, Web Developer, SQL Developers, Network and Systems Administrators, Datawarehousing/ETL, Business Intelligence). Duplicate texts are removed before the train and test split. Bhawal's IT (120) and Engineering (118) resumes serve as an external check: we report how they spread across the six predicted categories and make no per-class accuracy claim, because their labels are different.
+2. **Startup outcome classifier.** Trained on Startup Success/Fail. The label is closed against not closed (operating, acquired, ipo). Rows are limited to founded_at between 1990 and 2015, and funding columns and fields recorded after the outcome are dropped to avoid leakage. Macro-F1 is the main metric because only 429 tech startups reached ipo.
+3. **Follow-on funding classifier.** Trained on StartUp Investments. The label is whether the startup raised a follow-on round. Round-count and total-funding features are dropped. About 24.7% of the funding totals are missing, so we count the rows that keep a usable label before training.
+
+**Limits that stay fixed.** The two Crunchbase classifiers are offline studies on global data, not on Pakistani startups. They are never shown to users as a probability of success, failure or funding, which keeps them inside the scope rule in Section 6.2. The role classifier is not used to rank or filter candidates in the product.
+
+**Evaluation.** Held-out split for each model, macro-F1 for the two Crunchbase classifiers, and the Bhawal spread check for the role classifier. Results are reported even if they are weak.
+
+**Not trained on external data.** The re-ranker (own labeled pairs only), the compliance RAG (11 documents, citations, abstention) and the prompted features (readiness, pitch, market research, resume rewriting, portfolio link check). An optional Roman Urdu embedding fine-tune is attempted in FYP-2 only if the multilingual benchmark shows a gap (Section 13.7).
+
 # 14. Tech Stack
 
 ![Tech stack by layer, from frontend to deployment](diagrams/tech_stack.png)
@@ -630,7 +680,7 @@ This keeps the human-in-the-loop role from the original design intact rather tha
 | Layer | Choice | Why |
 |---|---|---|
 | Frontend | React / Next.js (TypeScript) on Node.js 24 | Standard, well-documented, team has existing familiarity |
-| Backend | Python + FastAPI | Async-friendly, strong typing via Pydantic, natural fit for an AI-heavy backend |
+| Backend | Python 3.11 + FastAPI | Async-friendly, strong typing via Pydantic, natural fit for an AI-heavy backend |
 | Database | PostgreSQL + pgvector | Relational data and embeddings in one store — avoids standing up a separate vector database at this scale |
 | LLM reasoning | Gemini 2.5 and below (Google AI Studio free tier) currently, behind an internal gateway | Free-tier access at no cost for the FYP build; provider-agnostic gateway design means swapping to Claude/OpenAI or a paid tier later is a configuration change, not a rework |
 | Matching / ranking | sentence-transformers (embeddings) + scikit-learn or a gradient-boosting library (re-ranker) | Lightweight, appropriate to the realistic data scale — not a full neural cross-encoder that would overfit on a few hundred labeled pairs |
@@ -678,7 +728,7 @@ This keeps the human-in-the-loop role from the original design intact rather tha
 
 1. Self-register with investment thesis and stage focus, completing a LinkedIn OAuth handshake or SECP registration ID cross-check (FR-12) as one signal feeding into automated verification, escalated to human review only if ambiguous (Section 13.8), which gates the "Verified" badge and visibility to founders.
 2. Browse startups with a verified profile and a completed readiness assessment (FR-10); matched to founders by the ranking service.
-3. Send a match/intro request; the founder accepts or declines — identity is shared only on acceptance.
+3. Send a match request; the founder accepts or declines — identity is shared only on acceptance.
 4. Any resulting meeting or investment happens off-platform, through normal channels — the Carnet's role ends at the introduction (Section 18.1).
 
 ## 15.5 Compliance query (any founder)
@@ -695,18 +745,30 @@ This keeps the human-in-the-loop role from the original design intact rather tha
 
 ## 16.1 List of Features
 
-- Founder readiness/fundability scoring with dimension-level gap breakdown
-- AI-simulated investor pitch practice with multi-turn conversation and scored feedback
-- AI market research synthesis, evidence-first and citation-backed
-- Talent resume and LinkedIn/X profile optimization (before/after diff)
-- Curated, startup-specific job/internship board
-- Embedding-based ecosystem matching with a trained re-ranker (founder–mentor, founder–investor, startup–talent), mutual-acceptance contact reveal
-- RAG-based compliance assistant grounded in SECP/FBR/PSEB documentation, with mandatory citations
-- English, Urdu, and Roman Urdu support in AI-generated conversational output, benchmarked per language
-- Human-in-the-loop profile review and "Verified" badge for all five stakeholder types
-- Curated external resource links (SAFE templates, incorporation checklists)
-- Ecosystem events calendar (cross-listed, not self-hosted)
-- In-platform usage guides for each stakeholder type
+The platform has 17 features (the report's Table of features), 12 in FYP-1 and 5 in FYP-2, following the fallback plan in Section 22.
+
+FYP-1 (12):
+
+- Startup readiness scoring: seven dimensions, a written reason and a next action for each gap
+- Pitch simulator: a multi-turn investor conversation scored against a four-area rubric
+- Market research synthesis: competitors and rough market size from live web sources, evidence kept apart from interpretation
+- Resume and profile optimizer: line-level CV and LinkedIn suggestions shown as before and after
+- Job and internship board: startup roles with filters for type, sector, stage, work mode and city
+- Job posting: a verified founder publishes and manages listings
+- Ecosystem matching: ranked founder, talent, mentor and investor pairs, with contact details only after both sides accept
+- Compliance assistant: cited answers from official documents with dated citations, and abstention
+- Hybrid profile verification: automatic scoring on five signals, human review of unclear cases, one appeal
+- Administrative review console: queue of escalated profiles and appeals, every decision logged with a reason
+- Usage guides: team-written pages linked from every dashboard
+- Consent management: records consent, lets users change it or request data deletion
+
+FYP-2 (5):
+
+- Supervised re-ranker: replaces the FYP-1 ranking by similarity and feature weights
+- Multilingual support: Urdu and Roman Urdu output, with a separate benchmark for each language
+- Placement fee billing: a fee recorded when the startup and the candidate both confirm a hire made through the board (mocked during the FYP)
+- Curated resource links: reviewed external links to template agreements and incorporation checklists, with attribution
+- Ecosystem events calendar: startup events run by other organizations, none hosted by the platform
 
 ## 16.2 Functional Requirements
 
@@ -714,7 +776,7 @@ This keeps the human-in-the-loop role from the original design intact rather tha
 |---|---|---|
 | FR-1 | Founders can create a profile and submit structured traction/business data. | Founder |
 | FR-2 | System generates AI mentor feedback and a dimension-level readiness score from submitted founder data. | Founder / Core Engine |
-| FR-3 | System simulates a multi-turn investor pitch session, scoring clarity, confidence, and content, with session history retained. | Founder / Core Engine |
+| FR-3 | System simulates a multi-turn investor pitch session, scoring clarity, market understanding, defensibility of numbers, and handling of pushback, with session history retained. | Founder / Core Engine |
 | FR-4 | System generates a market research summary (competitors, rough sizing) using live web search, clearly separating evidence from interpretation. | Founder / Core Engine |
 | FR-5 | Talent users can upload/enter a CV and LinkedIn/X profile text and receive AI-generated optimization suggestions. | Talent |
 | FR-6 | System displays a curated, filterable list of startup jobs/internships. | Talent |
@@ -733,6 +795,19 @@ This keeps the human-in-the-loop role from the original design intact rather tha
 | FR-19 | The system computes an automated verification score from collected signals (LinkedIn OAuth pass/fail, SECP ID cross-check pass/fail where applicable, profile completeness, and GitHub activity for talent per FR-13); the score, the signal values behind it, and the threshold band it fell into are logged for every profile, whether the outcome was auto-decided or human-decided. | Admin / Trust |
 | FR-20 | Founder and investor profiles may optionally provide a personal portfolio/profile link and, for founders, a product or public build-in-public link; if provided, the system checks the link resolves with substantive content (authored signal) and runs a prompted LLM consistency check against the profile's own claims (consistent / inconsistent / insufficient content), both feeding into the verification score (FR-19). LinkedIn URLs are never fetched directly — only OAuth-returned fields are used (FR-12). | Admin / Trust |
 | FR-21 | A user whose profile is auto-rejected may submit one appeal with additional evidence; the appeal enters the human review queue, and the reviewer's decision, with a logged reason, is final and visible to the user. | Admin / Trust |
+| FR-22 | Users register with email and password or LinkedIn. They pick one role. | All users (report) |
+| FR-23 | The system gives a signed token at login. Each endpoint is limited by role. The session ends at logout. | All users / System (report) |
+| FR-24 | Verified founders can post, edit, close and delete listings. They can also see applications. | Founder (report) |
+| FR-25 | Talent can save a listing and apply to it. They can track the application status. | Talent (report) |
+| FR-26 | The console shows escalated profiles and appeals with their score and signals. It logs each decision and reason against the reviewer. | Admin (report) |
+| FR-27 | Users can change or withdraw consent. They can also ask to delete their account. | All users (report) |
+| FR-28 | Founders can see their pitch history and scores. | Founder (report) |
+| FR-29 | Mentors can mark themselves open or closed to new mentees. Closed mentors are left out of matches. | Mentor (report) |
+| FR-30 | The system lists startup events run by other organizations. Each event shows the organizer and source link. | All users (report) |
+| FR-31 | The system shows reviewed external resource links. Each link is credited to its publisher. | Founder / Talent (report) |
+
+
+FR-22 to FR-31 are the requirements the report adds after FR-21; the last column for these rows gives the actors named in the report, not a module. In the report, 25 of the 31 requirements are delivered in full in FYP-1, four (FR-9, FR-11, FR-30, FR-31) move to FYP-2, and two (FR-7 and FR-13) are split: the basic version is built in FYP-1 and the trained re-ranker is added in FYP-2.
 
 ## 16.3 Non-Functional Requirements
 
@@ -745,6 +820,86 @@ This keeps the human-in-the-loop role from the original design intact rather tha
 | Data Privacy | Personal data collected via opt-in self-registration only, never scraped, and only after explicit consent (FR-17); firm-level/business data sourced from published public sources with attribution; users can request deletion of their data on demand, not just in principle (see also Section 19). |
 | Reliability of AI output | RAG compliance answers must cite retrieved passages; the system must clearly flag when it cannot find a grounded answer rather than guessing. |
 | Explainability | Match and score outputs persist feature contributions or retrieved evidence so explanations can be displayed without re-generation. |
+
+**Numbered non-functional requirements (NFR-1 to NFR-23, as in the report).** The use cases cite them in their Special Requirements rows.
+
+| ID | Requirement |
+|---|---|
+| | **Performance** |
+| NFR-1 | The system supports fifty concurrent logged-in users without visible slowdown. |
+| NFR-2 | A language model request returns in about eight seconds. The free tier rate limit allows about five at once, and the rest wait in a queue. |
+| NFR-3 | A match query returns ranked results in about two seconds on the seeded demonstration dataset. |
+| | **Security** |
+| NFR-4 | Passwords are stored only as salted hashes and never appear in a log or error message. |
+| NFR-5 | Every endpoint except registration, login, and the public pages needs a valid signed session token and is limited to the caller's role. |
+| NFR-6 | No API response shows another user's contact details before both sides accept the match. |
+| NFR-7 | Uploaded files are checked for type and size and stored outside the served directory. |
+| NFR-8 | Credentials and API keys come from environment configuration, not from the repository. |
+| | **Data privacy** |
+| NFR-9 | Personal data is collected only through opt-in registration or linked accounts, after the FR-17 consent notice is accepted. |
+| NFR-10 | A deletion request disables the account at once and removes personal data within thirty days. |
+| NFR-11 | Pitch transcripts, compliance query logs, and verification records are kept only until the account is deleted. |
+| | **Reliability and explainability of AI output** |
+| NFR-12 | Every compliance answer cites its source passages with the document title and effective date. |
+| NFR-13 | If retrieval finds no supporting passage, or validation fails, the system says it has no grounded answer. |
+| NFR-14 | An answer that quotes a fee or tax rate states the effective date of its source. |
+| NFR-15 | Readiness scores store their reasoning and match results store their factors, so explanations need no new model call. |
+| | **Usability** |
+| NFR-16 | A first-time user can submit a profile, get feedback, and request a match without help from the team. |
+| NFR-17 | Body text meets a 4.5 to 1 contrast ratio in both light and dark themes (WCAG 2.1 level AA). |
+| NFR-18 | The layout uses logical CSS properties, so right-to-left Urdu can be added in FYP-2 without rewriting component styles. |
+| | **Reusability, extensibility and maintainability** |
+| NFR-19 | Language model calls go through one internal gateway. Changing provider or tier needs only a configuration change. |
+| NFR-20 | Matching and retrieval use the same embedding pipeline and vector store. |
+| NFR-21 | The API layer keeps no session state, and matching and retrieval run as separate services. Instances can be added without redesign. |
+| NFR-22 | Every schema change is a versioned migration, and the schema can be rebuilt from history on an empty database. |
+| NFR-23 | Linting and tests run on every pull request, and a failing run blocks the merge. |
+
+
+## 16.4 Assumptions
+
+The specification holds under these assumptions. Users register themselves and describe themselves truthfully. LinkedIn OAuth stays available to a student application, and the free model and hosting tiers stay enough for the demonstration (NFR-19). The regulatory documents stay current until the evaluation. Mentors and investors agree to appear in the seeded dataset, and we can make 150 to 300 labeled relevance pairs for FYP-2. The demonstration runs on seeded data at the scale in NFR-1. Meetings, mentorship and investment happen outside the platform, and conversational output is English only in FYP-1. The team acts as admin and can review the middle band by hand. The schema in Section 16.8 (41 tables, 264 attributes) is enough to start.
+
+## 16.5 Use cases
+
+The report gives ten use cases for the core flows, the trust steps and the hardest behaviors. Verification is split into scoring, review and appeal because three actors are involved, and abstention has its own use case because the compliance assistant depends on it. Each has a summary, pre- and post-conditions, the NFR and FR it relies on, a basic flow and alternative flows.
+
+1. Register and accept the consent notice (Founder, Talent, Mentor, Investor)
+2. Submit a startup profile for review (Founder)
+3. Verify a profile automatically (all four registered roles)
+4. Review an escalated profile (Admin)
+5. Appeal a rejected profile (all four registered roles and Admin)
+6. Generate a readiness score (Founder)
+7. Run a pitch practice session (Founder)
+8. Request a match and reveal contact details (Founder, Talent, Mentor, Investor)
+9. Ask a compliance question (Founder)
+10. Abstain when no grounded answer exists (Founder)
+
+## 16.6 Hardware and software requirements
+
+A laptop with a four-core processor, 8 GB of RAM (16 GB recommended) and 25 GB of free disk can run the whole system. We do not need a local GPU. Embedding the regulatory documents and training the re-ranker in FYP-2 run on Google Colab. In deployment, each service runs in its own managed container with about one shared vCPU and 512 MB to 1 GB of RAM. The database is a managed PostgreSQL instance with 1 GB of storage. This fits the seeded demonstration dataset and the user target in Section 16.3. The API keeps no session state (NFR-21), so we can add more instances later.
+
+Software used to build and run the system (pinned versions are in the repository):
+
+- Next.js, React and TypeScript on Node.js 24 for the frontend
+- Tailwind CSS and shadcn/ui for the interface
+- Python 3.11 and FastAPI for the backend
+- PostgreSQL 16 with pgvector for the database
+- Celery and Redis for background jobs
+- sentence-transformers and scikit-learn for embeddings and the re-ranker
+- Gemini through Google AI Studio for the language model features
+- Docker, Git, GitHub Actions and pytest for containers, version control and checks
+- Vercel for the frontend, and Railway or Render for the backend and workers
+- Firecrawl and Playwright for collecting public web data (public sources only, no personal profiles)
+- Google Colab for GPU work
+
+## 16.7 Graphical user interface
+
+The platform has five user types: founder, talent, mentor, investor and admin. Everyone opens the authentication screen first and then lands on a dashboard for their role. This section shows 12 prototype screens with sample data. The tag under each screenshot names the use case or requirement it covers, and each user type has a navigation flow figure. Ten screens are not built yet and will be added in D3. The prototype also leaves out market research (FR-4), usage guides (FR-18), job listing management (FR-24) and consent and account deletion (FR-27), which Section 16.2 specifies.
+
+## 16.8 Database design
+
+The system stores its data in PostgreSQL. The report's current schema has 41 tables (264 attributes) in five modules: accounts, profiles and consent; verification, appeals and audit; founder services; matching, job board and applications; and the compliance corpus and query log. Tables deferred to FYP-2 are drawn in gray and tagged. The table and attribute counts are planning figures that may change when the schema is built; every schema change is a versioned migration and the schema can be rebuilt from history on an empty database (NFR-22, Alembic). The data dictionary lists every attribute with its type, referenced table, nullability and meaning, and comes in the next deliverable.
 
 # 17. Evaluation Plan
 
@@ -759,6 +914,7 @@ Deliberately trimmed from an earlier, far more ambitious version of this plan �
 | Multilingual — fine-tuned vs. baseline comparison | Same benchmark re-run on a model fine-tuned (contrastive/triplet) on the team's own labeled data (Section 13.7); reported as a before/after comparison per language. | **Stretch** — attempted only if the Month 4 go/no-go data-threshold check (Section 13.7, Section 22) is met. |
 | Pitch simulation | Qualitative review by real founders/mentors: does AI feedback match what a human mentor would flag. | Secondary |
 | Market synthesis | Citation correctness and unsupported-claim rate on a test set. | Secondary |
+| Supporting classifiers (role, outcome, follow-on funding) | Held-out split for each; macro-F1 for the two Crunchbase classifiers; Bhawal IT and Engineering resumes checked by how they spread across the six predicted categories, with no per-class accuracy claim (Section 13.9). | Stretch, FYP-2, supervisor approved |
 | Resume/LinkedIn optimizer | Qualitative user feedback on suggestion quality and factual accuracy. | Secondary, product-quality claim, not a research claim |
 | Bias/fairness audit across ranking | Deferred to Phase 2/future work unless time allows — noted as a limitation, not silently ignored. | Stretch |
 | Full 3-way model comparison (logistic vs. gradient-boosted vs. neural re-ranker) | One re-ranker architecture is chosen and justified upfront based on the realistic label-count scale; comparison against a fancier architecture is future work. | Stretch |
@@ -820,7 +976,32 @@ Shorter, plainer, and shown alongside the consent notice above — this is the "
 | Fake or low-quality profiles | Misleading matches, spam | No longer left abstract: hybrid verification (Section 13.8) auto-verifies or auto-rejects on strong signals (LinkedIn OAuth handshake or SECP company-registration ID cross-check, FR-12, plus completeness) and escalates ambiguous cases and appeals from rejected users to human review; reported or blocked profiles re-enter human review specifically rather than a separate undefined flow. |
 | Data privacy — sensitive CVs, pitch decks, investor information | Confidentiality risk | Data minimization, role-based access, encrypted secrets, explicit consent, deletion controls. |
 | Overall scope vs. three-person, six-month capacity | Missed deliverables | Tiered feature list, realistic (not aspirational) dataset and evaluation targets throughout this document, and the fallback build order in Section 22. |
+| Crunchbase classifiers read as funding prediction | A panel or a user takes an offline study on global data as a funding probability for a Pakistani startup | They stay offline studies reported with macro-F1, are never shown to users as a probability of success, failure or funding, and the readiness score stays explicitly not a funding probability (Sections 6.2, 13.9). |
 | Features considered and deliberately excluded, not merely deferred | Scope drift if reconsidered later without the original reasoning | Two items were evaluated and rejected outright rather than pushed to Phase 2 (Section 23): (1) expanding the compliance RAG corpus to cover SBP foreign-exchange rules and offshore holding-company structuring ("Delaware flips") — this is complex cross-border tax/corporate law, a materially different risk category from citing SECP/FBR registration steps, and doesn't get safer with more time, only riskier with more usage; (2) building gender- or location-based weighting directly into the matching model's scoring function — a real algorithmic-fairness question that needs dedicated ethical review before being built at all, not a coefficient to add casually. Recorded here so the reasoning isn't lost if either idea resurfaces later. |
+
+## 19.1 Risk register in the report (R-1 to R-19)
+
+Likelihood is low, medium or high, based on what the team has seen so far. R-15 is unrated because no qualified reviewer has been asked yet.
+
+- **R-1 (High):** Too few labeled pairs to train the re-ranker. We aim for 150 to 300 and report a pilot against the similarity baseline if we fall short.
+- **R-2 (Medium):** The compliance assistant or market synthesis gives an answer its sources do not support. Answers come only from cited passages (NFR-12), or the system abstains (NFR-13).
+- **R-3 (High):** The indexed corpus goes out of date. One fee schedule was replaced during the project. Every answer shows its effective date (NFR-14), and we re-check the corpus before the demonstration.
+- **R-4 (Medium):** Compliance answers are read as legal or tax advice. The assistant only gives information with sources and dates. Chapter 2 puts legal and tax advice out of scope.
+- **R-5 (Medium):** Free tier language model access is rate limited or withdrawn. All calls go through one gateway (NFR-19), so a new provider needs only a configuration change.
+- **R-6 (Medium):** LinkedIn OAuth becomes unavailable. The verification score (FR-19) falls back to the other signals, and more profiles go to a reviewer.
+- **R-7 (Medium):** Fake profiles pass verification. Detectors fall from about 96% F1 on manual fakes to about 68% on language model fakes . We claim only that rule signals raise the cost of casual fakes. Doubtful profiles go to a reviewer (FR-14, FR-16).
+- **R-8 (Medium):** The project reads as an interface over a commercial language model. The re-ranker is the only trained model. The classifiers are offline studies, and every other feature is a prompted module or a rule.
+- **R-9 (High):** Roman Urdu has no standard spelling, so a multilingual claim may not hold. We run the benchmark before building on it. FR-9 moves to FYP-2, and FYP-1 is English only.
+- **R-10 (Low):** Under deadline pressure, training data is taken from social media or public profiles. This would break PECA 2016 and NFR-9. Our sourcing rule allows only self-registration, consented pilot data, manual writing and synthetic data.
+- **R-11 (Medium):** Similarity alone ranks counterparts badly, because investor fit depends on stage, ticket size and thesis. Hard filters come first. FYP-1 adds feature weights, and the FYP-2 re-ranker is tested against them.
+- **R-12 (Low):** CVs, pitch content or contact details are exposed. The controls are role based access (NFR-5), contacts hidden until mutual acceptance (NFR-6), file checks (NFR-7), no secrets in the repository (NFR-8) and deletion on request (NFR-10).
+- **R-13 (Medium):** Three people cannot finish the build in two semesters. The build order is fixed in Chapter 2, and we drop items from the bottom.
+- **R-14 (Medium):** A retrieval pipeline is new to the team. The compliance assistant is first in the build order, so the learning happens early.
+- **R-15 (Unassessed):** No lawyer or SECP has reviewed the fee design. It takes no equity, runs no transaction and ties no fee to an investment. We claim no compliance until a legal review, which is needed before launch.
+- **R-16 (High):** No incubator partnership is secured. The first talk with the LUMS Centre for Entrepreneurship in September 2026 did not become a partnership. We will ask again once the platform is built. Meanwhile we use a student survey, faculty contacts, self-registration and manual writing.
+- **R-17 (Medium):** The mentor and investor pools are empty at the demonstration. We seed them with university mentors and the team's connections, and approach investors through incubators.
+- **R-18 (Medium):** The panel questions our novelty against existing platforms. Chapter 3 documents a founder and investor matching platform that came first, so we do not claim to be first. We claim four differences: three sides including startup talent, a separate mentor profile, the compliance assistant and multilingual work.
+- **R-19 (Low):** Free hosting tiers change terms or end. Services are containerized under one compose file, so a provider change is a redeploy.
 
 # 20. Go-to-Market / Trust & Adoption Strategy
 
@@ -873,10 +1054,21 @@ Two semesters, approximately eight months. Ownership and per-person work divisio
 | Month 4 | Matching service (baseline cosine similarity); mid-year evaluation/demo; **go/no-go checkpoint for multilingual fine-tuning** — labeled triple count reviewed against the pre-agreed threshold (Section 13.7); decision made and locked, not revisited under later time pressure. |
 | Month 5 | RAG compliance assistant; document ingestion pipeline for SECP/FBR/PSEB sources. |
 | Month 6 | Job/internship board; resume/LinkedIn optimizer; investor discovery limited to verified startups with a completed readiness assessment. |
-| Month 7 | Re-ranker training on accumulated/anchor-partner-sourced interaction data; **if Month 4 checkpoint was a go:** contrastive fine-tuning of the multilingual embedding model and fine-tuned-vs-baseline benchmark comparison; **if no-go:** baseline multilingual results finalized as-is; UI polish; seeding real demo data. |
+| Month 7 | Re-ranker training on accumulated/anchor-partner-sourced interaction data; **if Month 4 checkpoint was a go:** contrastive fine-tuning of the multilingual embedding model and fine-tuned-vs-baseline benchmark comparison; **if no-go:** baseline multilingual results finalized as-is; UI polish; seeding real demo data. The offline classifiers (Section 13.9), approved by the supervisor, are trained here. |
 | Month 8 | Evaluation against success metrics; documentation finalization; final defense preparation. |
 
 **Fallback order if behind schedule (FYP-1, updated 2026-10-01):** authentication, role-based access, and profiles are built first because every feature depends on them. After that: (1) compliance RAG and its evaluation, (2) matching/re-ranking engine (prototyped in FYP-1 with the cosine-similarity baseline; training and evaluation moved to FYP-2 given the anchor-partner data dependency, Section 9), (3) readiness score, (4) pitch simulator and market research synthesis, (5) resume/LinkedIn optimizer and talent/job layer, (6) secondary polish, (7) the English/Urdu/Roman Urdu benchmark (already deferred to FYP-2). The FYP-1 checkpoint is the end of the semester: if the compliance assistant does not return cited answers and abstain correctly on a held-out question set by then, nothing lower on the list is extended until it does. Compliance RAG leads for FYP-1 specifically because it has no external data dependency and is fully testable now; the matching engine remains the project's primary ML contribution overall and returns to the top of this order once anchor-partner data is available.
+
+**Plan for FYP-2 (six phases, as in the report's Chapter 6).**
+
+| No. | Work | Depends on | Exit criterion |
+|---|---|---|---|
+| 1 | Close the FYP-1 checkpoint: finish the gold set, expand the corpus, evaluate citations, recall, and abstention | Corpus and gold set | Correct citations and abstention on the held-out set |
+| 2 | Matching: collect 150 to 300 labeled pairs, train the re-ranker, compare with the cosine baseline | Partner pilot or seeded users | NDCG@K and MRR against the baseline, or a stated pilot result |
+| 3 | Prompted modules: readiness score, pitch simulator, market research, resume optimizer, job board | Profiles and gateway | Readiness score vs. human reviewers on 10 to 15 ideas (Spearman) |
+| 4 | Benchmark English, Urdu, and Roman Urdu on 30 to 50 parallel descriptions each, then add FR-9. Train the three supporting classifiers | Phases 1 and 3 | Results per language; macro F1 for each classifier against a simple baseline |
+| 5 | Mocked placement fee billing, events calendar, resource links, user manual | Job board | FR-11, FR-30, and FR-31 demonstrated |
+| 6 | Load test, usability walkthrough, survey, and founder, talent interviews | All earlier phases | NFR-1, NFR-2, NFR-3, and NFR-16 checked |
 
 # 23. Phase 2 — Potential Business (expected steps if pursued beyond the FYP)
 
@@ -904,9 +1096,13 @@ The Founder's Carnet is scoped as an honest, buildable answer to a specific, evi
 
 This section is the full compiled bibliography, merged in from the companion Resources, Literature & Dataset Reference document per its own stated purpose ("compiled for... Section 25 (References) expansion"). Every entry carries the same type tag used in the companion document — **[Peer-reviewed]**, **[Preprint]**, **[Official/Government]**, or **[Community/Industry data]** — so academic literature, government sources, and practitioner/community data are never blended together. A sample of these citations (arXiv IDs, DOIs, and specific factual claims — including the Journal of Pakistan Administration's 22,549-RLCO figure and the SECP regulatory naming correction below; the RLCO expansion itself was found to be incorrect in a second verification pass and is corrected at that entry) were independently re-verified via live search in September 2026 as part of this merge; the remainder carry forward the companion document's own verification pass, dated the same session it was compiled. One correction was found and applied during this merge: "An Automatic Pitch Deck Analyzer" is dated 2024 per ACM's own conference listing (CODS-COMAD '24), not 2025 as an earlier draft had it.
 
+**Sixth update, 2 November 2026.** Synced with the report (F26-090, 89 pages, plus the 2 November main.tex) after the mid evaluation. The report's Chapter 3 summary tables are back to four columns (Author, Method, Results, Limitations for the literature tables) and its spelling and wording were checked; neither alters scope, design or references. Changes here: (1) Statements that competitors are "English-only" now say we saw no Urdu or Roman Urdu support (Sections 4.1, 5 and 13.7, and Appendix A), and the IFDP limitations in Section 4.4 are scoped to its public pages. (2) The two wrong cross-references were fixed (Section 7 now points to Section 18, Section 9 to Section 20). (3) Objectives (Section 2.1) are the report's nine, and the third SDG is labeled as supported but not targeted, as the report targets two. (4) Requirements now match the report: 17 features (16.1), FR-1 to FR-31 and NFR-1 to NFR-23 (16.2, 16.3), assumptions, ten use cases, hardware and software, GUI, and the 41-table database design (16.4 to 16.8), plus the architectural strategies and policies (11.5), the R-1 to R-19 risk register (19.1) and the FYP-2 plan (Section 22). (5) Three works the report cites were added to Section 25 (Liu et al. 2022, Butt et al. 2025, Mustafa et al. 2026), with the Rozee.pk, Indeed and Glassdoor sources and a map of the report's Appendix A codes. (6) The .docx was rebuilt from this file; the 15 diagrams are labeled placeholders, to be inserted from the diagram files.
+
+**Fifth update, 21 October 2026.** The dataset figures were checked against the files and this document was synced with the report. Changes: (1) The Roman-Urdu-Parl files hold 6,407,268 rows. 32,460 train pairs also appear in validation or test and were removed, which leaves 6,333,348 train rows and 6,374,808 rows in total. The dataset card gives 6,333,218 train and 6,374,678 in total. The 130-row gap to the card's train count equals the number of fully blank rows (our arithmetic, not confirmed by a run). 37.1% of train pairs are exact repeats. (2) Startup Success/Fail was filtered to founded_at 1990 to 2015, which keeps 49,766 of 66,368 rows. (3) Haider Maseeh's resumes were deduplicated on exact text, leaving 4,170 of 6,000 technical rows. (4) Gulati et al. is now cited with its Springer volume, the authors in the published order and the editors. (5) The report's own bibliography was trimmed from 103 to 35 entries; this document keeps the longer list. Non-paper sources in the report are listed in its Appendix A, which has 32 coded entries. (6) The supervisor approved the classifier plan (Section 13.9). The .docx version was rebuilt on 2 November 2026 (see the sixth update).
+
 **Fourth update, 13 October 2026.** A nine-claim evidence register was resolved (`claim_evidence_register.md`). Changes: (1) Pitch Pakistan was removed from the report entirely, including its comparison row, bibliography entry and Appendix A rows, and the audited-platform count is now four (InnoCollab.pk, PakStartups.org, PakLaunch, StartupNetwork.pk) out of seven platforms reviewed. (2) The Plan9 source now points to `plan9.pitb.gov.pk/node/1176`, accessed 13 October 2026, with a note that the page's introductory text still says 160 startups in 10 cycles. (3) The IFDP link was kept, but the entry now says the site was open on 3 October 2026 and did not load on 13 October 2026, and describes IFDP as curated matchmaking per its public pages. (4) Halo's lack of SECP/FBR/SBP knowledge is scoped to the team's September 2026 test. (5) Startup.pk Pro is described as a waitlist. (6) StartupBlink is cited from the official page (`ref:startupblink2026`, 13 October 2026). (7) The SHA-256 of the April 2026 Seventh Schedule was added to `profile_report.md` (fee Rs 6,655 from 20 April 2026, up 10% from Rs 6,050). Confirmed and unchanged: ITO s.154A rate of 0.25% to tax year 2029, the two different startup definitions, Clause 133 omitted by the Finance Act 2021, and the Companies Act ss.462 to 473 titles. Do not cite the GAE law-firm article, the AI-generated Companies Act summary, or the AI-generated PSEB FAQ PDF. Claims 1 to 6 (login-gated or hands-on observations) are still being re-checked by Ali and may change wording.
 
-**Third update, 4 October 2026.** The regulatory corpus and external datasets were downloaded and profiled, and the Chapter 3 bibliography was completed. Corrections: the Ordinance corpus copy is now FBR's consolidation amended up to 30 June 2026 (839 pp.); Companies Act fees are cited from the Seventh Schedule with fees in effect from 20 April 2026 (the 10 November 2025 version is superseded); the Roman-Urdu-Parl split loads 6,374,678 pairs. Sources cited in Chapter 3 that were missing from this list are added under "Chapter 3 additions" below. Evidence: `Chapter3_Source_Register_v2.md`, Section E.
+**Third update, 4 October 2026.** The regulatory corpus and external datasets were downloaded and profiled, and the Chapter 3 bibliography was completed. Corrections: the Ordinance corpus copy is now FBR's consolidation amended up to 30 June 2026 (839 pp.); Companies Act fees are cited from the Seventh Schedule with fees in effect from 20 April 2026 (the 10 November 2025 version is superseded); the Roman-Urdu-Parl split loads 6,374,678 pairs (corrected 19 and 21 October 2026: the dataset card gives 6,374,678 in total, while the files we hold have 6,407,268 rows, 6,365,808 of them in the train file; 32,460 train pairs also appear in validation or test, and removing them leaves 6,374,808 rows). Sources cited in Chapter 3 that were missing from this list are added under "Chapter 3 additions" below. Evidence: `Chapter3_Source_Register_v2.md`, Section E.
 
 **Second verification pass, October 2026.** The companion Resources document was re-verified end to end against primary texts rather than search summaries. Over 60 corrections were applied, including three serious errors that had propagated into this document: (1) the citation "Income Tax Ordinance 2001, Second Schedule §143" was wrong in both the section number and the instrument — §143 governs non-resident shipping — and has been replaced with the correct §154A position below; (2) the expansion "Registration Letters of Company Operations" for RLCO did not appear in the source paper and was removed; (3) the role attributed to PEAR (structured-feature fusion) was wrong, and Grbovic & Cheng (KDD '18) has been added as the correct Stage 2 precedent. Further corrections to venue, authorship, and metric names are marked inline at the affected entries. The full change log, with per-source evidence grading, is held in `Chapter3_Source_Register_v2.md`.
 
@@ -936,13 +1132,15 @@ Reimers, N., & Gurevych, I. (2019). Sentence-BERT: Sentence Embeddings using Sia
 
 Karpukhin, V., Oğuz, B., Min, S., Lewis, P., Wu, L., Edunov, S., Chen, D., & Yih, W. (2020). Dense Passage Retrieval for Open-Domain Question Answering. [Peer-reviewed] *EMNLP 2020*. https://arxiv.org/abs/2004.04906
 
+Liu, W., Xi, Y., Qin, J., et al. (2022). Neural Re-ranking in Multi-stage Recommender Systems: A Review. [Peer-reviewed] *IJCAI-22, Survey Track*, 5512–5520. https://doi.org/10.24963/ijcai.2022/771 *(added November 2026: the report's survey of multi-stage recommenders and neural re-rankers, Chapter 3 Section 3.2.1.)*
+
 Qin, C., et al. (2023, revised 2025). A Comprehensive Survey of Artificial Intelligence Techniques for Talent Analytics. [Preprint] https://arxiv.org/abs/2307.03195 *(scope note, October 2026: this surveys AI for talent analytics across talent management, organization management, and labour market analysis; person-job fit is one subsection, not the paper's focus)*
 
 Guo, W., Liu, X., Wang, S., Kazi, M., Wang, Z., Fu, Z., Jia, J., Zhang, L., Gao, H., & Long, B. (2021). Deep Natural Language Processing for LinkedIn Search. [Preprint, industry] https://arxiv.org/abs/2108.13300
 
 Ayoobi, N., Shahriar, S., & Mukherjee, A. (2023). The Looming Threat of Fake and LLM-generated LinkedIn Profiles: Challenges and Opportunities for Detection and Prevention. [Peer-reviewed] *HT '23: Proceedings of the 34th ACM Conference on Hypertext and Social Media*, Article 38, 1–10. https://doi.org/10.1145/3603163.3609064 *(establishes that profile section structure is discriminative for detecting fake and LLM-generated profiles, reaching 96.33% accuracy with BERT on manually created fakes — the basis for this project's rule-based profile-completeness heuristics, Section 13.8.)*
 
-Gulati, A., Agarwal, V., Sharma, A., & Kumar, R. (2025). Weak Links in LinkedIn: Enhancing Fake Profile Detection in the Age of LLMs. [Peer-reviewed] *ASONAM 2025*, Springer Lecture Notes in Computer Science, vol. 16323. https://doi.org/10.1007/978-3-032-13821-7_31 *(must be read alongside Ayoobi et al. above: this paper reports that detectors performing at roughly F1 96% on manually created fake profiles fall to roughly F1 68% against LLM-generated profiles, with a false accept rate of 42–52%. This project therefore treats rule-based profile heuristics as raising the cost of casual fakery rather than defending against a determined LLM-assisted attacker, which is why human review is retained for mentor onboarding — Section 13.8.)*
+Gulati, A., Kumar, R., Agarwal, V., & Sharma, A. (2026). Weak Links in LinkedIn: Enhancing Fake Profile Detection in the Age of LLMs. [Peer-reviewed] In A. An, A. Cuzzocrea, & H. Hu (Eds.), *Social Networks Analysis and Mining, ASONAM 2025*, Lecture Notes in Computer Science, vol. 16323. Springer, Cham. https://doi.org/10.1007/978-3-032-13821-7_31 *(must be read alongside Ayoobi et al. above: this paper reports that detectors performing at roughly F1 96% on manually created fake profiles fall to roughly F1 68% against LLM-generated profiles, with a false accept rate of 42–52%. This project therefore treats rule-based profile heuristics as raising the cost of casual fakery rather than defending against a determined LLM-assisted attacker, which is why human review is retained for mentor onboarding — Section 13.8.)*
 
 Dai, H., et al. (2015). Scraping and Clustering Techniques for the Characterization of LinkedIn Profiles. [Low-tier venue: ITCS 2015 / AIRCC] https://arxiv.org/abs/1505.00989 — historical methodology note only, superseded by the two entries above; this project's self-registration-only, no-scraping stance (Sections 6.2, 18.2) is a deliberate contrast to this paper's approach.
 
@@ -984,7 +1182,7 @@ Bajaj, P., Nguyen, T., et al. (2016). MS MARCO: A Human Generated Machine Readin
 
 ### Multilingual — Urdu / Roman Urdu
 
-Alam, M., & Hussain, S. (2022). Roman-Urdu-Parl: Roman-Urdu and Urdu Parallel Corpus for Urdu Language Understanding. [Peer-reviewed] *ACM TALLIP*, 21(1). https://doi.org/10.1145/3464424 *(title corrected October 2026. The paper reports 6,365,808 sentence pairs; the publicly available split is smaller, so any figure stated in this project should be the row count actually loaded.)*
+Alam, M., & Hussain, S. (2022). Roman-Urdu-Parl: Roman-Urdu and Urdu Parallel Corpus for Urdu Language Understanding. [Peer-reviewed] *ACM TALLIP*, 21(1). https://doi.org/10.1145/3464424 *(title corrected October 2026. The paper reports 6,365,808 sentence pairs; the split file has 6,407,268 rows in total and 6,365,808 in its train file, so any figure stated in this project should be the row count actually loaded; the Hugging Face dataset card gives 6,333,218 train, 20,719 validation and 20,741 test pairs, 6,374,678 in total, and the cleaned total in our files is 6,374,808.)*
 
 KICS, UET Lahore. (2024). Benchmarking the Performance of Pre-trained LLMs across Urdu NLP Tasks. [Preprint] https://arxiv.org/abs/2405.15453
 
@@ -993,6 +1191,8 @@ Tahir, M. A., Shams, S., Hussain, S., & Butt, A. M. (2026). Instruction-Tuned Ur
 Tahir, M. A., Shams, S., Fiaz, L., Adeeba, F., & Hussain, S. (2025). Benchmarking the Performance of Pre-trained LLMs across Urdu NLP Tasks. [Peer-reviewed] *CHiPSAL 2025*. https://aclanthology.org/2025.chipsal-1.3/ *(published, not a preprint as previously listed.)*
 
 Enevoldsen, K., et al. (2025). MMTEB: Massive Multilingual Text Embedding Benchmark. [Peer-reviewed] *ICLR 2025*. https://arxiv.org/abs/2502.13595 *(the largest multilingual embedding benchmark, covering 250+ languages. Its only Roman Urdu task is sentiment classification; it contains no Roman Urdu semantic-similarity or retrieval task, which is the evidence base for this project treating Roman Urdu retrieval as an open problem rather than a solved capability.)*
+
+Butt, M. U. T., Varanasi, S., & Neumann, G. (2025). Roman Urdu as a Low-Resource Language: Building the First IR Dataset and Baseline. [Peer-reviewed] *Proceedings of the First Workshop on Advancing NLP for Low-Resource Languages*, Varna, Bulgaria, 82–87. ACL Anthology 2025.lowresnlp-1.9 *(added November 2026: the first Roman Urdu retrieval dataset, built by translating MS MARCO and then transliterating it; on its 6,980 queries BM25 reaches an MRR@10 of 0.0846 and a fine-tuned mT5 re-ranker 0.1903.)*
 
 Muneer, I., Fatima, G., Khan, M. S., Nawab, R. M. A., & Saeed, A. (2023). Developing a Large Benchmark Corpus for Urdu Semantic Word Similarity. [Peer-reviewed] *ACM TALLIP*, 22(3), Article 83. https://doi.org/10.1145/3566124 *(the best off-the-shelf multilingual transformer tested, LaBSE, reached a Pearson correlation of 0.57 on Urdu-script word pairs — the realistic expectation anchor for this project's multilingual baseline, Section 13.7.)*
 
@@ -1030,7 +1230,7 @@ Caillaud, B., & Jullien, B. (2003). Chicken and egg: competition among intermedi
 
 Rochet, J.-C., & Tirole, J. (2003). Platform Competition in Two-Sided Markets. [Peer-reviewed] *Journal of the European Economic Association*, 1(4), 990–1029. https://doi.org/10.1162/154247603322493212
 
-Schein, A. I., Popescul, A., Ungar, L. H., & Pennock, D. M. (2002). Methods and Metrics for Cold-Start Recommendations. [Peer-reviewed] *SIGIR '02*, 253–260. https://doi.org/10.1145/564376.564421 *(addresses the new-item cold start directly; its footnote 1 states the new-user problem is symmetric where user attribute data is available, which is the case here. Also relevant to this project's evaluation design: the paper finds simple heuristic baselines rivalling trained models, and recommends reporting heuristic predictors alongside machine-learning results for perspective.)*
+Schein, A. I., Popescul, A., Ungar, L. H., & Pennock, D. M. (2002). Methods and Metrics for Cold-Start Recommendations. [Peer-reviewed] *SIGIR '02*, 253–260. https://doi.org/10.1145/564376.564421 *(addresses the new-item cold start directly; its footnote 1 states the new-user problem is symmetric where user attribute data is available, which is the case here. Also relevant to this project's evaluation design: the paper finds simple heuristic baselines rivalling trained models, and recommends reporting heuristic predictors alongside machine-learning results for perspective. In the report's reading, a simple rule scored 0.747 against 0.743 for the trained aspect model.)*
 
 Two-Sided Markets, Pricing, and Network Effects. [Academic chapter, Northwestern] https://faculty.wcas.northwestern.edu/apa522/Two-Sided-Market-and-Network-Effects.pdf
 
@@ -1040,21 +1240,31 @@ Kaggle: Startup Success/Fail Dataset from Crunchbase. [Community/Industry data, 
 
 Kaggle: StartUp Investments (Crunchbase). [Community/Industry data, schema proxy only] https://www.kaggle.com/datasets/arindam235/startup-investments-crunchbase
 
-darysha. Resume-Job Matching Dataset. [Community/Industry data, practice data only] https://www.kaggle.com/datasets/darysha/hse-hackathon — 150,493 parsed resume-vacancy pairs, profiled 3 October 2026. *(Replaces the earlier generic "Kaggle resume/job-matching datasets" entry. Screened and excluded: Hadi K P, Resume Dataset PDF, https://www.kaggle.com/datasets/hadikp/resume-data-pdf, image-only; Amay Mishra, How Companies Screen Resumes: ATS Dataset (NLP+ML), consistent with synthetic generation.)*
+darysha. Resume-Job Matching Dataset. [Community/Industry data, practice data only, not in the final seven datasets] https://www.kaggle.com/datasets/darysha/hse-hackathon — 150,493 parsed resume-vacancy pairs, profiled 3 October 2026. *(Replaces the earlier generic "Kaggle resume/job-matching datasets" entry. Screened and excluded: Hadi K P, Resume Dataset PDF, https://www.kaggle.com/datasets/hadikp/resume-data-pdf, image-only; Amay Mishra, How Companies Screen Resumes: ATS Dataset (NLP+ML), consistent with synthetic generation.)*
 
-Mavkif. Roman-Urdu-Parl-split. [Community/Industry data] https://huggingface.co/datasets/Mavkif/Roman-Urdu-Parl-split — 6,374,678 pairs loaded on 3 October 2026.
+Mavkif. Roman-Urdu-Parl-split. [Community/Industry data] https://huggingface.co/datasets/Mavkif/Roman-Urdu-Parl-split. The split file has 6,407,268 rows (6,365,808 in the train file), checked from the file on 18 October 2026. After removing 32,460 train pairs that also appear in validation or test, 6,374,808 rows remain. The dataset card gives 6,374,678 in total (6,333,218 train, 20,719 validation, 20,741 test) and lists Apache 2.0; the sentences come from informal online sources.
 
 Invest2Innovate. *Pakistan Startup Ecosystem Report 2024* (4th edition, launched 12 December 2024). [Community/Industry data] https://invest2innovate.com — startup funding peaked at USD 355 million in 2022, fell to USD 74 million in 2023, and reached approximately USD 37 million to November 2024; i2i's Q4 2024 Deal Flow Update gives USD 42.5 million for the full calendar year 2024. Fintech accounted for USD 30.5 million of the USD 37 million. Women comprise 39% of the startup workforce and have received 18.75% of startup funding since 2015. *(Replaces the Kaggle "Pakistan Startup Census" below, which is superseded for all current-state figures.)*
 
 StartupBlink. *Innovators Business Environment Index 2026*. [Community/Industry data] — Pakistan ranks 100th globally and 2nd in South Asia, with pillar scores of Business Incentives 29.995 (#108), Market Perception 23.476 (#109), and Ease of Operating Business 48.845 (#97). **This is a different index from the Global Startup Ecosystem Index, in which Pakistan ranks 67th; the two must not be conflated.**
 
-Usmani, Z. Pakistan Startup Census. [Community/Industry data] https://www.kaggle.com/datasets/zusmani/pakistan-startup-census — a 2021 personal compilation, not an official census. **Superseded (October 2026) by the i2i Pakistan Startup Ecosystem Report above for any current-state figure.** Retained only as a record of a dropped source.
+Usmani, Z. Pakistan Startup Census. [Community/Industry data] https://www.kaggle.com/datasets/zusmani/pakistan-startup-census — a 2021 personal compilation, not an official census. **Not a source for current-state figures (October 2026).** It is still in the final seven datasets (Section 9) for startup discovery: 553 raw rows, 433 after cleaning, 51 tech rows. Use the i2i report for any current-state figure.
 
-LinkedIn-Dataset (GitHub). [Community/Industry data] https://github.com/navid-aub/LinkedIn-Dataset — companion paper: https://arxiv.org/abs/2307.11864 — 3,600 profiles; labels 0 (legitimate), 1 (fake), 10 and 11 (ChatGPT-generated from legitimate and from fake profile statistics) per the README, which restricts use to research.
+LinkedIn-Dataset (GitHub). [Community/Industry data] https://github.com/navid-aub/LinkedIn-Dataset — companion paper: https://arxiv.org/abs/2307.11864 — 3,600 profiles; labels 0 (legitimate), 1 (fake), 10 and 11 (ChatGPT-generated from legitimate and from fake profile statistics) per the README, which restricts use to research. Not in the final seven datasets (19 October 2026); kept here because the fake-profile papers above rely on it.
+
+Pakistan's Job Market. [Community/Industry data, final dataset] 6,680 raw rows, 5,368 after removing 1,312 duplicates; 1,469 tech rows (27.4% of cleaned; the raw file gives at least 26.8%). Used for matching and the job board. https://www.kaggle.com/datasets/zusmani/pakistans-job-market (ODbL copy: https://opendata.com.pk/dataset/activity/pakistan-s-job-market). Licence: ODbL on the Open Data Pakistan copy; attribution required.
+
+Bhawal. Resume Dataset. [Community/Industry data, final dataset, CC0] 2,484 resumes, 238 tech. Used as the external check for the resume role classifier (Section 13.9). https://www.kaggle.com/datasets/snehaanbhawal/resume-dataset
+
+Haider Maseeh. Resume Dataset. [Community/Industry data, final dataset, CC BY-NC-SA 4.0] 9,000 rows; after exact-text deduplication, 4,170 unique texts remain of 6,000 in the six technical categories (smallest class, Java Developers, 447). Used to train the resume role classifier (Section 13.9). https://www.kaggle.com/datasets/haidermaseeh/resume-dataset
 
 ### Pakistan Startup Ecosystem Market Data (non-academic, market-synthesis grounding only)
 
 StartupBlink — Pakistan Startup Ecosystem (Global Startup Ecosystem Index). [Community/Industry data] https://www.startupblink.com/startup-ecosystem/pakistan — Pakistan ranks 67th globally and 2nd in South Asia in 2026, with 1,127 startups mapped. Ranking trajectory: 76th (2023), 71st (2024), 72nd (2025), 67th (2026).
+
+Mustafa et al. (2026). Analysing IT Job Market Dynamics in Pakistan. [Preprint] https://doi.org/10.20944/preprints202609.0274.v2 — Preprints.org, v2, accessed 13 October 2026. A 3,734-posting sample of LinkedIn IT jobs from late 2023: Lahore 1,198, Karachi 858, Islamabad 720. One platform's postings are not a census. *(added November 2026: cited in the report's Chapter 1.)*
+
+Rozee.pk, Join a Startup. [Community/Industry data] https://www.rozee.pk/startups — on 13 October 2026 it listed 20 companies and 3 open jobs. Indeed (https://pk.indeed.com/q-startup-jobs.html) and Glassdoor (https://www.glassdoor.com/Job/pakistan-startup-jobs-SRCH_IL.0,8_IN192_KO9,16.htm) have no startup filter; a keyword search for "startup" returns general roles. Both accessed 13 October 2026.
 
 Invest2Innovate (i2i). [Community/Industry data] https://invest2innovate.com
 
@@ -1097,7 +1307,7 @@ Pakistan Bureau of Statistics (PBS). https://www.pbs.gov.pk
 
 ### Chapter 3 additions (4 October 2026)
 
-Gokhan, T., Wang, K., Gurevych, I., & Briscoe, T. (2024). RIRAG: Regulatory Information Retrieval and Answer Generation. [Preprint] arXiv 2409.05677. Shared task: Shared Task RIRAG-2025, *Proceedings of the 1st Regulatory NLP Workshop (RegNLP 2025)*, ACL Anthology 2025.regnlp-1.1.
+Gokhan, T., Wang, K., Gurevych, I., & Briscoe, T. (2024). RIRAG: Regulatory Information Retrieval and Answer Generation. [Preprint] arXiv 2409.05677. Releases ObliQA, with 27,869 questions on the financial regulations of Abu Dhabi Global Markets. Shared task: Shared Task RIRAG-2025, *Proceedings of the 1st Regulatory NLP Workshop (RegNLP 2025)*, ACL Anthology 2025.regnlp-1.1.
 
 Bertaglia, T., Gui, H., Goanta, C., & Spanakis, G. (2026). Traceable by Design: An LLM Pipeline and Dashboard for EU Regulatory Consultation Analysis. [Preprint] arXiv 2605.30995v2.
 
@@ -1140,6 +1350,45 @@ National Incubation Center (NIC) network, Plan9 (Punjab Information Technology B
 
 *Note: this list intentionally does not include invented or unverified citations. The companion Resources, Literature & Dataset Reference document carries the full role/annotation for each citation above (why it's cited, what it defends against a panel question), plus Appendix A's quick-reference table and Appendix B's MOU template — this section is the formal bibliography; that document is the working literature-review tool.*
 
+### Report Appendix A map (Data and Web Sources)
+
+The report's Appendix A lists 32 non-paper sources by code. The body cites them as [P1] to [R11]. Each is also described in the entries above.
+
+| Code | Source | Location and notes | Access |
+|---|---|---|---|
+| P1 | Plan9: Pakistan's First Technology Incubator | https://plan9.pitb.gov.pk/node/1176. Lists 14 cycles and reports 195+ graduated startups | Oct 13, 2026 |
+| P2 | PSEB Annual Report, January--December 2025 | https://techdestination.com/wp-content/uploads/2026/01/Annual-Report-2025-v2-compressed.pdf | Oct 13, 2026 |
+| P3 | StartupBlink: Global Startup Ecosystem Index 2026 | https://www.startupblink.com/startup-ecosystem/pakistan | Oct 13, 2026 |
+| P4 | I2I, Pakistan Startup Ecosystem Report 2024 | https://invest2innovate.com/reports/. 4th edition | Oct 13, 2026 |
+| P5 | Analysing IT Job Market Dynamics in Pakistan | https://doi.org/10.20944/preprints202609.0274.v2. Preprints.org, v2 | Oct 13, 2026 |
+| A1 | I2I, Investor Founder Discovery Platform (IFDP) | https://ifdp.invest2innovate.com | Oct 03, 2026 |
+| A2 | InnoCollab.pk | https://innocollab.pk | Audited Sep 2026 |
+| A3 | PakStartups | https://www.pakstartups.org/ | Audited Sep 2026 |
+| A4 | PakLaunch | https://www.paklaunch.com | Audited Sep 2026 |
+| A5 | StartupNetwork.pk | https://startupnetwork.pk | Audited Sep 2026 |
+| A6 | Startup.pk | https://startup.pk | Oct 13, 2026 |
+| A7 | ROZEE.PK, Join a Startup | https://www.rozee.pk/startups | Oct 13, 2026 |
+| A8 | Indeed, Startup Jobs (keyword search) | https://pk.indeed.com/q-startup-jobs.html | Oct 13, 2026 |
+| A9 | Glassdoor, Startup Jobs (keyword search) | https://www.glassdoor.com/Job/pakistan-startup-jobs-SRCH_IL.0,8_IN192_KO9,16.htm | Oct 13, 2026 |
+| D1 | Mavkif, Roman-Urdu-Parl-split | https://huggingface.co/datasets/Mavkif/Roman-Urdu-Parl-split. Hugging Face | Oct 18, 2026 |
+| D2 | Yan Maksi, Startup Success/Fail Dataset from Crunchbase | https://www.kaggle.com/datasets/yanmaksi/big-startup-secsees-fail-dataset-from-crunchbase. Kaggle | Oct 18, 2026 |
+| D3 | Arindam Banerji, StartUp Investments (Crunchbase) | https://www.kaggle.com/datasets/arindam235/startup-investments-crunchbase. Kaggle | Oct 18, 2026 |
+| D4 | Zeeshan Usmani, Pakistan Startup Census (2021) | https://www.kaggle.com/datasets/zusmani/pakistan-startup-census. Kaggle | Oct 18, 2026 |
+| D5 | Zeeshan Usmani, Pakistan's Job Market (2021) | https://www.kaggle.com/datasets/zusmani/pakistans-job-market. Kaggle | Oct 18, 2026 |
+| D6 | Snehaan Bhawal, Resume Dataset | https://www.kaggle.com/datasets/snehaanbhawal/resume-dataset. Kaggle | Oct 18, 2026 |
+| D7 | Haider Maseeh, Resume Dataset | https://www.kaggle.com/datasets/haidermaseeh/resume-dataset. Kaggle | Oct 18, 2026 |
+| R1 | FBR, Income Tax Ordinance, 2001 (Updated 30 June 2026) | https://download1.fbr.gov.pk/Docs/2026724177725705IncomeTaxOrdinanace2001.pdf | Oct 04, 2026 |
+| R2 | Government of Pakistan, The Finance Act, 2026 | https://download1.fbr.gov.pk/Docs/20266291261044366FinanceAct2026.pdf | Oct 04, 2026 |
+| R3 | SECP, The Companies Act, 2017 (Updated 18 August 2022) | https://www.secp.gov.pk/document/the-companies-act-2017-updated-18-aug-2022/?wpdmdl=45422 | Oct 04, 2026 |
+| R4 | SECP, Seventh Schedule of the Companies Act, 2017: Table of Fees to be Paid to Registrar and Commission | https://www.secp.gov.pk/document/seventh-schedule-updated-till-20-04-2023-2/?wpdmdl=47657 | Oct 04, 2026 |
+| R5 | SECP Regulatory Sandbox Guidelines 2019 | https://www.secp.gov.pk/document/secp-regulatory-sandbox-guidelines-2019/?wpdmdl=37476 | Oct 04, 2026 |
+| R6 | FBR, Information Technology Wing, VOSS for Company Registration | https://download1.fbr.gov.pk/Docs/20194121643945673VirtualOneStopShop(VOSS)forCompanyRegistration.pdf | Oct 04, 2026 |
+| R7 | FBR, Register for Income Tax | https://www.fbr.gov.pk/categ/register-income-tax/51147/30846/%2071150 | Oct 04, 2026 |
+| R8 | FBR, Registration of Individual on Iris. 25 May 2019 | https://download1.fbr.gov.pk/Docs/2019527755039915Registrationofindividualoniris.pdf | Oct 04, 2026 |
+| R9 | FBR, Iris FAQs | https://e.fbr.gov.pk/SOP/IRIS/Iris_FAQs.pdf | Oct 04, 2026 |
+| R10 | PSEB, Industry Facilitation and Registration | https://techdestination.com/industry-facilitation/ | Oct 04, 2026 |
+| R11 | National Assembly of Pakistan, PECA, 2016 (Act No. XL of 2016, Sections 4 and 16) | https://nacta.gov.pk/wp-content/uploads/2017/08/Prevention-of-Electronic-Crimes-Act-2016.pdf. 22 Aug 2016 | Oct 13, 2026 |
+
 # 26. Appendix
 
 ## A. Competitive Audit Evidence Log
@@ -1168,7 +1417,7 @@ Direct-visit findings, dated, supporting Sections 4–5 and 19 — based on the 
 | September 2026 (new audit) | StartupNetwork.pk: registration options | Exactly two roles offered — Startup or Investor. No talent/job-seeker registration path exists | Direct account registration, screenshot retained |
 | September 2026 (new audit) | StartupNetwork.pk: Events and Jobs tabs | Both return "There are no listings matching your search" despite full filter UIs (date range, vacancy type, qualification, salary, region) | Direct site visit, screenshots retained |
 
-**InnoCollab.pk "Talent/Entrepreneur" role, in specific terms:** the bundled role lists founders and entrepreneurs promoting their own ventures — seeking co-founders, feedback, or capital — rather than candidates seeking employment at someone else's startup. The wider platform was also confirmed, during the same walkthrough, to have no government/regulatory compliance content, to be English-only, and to hold events only as in-app messaging rather than real-world listings. **Update, September 2026:** a separate page, "Meet Our Talented Innovators," was found during a follow-up visit and complicates this finding — it lists individual profiles tagged by skill (e.g., "digital Marketing," "Web Designer," "Guest Posting, SEO, content writing," "Data analytics, java, c++") with a "Sign up to Connect" action per profile. This reads closer to a genuine skills/talent directory than founder self-promotion. Both pages exist on the platform simultaneously and serve different purposes; neither functions as a startup-specific job/internship board with real, employer-posted openings, which is the specific gap claimed in Section 5.
+**InnoCollab.pk "Talent/Entrepreneur" role, in specific terms:** the bundled role lists founders and entrepreneurs promoting their own ventures — seeking co-founders, feedback, or capital — rather than candidates seeking employment at someone else's startup. The wider platform was also confirmed, during the same walkthrough, to have no government/regulatory compliance content, to show no Urdu or Roman Urdu support, and to hold events only as in-app messaging rather than real-world listings. **Update, September 2026:** a separate page, "Meet Our Talented Innovators," was found during a follow-up visit and complicates this finding — it lists individual profiles tagged by skill (e.g., "digital Marketing," "Web Designer," "Guest Posting, SEO, content writing," "Data analytics, java, c++") with a "Sign up to Connect" action per profile. This reads closer to a genuine skills/talent directory than founder self-promotion. Both pages exist on the platform simultaneously and serve different purposes; neither functions as a startup-specific job/internship board with real, employer-posted openings, which is the specific gap claimed in Section 5.
 
 **PakStartups.org Knowledge Vault, in specific terms:** a library of incorporation guides and SAFE (Simple Agreement for Future Equity) templates, structured into four subsections (Learning Guides, Operational Toolkit, Market Intelligence, Resource Directory). It isn't interactive or query-able, and its content isn't cited to specific regulatory sources the way the Carnet's compliance assistant (Section 13.6) is designed to be. **Update, September 2026:** the Learning Guides subsection specifically was found empty on direct visit — "0 guides," "No guides found" — with its featured Series A guide marked "Coming Soon" rather than published. The original characterization of the Vault as "genuinely informative as a reference" should be read as applying to whichever subsections are actually populated, not the Vault as a whole; this hasn't been checked subsection-by-subsection beyond Learning Guides.
 

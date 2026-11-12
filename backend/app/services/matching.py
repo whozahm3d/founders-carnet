@@ -5,7 +5,6 @@ from collections.abc import Sequence
 from app.models import EcosystemProfile, Startup
 from app.services.compliance_retrieval import cosine_similarity
 
-
 # Proposal because the report names factors but does not give numeric weights.
 MATCH_WEIGHTS = {
     "sector_fit": 0.25,

@@ -14,8 +14,9 @@ def test_settings_load_repository_root_env_and_use_documented_embedding_default(
 
 
 def test_settings_accept_documented_jwt_names_and_psycopg3_url() -> None:
+    jwt_stub = "unit-test-secret"
     settings = Settings(
-        JWT_SECRET="unit-test-secret",
+        JWT_SECRET=jwt_stub,
         JWT_ALGORITHM="HS512",
         DATABASE_URL="postgresql://user:password@localhost/carnet",
     )

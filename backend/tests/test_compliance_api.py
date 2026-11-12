@@ -9,14 +9,14 @@ from sqlalchemy.pool import StaticPool
 
 from app.database import get_db
 from app.models import Base, User
+from app.routes.compliance import router
 from app.security import create_access_token
 from app.services.compliance_assistant import (
+    CitationResult,
     ComplianceAnswerResult,
     ComplianceServiceUnavailable,
-    CitationResult,
 )
 from app.services.wiring import get_compliance_answer_service
-from app.routes.compliance import router
 
 
 class FakeComplianceService:

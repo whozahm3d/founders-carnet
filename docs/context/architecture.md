@@ -41,7 +41,7 @@ Collection:          Firecrawl (regulatory and market sources), Playwright (publ
 
 **Profile verification.** Five signals: LinkedIn OAuth, SECP cross-check, profile completeness, GitHub activity (talent), portfolio link consistency. High score verifies, low score rejects with a reason, middle goes to a human reviewer. An auto-rejected user can appeal once. A reviewer's decision is final. Every decision logs reason, signals, threshold version, and consent record.
 
-**Background pipeline.** Ingestion of whitelisted SECP, FBR, and PSEB pages (chunk, embed, index). Directory seeding. Signal collection and link check after a profile is submitted. Embedding regeneration on profile edit or model change. FYP-2 adds a relevance-label tool and a batch re-ranker training job.
+**Background pipeline.** Ingestion of whitelisted SECP, FBR, and PSEB pages (chunk, embed, index). Directory seeding. Signal collection and link check after a profile is submitted. Embedding regeneration on profile edit or model change. FYP-2 adds a relevance-label tool and a batch re-ranker training job. The three supporting classifiers (resume role, startup outcome, follow-on funding) are trained offline from scripts in `ml/` and are not a service. Anything from them that ships goes through `backend/`.
 
 ## Strategy choices already made
 

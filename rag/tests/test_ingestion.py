@@ -4,7 +4,6 @@ import hashlib
 from pathlib import Path
 
 import pytest
-
 from rag.compliance.ingestion import (
     CorpusIntegrityError,
     parse_manifest,
