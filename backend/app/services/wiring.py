@@ -5,6 +5,7 @@ from fastapi import HTTPException, status
 from app.config import get_settings
 from app.services.compliance_assistant import ComplianceAnswerService
 from app.services.llm_gateway import GeminiGateway
+from app.services.llm_gateway_logging import write_gateway_call_log
 from rag.compliance.embeddings import SentenceTransformerEncoder
 
 
@@ -22,6 +23,7 @@ def get_compliance_answer_service() -> ComplianceAnswerService:
         model_name=settings.gemini_model,
         fallback_model=settings.gemini_fallback_model,
         request_timeout_ms=settings.gemini_request_timeout_ms,
+        call_log_writer=write_gateway_call_log,
     )
     encoder = SentenceTransformerEncoder(settings.embedding_model_name)
     return ComplianceAnswerService(

@@ -92,9 +92,9 @@ Owners are proposals: Ali (AI/ML), Shahzeb (frontend), Taha (backend). Every fea
 
 ### 8. Hybrid profile verification (FR-12, FR-14, FR-15, FR-16, FR-19, FR-20, FR-21, NFR-9)
 
-- Slice: score each mentor or investor profile from the signals (LinkedIn OAuth, SECP cross-check, completeness, GitHub activity, portfolio link check); thresholds in configuration; high score verifies, low score rejects with a logged reason, middle goes to human review; status and reason visible to the user (FR-15); one appeal (FR-21); reported or blocked profiles go to review and are not re-scored (FR-16). Log score, signal values and band (FR-19).
+- Slice: score each mentor or investor profile from the signals (LinkedIn OAuth, SECP cross-check, completeness, GitHub activity, portfolio link check); thresholds in configuration; high score verifies once an identity signal is confirmed, low score rejects with a logged reason, middle goes to human review; status and reason visible to the user (FR-15); one appeal (FR-21); reported or blocked profiles go to review and are not re-scored (FR-16). Log score, signal values and band (FR-19).
 - The portfolio link check (FR-20) is the only prompted call. The other four signals are rules the team writes.
-- **Not in report:** how the SECP cross-check is done (manual lookup, public search, or a stub). Decide and record it.
+- **SECP cross-check decision (2026-11-11):** A reviewer checks the submitted entity name and registration number against official SECP records. No automated registry lookup or social-profile scraping. LinkedIn OAuth is cut for this slice. Until a reviewer records the SECP check, even a high score remains pending. See `docs/DECISIONS.md`.
 - Cut: LinkedIn OAuth signal if the OAuth app is not approved (A-2). Run on the remaining signals and say so.
 - Risk: high. Claim only that the rules raise the cost of casual fakery (R-7).
 
@@ -106,7 +106,7 @@ Owners are proposals: Ali (AI/ML), Shahzeb (frontend), Taha (backend). Every fea
 ### 10. Consent management (FR-17, FR-27, NFR-9, NFR-10, NFR-11)
 
 - Slice: consent notice and trust note before profile data is submitted; users can review or withdraw consent for non-essential processing; account deletion request disables the account at once.
-- Cut: the 30-day purge job (NFR-10). Record the request and disable the account; say the purge is not automated if it is not.
+- Implemented in step 9: a scheduled purge removes disabled accounts after the 30-day window, including user-owned database rows, private resume PDFs, and the per-user response cache (NFR-10, NFR-11).
 - Risk: low.
 
 ### 11. Usage guides (FR-18)
@@ -118,7 +118,7 @@ Owners are proposals: Ali (AI/ML), Shahzeb (frontend), Taha (backend). Every fea
 
 Cut from the bottom of this list upward. The first items go first.
 
-1. Usage guides polish, consent purge job, query-log view.
+1. Usage guides polish, query-log view.
 2. Job board filters and saved listings; job posting extras.
 3. Resume optimizer.
 4. Market research caching; market research itself.
@@ -141,7 +141,7 @@ Cut items are reported in Chapter 6 limitations and moved to FYP-2. Do not leave
 ## Not in report (open, team decides)
 
 - Which `DESIGN.md` brand to use. Not decided; discuss after most of the functionality is done. Do not copy a `DESIGN.md` until then.
-- Who the 2 or 3 readiness reviewers are, and how the SECP cross-check works. Not decided; to be discussed later.
+- Who the 2 or 3 readiness reviewers are. The SECP cross-check method is recorded in `docs/DECISIONS.md` (2026-11-11).
 - Where verification, admin console, consent and guides sit in the build order (proposal above).
 - Lint tool beyond `ruff`, and Railway versus Render.
 - Feature freeze date (proposed Nov 6).

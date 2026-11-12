@@ -3,7 +3,36 @@
 from datetime import datetime
 from typing import Literal
 
-from pydantic import BaseModel, ConfigDict, Field, model_validator
+from pydantic import AnyHttpUrl, BaseModel, ConfigDict, Field, field_validator, model_validator
+
+
+class TalentProfileWrite(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    consent_accepted: bool
+    github_url: AnyHttpUrl | None = None
+
+    @field_validator("github_url")
+    @classmethod
+    def require_public_github_url(cls, value: AnyHttpUrl | None) -> AnyHttpUrl | None:
+        if value is None:
+            return None
+        if value.scheme != "https" or value.username or value.password:
+            raise ValueError("GitHub URL must use HTTPS without credentials")
+        host = value.host.casefold().rstrip(".")
+        if host != "github.com" and not host.endswith(".github.com"):
+            raise ValueError("GitHub URL must use github.com")
+        return value
+
+
+class TalentProfileRead(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: int
+    user_id: int
+    github_url: str | None
+    consent_version: str
+    consented_at: datetime
 
 
 class EcosystemProfileWrite(BaseModel):
@@ -57,6 +86,7 @@ class MatchRead(BaseModel):
     founder_accepted: bool
     candidate_accepted: bool
     mutual_acceptance: bool
+    request_status: Literal["recommended", "pending", "accepted", "declined"]
     contact_email: str | None
 
 

@@ -6,15 +6,18 @@ import json
 import logging
 import re
 from collections.abc import Sequence
-from threading import BoundedSemaphore
+from contextlib import contextmanager
+from threading import Condition, Lock
 from time import perf_counter, sleep
-from typing import Any, TypeVar
+from typing import Any, Callable, Iterator, TypeVar
+from uuid import uuid4
 
 import httpx
 from pydantic import BaseModel
 
 from app.services.compliance_assistant import AnswerDraft, GroundingValidation
 from app.services.compliance_retrieval import RetrievedChunk
+from app.services.llm_cache import StructuredResponseDiskCache
 
 
 ANSWER_PROMPT_VERSION = "compliance-answer-v1"
@@ -25,9 +28,53 @@ GEMINI_RETRY_DELAY_SECONDS = 0.5
 MAX_COMPLIANCE_EVIDENCE_CHARS = 6_000
 MAX_COMPLIANCE_PROMPT_CHARS = 12_000
 T = TypeVar("T", bound=BaseModel)
-_GENERATION_SLOTS = BoundedSemaphore(5)
+_GENERATION_CAPACITY = 5
 _WHITESPACE = re.compile(r"\s+")
 logger = logging.getLogger(__name__)
+
+
+class GenerationQueue:
+    """Keep the five-call limit and track a FIFO position for waiting calls."""
+
+    def __init__(self, capacity: int) -> None:
+        if capacity < 1:
+            raise ValueError("Generation queue capacity must be positive")
+        self.capacity = capacity
+        self._condition = Condition(Lock())
+        self._active = 0
+        self._waiters: list[object] = []
+
+    @property
+    def waiting_count(self) -> int:
+        with self._condition:
+            return len(self._waiters)
+
+    @contextmanager
+    def slot(self, on_queued: Callable[[int], None] | None = None) -> Iterator[int]:
+        token = object()
+        with self._condition:
+            if self._active < self.capacity and not self._waiters:
+                self._active += 1
+                queue_position = 0
+            else:
+                self._waiters.append(token)
+                queue_position = len(self._waiters)
+                if on_queued is not None:
+                    on_queued(queue_position)
+                while self._active >= self.capacity or self._waiters[0] is not token:
+                    self._condition.wait()
+                self._waiters.pop(0)
+                self._active += 1
+                self._condition.notify_all()
+        try:
+            yield queue_position
+        finally:
+            with self._condition:
+                self._active -= 1
+                self._condition.notify_all()
+
+
+_GENERATION_QUEUE = GenerationQueue(_GENERATION_CAPACITY)
 
 
 class GeminiGateway:
@@ -39,6 +86,8 @@ class GeminiGateway:
         fallback_model: str | None = None,
         client: Any | None = None,
         request_timeout_ms: int = GEMINI_REQUEST_TIMEOUT_MS,
+        cache: StructuredResponseDiskCache | None = None,
+        call_log_writer: Callable[[dict[str, object]], None] | None = None,
     ) -> None:
         if not api_key:
             raise ValueError("Gemini API key is not configured")
@@ -61,6 +110,8 @@ class GeminiGateway:
                 ),
             )
         self._client = client
+        self._cache = cache
+        self._call_log_writer = call_log_writer
         self.model_name = model_name
         normalized_fallback = fallback_model.strip() if fallback_model else ""
         self.fallback_model = (
@@ -75,7 +126,9 @@ class GeminiGateway:
         question: str,
         passages: Sequence[RetrievedChunk],
     ) -> AnswerDraft:
+        request_id = str(uuid4())
         response = self._generate_json(
+            request_id=request_id,
             question=question,
             passages=passages,
             system_instruction=(
@@ -100,7 +153,9 @@ class GeminiGateway:
         answer: str,
         passages: Sequence[RetrievedChunk],
     ) -> GroundingValidation:
+        request_id = str(uuid4())
         response = self._generate_json(
+            request_id=request_id,
             question=question,
             passages=passages,
             system_instruction=(
@@ -122,28 +177,91 @@ class GeminiGateway:
         payload: dict[str, object],
         response_schema: type[T],
         output_instruction: str,
+        cache_scope: int | str | None = None,
+        operation: str = "structured_generation",
+        prompt_version: str | None = None,
     ) -> T:
         """Generate a schema-validated result for non-RAG AI services."""
+        request_id = str(uuid4())
+        schema = response_schema.model_json_schema()
+        contents = json.dumps(
+            {"input_data": payload, "task": output_instruction},
+            ensure_ascii=False,
+        )
+        prompt_chars = len(contents) + len(system_instruction) + len(json.dumps(schema, ensure_ascii=False))
+        cache_key: str | None = None
+        if cache_scope is not None and self._cache is not None:
+            try:
+                cache_key = self._cache.make_key(
+                    model_name=self.model_name,
+                    fallback_model=self.fallback_model,
+                    operation=operation,
+                    prompt_version=prompt_version or "",
+                    system_instruction=system_instruction,
+                    payload=payload,
+                    schema=schema,
+                    output_instruction=output_instruction,
+                )
+                cached_response = self._cache.get(cache_scope, cache_key)
+            except Exception as exc:
+                logger.warning("Gemini structured cache read failed error_type=%s", type(exc).__name__)
+                cached_response = None
+            if cached_response is not None:
+                try:
+                    cached_result = response_schema.model_validate_json(cached_response)
+                except Exception:
+                    try:
+                        self._cache.remove(cache_scope, cache_key)
+                    except Exception:
+                        pass
+                else:
+                    self._write_call_log(
+                        request_id=request_id,
+                        operation=operation,
+                        model_name=self.model_name,
+                        prompt_version=prompt_version,
+                        attempt_number=0,
+                        queue_position=0,
+                        passage_count=0,
+                        approximate_prompt_chars=prompt_chars,
+                        cache_hit=True,
+                        outcome="cache_hit",
+                        failure_category=None,
+                        elapsed_ms=0,
+                    )
+                    logger.info(
+                        "Gemini structured cache hit request_id=%s operation=%s model=%s",
+                        request_id,
+                        operation,
+                        self.model_name,
+                    )
+                    return cached_result
+
         response = self._generate_content(
-            operation="structured_generation",
+            operation=operation,
             passage_count=0,
+            request_id=request_id,
+            prompt_version=prompt_version,
             model=self.model_name,
-            contents=json.dumps(
-                {"input_data": payload, "task": output_instruction},
-                ensure_ascii=False,
-            ),
+            contents=contents,
             config={
                 "system_instruction": system_instruction,
                 "temperature": 0,
                 "max_output_tokens": 1800,
                 "response_mime_type": "application/json",
-                "response_json_schema": response_schema.model_json_schema(),
+                "response_json_schema": schema,
             },
         )
         response_text = getattr(response, "text", None)
         if not isinstance(response_text, str) or not response_text.strip():
             raise ValueError("Gemini returned no structured response")
-        return response_schema.model_validate_json(response_text)
+        result = response_schema.model_validate_json(response_text)
+        if cache_scope is not None and cache_key is not None and self._cache is not None:
+            try:
+                self._cache.set(cache_scope, cache_key, response_text)
+            except Exception as exc:
+                logger.warning("Gemini structured cache write failed error_type=%s", type(exc).__name__)
+        return result
 
     def close(self) -> None:
         close = getattr(self._client, "close", None)
@@ -155,6 +273,8 @@ class GeminiGateway:
         response = self._generate_content(
             operation="diagnostic_ping",
             passage_count=0,
+            request_id=str(uuid4()),
+            prompt_version="diagnostic-ping-v1",
             model=self.model_name,
             contents="Reply with exactly: OK",
             config={"temperature": 0, "max_output_tokens": 8},
@@ -168,6 +288,8 @@ class GeminiGateway:
         *,
         operation: str,
         passage_count: int,
+        request_id: str,
+        prompt_version: str | None,
         **kwargs: Any,
     ) -> Any:
         # Queue excess calls at the free-tier concurrency target (NFR-2).
@@ -182,6 +304,8 @@ class GeminiGateway:
         log_context = {
             "model": kwargs.get("model", self.model_name),
             "operation": operation,
+            "request_id": request_id,
+            "prompt_version": prompt_version,
             "passage_count": passage_count,
             "approximate_prompt_chars": prompt_chars,
         }
@@ -198,12 +322,43 @@ class GeminiGateway:
                 primary_attempts += 1
             kwargs["model"] = current_model
             attempt_started = perf_counter()
+            queue_position = 0
+
+            def log_queued(position: int) -> None:
+                logger.info(
+                    "Gemini request queued request_id=%s operation=%s model=%s queue_position=%d",
+                    request_id,
+                    operation,
+                    current_model,
+                    position,
+                    extra={
+                        **log_context,
+                        "model": current_model,
+                        "queue_position": position,
+                    },
+                )
+
             try:
-                with _GENERATION_SLOTS:
+                with _GENERATION_QUEUE.slot(on_queued=log_queued) as queue_position:
                     response = self._client.models.generate_content(**kwargs)
             except Exception as exc:
                 category = classify_provider_error(exc)
                 status_code = _provider_status_code(exc)
+                attempt_elapsed_ms = int((perf_counter() - attempt_started) * 1000)
+                self._write_call_log(
+                    request_id=request_id,
+                    operation=operation,
+                    model_name=current_model,
+                    prompt_version=prompt_version,
+                    attempt_number=attempt_number,
+                    queue_position=queue_position,
+                    passage_count=passage_count,
+                    approximate_prompt_chars=prompt_chars,
+                    cache_hit=False,
+                    outcome="failure",
+                    failure_category=category,
+                    elapsed_ms=attempt_elapsed_ms,
+                )
                 retry_primary = (
                     current_model == primary_model
                     and primary_attempts < GEMINI_MAX_ATTEMPTS_PER_MODEL
@@ -234,7 +389,6 @@ class GeminiGateway:
                 )
                 if next_model is not None:
                     event = "Gemini fallback selected" if use_fallback else "Gemini retry scheduled"
-                    attempt_elapsed_ms = int((perf_counter() - attempt_started) * 1000)
                     logger.warning(
                         "%s model=%s operation=%s attempt_number=%d next_model=%s "
                         "status_code=%s failure_category=%s passages=%d "
@@ -256,6 +410,7 @@ class GeminiGateway:
                             "status_code": status_code,
                             "failure_category": category,
                             "elapsed_ms": attempt_elapsed_ms,
+                            "queue_position": queue_position,
                         },
                     )
                     if use_fallback:
@@ -287,17 +442,35 @@ class GeminiGateway:
                         "status_code": status_code,
                         "failure_category": category,
                         "elapsed_ms": elapsed_ms,
+                            "queue_position": queue_position,
                     },
                 )
                 raise
 
+            attempt_elapsed_ms = int((perf_counter() - attempt_started) * 1000)
             elapsed_ms = int((perf_counter() - operation_started) * 1000)
+            self._write_call_log(
+                request_id=request_id,
+                operation=operation,
+                model_name=current_model,
+                prompt_version=prompt_version,
+                attempt_number=attempt_number,
+                queue_position=queue_position,
+                passage_count=passage_count,
+                approximate_prompt_chars=prompt_chars,
+                cache_hit=False,
+                outcome="success",
+                failure_category=None,
+                elapsed_ms=attempt_elapsed_ms,
+            )
             logger.info(
-                "Gemini generation completed model=%s operation=%s attempt_number=%d "
-                "passages=%d approximate_prompt_chars=%d elapsed_ms=%d",
+                "Gemini generation completed request_id=%s model=%s operation=%s attempt_number=%d "
+                "queue_position=%d passages=%d approximate_prompt_chars=%d elapsed_ms=%d",
+                request_id,
                 current_model,
                 operation,
                 attempt_number,
+                queue_position,
                 passage_count,
                 prompt_chars,
                 elapsed_ms,
@@ -305,13 +478,23 @@ class GeminiGateway:
                     **log_context,
                     "attempt_number": attempt_number,
                     "elapsed_ms": elapsed_ms,
+                    "queue_position": queue_position,
                 },
             )
             return response
 
+    def _write_call_log(self, **event: object) -> None:
+        if self._call_log_writer is None:
+            return
+        try:
+            self._call_log_writer(event)
+        except Exception as exc:
+            logger.warning("Gemini call metadata persistence failed error_type=%s", type(exc).__name__)
+
     def _generate_json(
         self,
         *,
+        request_id: str,
         question: str,
         passages: Sequence[RetrievedChunk],
         system_instruction: str,
@@ -357,6 +540,12 @@ class GeminiGateway:
         response = self._generate_content(
             operation=operation,
             passage_count=len(evidence),
+            request_id=request_id,
+            prompt_version=(
+                ANSWER_PROMPT_VERSION
+                if response_schema is AnswerDraft
+                else VALIDATION_PROMPT_VERSION
+            ),
             model=self.model_name,
             contents=contents,
             config={

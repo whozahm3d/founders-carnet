@@ -10,10 +10,10 @@ def test_register_and_login_founder():
         "email": "founder@example.com",
         "password": "SecurePass123!",
         "full_name": "Ali Founder",
-        "role": "founder",
+        "consent_accepted": True,
     }
 
-    register_response = client.post("/api/v1/auth/register", json=payload)
+    register_response = client.post("/api/v1/auth/register/founder", json=payload)
     assert register_response.status_code == 201, register_response.text
     data = register_response.json()
     assert data["email"] == payload["email"]
@@ -35,12 +35,12 @@ def test_protected_me_endpoint_requires_token():
 
 def test_admin_route_rejects_non_admin_role():
     register = client.post(
-        "/api/v1/auth/register",
+        "/api/v1/auth/register/mentor",
         json={
             "email": "mentor@example.com",
             "password": "SecurePass123!",
             "full_name": "Mentor User",
-            "role": "mentor",
+            "consent_accepted": True,
         },
     )
     assert register.status_code == 201

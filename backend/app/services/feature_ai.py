@@ -5,7 +5,9 @@ from functools import lru_cache
 from fastapi import HTTPException, status
 
 from app.config import get_settings
+from app.services.llm_cache import StructuredResponseDiskCache
 from app.services.llm_gateway import GeminiGateway
+from app.services.llm_gateway_logging import write_gateway_call_log
 from rag.compliance.embeddings import SentenceTransformerEncoder
 
 
@@ -14,7 +16,12 @@ def get_gateway() -> GeminiGateway:
     settings = get_settings()
     if settings.gemini_api_key is None:
         raise HTTPException(status_code=status.HTTP_503_SERVICE_UNAVAILABLE, detail="AI service is not configured")
-    return GeminiGateway(api_key=settings.gemini_api_key.get_secret_value(), model_name=settings.gemini_model)
+    return GeminiGateway(
+        api_key=settings.gemini_api_key.get_secret_value(),
+        model_name=settings.gemini_model,
+        cache=StructuredResponseDiskCache(settings.llm_cache_dir),
+        call_log_writer=write_gateway_call_log,
+    )
 
 
 @lru_cache(maxsize=1)

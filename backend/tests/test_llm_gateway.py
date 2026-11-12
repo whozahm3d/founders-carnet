@@ -1,16 +1,25 @@
 import json
 import logging
 import sys
+import time
+from concurrent.futures import ThreadPoolExecutor
 from types import ModuleType
 from types import SimpleNamespace
+from threading import Event
 
 import pytest
 from google.genai.errors import ServerError
+from pydantic import BaseModel
+from sqlalchemy import select
 
 from app.services.compliance_assistant import GroundingValidation
 from app.services.compliance_retrieval import RetrievedChunk
 import app.services.llm_gateway as gateway_module
 from app.services.llm_gateway import GeminiGateway
+from app.services.llm_cache import StructuredResponseDiskCache
+from app.services.llm_gateway_logging import write_gateway_call_log
+from app.feature_models import LLMGatewayCallLog
+from conftest import TestSessionLocal
 
 
 class FakeModels:
@@ -30,6 +39,10 @@ class FakeClient:
 
     def close(self):
         self.closed = True
+
+
+class StructuredResult(BaseModel):
+    value: str
 
 
 def test_gateway_requests_structured_evidence_bound_answer_and_validation(caplog):
@@ -373,3 +386,200 @@ def test_gateway_bounds_oversized_and_duplicate_evidence_context():
     assert len({item["chunk_id"] for item in payload["evidence"]}) == len(payload["evidence"])
     assert sum(len(item["text"]) for item in payload["evidence"]) <= 6_000
     assert payload["evidence"][0]["chunk_id"] == "chunk-0"
+
+
+def test_structured_generation_caches_by_user_input_and_prompt_version(tmp_path):
+    client = FakeClient([
+        json.dumps({"value": "first result"}),
+        json.dumps({"value": "other user's result"}),
+        json.dumps({"value": "new prompt result"}),
+    ])
+    events = []
+    gateway = GeminiGateway(
+        api_key="test-key",
+        model_name="configured-model",
+        client=client,
+        cache=StructuredResponseDiskCache(tmp_path),
+        call_log_writer=events.append,
+    )
+    request = {
+        "system_instruction": "Use the private user data as input.",
+        "payload": {"profile": "private user input"},
+        "response_schema": StructuredResult,
+        "output_instruction": "Return a structured result.",
+    }
+
+    first = gateway.generate_structured(
+        **request, cache_scope=42, operation="readiness", prompt_version="readiness-v1"
+    )
+    repeated = gateway.generate_structured(
+        **request, cache_scope=42, operation="readiness", prompt_version="readiness-v1"
+    )
+    other_user = gateway.generate_structured(
+        **request, cache_scope=43, operation="readiness", prompt_version="readiness-v1"
+    )
+    changed_prompt = gateway.generate_structured(
+        **request, cache_scope=42, operation="readiness", prompt_version="readiness-v2"
+    )
+
+    assert first.value == repeated.value == "first result"
+    assert other_user.value == "other user's result"
+    assert changed_prompt.value == "new prompt result"
+    assert len(client.models.calls) == 3
+    assert [event["outcome"] for event in events] == ["success", "cache_hit", "success", "success"]
+    assert all(b"private user input" not in path.read_bytes() for path in tmp_path.rglob("*.json"))
+
+
+def test_structured_cache_expiry_forces_provider_call(tmp_path):
+    now = [1_000.0]
+    cache = StructuredResponseDiskCache(tmp_path, ttl_seconds=60, clock=lambda: now[0])
+    client = FakeClient([json.dumps({"value": "first"}), json.dumps({"value": "after expiry"})])
+    gateway = GeminiGateway(api_key="test-key", model_name="configured-model", client=client, cache=cache)
+    request = {
+        "system_instruction": "Use the input.",
+        "payload": {"input": "repeat"},
+        "response_schema": StructuredResult,
+        "output_instruction": "Return a value.",
+        "cache_scope": "user-a",
+        "operation": "readiness",
+        "prompt_version": "readiness-v1",
+    }
+
+    assert gateway.generate_structured(**request).value == "first"
+    now[0] += 61
+    assert gateway.generate_structured(**request).value == "after expiry"
+    assert len(client.models.calls) == 2
+
+
+def test_structured_cache_clear_removes_only_the_requested_scope(tmp_path):
+    cache = StructuredResponseDiskCache(tmp_path / "private-cache")
+    first_key = cache.make_key(
+        model_name="model", fallback_model=None, operation="readiness",
+        prompt_version="v1", system_instruction="system", payload={"x": 1},
+        schema={"type": "object"}, output_instruction="return",
+    )
+    second_key = cache.make_key(
+        model_name="model", fallback_model=None, operation="readiness",
+        prompt_version="v1", system_instruction="system", payload={"x": 2},
+        schema={"type": "object"}, output_instruction="return",
+    )
+    cache.set(101, first_key, '{"value":"first"}')
+    cache.set(202, second_key, '{"value":"second"}')
+
+    cache.clear_scope(101)
+
+    assert cache.get(101, first_key) is None
+    assert cache.get(202, second_key) == '{"value":"second"}'
+
+
+def test_compliance_generation_does_not_use_structured_response_cache(tmp_path):
+    client = FakeClient([
+        json.dumps({"answer": "First answer", "citation_chunk_ids": ["c1"]}),
+        json.dumps({"answer": "Second answer", "citation_chunk_ids": ["c1"]}),
+    ])
+    gateway = GeminiGateway(
+        api_key="test-key",
+        model_name="configured-model",
+        client=client,
+        cache=StructuredResponseDiskCache(tmp_path),
+    )
+    passage = RetrievedChunk(
+        chunk=SimpleNamespace(
+            chunk_id="c1",
+            text="Official evidence.",
+            section="1",
+            page_number=1,
+            document=SimpleNamespace(title="Sample Act", issuing_body="SECP", effective_date="2026-06-30"),
+        ),
+        similarity=0.9,
+    )
+
+    first = gateway.generate_answer("Question?", [passage])
+    second = gateway.generate_answer("Question?", [passage])
+
+    assert first.answer == "First answer"
+    assert second.answer == "Second answer"
+    assert len(client.models.calls) == 2
+    assert list(tmp_path.rglob("*.json")) == []
+
+
+def test_generation_queue_records_waiting_position(monkeypatch):
+    queue = gateway_module.GenerationQueue(capacity=1)
+    monkeypatch.setattr(gateway_module, "_GENERATION_QUEUE", queue)
+    first_entered_provider = Event()
+    release_first_provider = Event()
+    events = []
+
+    class BlockingModels:
+        def generate_content(self, **kwargs):
+            if '"request": "hold"' in kwargs["contents"]:
+                first_entered_provider.set()
+                assert release_first_provider.wait(timeout=5)
+            return SimpleNamespace(text=json.dumps({"value": "done"}))
+
+    gateway = GeminiGateway(
+        api_key="test-key",
+        model_name="configured-model",
+        client=SimpleNamespace(models=BlockingModels()),
+        call_log_writer=events.append,
+    )
+
+    def generate(contents, operation):
+        return gateway.generate_structured(
+            system_instruction="Use the input.",
+            payload={"request": contents},
+            response_schema=StructuredResult,
+            output_instruction="Return a value.",
+            operation=operation,
+            prompt_version="test-v1",
+        )
+
+    with ThreadPoolExecutor(max_workers=2) as executor:
+        first = executor.submit(generate, "hold", "first")
+        assert first_entered_provider.wait(timeout=5)
+        second = executor.submit(generate, "wait", "second")
+        deadline = time.monotonic() + 5
+        while queue.waiting_count == 0 and time.monotonic() < deadline:
+            time.sleep(0.01)
+        assert queue.waiting_count == 1
+        release_first_provider.set()
+        first.result(timeout=5)
+        second.result(timeout=5)
+
+    second_event = next(event for event in events if event["operation"] == "second")
+    assert second_event["queue_position"] == 1
+    assert second_event["outcome"] == "success"
+
+
+def test_gateway_call_metadata_is_persisted_without_prompt_content(monkeypatch):
+    import app.services.llm_gateway_logging as logging_module
+
+    monkeypatch.setattr(logging_module, "SessionLocal", TestSessionLocal)
+    client = FakeClient([json.dumps({"value": "Supported"})])
+    gateway = GeminiGateway(
+        api_key="test-key",
+        model_name="configured-model",
+        client=client,
+        call_log_writer=write_gateway_call_log,
+    )
+
+    gateway.generate_structured(
+        system_instruction="Do not store this private instruction.",
+        payload={"private": "private profile value"},
+        response_schema=StructuredResult,
+        output_instruction="Return a result.",
+        operation="readiness",
+        prompt_version="readiness-v1",
+    )
+
+    with TestSessionLocal() as session:
+        row = session.scalar(select(LLMGatewayCallLog))
+        assert row.operation == "readiness"
+        assert row.model_name == "configured-model"
+        assert row.prompt_version == "readiness-v1"
+        assert row.outcome == "success"
+        assert row.cache_hit is False
+        assert row.queue_position == 0
+        assert row.approximate_prompt_chars > 0
+        assert not hasattr(row, "prompt")
+        assert not hasattr(row, "response")
