@@ -1,24 +1,14 @@
 """Backend APIs for matching, startup readiness, and pitch practice."""
 
 import logging
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Annotated, Any
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
-from sqlalchemy import and_, exists, func, or_, select
-from sqlalchemy.sql import Select
-from sqlalchemy.orm import Session, load_only
-
-from app.database import get_db
-from app.dependencies import get_current_user, require_roles
-from app.feature_models import EcosystemProfile, MatchRecord, PitchSession, PitchTurn, ProfileVerification, ReadinessAssessment, TalentProfile, VerificationDecision
-from datetime import UTC, datetime
-from typing import Annotated
-
-from fastapi import APIRouter, Depends, HTTPException, Query
 from rag.compliance.embeddings import SentenceTransformerEncoder
-from sqlalchemy import exists, select
-from sqlalchemy.orm import Session
+from sqlalchemy import and_, exists, func, or_, select
+from sqlalchemy.orm import Session, load_only
+from sqlalchemy.sql import Select
 
 from app.database import get_db
 from app.dependencies import get_current_user, require_roles
@@ -27,7 +17,10 @@ from app.feature_models import (
     MatchRecord,
     PitchSession,
     PitchTurn,
+    ProfileVerification,
     ReadinessAssessment,
+    TalentProfile,
+    VerificationDecision,
 )
 from app.feature_schemas import (
     EcosystemProfileRead,
@@ -44,7 +37,6 @@ from app.feature_schemas import (
     TalentProfileWrite,
 )
 from app.models import FounderProfile, Startup, User
-from app.tasks import regenerate_ecosystem_profile_embedding
 from app.services.compliance_retrieval import cosine_similarity
 from app.services.feature_ai import get_encoder, get_gateway
 from app.services.llm_gateway import GeminiGateway
@@ -54,6 +46,7 @@ from app.services.matching import (
     score_profile,
     startup_match_text,
 )
+from app.tasks import regenerate_ecosystem_profile_embedding
 
 PITCH_SCORING_RUBRIC = """
 Score the founder's full written conversation, not the investor prompts. Use integer scores 1 to 5; use 2 or 4
@@ -116,7 +109,7 @@ def save_ecosystem_profile(payload: EcosystemProfileWrite, user: CurrentUser, db
         for key, value in values.items():
             setattr(profile, key, value)
         profile.consent_version = "ecosystem-profile-v1"
-        profile.consented_at = datetime.now(timezone.utc).replace(tzinfo=None)
+        profile.consented_at = datetime.now(UTC).replace(tzinfo=None)
     profile.embedding = None
     profile.embedding_model = None
     db.commit()
@@ -153,10 +146,7 @@ def save_talent_profile(payload: TalentProfileWrite, user: TalentUser, db: Sessi
     else:
         profile.github_url = values["github_url"]
         profile.consent_version = "talent-profile-v1"
-        profile.consented_at = datetime.now(timezone.utc).replace(tzinfo=None)
         profile.consented_at = datetime.now(UTC).replace(tzinfo=None)
-    profile.embedding = list(vector)
-    profile.embedding_model = encoder.model_name
     db.commit()
     db.refresh(profile)
     return profile
