@@ -30,11 +30,18 @@ def upgrade() -> None:
         sa.Column("location", sa.String(255), nullable=False),
         sa.Column("summary", sa.Text(), nullable=False),
         sa.Column("consent_version", sa.String(50), nullable=False),
-        sa.Column("consented_at", sa.DateTime(), server_default=sa.text("CURRENT_TIMESTAMP"), nullable=False),
+        sa.Column(
+            "consented_at",
+            sa.DateTime(),
+            server_default=sa.text("CURRENT_TIMESTAMP"),
+            nullable=False,
+        ),
         sa.Column("is_open", sa.Boolean(), nullable=False, server_default=sa.true()),
         sa.Column("embedding", vector_type),
         sa.Column("embedding_model", sa.String(255)),
-        sa.Column("updated_at", sa.DateTime(), server_default=sa.text("CURRENT_TIMESTAMP")),
+        sa.Column(
+            "updated_at", sa.DateTime(), server_default=sa.text("CURRENT_TIMESTAMP")
+        ),
         sa.CheckConstraint("user_id > 0", name="ck_ecosystem_profiles_user_id"),
         sa.ForeignKeyConstraint(["user_id"], ["users.id"], ondelete="CASCADE"),
         sa.PrimaryKeyConstraint("id"),
@@ -50,14 +57,27 @@ def upgrade() -> None:
         sa.Column("factors", sa.JSON(), nullable=False),
         sa.Column("similarity", sa.Float(), nullable=False, server_default="0"),
         sa.Column("score", sa.Float(), nullable=False),
-        sa.Column("founder_accepted", sa.Boolean(), nullable=False, server_default=sa.false()),
-        sa.Column("candidate_accepted", sa.Boolean(), nullable=False, server_default=sa.false()),
-        sa.Column("updated_at", sa.DateTime(), server_default=sa.text("CURRENT_TIMESTAMP")),
+        sa.Column(
+            "founder_accepted", sa.Boolean(), nullable=False, server_default=sa.false()
+        ),
+        sa.Column(
+            "candidate_accepted",
+            sa.Boolean(),
+            nullable=False,
+            server_default=sa.false(),
+        ),
+        sa.Column(
+            "updated_at", sa.DateTime(), server_default=sa.text("CURRENT_TIMESTAMP")
+        ),
         sa.CheckConstraint("score >= 0 AND score <= 1", name="ck_match_records_score"),
         sa.ForeignKeyConstraint(["startup_id"], ["startups.id"], ondelete="CASCADE"),
-        sa.ForeignKeyConstraint(["candidate_user_id"], ["users.id"], ondelete="CASCADE"),
+        sa.ForeignKeyConstraint(
+            ["candidate_user_id"], ["users.id"], ondelete="CASCADE"
+        ),
         sa.PrimaryKeyConstraint("id"),
-        sa.UniqueConstraint("startup_id", "candidate_user_id", name="uq_match_startup_candidate"),
+        sa.UniqueConstraint(
+            "startup_id", "candidate_user_id", name="uq_match_startup_candidate"
+        ),
     )
     op.create_index("ix_match_records_startup_id", "match_records", ["startup_id"])
 
@@ -67,11 +87,20 @@ def upgrade() -> None:
         sa.Column("startup_id", sa.Integer(), nullable=False),
         sa.Column("rubric_version", sa.String(50), nullable=False),
         sa.Column("result", sa.JSON(), nullable=False),
-        sa.Column("created_at", sa.DateTime(), server_default=sa.text("CURRENT_TIMESTAMP"), nullable=False),
+        sa.Column(
+            "created_at",
+            sa.DateTime(),
+            server_default=sa.text("CURRENT_TIMESTAMP"),
+            nullable=False,
+        ),
         sa.ForeignKeyConstraint(["startup_id"], ["startups.id"], ondelete="CASCADE"),
         sa.PrimaryKeyConstraint("id"),
     )
-    op.create_index("ix_readiness_startup_created", "readiness_assessments", ["startup_id", "created_at"])
+    op.create_index(
+        "ix_readiness_startup_created",
+        "readiness_assessments",
+        ["startup_id", "created_at"],
+    )
 
     op.create_table(
         "pitch_sessions",
@@ -82,13 +111,20 @@ def upgrade() -> None:
         sa.Column("status", sa.String(20), nullable=False, server_default="active"),
         sa.Column("scores", sa.JSON()),
         sa.Column("rubric_version", sa.String(50), nullable=False),
-        sa.Column("created_at", sa.DateTime(), server_default=sa.text("CURRENT_TIMESTAMP"), nullable=False),
+        sa.Column(
+            "created_at",
+            sa.DateTime(),
+            server_default=sa.text("CURRENT_TIMESTAMP"),
+            nullable=False,
+        ),
         sa.Column("completed_at", sa.DateTime()),
         sa.ForeignKeyConstraint(["user_id"], ["users.id"], ondelete="CASCADE"),
         sa.ForeignKeyConstraint(["startup_id"], ["startups.id"], ondelete="CASCADE"),
         sa.PrimaryKeyConstraint("id"),
     )
-    op.create_index("ix_pitch_sessions_user_created", "pitch_sessions", ["user_id", "created_at"])
+    op.create_index(
+        "ix_pitch_sessions_user_created", "pitch_sessions", ["user_id", "created_at"]
+    )
 
     op.create_table(
         "pitch_turns",
@@ -97,9 +133,13 @@ def upgrade() -> None:
         sa.Column("turn_number", sa.Integer(), nullable=False),
         sa.Column("speaker", sa.String(20), nullable=False),
         sa.Column("content", sa.Text(), nullable=False),
-        sa.Column("created_at", sa.DateTime(), server_default=sa.text("CURRENT_TIMESTAMP")),
+        sa.Column(
+            "created_at", sa.DateTime(), server_default=sa.text("CURRENT_TIMESTAMP")
+        ),
         sa.CheckConstraint("turn_number >= 1", name="ck_pitch_turns_turn_number"),
-        sa.ForeignKeyConstraint(["session_id"], ["pitch_sessions.id"], ondelete="CASCADE"),
+        sa.ForeignKeyConstraint(
+            ["session_id"], ["pitch_sessions.id"], ondelete="CASCADE"
+        ),
         sa.PrimaryKeyConstraint("id"),
         sa.UniqueConstraint("session_id", "turn_number", name="uq_pitch_session_turn"),
     )

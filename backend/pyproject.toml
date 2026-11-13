@@ -1,0 +1,5 @@
+
+[tool.ruff.lint.per-file-ignores]
+"app/main.py" = ["B008", "DTZ003"]
+"app/services/llm_gateway.py" = ["BLE001", "S110"]
+"app/routes/intelligence.py" = ["BLE001"]

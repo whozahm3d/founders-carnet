@@ -78,14 +78,15 @@ from contextlib import nullcontext
 
 import torch
 from datasets import Dataset, load_dataset
-
 from sentence_transformers import (
     SentenceTransformer,
     SentenceTransformerModelCardData,
     SentenceTransformerTrainer,
     SentenceTransformerTrainingArguments,
 )
-from sentence_transformers.sentence_transformer.evaluation import EmbeddingSimilarityEvaluator
+from sentence_transformers.sentence_transformer.evaluation import (
+    EmbeddingSimilarityEvaluator,
+)
 from sentence_transformers.sentence_transformer.losses import MSELoss
 from sentence_transformers.sentence_transformer.modules import Normalize
 from sentence_transformers.util.similarity import SimilarityFunction

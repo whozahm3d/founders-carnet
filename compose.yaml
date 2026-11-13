@@ -15,5 +15,66 @@ services:
       timeout: 5s
       retries: 10
 
+  redis:
+    image: redis:7.4-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    ports:
+      - "127.0.0.1:6379:6379"
+    volumes:
+      - founders_carnet_redisdata:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  api:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    command: ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+    working_dir: /app/backend
+    ports:
+      - "127.0.0.1:8000:8000"
+    environment:
+      DATABASE_URL: postgresql+psycopg://founders_carnet:${CARNET_DB_PASSWORD:?Set CARNET_DB_PASSWORD in the repository-root .env}@db:5432/founders_carnet
+      REDIS_URL: redis://redis:6379/0
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  worker:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    command: ["celery", "-A", "app.worker:celery_app", "worker", "--loglevel=INFO"]
+    working_dir: /app/backend
+    environment:
+      DATABASE_URL: postgresql+psycopg://founders_carnet:${CARNET_DB_PASSWORD:?Set CARNET_DB_PASSWORD in the repository-root .env}@db:5432/founders_carnet
+      REDIS_URL: redis://redis:6379/0
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  beat:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    command: ["celery", "-A", "app.worker:celery_app", "beat", "--loglevel=INFO"]
+    working_dir: /app/backend
+    environment:
+      DATABASE_URL: postgresql+psycopg://founders_carnet:${CARNET_DB_PASSWORD:?Set CARNET_DB_PASSWORD in the repository-root .env}@db:5432/founders_carnet
+      REDIS_URL: redis://redis:6379/0
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
 volumes:
   founders_carnet_pgdata:
+  founders_carnet_redisdata:

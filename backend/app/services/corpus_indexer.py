@@ -73,7 +73,9 @@ def index_corpus(
                 skipped_files[document.file] = _SCOPE_EXCLUSIONS[document.file]
                 continue
             if _is_duplicate_html(document, documents):
-                skipped_files[document.file] = "The text snapshot for this source is indexed instead."
+                skipped_files[document.file] = (
+                    "The text snapshot for this source is indexed instead."
+                )
                 continue
 
             try:
@@ -131,11 +133,14 @@ def index_corpus(
                     for chunk in chunks
                     if chunk.chunk_id not in existing_chunks
                     or existing_chunks[chunk.chunk_id].embedding is None
-                    or existing_chunks[chunk.chunk_id].embedding_model != embedding_model
+                    or existing_chunks[chunk.chunk_id].embedding_model
+                    != embedding_model
                 ]
 
             if not chunks_to_encode:
-                skipped_files[document.file] = "Source hash, chunks, and embeddings are already indexed."
+                skipped_files[document.file] = (
+                    "Source hash, chunks, and embeddings are already indexed."
+                )
                 continue
 
             vectors = _encode_chunks(encoder, chunks_to_encode, batch_size)
@@ -143,7 +148,9 @@ def index_corpus(
                 stored = existing_chunks.get(chunk.chunk_id)
                 if stored is None:
                     session.add_all(
-                        _chunk_models(indexed_document.id, [chunk], [vector], embedding_model)
+                        _chunk_models(
+                            indexed_document.id, [chunk], [vector], embedding_model
+                        )
                     )
                 else:
                     stored.embedding = list(vector)
@@ -174,7 +181,9 @@ def _read_pages(path: Path) -> tuple[ExtractedPage, ...]:
     raise NoExtractableTextError(f"Unsupported corpus format: {path.suffix}")
 
 
-def _is_duplicate_html(document: CorpusDocument, documents: Sequence[CorpusDocument]) -> bool:
+def _is_duplicate_html(
+    document: CorpusDocument, documents: Sequence[CorpusDocument]
+) -> bool:
     return document.file.lower().endswith(".html") and any(
         other.source_url == document.source_url and other.file.lower().endswith(".txt")
         for other in documents
@@ -256,7 +265,9 @@ def main() -> None:
             embedding_model=settings.embedding_model_name,
         )
 
-    print(f"Indexed {len(summary.indexed_files)} documents and {summary.chunk_count} chunks")
+    print(
+        f"Indexed {len(summary.indexed_files)} documents and {summary.chunk_count} chunks"
+    )
     for file_name, reason in summary.skipped_files.items():
         print(f"Skipped {file_name}: {reason}")
 

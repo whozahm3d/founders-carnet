@@ -4,6 +4,8 @@ from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, EmailStr, Field
 
+UserRole = Literal["founder", "talent", "mentor", "investor"]
+
 
 class UserRegisterRequest(BaseModel):
     model_config = ConfigDict(hide_input_in_errors=True)
@@ -11,7 +13,14 @@ class UserRegisterRequest(BaseModel):
     email: EmailStr
     password: str = Field(min_length=8, max_length=128)
     full_name: str = Field(min_length=1, max_length=255)
-    role: str = Field(default="founder")
+    consent_accepted: bool
+
+
+class LinkedInSignInRequest(BaseModel):
+    model_config = ConfigDict(hide_input_in_errors=True)
+
+    authorization_code: str = Field(min_length=1, max_length=512)
+    consent_accepted: bool
 
 
 class UserLoginRequest(BaseModel):
@@ -33,6 +42,19 @@ class UserRead(BaseModel):
 class TokenResponse(BaseModel):
     access_token: str
     token_type: str = "bearer"
+
+
+class ConsentStatusRead(BaseModel):
+    consent_type: str
+    consent_version: str
+    withdrawn: bool
+    withdrawn_at: datetime | None
+
+
+class DeletionRequestRead(BaseModel):
+    requested_at: datetime
+    deletion_scheduled_for: datetime
+    account_disabled: bool
 
 
 class FounderProfileWrite(BaseModel):

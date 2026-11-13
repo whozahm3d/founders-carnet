@@ -31,7 +31,6 @@ from contextlib import nullcontext
 
 import torch
 from datasets import load_dataset
-
 from sentence_transformers import (
     SentenceTransformer,
     SentenceTransformerTrainer,
@@ -43,7 +42,10 @@ from sentence_transformers.sentence_transformer.evaluation import (
     NanoBEIREvaluator,
     SequentialEvaluator,
 )
-from sentence_transformers.sentence_transformer.losses import MatryoshkaLoss, MultipleNegativesRankingLoss
+from sentence_transformers.sentence_transformer.losses import (
+    MatryoshkaLoss,
+    MultipleNegativesRankingLoss,
+)
 from sentence_transformers.util.similarity import SimilarityFunction
 
 

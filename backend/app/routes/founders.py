@@ -80,7 +80,9 @@ def read_founder_profile(
         select(FounderProfile).where(FounderProfile.user_id == current_user.id)
     )
     if profile is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Founder profile not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Founder profile not found"
+        )
     return profile
 
 
@@ -151,7 +153,9 @@ def update_startup(
         select(FounderProfile).where(FounderProfile.user_id == current_user.id)
     )
     if profile is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Startup not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Startup not found"
+        )
     startup = session.scalar(
         select(Startup).where(
             Startup.id == startup_id,
@@ -159,10 +163,15 @@ def update_startup(
         )
     )
     if startup is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Startup not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Startup not found"
+        )
 
     changes = payload.model_dump(exclude_unset=True)
-    if any(field in _REQUIRED_STARTUP_FIELDS and value is None for field, value in changes.items()):
+    if any(
+        field in _REQUIRED_STARTUP_FIELDS and value is None
+        for field, value in changes.items()
+    ):
         raise HTTPException(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
             detail="Required startup fields cannot be cleared",
