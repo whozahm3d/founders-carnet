@@ -11,6 +11,7 @@ BACKEND_ROOT = Path(__file__).resolve().parents[1]
 
 def test_migrations_build_user_schema_from_empty_database():
     config = Config(str(BACKEND_ROOT / "alembic.ini"))
+    config.set_main_option("script_location", str(BACKEND_ROOT / "alembic"))
     engine = create_engine("sqlite://", poolclass=StaticPool)
 
     with engine.begin() as connection:
@@ -45,5 +46,12 @@ def test_migrations_build_user_schema_from_empty_database():
         assert "token_version" in {
             column["name"] for column in inspect(connection).get_columns("users")
         }
+        assert {
+            "heading_path",
+            "effective_date",
+            "corpus_version",
+        }.issubset(
+            {column["name"] for column in inspect(connection).get_columns("compliance_chunks")}
+        )
 
     engine.dispose()

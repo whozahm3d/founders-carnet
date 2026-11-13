@@ -16,6 +16,54 @@ One entry per finished piece of work, newest first. This is what we use to write
 
 ## Entries
 
+## 2026-11-13: Compliance evaluation mappings and dev retrieval (Codex)
+
+- **Feature and IDs:** Compliance assistant and evaluation, FR-8, NFR-12, NFR-13, NFR-14, NFR-20.
+- **Built:** Fixed the schedule heading detector so a legal-text reference to another schedule cannot reset the Seventh Schedule heading path. Updated q003 to the Fast Track fee chunk and q008 to the confirmed Iris attachment-list chunk; preserved the fixed 6/14 split and generated no gold answers. Fixed hybrid RRF’s candidate limit and reserved E5 passage-prefix tokens when splitting chunks. The corrected corpus has 240 chunks (the earlier 225 count included Finance Act chunks lost to the heading parsing bug).
+- **Tested:** MPNet and E5 dense, BM25, and hybrid retrieval ran on the 6-question dev split only; results are in `rag/evaluation/results/retrieval.csv`. Full pytest with JUnit output: 110 passed, 1 Starlette/AnyIO deprecation warning. Injection suite: fake output changed 0/10 cases. All answerable mappings resolve; q003 contains item (35) and both amounts. No Gemini call or database run.
+- **Cut or partial:** BGE-M3 download has no usable weights yet and is being monitored against the 20-minute no-progress cutoff. Test-split and end-to-end Gemini baseline were not run. Dev has only 3 answerable questions and serves as a pipeline check, not a model ranking.
+- **Differs from the report?** No scope or behavior change from the report; the chunk count correction fixes a parser bug in the earlier count.
+
+## 2026-11-13: Resume embedding downloads and prepare labeled dev questions (Codex)
+
+- **Feature and IDs:** Compliance corpus evaluation, FR-8, NFR-12, NFR-13, NFR-20.
+- **Built:** Resumed the MPNet snapshot and confirmed it loads on CPU; added `supporting_chunk_ids` to the existing question records, set q009/q010 outside indexed scope, and changed the loader to respect the file's fixed 6/14 split. Recorded proposed mappings without scoring. Updated the CSV-driven results report with current limitations.
+- **Tested:** MPNet reports max sequence length 128, vector dimension 768, and 147 of 225 source chunks over the limit before truncation-safe splitting. Question schema/split test passed (1 passed). Confirmed no Docker command is available and `GEMINI_API_KEY` is unset without printing it.
+- **Cut or partial:** E5 download is resumable but incomplete; BGE-M3 has not started. Docker database startup/Alembic, model indexing, retrieval metrics, and Gemini calls were not run. Stopped at the database gate as requested. Proposed chunk mappings are awaiting user confirmation; q008 is unmapped because Finance Act section 1 is excluded from scope.
+- **Differs from the report?** No embedding default was changed. The measured MPNet truncation count and current execution limitations are in the CSV-driven `rag/evaluation/RESULTS.md`.
+
+## 2026-11-13: Compliance RAG retrieval, guarded answers, API and evaluation harness (Codex)
+
+- **Feature and IDs:** Compliance assistant, FR-8, NFR-12, NFR-13, NFR-14, NFR-20.
+- **Built:** Reused `compliance_chunks` and added heading path, effective date and corpus version metadata in Alembic revision 0005; added configurable SentenceTransformer embeddings, dense/BM25/hybrid RRF retrieval, versioned delimited-evidence JSON answer handling, citation/number/date/scope checks, and `POST /api/v1/compliance/questions`. Added CSV evaluation/report tooling and retained the existing 20 question records without generating answers. Pinned setuptools 84.2.1, wheel 0.45.1, sentence-transformers 6.1.0, torch 2.15.0 CPU, and rank-bm25 0.2.2.
+- **Tested:** Full fake-provider suite: 105 passed, 1 existing Starlette/AnyIO deprecation warning. Test-case CSV records TC-04, TC-05, invented amount, bad citation, hash mismatch, and 10 injection cases (fake output changed 0/10). Alembic upgrade test passed. Evaluation CSVs show split seed 42 (16 dev, 4 test); retrieval and end-to-end rows are empty because section labels lack chunk-id mappings and model downloads failed. No Gemini call or live database indexing was run.
+- **Cut or partial:** MPNet's weight download remained incomplete at 67,108,700 bytes; the sequential loader did not reach multilingual-E5 or BGE-M3. No model comparison, embeddings, pgvector indexing, retrieval metrics, or end-to-end/no-retrieval evaluation was run. Finance Act retains 32 of 93 chunks (61 dropped). Existing question file has 20 records, not the requested 10 blank starter rows; it was preserved rather than overwritten.
+- **Differs from the report?** Implementation details and the Finance Act scope difference are recorded in `docs/DECISIONS.md`; see the dated rows in `docs/pending-report-changes.md`.
+
+## 2026-11-13: Scope Finance Act chunks for founder compliance (Codex)
+
+- **Feature and IDs:** Compliance corpus scope, FR-8, NFR-12, NFR-13.
+- **Built:** Filtered Finance Act 2026 to section 5 amendments of the Income Tax Ordinance; no Companies Act or SECP fee amendments were present. The filtered set has 32 chunks. Recorded the report difference in `docs/DECISIONS.md` and `docs/pending-report-changes.md`.
+- **Tested:** Cache and PDF hashes matched for all active PDFs; the Finance Act scope tests passed. No embedding or retrieval evaluation was run in this piece.
+- **Cut or partial:** Other Finance Act amendments remain excluded unless the report scope is revised.
+- **Differs from the report?** Yes; see the dated decision and pending report row.
+
+## 2026-11-13: Cache and correct compliance corpus extraction (Codex)
+
+- **Feature and IDs:** Compliance corpus ingestion and chunking, FR-8, NFR-12, NFR-13, NFR-14.
+- **Built:** Added a hash-keyed JSONL page cache for active PDFs and wired the indexer to reuse it. Corrected Ordinance scoping for section 2(62A), section 154A and First Schedule Part III Division IVA; corrected Companies Act part boundaries and TOC exclusion; labeled section 23 as unreadable rather than guessing. Added document-local text cleanup, definition-number paths, and fee-item footnote ordering. Finance Act scope was not changed.
+- **Tested:** `rag/.venv/Scripts/python.exe -m pytest rag/tests -q` passed (26 passed). All 8 active PDF caches have matching source hashes and contiguous page records (839, 256, 418, 13, 8, 28, 6, and 14 pages); the blank first Sandbox page is retained. No embedding, API, or database operation was run.
+- **Cut or partial:** The refreshed Finance Act chunking yields 93 chunks (the previous 217 count predates the parser fixes); keyword counts are diagnostic only. No Step 2 embedding or schema work was performed.
+- **Differs from the report?** No report scope was changed; the Finance Act chunk partition changed with the chunker fixes.
+
+## 2026-11-13: Normalize text corpus hashes on Windows checkouts (Codex)
+
+- **Feature and IDs:** Compliance corpus integrity, FR-8, NFR-12, NFR-13.
+- **Built:** Added LF-first, exact-raw-fallback verification for `.txt` and `.html`; other files, including PDFs, use raw bytes. Added reviewed-text extraction, Companies Act and Income Tax scope filters, heading paths, and clause-safe approximately 500-token chunking. HTML captures and inactive PDFs were skipped.
+- **Tested:** `rag/.venv/Scripts/python.exe -m pytest rag/tests -q` passed (21 passed). All 15 manifest hashes passed. pypdf extracted all active PDFs with text and no extraction errors. Chunk totals: 496 across 11 active source texts. Generated 10 Companies Act samples and 3 each from the Finance Act and Seventh Schedule for manual review.
+- **Cut or partial:** Embeddings, indexing, retrieval, answer generation, endpoint, and evaluation were not part of this step.
+- **Differs from the report?** No; see the 2026-11-13 entry in `docs/DECISIONS.md` for the verifier behavior and mixed manifest text-hash convention.
+
 ## 2026-10-18: Auth refactoring, role route guards & removal of demo role switcher (Shahzeb, with Antigravity)
 
 - **Feature and IDs:** Account & Profile Foundations, Access Control (FR-22, FR-23, NFR-4, NFR-5)

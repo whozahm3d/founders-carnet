@@ -167,6 +167,34 @@ def test_invalid_citation_or_failed_grounding_validation_abstains():
         engine.dispose()
 
 
+def test_invented_rupee_amount_is_rejected_before_support_check():
+    engine, session, user = _database(document_text="The fee is Rs. 250.")
+    gateway = FakeGateway(answer="The fee is Rs. 500.")
+    assistant = ComplianceAnswerService(
+        encoder=FakeEncoder(), gateway=gateway, embedding_model="candidate-v1"
+    )
+
+    result = assistant.ask(session, user_id=user.id, question="What is the fee?")
+
+    assert result.outcome == "abstained"
+    assert result.abstention_reason == "unsupported_number_or_date"
+    assert gateway.validation_calls == 0
+    engine.dispose()
+
+
+def test_tc05_non_abstaining_answer_requires_a_dated_citation():
+    engine, session, user = _database(effective_date=None)
+    assistant = ComplianceAnswerService(
+        encoder=FakeEncoder(), gateway=FakeGateway(), embedding_model="candidate-v1"
+    )
+
+    result = assistant.ask(session, user_id=user.id, question="What procedure is described?")
+
+    assert result.outcome == "abstained"
+    assert result.abstention_reason == "missing_effective_date"
+    engine.dispose()
+
+
 def test_retrieval_below_threshold_abstains_without_calling_gateway():
     engine, session, user = _database()
     encoder = FakeEncoder(vector=(0.0, 1.0))

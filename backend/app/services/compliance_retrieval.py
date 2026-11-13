@@ -10,12 +10,14 @@ from sqlalchemy import and_, case, distinct, func, select
 from sqlalchemy.orm import Session
 
 from app.models import ComplianceChunk, ComplianceDocument
+from rag.compliance.retrieve import (
+    RetrievedChunk,
+    bm25 as bm25_retrieve,
+    dense as dense_retrieve,
+    hybrid as hybrid_retrieve,
+)
 
-
-@dataclass(frozen=True, slots=True)
-class RetrievedChunk:
-    chunk: ComplianceChunk
-    similarity: float
+from typing import Literal
 
 
 @dataclass(frozen=True, slots=True)
@@ -107,6 +109,8 @@ def retrieve_top_chunks(
     embedding_model: str,
     top_k: int = 5,
     minimum_similarity: float = 0.0,
+    query: str = "",
+    method: Literal["dense", "bm25", "hybrid"] = "dense",
 ) -> tuple[RetrievedChunk, ...]:
     """Return active-source chunks from the same embedding model, best match first."""
     query_vector = _validate_embedding(query_embedding)
@@ -117,19 +121,15 @@ def retrieve_top_chunks(
     if not -1.0 <= minimum_similarity <= 1.0:
         raise ValueError("minimum_similarity must be between -1 and 1")
 
-    statement = (
-        select(ComplianceChunk)
-        .join(ComplianceDocument)
-        .where(
-            ComplianceDocument.is_active.is_(True),
+    statement = select(ComplianceChunk).join(ComplianceDocument).where(
+        ComplianceDocument.is_active.is_(True)
+    )
+    if method in {"dense", "hybrid"}:
+        statement = statement.where(
             ComplianceChunk.embedding_model == embedding_model,
             ComplianceChunk.embedding.is_not(None),
         )
-    )
-
-    if session.get_bind().dialect.name == "postgresql":
-        # A wrong-size vector should be excluded before pgvector evaluates cosine
-        # distance, which otherwise errors when the indexed and query dimensions differ.
+    if method == "dense" and session.get_bind().dialect.name == "postgresql":
         statement = statement.where(
             func.vector_dims(ComplianceChunk.embedding) == len(query_vector)
         )
@@ -141,22 +141,25 @@ def retrieve_top_chunks(
             .limit(top_k)
         ).all()
         return tuple(
-            RetrievedChunk(chunk=chunk, similarity=1.0 - float(distance_value))
+            RetrievedChunk(chunk, 1.0 - float(distance_value), "dense")
             for chunk, distance_value in rows
         )
-
-    chunks = session.scalars(statement).all()
-    ranked: list[RetrievedChunk] = []
-    for chunk in chunks:
-        stored_vector = chunk.embedding
-        if stored_vector is None or len(stored_vector) != len(query_vector):
-            continue
-        similarity = cosine_similarity(query_vector, stored_vector)
-        if similarity >= minimum_similarity:
-            ranked.append(RetrievedChunk(chunk=chunk, similarity=similarity))
-
-    ranked.sort(key=lambda result: (-result.similarity, result.chunk.id))
-    return tuple(ranked[:top_k])
+    rows = session.scalars(statement).all()
+    if method == "bm25":
+        return bm25_retrieve(
+            query, rows, top_k=top_k, minimum_score=minimum_similarity
+        )
+    if method == "hybrid":
+        return hybrid_retrieve(
+            query,
+            query_vector,
+            rows,
+            top_k=top_k,
+            minimum_score=minimum_similarity,
+        )
+    return dense_retrieve(
+        query_vector, rows, top_k=top_k, minimum_score=minimum_similarity
+    )
 
 
 def cosine_similarity(first: Sequence[float], second: Sequence[float]) -> float:
