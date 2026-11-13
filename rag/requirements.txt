@@ -1,5 +1,5 @@
 -e .
 setuptools==84.2.1
-wheel==0.45.1
+wheel==0.46.2
 torch==2.15.0
 pytest==9.0.3
