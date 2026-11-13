@@ -39,3 +39,13 @@ def test_encoder_rejects_blank_input_and_inconsistent_output():
 def test_encoder_requires_explicit_model_name():
     with pytest.raises(ValueError, match="must be configured"):
         SentenceTransformerEncoder(" ")
+
+
+def test_e5_adds_different_query_and_passage_prefixes():
+    model = FakeSentenceTransformer([[1, 0]])
+    encoder = SentenceTransformerEncoder("intfloat/multilingual-e5-base", model=model)
+
+    encoder.encode_query(["What is registration?"])
+    assert model.call[0] == ["query: What is registration?"]
+    encoder.encode_passages(["Registration procedure."])
+    assert model.call[0] == ["passage: Registration procedure."]

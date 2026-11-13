@@ -105,8 +105,20 @@ def verify_corpus_file(path: Path, expected_sha256: str) -> str:
     if not path.is_file():
         raise CorpusIntegrityError(f"Corpus file not found: {path.name}")
 
-    with path.open("rb") as source:
-        actual = hashlib.file_digest(source, "sha256").hexdigest()
+    content = path.read_bytes()
+    raw_actual = hashlib.sha256(content).hexdigest()
+    actual = raw_actual
+    if path.suffix.lower() in {".txt", ".html"}:
+        # Git's core.autocrlf converts these text files to CRLF on Windows.
+        normalized_content = content.replace(b"\r\n", b"\n")
+        normalized_actual = hashlib.sha256(normalized_content).hexdigest()
+        # Older corpus rows captured CRLF bytes. Accept an exact raw match only
+        # when the canonical LF hash does not match, preserving content checks.
+        actual = normalized_actual
+        if not hmac.compare_digest(actual, expected) and hmac.compare_digest(
+            raw_actual, expected
+        ):
+            actual = raw_actual
 
     if not hmac.compare_digest(actual, expected):
         raise CorpusIntegrityError(

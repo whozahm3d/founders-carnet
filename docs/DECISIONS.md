@@ -1,6 +1,38 @@
 # Decisions log
 
+## 2026-11-13: Keep compliance embedding default provisional; reuse the existing chunks table
+
+**Context:** Three multilingual embedding models were requested for comparison, and citations require heading paths, effective dates and corpus versions. The repository already has a `compliance_chunks` table.
+
+**What we tried:** Installed pinned CPU embedding dependencies and attempted the MPNet download. Its weight file remained incomplete, so the sequential loader did not reach multilingual-E5 or BGE-M3 and no model comparison or corpus indexing could run. The existing table has a compatible pgvector embedding column.
+
+**Decision and reason:** Keep `paraphrase-multilingual-mpnet-base-v2` as the provisional configured default; do not select a new default without dev measurements and one test confirmation. Extend `compliance_chunks` with metadata in Alembic revision 0005 instead of adding a table. This preserves existing document/chunk relationships and avoids duplicating the retrieval corpus.
+
+**Report difference:** The implemented schema and incomplete model evaluation need to be reflected in the report's implementation/evaluation sections. See the pending-report row.
+
+## 2026-11-13: Narrow Finance Act retrieval scope to founder-facing provisions
+
+**Context:** The report describes amendments effective from 1 July 2026, but the Finance Act also amends vehicle taxation, customs, sales tax and excise.
+
+**What we found:** The reviewed Finance Act has section 5 amendments to the Income Tax Ordinance and no Companies Act or SECP fee amendment. Keeping that section yields 32 chunks, above the approved five-chunk minimum.
+
+**Decision and reason:** Retrieve the Income Tax Ordinance amendments and any Companies Act/SECP fee amendments only. This keeps the founder compliance corpus focused and excludes unrelated Finance Act material. No Companies Act/SECP fee amendments were present in the 2026 Act.
+
+**Report difference:** `main.tex` and `docs/context/corpus.md` currently state the broader amendment scope. The matching pending-report row records what to update.
+
 Dated entries, newest first. Each entry has the context, what was tried, what was found, what was decided, and why. Add an entry every time the code or the report is changed so the two agree.
+
+## 2026-11-13: Normalize line endings when verifying text corpus hashes
+
+**Context:** Git is configured with `core.autocrlf=true`, so Windows checkouts convert LF text to CRLF. The three initially mismatched VOSS/PSEB entries in the manifest are LF hashes. The two older FBR registration-page entries are raw CRLF hashes, so the manifest has a mixed text-hash convention.
+
+**What we tried:** Compared raw-byte hashes and CRLF-to-LF hashes for the VOSS transcription and PSEB HTML and reviewed-text captures.
+
+**What we found:** The three initially mismatched working copies use CRLF and have no UTF-8 BOM; their LF-normalized SHA-256 hashes match the manifest. The two FBR registration-page files also use CRLF, but their raw SHA-256 hashes match their manifest entries. No source bytes or manifest hashes were changed.
+
+**Decision:** For `.txt` and `.html`, verify the CRLF-to-LF SHA-256 first and accept an exact raw-byte SHA-256 only when the normalized hash does not match. Hash PDFs and all other file types as raw bytes. Do not change the manifest hashes or corpus files.
+
+**Why:** This preserves the LF hashes used for the three VOSS/PSEB entries, while retaining exact verification for the two existing FBR rows whose manifest hashes were recorded from CRLF bytes after Git's Windows checkout conversion.
 
 ## 2026-11-12: Keep PostgreSQL 17 and include Redis/Celery in step 1
 

@@ -1,0 +1,16 @@
+id,test,requirement,status,actual_result
+TC-04,No supporting passage abstains,"FR-8, NFR-13",passed,pytest case matched: test_retrieval_below_threshold_abstains
+TC-05,Every answered response has a dated citation,"NFR-12, NFR-14",passed,pytest case matched: test_tc05_non_abstaining_answer_requires_a_dated_citation
+TC-NUM,Invented rupee amount is blocked,NFR-13,passed,pytest case matched: test_invented_rupee_amount_is_rejected
+TC-CITE,Citation outside retrieved set is rejected,"NFR-12, NFR-13",passed,pytest case matched: test_invalid_citation_or_failed_grounding_validation_abstains
+TC-HASH,Source hash mismatch blocks indexing,NFR-12,passed,pytest case matched: test_hash_mismatch_prevents_indexing
+TC-INJ-01,Prompt injection payload does not alter the fake provider response,NFR-13,passed,fake output changed 0/10 cases; failures=0
+TC-INJ-02,Prompt injection payload does not alter the fake provider response,NFR-13,passed,fake output changed 0/10 cases; failures=0
+TC-INJ-03,Prompt injection payload does not alter the fake provider response,NFR-13,passed,fake output changed 0/10 cases; failures=0
+TC-INJ-04,Prompt injection payload does not alter the fake provider response,NFR-13,passed,fake output changed 0/10 cases; failures=0
+TC-INJ-05,Prompt injection payload does not alter the fake provider response,NFR-13,passed,fake output changed 0/10 cases; failures=0
+TC-INJ-06,Prompt injection payload does not alter the fake provider response,NFR-13,passed,fake output changed 0/10 cases; failures=0
+TC-INJ-07,Prompt injection payload does not alter the fake provider response,NFR-13,passed,fake output changed 0/10 cases; failures=0
+TC-INJ-08,Prompt injection payload does not alter the fake provider response,NFR-13,passed,fake output changed 0/10 cases; failures=0
+TC-INJ-09,Prompt injection payload does not alter the fake provider response,NFR-13,passed,fake output changed 0/10 cases; failures=0
+TC-INJ-10,Prompt injection payload does not alter the fake provider response,NFR-13,passed,fake output changed 0/10 cases; failures=0

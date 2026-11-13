@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 from collections.abc import Sequence
 from dataclasses import dataclass
 from pathlib import Path
@@ -10,7 +11,7 @@ from rag.compliance.chunking import CitationChunk, chunk_pages
 from rag.compliance.documents import (
     ExtractedPage,
     NoExtractableTextError,
-    extract_pdf_pages,
+    cached_pdf_pages,
 )
 from rag.compliance.embeddings import SentenceTransformerEncoder
 from rag.compliance.ingestion import CorpusDocument, parse_manifest, verify_corpus_file
@@ -57,7 +58,15 @@ def index_corpus(
 
     documents = parse_manifest(manifest_path.read_text(encoding="utf-8"))
     paths = {document.file: corpus_dir / document.file for document in documents}
+    corpus_version = hashlib.sha256(
+        "\n".join(
+            f"{document.file}:{document.content_sha256}"
+            for document in sorted(documents, key=lambda item: item.file)
+        ).encode("utf-8")
+    ).hexdigest()
     for document in documents:
+        if not document.is_active or _is_duplicate_html(document, documents):
+            continue
         verify_corpus_file(paths[document.file], document.content_sha256)
 
     indexed_files: list[str] = []
@@ -86,6 +95,9 @@ def index_corpus(
 
             pages = apply_corpus_scope(document, pages)
             chunks = chunk_pages(document, pages)
+            prepare_chunks = getattr(encoder, "prepare_chunks", None)
+            if prepare_chunks is not None:
+                chunks = prepare_chunks(chunks)
             if not chunks:
                 skipped_files[document.file] = "Source contains no extractable text."
                 continue
@@ -128,6 +140,9 @@ def index_corpus(
                         raise IndexConflictError(
                             f"{document.file} has stored content that differs from its source"
                         )
+                    stored.heading_path = list(expected.heading_path)
+                    stored.effective_date = expected.effective_date
+                    stored.corpus_version = corpus_version
                 chunks_to_encode = [
                     chunk
                     for chunk in chunks
@@ -149,12 +164,19 @@ def index_corpus(
                 if stored is None:
                     session.add_all(
                         _chunk_models(
-                            indexed_document.id, [chunk], [vector], embedding_model
+                            indexed_document.id,
+                            [chunk],
+                            [vector],
+                            embedding_model,
+                            corpus_version,
                         )
                     )
                 else:
                     stored.embedding = list(vector)
                     stored.embedding_model = embedding_model
+                    stored.heading_path = list(chunk.heading_path)
+                    stored.effective_date = chunk.effective_date
+                    stored.corpus_version = corpus_version
             indexed_files.append(document.file)
             total_chunks += len(chunks_to_encode)
 
@@ -172,7 +194,9 @@ def index_corpus(
 
 def _read_pages(path: Path) -> tuple[ExtractedPage, ...]:
     if path.suffix.lower() == ".pdf":
-        return extract_pdf_pages(path)
+        return cached_pdf_pages(
+            path, Path(__file__).resolve().parents[3] / "rag" / "cache"
+        )
     if path.suffix.lower() == ".txt":
         text = path.read_text(encoding="utf-8").strip()
         if not text:
@@ -199,7 +223,8 @@ def _encode_chunks(
     expected_dimensions: int | None = None
     for start in range(0, len(chunks), batch_size):
         batch = chunks[start : start + batch_size]
-        batch_vectors = encoder.encode([chunk.text for chunk in batch])
+        encode_passages = getattr(encoder, "encode_passages", encoder.encode)
+        batch_vectors = encode_passages([chunk.text for chunk in batch])
         if len(batch_vectors) != len(batch):
             raise ValueError("Embedding count does not match chunk count")
         for vector in batch_vectors:
@@ -235,6 +260,7 @@ def _chunk_models(
     chunks: Sequence[CitationChunk],
     vectors: Sequence[Sequence[float]],
     embedding_model: str,
+    corpus_version: str,
 ) -> list[ComplianceChunk]:
     return [
         ComplianceChunk(
@@ -242,6 +268,9 @@ def _chunk_models(
             chunk_id=chunk.chunk_id,
             page_number=chunk.page_number,
             section=chunk.section,
+            heading_path=list(chunk.heading_path),
+            effective_date=chunk.effective_date,
+            corpus_version=corpus_version,
             text=chunk.text,
             embedding=list(vector),
             embedding_model=embedding_model,
