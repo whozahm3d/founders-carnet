@@ -1,8 +1,8 @@
 from __future__ import annotations
 
+import secrets
 from contextlib import asynccontextmanager
 from datetime import datetime, timedelta
-import secrets
 from typing import Annotated
 
 from fastapi import Depends, FastAPI, HTTPException, Request, Response, status
@@ -14,8 +14,8 @@ from sqlalchemy.orm import Session
 from app.database import get_db
 from app.dependencies import get_current_user, require_roles
 from app.models import ConsentRecord, OAuthIdentity, User
-from app.routes.compliance import router as compliance_router
 from app.routes.admin_verification import router as admin_verification_router
+from app.routes.compliance import router as compliance_router
 from app.routes.founders import router as founders_router
 from app.routes.intelligence import router as intelligence_router
 from app.routes.jobs import router as jobs_router
@@ -32,13 +32,10 @@ from app.schemas import (
     UserRegisterRequest,
     UserRole,
 )
-from app.services.oauth import linkedin_provider
-from app.services.llm_cache import clear_structured_response_cache
-from app.services.wiring import close_compliance_answer_service
-from app.services.feature_ai import clear_feature_clients
-from app.schemas import TokenResponse, UserLoginRequest, UserRead, UserRegisterRequest
 from app.security import create_access_token, hash_password, verify_password
 from app.services.feature_ai import clear_feature_clients
+from app.services.llm_cache import clear_structured_response_cache
+from app.services.oauth import linkedin_provider
 from app.services.wiring import close_compliance_answer_service
 
 
@@ -82,9 +79,6 @@ async def sanitized_validation_error(
 REGISTRATION_CONSENT_TYPE = "non_essential_processing"
 REGISTRATION_CONSENT_VERSION = "registration-v1"
 PUBLIC_ROLES = ("founder", "talent", "mentor", "investor")
-@app.post("/api/v1/auth/register", response_model=UserRead, status_code=status.HTTP_201_CREATED)
-def register_user(payload: UserRegisterRequest, db: Annotated[Session, Depends(get_db)]) -> User:
-    """Register a user with explicit role assignment for the foundations slice.
 
 
 def _require_consent(accepted: bool) -> None:
