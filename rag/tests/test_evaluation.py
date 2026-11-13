@@ -1,4 +1,5 @@
 import json
+from pathlib import Path
 from types import SimpleNamespace
 
 from rag.evaluation.evaluate import (
@@ -9,9 +10,13 @@ from rag.evaluation.evaluate import (
     split_dev_test,
 )
 
+GOLD_QUESTIONS = (
+    Path(__file__).resolve().parents[1] / "evaluation" / "gold_questions.jsonl"
+)
+
 
 def test_existing_questions_are_preserved_without_generated_answers():
-    with open("rag/evaluation/gold_questions.jsonl", encoding="utf-8") as f:
+    with open(GOLD_QUESTIONS, encoding="utf-8") as f:
         raw = f.read().splitlines()
     # Retain the repository's existing authored set; do not synthesize answers.
     assert len(raw) == 20
@@ -23,14 +28,19 @@ def test_existing_questions_are_preserved_without_generated_answers():
     raw_questions = {json.loads(line)["id"]: json.loads(line) for line in raw}
     for question_id in ("q009", "q010"):
         assert raw_questions[question_id]["answerable"] is False
-        assert raw_questions[question_id]["out_of_scope_category"] == "outside indexed scope"
+        assert (
+            raw_questions[question_id]["out_of_scope_category"]
+            == "outside indexed scope"
+        )
     assert all("supporting_chunk_ids" in item for item in raw_questions.values())
 
 
 def test_numpy_dense_uses_cosine_over_normalized_vectors():
     chunks = (
         SimpleNamespace(id=1, chunk_id="aligned", text="aligned", embedding=(3.0, 0.0)),
-        SimpleNamespace(id=2, chunk_id="orthogonal", text="orthogonal", embedding=(0.0, 4.0)),
+        SimpleNamespace(
+            id=2, chunk_id="orthogonal", text="orthogonal", embedding=(0.0, 4.0)
+        ),
     )
     ranked = _numpy_dense((2.0, 0.0), chunks, top_k=2)
     assert [row.chunk.chunk_id for row in ranked] == ["aligned", "orthogonal"]
