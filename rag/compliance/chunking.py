@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import re
-import unicodedata
 from dataclasses import dataclass, replace
 from typing import Any
 
@@ -241,12 +240,10 @@ def _parse_sections(pages: tuple[ExtractedPage, ...]) -> tuple[_Section, ...]:
             clause = _CLAUSE_HEADING.match(line)
             numbered_item = _NUMBERED_ITEM.match(line)
             if clause or numbered_item:
-                definition_label = False
                 if clause and definition_section:
                     number = clause.group("number")
                     if number in seen_definition_numbers:
                         in_definitions = True
-                        definition_label = True
                     else:
                         seen_definition_numbers.add(number)
                 flush_block()

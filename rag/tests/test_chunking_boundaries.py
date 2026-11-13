@@ -1,4 +1,8 @@
-from rag.compliance.chunking import chunk_pages, clean_document_pages, split_chunks_for_model
+from rag.compliance.chunking import (
+    chunk_pages,
+    clean_document_pages,
+    split_chunks_for_model,
+)
 from rag.compliance.documents import ExtractedPage
 from rag.compliance.ingestion import CorpusDocument
 

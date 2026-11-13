@@ -4,8 +4,8 @@ from __future__ import annotations
 
 import csv
 from datetime import date
-from statistics import median
 from pathlib import Path
+from statistics import median
 
 ROOT = Path(__file__).resolve().parent
 RESULTS = ROOT / "results"

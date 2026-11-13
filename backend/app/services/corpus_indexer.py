@@ -169,7 +169,6 @@ def index_corpus(
                             [vector],
                             embedding_model,
                             corpus_version,
-                            indexed_document.id, [chunk], [vector], embedding_model
                         )
                     )
                 else:
@@ -195,7 +194,9 @@ def index_corpus(
 
 def _read_pages(path: Path) -> tuple[ExtractedPage, ...]:
     if path.suffix.lower() == ".pdf":
-        return cached_pdf_pages(path, Path(__file__).resolve().parents[3] / "rag" / "cache")
+        return cached_pdf_pages(
+            path, Path(__file__).resolve().parents[3] / "rag" / "cache"
+        )
     if path.suffix.lower() == ".txt":
         text = path.read_text(encoding="utf-8").strip()
         if not text:

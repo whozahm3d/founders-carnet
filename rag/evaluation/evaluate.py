@@ -2,19 +2,18 @@
 
 from __future__ import annotations
 
+import argparse
 import csv
 import json
-import random
-import argparse
 import math
-from datetime import date
+import random
 from dataclasses import dataclass
+from datetime import date
 from pathlib import Path
 from types import SimpleNamespace
 from typing import Any
 
 import numpy as np
-
 from rag.compliance.chunking import chunk_pages, split_chunks_for_model
 from rag.compliance.documents import ExtractedPage, cached_pdf_pages
 from rag.compliance.embeddings import SentenceTransformerEncoder

@@ -198,7 +198,9 @@ def test_tc05_non_abstaining_answer_requires_a_dated_citation():
         encoder=FakeEncoder(), gateway=FakeGateway(), embedding_model="candidate-v1"
     )
 
-    result = assistant.ask(session, user_id=user.id, question="What procedure is described?")
+    result = assistant.ask(
+        session, user_id=user.id, question="What procedure is described?"
+    )
 
     assert result.outcome == "abstained"
     assert result.abstention_reason == "missing_effective_date"

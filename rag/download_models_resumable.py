@@ -3,13 +3,10 @@
 from __future__ import annotations
 
 import json
-import os
 import subprocess
 import sys
 import time
 from pathlib import Path
-
-from huggingface_hub import snapshot_download
 
 MODELS = (
     "sentence-transformers/paraphrase-multilingual-mpnet-base-v2",
@@ -112,9 +109,9 @@ def download(model_id: str) -> bool:
         [
             sys.executable,
             "-c",
-            "from huggingface_hub import snapshot_download; import sys; "
+            ("from huggingface_hub import snapshot_download; import sys; "
             "import json; print(snapshot_download(sys.argv[1], cache_dir=sys.argv[2], "
-            "max_workers=1, allow_patterns=json.loads(sys.argv[3])), flush=True)",
+            "max_workers=1, allow_patterns=json.loads(sys.argv[3])), flush=True)"),
             model_id,
             str(CACHE),
             json.dumps(MODEL_PATTERNS),
@@ -192,7 +189,7 @@ def main() -> None:
             continue
         try:
             inspect_model(model_id)
-        except Exception as exc:  # log and continue to the next approved model
+        except Exception as exc:  # noqa: BLE001 - log and continue to the next approved model
             emit(
                 event="model_inspection_failed",
                 model_id=model_id,

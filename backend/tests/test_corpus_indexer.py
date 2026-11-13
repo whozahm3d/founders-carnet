@@ -141,12 +141,16 @@ def test_hash_mismatch_prevents_indexing(tmp_path: Path):
 
     corpus_dir = tmp_path / "data"
     corpus_dir.mkdir()
-    (corpus_dir / "sample.txt").write_text("Section 1. Changed\nText.", encoding="utf-8")
+    (corpus_dir / "sample.txt").write_text(
+        "Section 1. Changed\nText.", encoding="utf-8"
+    )
     manifest_path = tmp_path / "corpus_manifest.md"
     manifest_path.write_text(
         """| file | title | issuing_body | document_type | source_url | effective_date | consolidation_date | retrieved_at | content_sha256 | scope_note | is_active |
 |---|---|---|---|---|---|---|---|---|---|---|
-| `sample.txt` | Sample | FBR | guide | <https://example.test> | 2026-06-30 |  |  | `""" + "0" * 64 + "` | Test. | true |\n",
+| `sample.txt` | Sample | FBR | guide | <https://example.test> | 2026-06-30 |  |  | `"""
+        + "0" * 64
+        + "` | Test. | true |\n",
         encoding="utf-8",
     )
     engine = create_engine("sqlite://", poolclass=StaticPool)
@@ -168,7 +172,6 @@ def test_hash_mismatch_prevents_indexing(tmp_path: Path):
     engine.dispose()
 
 
-def test_indexer_repairs_missing_chunks_and_null_embeddings_without_duplicates(tmp_path: Path):
 def test_indexer_repairs_missing_chunks_and_null_embeddings_without_duplicates(
     tmp_path: Path,
 ):

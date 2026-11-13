@@ -9,10 +9,10 @@ from time import perf_counter
 from typing import Literal, Protocol
 
 from pydantic import BaseModel, Field
+from rag.compliance.answer import ANSWER_PROMPT_VERSION, AnswerOutput
 from sqlalchemy.orm import Session
 
 from app.models import ComplianceCitation, ComplianceQuery
-from rag.compliance.answer import ANSWER_PROMPT_VERSION, AnswerOutput
 from app.services.compliance_retrieval import (
     RetrievedChunk,
     get_retrieval_index_stats,
@@ -152,7 +152,9 @@ class ComplianceAnswerService:
                 },
             )
             if index_stats.compatible_chunk_count:
-                encode_query = getattr(self.encoder, "encode_query", self.encoder.encode)
+                encode_query = getattr(
+                    self.encoder, "encode_query", self.encoder.encode
+                )
                 vectors = encode_query([normalized_question])
                 if len(vectors) != 1:
                     raise ValueError("Embedding provider returned an invalid result")
@@ -241,8 +243,6 @@ class ComplianceAnswerService:
                     getattr(passage.chunk, "effective_date", None)
                     or passage.chunk.document.effective_date
                 )
-            if _MONEY_OR_RATE.search(draft.answer) and any(
-                passage.chunk.document.effective_date is None
                 for passage in cited_passages
             ):
                 return self._abstain_after_retrieval(

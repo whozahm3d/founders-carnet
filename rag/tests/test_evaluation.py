@@ -11,7 +11,8 @@ from rag.evaluation.evaluate import (
 
 
 def test_existing_questions_are_preserved_without_generated_answers():
-    raw = open("rag/evaluation/gold_questions.jsonl", encoding="utf-8").read().splitlines()
+    with open("rag/evaluation/gold_questions.jsonl", encoding="utf-8") as f:
+        raw = f.read().splitlines()
     # Retain the repository's existing authored set; do not synthesize answers.
     assert len(raw) == 20
     assert all("gold_answer" not in line for line in raw)

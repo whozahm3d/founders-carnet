@@ -113,7 +113,10 @@ def test_migrations_build_user_schema_from_empty_database():
             "effective_date",
             "corpus_version",
         }.issubset(
-            {column["name"] for column in inspect(connection).get_columns("compliance_chunks")}
+            {
+                column["name"]
+                for column in inspect(connection).get_columns("compliance_chunks")
+            }
         )
         assert {"deletion_requested_at", "deletion_scheduled_for"}.issubset(
             {column["name"] for column in inspect(connection).get_columns("users")}

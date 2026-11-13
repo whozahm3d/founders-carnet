@@ -5,19 +5,24 @@ from __future__ import annotations
 import math
 from collections.abc import Sequence
 from dataclasses import dataclass
+from typing import Literal
 
+from rag.compliance.retrieve import (
+    RetrievedChunk,
+)
+from rag.compliance.retrieve import (
+    bm25 as bm25_retrieve,
+)
+from rag.compliance.retrieve import (
+    dense as dense_retrieve,
+)
+from rag.compliance.retrieve import (
+    hybrid as hybrid_retrieve,
+)
 from sqlalchemy import and_, case, distinct, func, select
 from sqlalchemy.orm import Session
 
 from app.models import ComplianceChunk, ComplianceDocument
-from rag.compliance.retrieve import (
-    RetrievedChunk,
-    bm25 as bm25_retrieve,
-    dense as dense_retrieve,
-    hybrid as hybrid_retrieve,
-)
-
-from typing import Literal
 
 
 @dataclass(frozen=True, slots=True)
@@ -121,8 +126,10 @@ def retrieve_top_chunks(
     if not -1.0 <= minimum_similarity <= 1.0:
         raise ValueError("minimum_similarity must be between -1 and 1")
 
-    statement = select(ComplianceChunk).join(ComplianceDocument).where(
-        ComplianceDocument.is_active.is_(True)
+    statement = (
+        select(ComplianceChunk)
+        .join(ComplianceDocument)
+        .where(ComplianceDocument.is_active.is_(True))
     )
     if method in {"dense", "hybrid"}:
         statement = statement.where(
@@ -146,9 +153,7 @@ def retrieve_top_chunks(
         )
     rows = session.scalars(statement).all()
     if method == "bm25":
-        return bm25_retrieve(
-            query, rows, top_k=top_k, minimum_score=minimum_similarity
-        )
+        return bm25_retrieve(query, rows, top_k=top_k, minimum_score=minimum_similarity)
     if method == "hybrid":
         return hybrid_retrieve(
             query,

@@ -1,8 +1,8 @@
 """Extract searchable page text from corpus PDFs (FR-8, NFR-12, NFR-13)."""
 
-from dataclasses import dataclass
 import hashlib
 import json
+from dataclasses import dataclass
 from pathlib import Path
 
 from pypdf import PdfReader
