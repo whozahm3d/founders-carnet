@@ -11,12 +11,12 @@ client = TestClient(app)
 
 def _register_and_login(email: str = "founder@example.com") -> str:
     client.post(
-        "/api/v1/auth/register",
+        "/api/v1/auth/register/founder",
         json={
             "email": email,
             "password": "SecurePass123!",
             "full_name": "A Founder",
-            "role": "founder",
+            "consent_accepted": True,
         },
     )
     response = client.post(
@@ -29,30 +29,33 @@ def _register_and_login(email: str = "founder@example.com") -> str:
 
 def test_public_registration_cannot_create_an_admin():
     response = client.post(
-        "/api/v1/auth/register",
+        "/api/v1/auth/register/admin",
         json={
             "email": "admin@example.com",
             "password": "SecurePass123!",
             "full_name": "Public Admin",
-            "role": "admin",
+            "consent_accepted": True,
         },
     )
-    assert response.status_code == 400
-    assert client.post(
-        "/api/v1/auth/login",
-        json={"email": "admin@example.com", "password": "SecurePass123!"},
-    ).status_code == 401
+    assert response.status_code == 422
+    assert (
+        client.post(
+            "/api/v1/auth/login",
+            json={"email": "admin@example.com", "password": "SecurePass123!"},
+        ).status_code
+        == 401
+    )
 
 
 def test_registration_validation_does_not_echo_the_submitted_password():
     password = "Pwd#X!"
     response = client.post(
-        "/api/v1/auth/register",
+        "/api/v1/auth/register/founder",
         json={
             "email": "short-password@example.com",
             "password": password,
             "full_name": "A Founder",
-            "role": "founder",
+            "consent_accepted": True,
         },
     )
     assert response.status_code == 422

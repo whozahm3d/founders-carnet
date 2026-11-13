@@ -45,7 +45,6 @@ from contextlib import nullcontext
 import numpy as np
 import torch
 from datasets import DatasetDict, load_dataset
-
 from sentence_transformers import (
     SentenceTransformer,
     SentenceTransformerModelCardData,

@@ -34,6 +34,39 @@ Dated entries, newest first. Each entry has the context, what was tried, what wa
 
 **Why:** This preserves the LF hashes used for the three VOSS/PSEB entries, while retaining exact verification for the two existing FBR rows whose manifest hashes were recorded from CRLF bytes after Git's Windows checkout conversion.
 
+## 2026-11-12: Keep PostgreSQL 17 and include Redis/Celery in step 1
+
+**Context:** The report architecture summary names PostgreSQL 16 and places Docker Compose after the first services run. The approved implementation plan uses the existing PostgreSQL 17 Compose image and needs Redis/Celery for the backend queue foundation.
+
+**Decision:** Keep PostgreSQL 17 in Compose. Add Redis and a Celery worker in step 1, with the API and worker sharing the existing backend image. Do not change the CI workflow in this step.
+
+**Why:** PostgreSQL 17 is already the working local database configuration, and Redis/Celery are required foundations for the queue behavior described by NFR-2 and NFR-21. The report's PostgreSQL 16 reference is recorded as a report mismatch rather than silently changing the working database.
+
+**Follow-ups:** Update the report's PostgreSQL version and background-service description through the pending report-change process. Add actual background tasks only in step 9.
+
+## 2026-11-12: Admin verification queue and appeal decision record
+
+**Context:** FR-21 requires a final reviewer decision on a one-time appeal, and FR-26 requires an admin console with escalated profiles, signals, scores, and reviewer-attributed decisions. The report file `main.tex` is not present in this checkout, so this comparison uses `docs/context/requirements.md`.
+
+**What we tried:** Extended the existing Step 5 routes and tests to cover the approved queue and decision contract. The first tests showed that the queue returned only signal outcomes and that decision reasons were limited to ten characters.
+
+**What we found:** Persisted signal rows already contain each signal's score, outcome, input snapshot, and reason. The decision table already supports append-only reviewer attribution, and the appeal row has reviewer, outcome, reason, and decision timestamp fields; no new table or migration is needed.
+
+**Decision:** Keep the two admin-only endpoints at `/api/v1/admin/verification/review-queue` and `/api/v1/admin/verification/{verification_id}/decision`. Return persisted signal details in the queue. Accept any decision reason that is non-empty after trimming, record the final decision with the reviewer ID, and finalize appeal metadata in the existing row.
+
+**Why:** This supplies the FR-21/FR-26 console contract using the current schema while preserving the report's final-review and audit requirements.
+
+**Follow-ups:** Add the route paths, per-signal fields, and appeal finalization fields to the report's FR-21/FR-26 description and API documentation. See `docs/pending-report-changes.md`.
+
+## 2026-11-11: Manual SECP identity cross-check in profile verification
+
+**Context:** The verification plan requires a LinkedIn OAuth or SECP cross-check, but no LinkedIn OAuth app is approved and the report does not define an automated SECP lookup method.
+
+**Decision:** Use a human reviewer to check the user's submitted SECP entity name and registration number against official SECP records. Do not scrape social profiles or automate registry access. Treat the check as pending until the administrative review feature records a reviewer decision. LinkedIn OAuth is cut for this slice. Store configurable score thresholds; use defaults of 0.85 high and 0.50 low as pilot values, not calibrated parameters.
+
+**Why:** This follows the coding plan's allowed LinkedIn OAuth cut, preserves FR-12's SECP cross-check, and avoids unapproved account integration or unsupported claims of automated identity verification.
+
+**Follow-ups:** The admin review console must record the SECP check and final reviewer decision. Calibrate thresholds on the team's consented pilot profiles before treating auto bands as validated.
 ## 2026-11-02 (later): Master document synced with the report; two cross-references fixed
 
 **Context:** The master .md and .docx had drifted from the report (F26-090 plus the 2 November main.tex). A comparison found that the report cites three works the master did not list, states numbers the master lacked, and has a Chapter 4 and 5 level of detail (31 FRs, 23 numbered NFRs, 17 features, 19 risks, 10 use cases, 14 assumptions, 12 GUI screens, 41 tables) that the master held only in summary form. Two cross-references in the master were also wrong.
@@ -504,3 +537,42 @@ Dated entries, newest first. Each entry has the context, what was tried, what wa
 **Why:** This keeps the FYP-1 ranking deterministic, makes the factor contribution visible, and leaves the trained re-ranker for FYP-2. All weights and the blend are centralized so the team can change them without changing the API or stored factor explanations.
 
 **Follow-ups:** Review these pilot defaults against a seeded demo set and state the final weights in the evaluation notes. They are not validated model parameters.
+
+## 2026-11-10: Sector and stage remain weighted matching factors
+
+**Context:** The report describes sector, stage, and geography as candidate hard filters, while `docs/context/coding-plan.md` specifies sector and stage as two of the five weighted factors. The matching implementation needs a single rule for candidate ranking.
+
+**Decision:** Keep sector and stage as weighted scoring factors, as specified in the coding plan. Apply geography, role, account status, mentor availability, and the investor verification/readiness requirements as eligibility filters.
+
+**Why:** Hard-filtering sector and stage would make their named match factors constant among results and prevent the ranking from expressing partial fit. Keeping them weighted allows compatible profiles to rank higher while still returning relevant matches across sectors or stages.
+
+**Follow-ups:** Update the report's matching description to distinguish weighted sector/stage scoring from eligibility filters; evaluate the pilot weights on the seeded demo set.
+
+## 2026-11-12: Registration consent, role transport, and fake LinkedIn boundary
+
+**Context:** FR-17 moves consent into registration, FR-22 permits email/password or LinkedIn sign-in, and the safety rules prohibit reading roles from request bodies. Earlier coding-plan text had cut LinkedIn OAuth for the slice.
+
+**Decision:** Require explicit registration consent, move password-registration role selection to a validated path parameter, and allow only founder, talent, mentor, and investor. Add a provider interface with a deterministic fake LinkedIn provider; no real OAuth credentials or network calls are used. Store consent and OAuth identity mappings in dedicated tables. Account deletion disables the account immediately and stores a 30-day purge schedule on `users`; the purge remains step 9.
+
+**Why:** This satisfies the approved feature scope while preventing public admin selection, keeping provider access behind an interface, and preserving an auditable consent record without storing provider tokens.
+
+**Follow-ups:** Replace the fake provider only after a separately approved real OAuth integration. Update the report to reflect that LinkedIn is implemented behind a fake provider in the current slice.
+
+## 2026-11-12: Full verification for talent and manual SECP boundary
+
+**Context:** Step 4 requires a talent profile with an optional GitHub link and a five-signal verification score. The approved SECP approach is a manual reviewer comparison against official records, without automated registry access or social-profile scraping.
+
+**Decision:** Talent receives the same verification case, status endpoint, score bands, consent checks, and signal audit rows as mentors and investors. Store the optional GitHub URL in `talent_profiles`. Use five versioned signals: LinkedIn identity, manual-SECP state, profile completeness, GitHub-link presence for talent, and portfolio-link consistency. The default SECP fake returns `pending_manual_review`; a high score therefore remains pending until Step 5 records the reviewer result.
+
+**Why:** This implements the approved full-talent-verification scope while keeping legal-identity claims behind a human review boundary and preserving NFR-15 inputs and reasons.
+
+**Follow-ups:** Step 5 must record the reviewer’s SECP result and final decision. GitHub activity metrics beyond link presence remain outside this slice.
+## 2026-11-12: Private structured response cache and sanitized gateway call logs
+
+**Context:** Step 6 adds observability for gateway calls and avoids repeat structured generation for identical user-scoped requests. The report architecture describes storing prompts and evidence, which can contain founder profiles, CV content, or compliance material.
+
+**Decision:** Cache only schema-validated non-compliance structured responses on private local disk, scoped by user and keyed by model, operation, prompt version, input, schema, and instructions. Entries expire after 24 hours and are cleared during account deletion. Persist gateway attempt metadata in `llm_gateway_call_logs` without prompts, evidence, inputs, or outputs. Keep queue position in gateway logs and this metadata table; do not add it to API responses. Compliance generation does not use the structured cache.
+
+**Why:** This supports NFR-2 and NFR-19 while keeping private request content out of operational records and honoring the account deletion flow in NFR-11.
+
+**Follow-ups:** Update the report's gateway description to specify sanitized metadata rather than prompt/evidence persistence and describe the 24-hour user-scoped cache and its deletion cleanup.

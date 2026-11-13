@@ -7,12 +7,12 @@ client = TestClient(app)
 
 def _founder_token(email: str = "founder@example.com") -> str:
     registered = client.post(
-        "/api/v1/auth/register",
+        "/api/v1/auth/register/founder",
         json={
             "email": email,
             "password": "SecurePass123!",
             "full_name": "A Founder",
-            "role": "founder",
+            "consent_accepted": True,
         },
     )
     assert registered.status_code == 201, registered.text
@@ -73,19 +73,23 @@ def test_founder_profile_requires_explicit_consent():
     response = client.put(
         "/api/v1/founders/me/profile",
         headers={"Authorization": f"Bearer {token}"},
-        json={"bio": "A profile without consent", "location": "Lahore", "consent_accepted": False},
+        json={
+            "bio": "A profile without consent",
+            "location": "Lahore",
+            "consent_accepted": False,
+        },
     )
     assert response.status_code == 400
 
 
 def test_non_founder_cannot_write_founder_profile():
     client.post(
-        "/api/v1/auth/register",
+        "/api/v1/auth/register/mentor",
         json={
             "email": "mentor@example.com",
             "password": "SecurePass123!",
             "full_name": "A Mentor",
-            "role": "mentor",
+            "consent_accepted": True,
         },
     )
     login = client.post(

@@ -1,0 +1,4983 @@
+{
+  "components": {
+    "schemas": {
+      "AdminAppealRead": {
+        "properties": {
+          "added_evidence": {
+            "title": "Added Evidence",
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "decision_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Decision Reason"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "reason": {
+            "title": "Reason",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "pending",
+              "approved",
+              "rejected"
+            ],
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "reason",
+          "added_evidence",
+          "status",
+          "decision_reason",
+          "created_at"
+        ],
+        "title": "AdminAppealRead",
+        "type": "object"
+      },
+      "AdminVerificationDecisionWrite": {
+        "additionalProperties": false,
+        "properties": {
+          "decision": {
+            "enum": [
+              "approve",
+              "reject"
+            ],
+            "title": "Decision",
+            "type": "string"
+          },
+          "reason": {
+            "maxLength": 1000,
+            "minLength": 1,
+            "title": "Reason",
+            "type": "string"
+          }
+        },
+        "required": [
+          "decision",
+          "reason"
+        ],
+        "title": "AdminVerificationDecisionWrite",
+        "type": "object"
+      },
+      "AdminVerificationQueueItem": {
+        "properties": {
+          "appeal": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/AdminAppealRead"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "band": {
+            "enum": [
+              "high",
+              "review",
+              "low"
+            ],
+            "title": "Band",
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "reason": {
+            "title": "Reason",
+            "type": "string"
+          },
+          "report_count": {
+            "title": "Report Count",
+            "type": "integer"
+          },
+          "score": {
+            "title": "Score",
+            "type": "number"
+          },
+          "signal_details": {
+            "items": {
+              "$ref": "#/components/schemas/AdminVerificationSignalRead"
+            },
+            "title": "Signal Details",
+            "type": "array"
+          },
+          "signals": {
+            "additionalProperties": true,
+            "title": "Signals",
+            "type": "object"
+          },
+          "status": {
+            "enum": [
+              "pending_review",
+              "auto_verified",
+              "auto_rejected",
+              "appeal_pending",
+              "verified",
+              "rejected",
+              "blocked"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "threshold_version": {
+            "title": "Threshold Version",
+            "type": "string"
+          },
+          "user_id": {
+            "title": "User Id",
+            "type": "integer"
+          },
+          "user_role": {
+            "title": "User Role",
+            "type": "string"
+          },
+          "verification_id": {
+            "title": "Verification Id",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "verification_id",
+          "user_id",
+          "user_role",
+          "status",
+          "score",
+          "band",
+          "signals",
+          "signal_details",
+          "reason",
+          "threshold_version",
+          "appeal",
+          "report_count",
+          "created_at"
+        ],
+        "title": "AdminVerificationQueueItem",
+        "type": "object"
+      },
+      "AdminVerificationSignalRead": {
+        "properties": {
+          "input_snapshot": {
+            "additionalProperties": true,
+            "title": "Input Snapshot",
+            "type": "object"
+          },
+          "outcome": {
+            "title": "Outcome",
+            "type": "string"
+          },
+          "reason": {
+            "title": "Reason",
+            "type": "string"
+          },
+          "score": {
+            "title": "Score",
+            "type": "number"
+          },
+          "signal_name": {
+            "title": "Signal Name",
+            "type": "string"
+          }
+        },
+        "required": [
+          "signal_name",
+          "score",
+          "outcome",
+          "input_snapshot",
+          "reason"
+        ],
+        "title": "AdminVerificationSignalRead",
+        "type": "object"
+      },
+      "CitationResult": {
+        "properties": {
+          "chunk_id": {
+            "title": "Chunk Id",
+            "type": "string"
+          },
+          "consolidation_date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Consolidation Date"
+          },
+          "document_title": {
+            "title": "Document Title",
+            "type": "string"
+          },
+          "effective_date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Effective Date"
+          },
+          "issuing_body": {
+            "title": "Issuing Body",
+            "type": "string"
+          },
+          "page_number": {
+            "title": "Page Number",
+            "type": "integer"
+          },
+          "retrieved_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Retrieved At"
+          },
+          "section": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Section"
+          },
+          "source_url": {
+            "title": "Source Url",
+            "type": "string"
+          }
+        },
+        "required": [
+          "chunk_id",
+          "document_title",
+          "issuing_body",
+          "source_url",
+          "section",
+          "page_number",
+          "effective_date",
+          "consolidation_date",
+          "retrieved_at"
+        ],
+        "title": "CitationResult",
+        "type": "object"
+      },
+      "CitedStatement": {
+        "additionalProperties": false,
+        "properties": {
+          "source_ids": {
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 5,
+            "minItems": 1,
+            "title": "Source Ids",
+            "type": "array"
+          },
+          "text": {
+            "maxLength": 1500,
+            "minLength": 1,
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text",
+          "source_ids"
+        ],
+        "title": "CitedStatement",
+        "type": "object"
+      },
+      "CompetitorFinding": {
+        "additionalProperties": false,
+        "properties": {
+          "finding": {
+            "$ref": "#/components/schemas/CitedStatement"
+          },
+          "name": {
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Name",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "finding"
+        ],
+        "title": "CompetitorFinding",
+        "type": "object"
+      },
+      "ComplianceAnswerResult": {
+        "properties": {
+          "abstention_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Abstention Reason"
+          },
+          "answer": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Answer"
+          },
+          "citations": {
+            "items": {
+              "$ref": "#/components/schemas/CitationResult"
+            },
+            "title": "Citations",
+            "type": "array"
+          },
+          "informational_notice": {
+            "default": "This information is not legal or tax advice.",
+            "title": "Informational Notice",
+            "type": "string"
+          },
+          "message": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Message"
+          },
+          "outcome": {
+            "enum": [
+              "answered",
+              "abstained"
+            ],
+            "title": "Outcome",
+            "type": "string"
+          },
+          "query_id": {
+            "title": "Query Id",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "query_id",
+          "outcome",
+          "answer",
+          "message",
+          "abstention_reason",
+          "citations"
+        ],
+        "title": "ComplianceAnswerResult",
+        "type": "object"
+      },
+      "ComplianceQuestionRequest": {
+        "properties": {
+          "question": {
+            "maxLength": 2000,
+            "minLength": 1,
+            "title": "Question",
+            "type": "string"
+          }
+        },
+        "required": [
+          "question"
+        ],
+        "title": "ComplianceQuestionRequest",
+        "type": "object"
+      },
+      "ConsentStatusRead": {
+        "properties": {
+          "consent_type": {
+            "title": "Consent Type",
+            "type": "string"
+          },
+          "consent_version": {
+            "title": "Consent Version",
+            "type": "string"
+          },
+          "withdrawn": {
+            "title": "Withdrawn",
+            "type": "boolean"
+          },
+          "withdrawn_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Withdrawn At"
+          }
+        },
+        "required": [
+          "consent_type",
+          "consent_version",
+          "withdrawn",
+          "withdrawn_at"
+        ],
+        "title": "ConsentStatusRead",
+        "type": "object"
+      },
+      "DeletionRequestRead": {
+        "properties": {
+          "account_disabled": {
+            "title": "Account Disabled",
+            "type": "boolean"
+          },
+          "deletion_scheduled_for": {
+            "format": "date-time",
+            "title": "Deletion Scheduled For",
+            "type": "string"
+          },
+          "requested_at": {
+            "format": "date-time",
+            "title": "Requested At",
+            "type": "string"
+          }
+        },
+        "required": [
+          "requested_at",
+          "deletion_scheduled_for",
+          "account_disabled"
+        ],
+        "title": "DeletionRequestRead",
+        "type": "object"
+      },
+      "DimensionResult": {
+        "properties": {
+          "dimension": {
+            "enum": [
+              "problem_clarity",
+              "market_definition",
+              "differentiation",
+              "business_model_coherence",
+              "traction",
+              "team",
+              "scalability"
+            ],
+            "title": "Dimension",
+            "type": "string"
+          },
+          "next_action": {
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Next Action",
+            "type": "string"
+          },
+          "reasoning": {
+            "maxLength": 1200,
+            "minLength": 1,
+            "title": "Reasoning",
+            "type": "string"
+          },
+          "score": {
+            "maximum": 5.0,
+            "minimum": 1.0,
+            "title": "Score",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "dimension",
+          "score",
+          "reasoning",
+          "next_action"
+        ],
+        "title": "DimensionResult",
+        "type": "object"
+      },
+      "EcosystemProfileRead": {
+        "properties": {
+          "availability": {
+            "enum": [
+              "open",
+              "limited",
+              "closed"
+            ],
+            "title": "Availability",
+            "type": "string"
+          },
+          "consent_version": {
+            "title": "Consent Version",
+            "type": "string"
+          },
+          "consented_at": {
+            "format": "date-time",
+            "title": "Consented At",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "is_open": {
+            "title": "Is Open",
+            "type": "boolean"
+          },
+          "location": {
+            "title": "Location",
+            "type": "string"
+          },
+          "sector": {
+            "title": "Sector",
+            "type": "string"
+          },
+          "skills": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Skills",
+            "type": "array"
+          },
+          "stages": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Stages",
+            "type": "array"
+          },
+          "summary": {
+            "title": "Summary",
+            "type": "string"
+          },
+          "ticket_max": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ticket Max"
+          },
+          "ticket_min": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ticket Min"
+          }
+        },
+        "required": [
+          "id",
+          "sector",
+          "stages",
+          "skills",
+          "availability",
+          "ticket_min",
+          "ticket_max",
+          "location",
+          "summary",
+          "is_open",
+          "consent_version",
+          "consented_at"
+        ],
+        "title": "EcosystemProfileRead",
+        "type": "object"
+      },
+      "EcosystemProfileWrite": {
+        "properties": {
+          "availability": {
+            "enum": [
+              "open",
+              "limited",
+              "closed"
+            ],
+            "title": "Availability",
+            "type": "string"
+          },
+          "consent_accepted": {
+            "title": "Consent Accepted",
+            "type": "boolean"
+          },
+          "is_open": {
+            "default": true,
+            "title": "Is Open",
+            "type": "boolean"
+          },
+          "location": {
+            "maxLength": 255,
+            "minLength": 1,
+            "title": "Location",
+            "type": "string"
+          },
+          "sector": {
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "Sector",
+            "type": "string"
+          },
+          "skills": {
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 50,
+            "title": "Skills",
+            "type": "array"
+          },
+          "stages": {
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 4,
+            "minItems": 1,
+            "title": "Stages",
+            "type": "array"
+          },
+          "summary": {
+            "maxLength": 3000,
+            "minLength": 1,
+            "title": "Summary",
+            "type": "string"
+          },
+          "ticket_max": {
+            "anyOf": [
+              {
+                "minimum": 0.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ticket Max"
+          },
+          "ticket_min": {
+            "anyOf": [
+              {
+                "minimum": 0.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ticket Min"
+          }
+        },
+        "required": [
+          "consent_accepted",
+          "sector",
+          "stages",
+          "availability",
+          "location",
+          "summary"
+        ],
+        "title": "EcosystemProfileWrite",
+        "type": "object"
+      },
+      "FounderJobApplicationRead": {
+        "properties": {
+          "candidate_email": {
+            "title": "Candidate Email",
+            "type": "string"
+          },
+          "candidate_full_name": {
+            "title": "Candidate Full Name",
+            "type": "string"
+          },
+          "candidate_user_id": {
+            "title": "Candidate User Id",
+            "type": "integer"
+          },
+          "cover_letter": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cover Letter"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "job_id": {
+            "title": "Job Id",
+            "type": "integer"
+          },
+          "status": {
+            "enum": [
+              "submitted",
+              "reviewing",
+              "shortlisted",
+              "rejected",
+              "withdrawn"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "updated_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Updated At"
+          }
+        },
+        "required": [
+          "id",
+          "job_id",
+          "candidate_user_id",
+          "candidate_full_name",
+          "candidate_email",
+          "status",
+          "cover_letter",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "FounderJobApplicationRead",
+        "type": "object"
+      },
+      "FounderProfileRead": {
+        "properties": {
+          "bio": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bio"
+          },
+          "consent_version": {
+            "title": "Consent Version",
+            "type": "string"
+          },
+          "consented_at": {
+            "format": "date-time",
+            "title": "Consented At",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "location": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Location"
+          }
+        },
+        "required": [
+          "id",
+          "bio",
+          "location",
+          "consent_version",
+          "consented_at"
+        ],
+        "title": "FounderProfileRead",
+        "type": "object"
+      },
+      "FounderProfileWrite": {
+        "properties": {
+          "bio": {
+            "anyOf": [
+              {
+                "maxLength": 2000,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bio"
+          },
+          "consent_accepted": {
+            "title": "Consent Accepted",
+            "type": "boolean"
+          },
+          "location": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Location"
+          }
+        },
+        "required": [
+          "consent_accepted"
+        ],
+        "title": "FounderProfileWrite",
+        "type": "object"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "title": "Detail",
+            "type": "array"
+          }
+        },
+        "title": "HTTPValidationError",
+        "type": "object"
+      },
+      "JobApplicationCreate": {
+        "additionalProperties": false,
+        "properties": {
+          "cover_letter": {
+            "anyOf": [
+              {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cover Letter"
+          }
+        },
+        "title": "JobApplicationCreate",
+        "type": "object"
+      },
+      "JobApplicationStatusUpdate": {
+        "additionalProperties": false,
+        "properties": {
+          "status": {
+            "enum": [
+              "reviewing",
+              "shortlisted",
+              "rejected"
+            ],
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "title": "JobApplicationStatusUpdate",
+        "type": "object"
+      },
+      "JobListingCreate": {
+        "additionalProperties": false,
+        "properties": {
+          "description": {
+            "maxLength": 20000,
+            "minLength": 10,
+            "title": "Description",
+            "type": "string"
+          },
+          "employment_type": {
+            "enum": [
+              "job",
+              "internship"
+            ],
+            "title": "Employment Type",
+            "type": "string"
+          },
+          "is_remote": {
+            "default": false,
+            "title": "Is Remote",
+            "type": "boolean"
+          },
+          "location": {
+            "maxLength": 255,
+            "minLength": 2,
+            "title": "Location",
+            "type": "string"
+          },
+          "title": {
+            "maxLength": 200,
+            "minLength": 3,
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": [
+          "title",
+          "description",
+          "employment_type",
+          "location"
+        ],
+        "title": "JobListingCreate",
+        "type": "object"
+      },
+      "JobListingPatch": {
+        "additionalProperties": false,
+        "properties": {
+          "description": {
+            "anyOf": [
+              {
+                "maxLength": 20000,
+                "minLength": 10,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "employment_type": {
+            "anyOf": [
+              {
+                "enum": [
+                  "job",
+                  "internship"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Employment Type"
+          },
+          "is_remote": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Is Remote"
+          },
+          "location": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "minLength": 2,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Location"
+          },
+          "status": {
+            "anyOf": [
+              {
+                "enum": [
+                  "open",
+                  "closed"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Status"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "maxLength": 200,
+                "minLength": 3,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          }
+        },
+        "title": "JobListingPatch",
+        "type": "object"
+      },
+      "JobListingRead": {
+        "properties": {
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "employment_type": {
+            "enum": [
+              "job",
+              "internship"
+            ],
+            "title": "Employment Type",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "is_remote": {
+            "title": "Is Remote",
+            "type": "boolean"
+          },
+          "location": {
+            "title": "Location",
+            "type": "string"
+          },
+          "startup_id": {
+            "title": "Startup Id",
+            "type": "integer"
+          },
+          "startup_name": {
+            "title": "Startup Name",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "open",
+              "closed"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "updated_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Updated At"
+          }
+        },
+        "required": [
+          "id",
+          "startup_id",
+          "startup_name",
+          "title",
+          "description",
+          "employment_type",
+          "location",
+          "is_remote",
+          "status",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "JobListingRead",
+        "type": "object"
+      },
+      "LinkedInSignInRequest": {
+        "properties": {
+          "authorization_code": {
+            "maxLength": 512,
+            "minLength": 1,
+            "title": "Authorization Code",
+            "type": "string"
+          },
+          "consent_accepted": {
+            "title": "Consent Accepted",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "authorization_code",
+          "consent_accepted"
+        ],
+        "title": "LinkedInSignInRequest",
+        "type": "object"
+      },
+      "MarketResearchInterpretation": {
+        "additionalProperties": false,
+        "properties": {
+          "competitors": {
+            "items": {
+              "$ref": "#/components/schemas/CompetitorFinding"
+            },
+            "maxItems": 10,
+            "title": "Competitors",
+            "type": "array"
+          },
+          "market_size": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CitedStatement"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "opportunities": {
+            "items": {
+              "$ref": "#/components/schemas/CitedStatement"
+            },
+            "maxItems": 10,
+            "title": "Opportunities",
+            "type": "array"
+          },
+          "overview": {
+            "$ref": "#/components/schemas/CitedStatement"
+          }
+        },
+        "required": [
+          "overview",
+          "competitors",
+          "opportunities"
+        ],
+        "title": "MarketResearchInterpretation",
+        "type": "object"
+      },
+      "MarketResearchRead": {
+        "properties": {
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "evidence": {
+            "items": {
+              "$ref": "#/components/schemas/ResearchEvidenceRead"
+            },
+            "title": "Evidence",
+            "type": "array"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "interpretation": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/MarketResearchInterpretation"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "model_name": {
+            "title": "Model Name",
+            "type": "string"
+          },
+          "prompt_version": {
+            "title": "Prompt Version",
+            "type": "string"
+          },
+          "question": {
+            "title": "Question",
+            "type": "string"
+          },
+          "startup_id": {
+            "title": "Startup Id",
+            "type": "integer"
+          },
+          "status": {
+            "enum": [
+              "complete",
+              "insufficient_evidence",
+              "generation_failed"
+            ],
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "startup_id",
+          "question",
+          "status",
+          "interpretation",
+          "evidence",
+          "prompt_version",
+          "model_name",
+          "created_at"
+        ],
+        "title": "MarketResearchRead",
+        "type": "object"
+      },
+      "MarketResearchRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "question": {
+            "maxLength": 500,
+            "minLength": 5,
+            "title": "Question",
+            "type": "string"
+          },
+          "startup_id": {
+            "title": "Startup Id",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "startup_id",
+          "question"
+        ],
+        "title": "MarketResearchRequest",
+        "type": "object"
+      },
+      "MatchRead": {
+        "properties": {
+          "candidate_accepted": {
+            "title": "Candidate Accepted",
+            "type": "boolean"
+          },
+          "candidate_role": {
+            "title": "Candidate Role",
+            "type": "string"
+          },
+          "candidate_user_id": {
+            "title": "Candidate User Id",
+            "type": "integer"
+          },
+          "contact_email": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Contact Email"
+          },
+          "factors": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "title": "Factors",
+            "type": "object"
+          },
+          "founder_accepted": {
+            "title": "Founder Accepted",
+            "type": "boolean"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "location": {
+            "title": "Location",
+            "type": "string"
+          },
+          "mutual_acceptance": {
+            "title": "Mutual Acceptance",
+            "type": "boolean"
+          },
+          "request_status": {
+            "enum": [
+              "recommended",
+              "pending",
+              "accepted",
+              "declined"
+            ],
+            "title": "Request Status",
+            "type": "string"
+          },
+          "score": {
+            "title": "Score",
+            "type": "number"
+          },
+          "sector": {
+            "title": "Sector",
+            "type": "string"
+          },
+          "semantic_similarity": {
+            "title": "Semantic Similarity",
+            "type": "number"
+          },
+          "startup_id": {
+            "title": "Startup Id",
+            "type": "integer"
+          },
+          "startup_name": {
+            "title": "Startup Name",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "startup_id",
+          "startup_name",
+          "candidate_user_id",
+          "candidate_role",
+          "sector",
+          "location",
+          "semantic_similarity",
+          "score",
+          "factors",
+          "founder_accepted",
+          "candidate_accepted",
+          "mutual_acceptance",
+          "request_status",
+          "contact_email"
+        ],
+        "title": "MatchRead",
+        "type": "object"
+      },
+      "PitchAnswer": {
+        "properties": {
+          "answer": {
+            "maxLength": 5000,
+            "minLength": 1,
+            "title": "Answer",
+            "type": "string"
+          }
+        },
+        "required": [
+          "answer"
+        ],
+        "title": "PitchAnswer",
+        "type": "object"
+      },
+      "PitchSessionRead": {
+        "properties": {
+          "completed_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Completed At"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "persona": {
+            "title": "Persona",
+            "type": "string"
+          },
+          "rubric_version": {
+            "title": "Rubric Version",
+            "type": "string"
+          },
+          "scores": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Scores"
+          },
+          "startup_id": {
+            "title": "Startup Id",
+            "type": "integer"
+          },
+          "status": {
+            "enum": [
+              "active",
+              "incomplete",
+              "completed"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "turns": {
+            "items": {
+              "$ref": "#/components/schemas/PitchTurnRead"
+            },
+            "title": "Turns",
+            "type": "array"
+          }
+        },
+        "required": [
+          "id",
+          "startup_id",
+          "persona",
+          "status",
+          "scores",
+          "rubric_version",
+          "created_at",
+          "completed_at",
+          "turns"
+        ],
+        "title": "PitchSessionRead",
+        "type": "object"
+      },
+      "PitchStart": {
+        "properties": {
+          "persona": {
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "Persona",
+            "type": "string"
+          },
+          "startup_id": {
+            "title": "Startup Id",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "startup_id",
+          "persona"
+        ],
+        "title": "PitchStart",
+        "type": "object"
+      },
+      "PitchTurnRead": {
+        "properties": {
+          "content": {
+            "title": "Content",
+            "type": "string"
+          },
+          "speaker": {
+            "title": "Speaker",
+            "type": "string"
+          },
+          "turn_number": {
+            "title": "Turn Number",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "turn_number",
+          "speaker",
+          "content"
+        ],
+        "title": "PitchTurnRead",
+        "type": "object"
+      },
+      "ProfileReportRead": {
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "status": {
+            "const": "received",
+            "default": "received",
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "title": "ProfileReportRead",
+        "type": "object"
+      },
+      "ProfileReportWrite": {
+        "additionalProperties": false,
+        "properties": {
+          "reason": {
+            "maxLength": 1000,
+            "minLength": 10,
+            "title": "Reason",
+            "type": "string"
+          }
+        },
+        "required": [
+          "reason"
+        ],
+        "title": "ProfileReportWrite",
+        "type": "object"
+      },
+      "ProfileVerificationRead": {
+        "properties": {
+          "appeal_used": {
+            "title": "Appeal Used",
+            "type": "boolean"
+          },
+          "band": {
+            "enum": [
+              "high",
+              "review",
+              "low"
+            ],
+            "title": "Band",
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "portfolio_url": {
+            "title": "Portfolio Url",
+            "type": "string"
+          },
+          "reason": {
+            "title": "Reason",
+            "type": "string"
+          },
+          "rescore_locked": {
+            "title": "Rescore Locked",
+            "type": "boolean"
+          },
+          "score": {
+            "title": "Score",
+            "type": "number"
+          },
+          "secp_entity_name": {
+            "title": "Secp Entity Name",
+            "type": "string"
+          },
+          "secp_registration_number": {
+            "title": "Secp Registration Number",
+            "type": "string"
+          },
+          "signals": {
+            "additionalProperties": true,
+            "title": "Signals",
+            "type": "object"
+          },
+          "status": {
+            "enum": [
+              "pending_review",
+              "auto_verified",
+              "auto_rejected",
+              "appeal_pending",
+              "verified",
+              "rejected",
+              "blocked"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "threshold_version": {
+            "title": "Threshold Version",
+            "type": "string"
+          },
+          "updated_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Updated At"
+          },
+          "user_id": {
+            "title": "User Id",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "user_id",
+          "portfolio_url",
+          "secp_entity_name",
+          "secp_registration_number",
+          "status",
+          "score",
+          "band",
+          "signals",
+          "reason",
+          "threshold_version",
+          "appeal_used",
+          "rescore_locked",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "ProfileVerificationRead",
+        "type": "object"
+      },
+      "ProfileVerificationWrite": {
+        "additionalProperties": false,
+        "properties": {
+          "portfolio_url": {
+            "format": "uri",
+            "maxLength": 2048,
+            "minLength": 1,
+            "title": "Portfolio Url",
+            "type": "string"
+          },
+          "processing_consent_accepted": {
+            "title": "Processing Consent Accepted",
+            "type": "boolean"
+          },
+          "secp_entity_name": {
+            "maxLength": 255,
+            "minLength": 2,
+            "title": "Secp Entity Name",
+            "type": "string"
+          },
+          "secp_registration_number": {
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "Secp Registration Number",
+            "type": "string"
+          },
+          "trust_notice_accepted": {
+            "title": "Trust Notice Accepted",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "processing_consent_accepted",
+          "trust_notice_accepted",
+          "portfolio_url",
+          "secp_entity_name",
+          "secp_registration_number"
+        ],
+        "title": "ProfileVerificationWrite",
+        "type": "object"
+      },
+      "ReadinessRead": {
+        "properties": {
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "result": {
+            "$ref": "#/components/schemas/ReadinessResult"
+          },
+          "rubric_version": {
+            "title": "Rubric Version",
+            "type": "string"
+          },
+          "startup_id": {
+            "title": "Startup Id",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "startup_id",
+          "rubric_version",
+          "result",
+          "created_at"
+        ],
+        "title": "ReadinessRead",
+        "type": "object"
+      },
+      "ReadinessResult": {
+        "properties": {
+          "dimensions": {
+            "items": {
+              "$ref": "#/components/schemas/DimensionResult"
+            },
+            "maxItems": 7,
+            "minItems": 7,
+            "title": "Dimensions",
+            "type": "array"
+          },
+          "rubric_version": {
+            "const": "readiness-v1",
+            "default": "readiness-v1",
+            "title": "Rubric Version",
+            "type": "string"
+          }
+        },
+        "required": [
+          "dimensions"
+        ],
+        "title": "ReadinessResult",
+        "type": "object"
+      },
+      "ResearchEvidenceRead": {
+        "properties": {
+          "content": {
+            "title": "Content",
+            "type": "string"
+          },
+          "published_date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Published Date"
+          },
+          "source_id": {
+            "title": "Source Id",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "url": {
+            "format": "uri",
+            "minLength": 1,
+            "title": "Url",
+            "type": "string"
+          }
+        },
+        "required": [
+          "source_id",
+          "title",
+          "url",
+          "content",
+          "published_date"
+        ],
+        "title": "ResearchEvidenceRead",
+        "type": "object"
+      },
+      "ResumeLineSuggestion": {
+        "additionalProperties": false,
+        "properties": {
+          "after": {
+            "maxLength": 2000,
+            "minLength": 1,
+            "title": "After",
+            "type": "string"
+          },
+          "before": {
+            "maxLength": 2000,
+            "minLength": 1,
+            "title": "Before",
+            "type": "string"
+          },
+          "line_number": {
+            "minimum": 1.0,
+            "title": "Line Number",
+            "type": "integer"
+          },
+          "reasoning": {
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Reasoning",
+            "type": "string"
+          }
+        },
+        "required": [
+          "line_number",
+          "before",
+          "after",
+          "reasoning"
+        ],
+        "title": "ResumeLineSuggestion",
+        "type": "object"
+      },
+      "ResumeOptimizationRead": {
+        "properties": {
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "model_name": {
+            "title": "Model Name",
+            "type": "string"
+          },
+          "prompt_version": {
+            "title": "Prompt Version",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "complete",
+              "generation_failed"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "suggestions": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/ResumeLineSuggestion"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Suggestions"
+          },
+          "target_role": {
+            "title": "Target Role",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "status",
+          "target_role",
+          "suggestions",
+          "prompt_version",
+          "model_name",
+          "created_at"
+        ],
+        "title": "ResumeOptimizationRead",
+        "type": "object"
+      },
+      "StartupCreate": {
+        "properties": {
+          "business_model": {
+            "maxLength": 255,
+            "minLength": 1,
+            "title": "Business Model",
+            "type": "string"
+          },
+          "customer_count": {
+            "default": 0,
+            "minimum": 0.0,
+            "title": "Customer Count",
+            "type": "integer"
+          },
+          "description": {
+            "maxLength": 5000,
+            "minLength": 1,
+            "title": "Description",
+            "type": "string"
+          },
+          "funding_need_max": {
+            "anyOf": [
+              {
+                "minimum": 0.0,
+                "type": "number"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Funding Need Max"
+          },
+          "funding_need_min": {
+            "anyOf": [
+              {
+                "minimum": 0.0,
+                "type": "number"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Funding Need Min"
+          },
+          "location": {
+            "maxLength": 255,
+            "minLength": 1,
+            "title": "Location",
+            "type": "string"
+          },
+          "monthly_revenue": {
+            "anyOf": [
+              {
+                "minimum": 0.0,
+                "type": "number"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Monthly Revenue"
+          },
+          "name": {
+            "maxLength": 255,
+            "minLength": 1,
+            "title": "Name",
+            "type": "string"
+          },
+          "sector": {
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "Sector",
+            "type": "string"
+          },
+          "skills": {
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 50,
+            "title": "Skills",
+            "type": "array"
+          },
+          "stage": {
+            "enum": [
+              "idea",
+              "mvp",
+              "growth",
+              "scaling"
+            ],
+            "title": "Stage",
+            "type": "string"
+          },
+          "traction_summary": {
+            "maxLength": 5000,
+            "minLength": 1,
+            "title": "Traction Summary",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "description",
+          "sector",
+          "stage",
+          "location",
+          "business_model",
+          "traction_summary"
+        ],
+        "title": "StartupCreate",
+        "type": "object"
+      },
+      "StartupRead": {
+        "properties": {
+          "business_model": {
+            "title": "Business Model",
+            "type": "string"
+          },
+          "customer_count": {
+            "title": "Customer Count",
+            "type": "integer"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "funding_need_max": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Funding Need Max"
+          },
+          "funding_need_min": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Funding Need Min"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "is_verified": {
+            "title": "Is Verified",
+            "type": "boolean"
+          },
+          "location": {
+            "title": "Location",
+            "type": "string"
+          },
+          "monthly_revenue": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Monthly Revenue"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "sector": {
+            "title": "Sector",
+            "type": "string"
+          },
+          "skills": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Skills",
+            "type": "array"
+          },
+          "stage": {
+            "title": "Stage",
+            "type": "string"
+          },
+          "traction_summary": {
+            "title": "Traction Summary",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "description",
+          "sector",
+          "stage",
+          "location",
+          "business_model",
+          "traction_summary",
+          "customer_count",
+          "monthly_revenue",
+          "skills",
+          "funding_need_min",
+          "funding_need_max",
+          "is_verified"
+        ],
+        "title": "StartupRead",
+        "type": "object"
+      },
+      "StartupUpdate": {
+        "properties": {
+          "business_model": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Business Model"
+          },
+          "customer_count": {
+            "anyOf": [
+              {
+                "minimum": 0.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Customer Count"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "maxLength": 5000,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "funding_need_max": {
+            "anyOf": [
+              {
+                "minimum": 0.0,
+                "type": "number"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Funding Need Max"
+          },
+          "funding_need_min": {
+            "anyOf": [
+              {
+                "minimum": 0.0,
+                "type": "number"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Funding Need Min"
+          },
+          "location": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Location"
+          },
+          "monthly_revenue": {
+            "anyOf": [
+              {
+                "minimum": 0.0,
+                "type": "number"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Monthly Revenue"
+          },
+          "name": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "sector": {
+            "anyOf": [
+              {
+                "maxLength": 100,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sector"
+          },
+          "skills": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "maxItems": 50,
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Skills"
+          },
+          "stage": {
+            "anyOf": [
+              {
+                "enum": [
+                  "idea",
+                  "mvp",
+                  "growth",
+                  "scaling"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Stage"
+          },
+          "traction_summary": {
+            "anyOf": [
+              {
+                "maxLength": 5000,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Traction Summary"
+          }
+        },
+        "title": "StartupUpdate",
+        "type": "object"
+      },
+      "TalentJobApplicationRead": {
+        "properties": {
+          "cover_letter": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cover Letter"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "job_id": {
+            "title": "Job Id",
+            "type": "integer"
+          },
+          "job_title": {
+            "title": "Job Title",
+            "type": "string"
+          },
+          "startup_id": {
+            "title": "Startup Id",
+            "type": "integer"
+          },
+          "startup_name": {
+            "title": "Startup Name",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "submitted",
+              "reviewing",
+              "shortlisted",
+              "rejected",
+              "withdrawn"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "updated_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Updated At"
+          }
+        },
+        "required": [
+          "id",
+          "job_id",
+          "job_title",
+          "startup_id",
+          "startup_name",
+          "status",
+          "cover_letter",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "TalentJobApplicationRead",
+        "type": "object"
+      },
+      "TalentProfileRead": {
+        "properties": {
+          "consent_version": {
+            "title": "Consent Version",
+            "type": "string"
+          },
+          "consented_at": {
+            "format": "date-time",
+            "title": "Consented At",
+            "type": "string"
+          },
+          "github_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Github Url"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "user_id": {
+            "title": "User Id",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "user_id",
+          "github_url",
+          "consent_version",
+          "consented_at"
+        ],
+        "title": "TalentProfileRead",
+        "type": "object"
+      },
+      "TalentProfileWrite": {
+        "additionalProperties": false,
+        "properties": {
+          "consent_accepted": {
+            "title": "Consent Accepted",
+            "type": "boolean"
+          },
+          "github_url": {
+            "anyOf": [
+              {
+                "format": "uri",
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Github Url"
+          }
+        },
+        "required": [
+          "consent_accepted"
+        ],
+        "title": "TalentProfileWrite",
+        "type": "object"
+      },
+      "TokenResponse": {
+        "properties": {
+          "access_token": {
+            "title": "Access Token",
+            "type": "string"
+          },
+          "token_type": {
+            "default": "bearer",
+            "title": "Token Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "access_token"
+        ],
+        "title": "TokenResponse",
+        "type": "object"
+      },
+      "UserLoginRequest": {
+        "properties": {
+          "email": {
+            "format": "email",
+            "title": "Email",
+            "type": "string"
+          },
+          "password": {
+            "title": "Password",
+            "type": "string"
+          }
+        },
+        "required": [
+          "email",
+          "password"
+        ],
+        "title": "UserLoginRequest",
+        "type": "object"
+      },
+      "UserRead": {
+        "properties": {
+          "email": {
+            "format": "email",
+            "title": "Email",
+            "type": "string"
+          },
+          "full_name": {
+            "title": "Full Name",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "role": {
+            "title": "Role",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "email",
+          "full_name",
+          "role"
+        ],
+        "title": "UserRead",
+        "type": "object"
+      },
+      "UserRegisterRequest": {
+        "properties": {
+          "consent_accepted": {
+            "title": "Consent Accepted",
+            "type": "boolean"
+          },
+          "email": {
+            "format": "email",
+            "title": "Email",
+            "type": "string"
+          },
+          "full_name": {
+            "maxLength": 255,
+            "minLength": 1,
+            "title": "Full Name",
+            "type": "string"
+          },
+          "password": {
+            "maxLength": 128,
+            "minLength": 8,
+            "title": "Password",
+            "type": "string"
+          }
+        },
+        "required": [
+          "email",
+          "password",
+          "full_name",
+          "consent_accepted"
+        ],
+        "title": "UserRegisterRequest",
+        "type": "object"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "title": "Location",
+            "type": "array"
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError",
+        "type": "object"
+      },
+      "VerificationAppealWrite": {
+        "additionalProperties": false,
+        "properties": {
+          "added_evidence": {
+            "maxLength": 5000,
+            "minLength": 10,
+            "title": "Added Evidence",
+            "type": "string"
+          },
+          "reason": {
+            "maxLength": 1000,
+            "minLength": 10,
+            "title": "Reason",
+            "type": "string"
+          }
+        },
+        "required": [
+          "reason",
+          "added_evidence"
+        ],
+        "title": "VerificationAppealWrite",
+        "type": "object"
+      }
+    },
+    "securitySchemes": {
+      "HTTPBearer": {
+        "scheme": "bearer",
+        "type": "http"
+      }
+    }
+  },
+  "info": {
+    "title": "Founders Carnet API",
+    "version": "0.1.0"
+  },
+  "openapi": "3.1.0",
+  "paths": {
+    "/": {
+      "get": {
+        "operationId": "health_check__get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "title": "Response Health Check  Get",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Health Check"
+      }
+    },
+    "/api/v1/admin/stats": {
+      "get": {
+        "description": "Admin-only endpoint for the first access-control slice.\n\nFR-23, NFR-5.",
+        "operationId": "admin_stats_api_v1_admin_stats_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "title": "Response Admin Stats Api V1 Admin Stats Get",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Admin Stats"
+      }
+    },
+    "/api/v1/admin/verification/review-queue": {
+      "get": {
+        "operationId": "read_review_queue_api_v1_admin_verification_review_queue_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/AdminVerificationQueueItem"
+                  },
+                  "title": "Response Read Review Queue Api V1 Admin Verification Review Queue Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Read Review Queue",
+        "tags": [
+          "admin verification"
+        ]
+      }
+    },
+    "/api/v1/admin/verification/{verification_id}/decision": {
+      "post": {
+        "operationId": "decide_verification_api_v1_admin_verification__verification_id__decision_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "verification_id",
+            "required": true,
+            "schema": {
+              "title": "Verification Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminVerificationDecisionWrite"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfileVerificationRead"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Decide Verification",
+        "tags": [
+          "admin verification"
+        ]
+      }
+    },
+    "/api/v1/auth/linkedin/{role}": {
+      "post": {
+        "description": "Sign in through the provider boundary using the local fake provider (FR-17, FR-22).",
+        "operationId": "linkedin_sign_in_api_v1_auth_linkedin__role__post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "role",
+            "required": true,
+            "schema": {
+              "enum": [
+                "founder",
+                "talent",
+                "mentor",
+                "investor"
+              ],
+              "title": "Role",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LinkedInSignInRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserRead"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Linkedin Sign In"
+      }
+    },
+    "/api/v1/auth/login": {
+      "post": {
+        "description": "Sign in and issue a JWT for role-scoped access.\n\nFR-23, NFR-4, NFR-5.",
+        "operationId": "login_user_api_v1_auth_login_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserLoginRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Login User"
+      }
+    },
+    "/api/v1/auth/logout": {
+      "post": {
+        "description": "Invalidate every token issued before this logout (FR-23, NFR-5).",
+        "operationId": "logout_user_api_v1_auth_logout_post",
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Logout User"
+      }
+    },
+    "/api/v1/auth/register/{role}": {
+      "post": {
+        "description": "Register a public role with explicit consent; admin is never public.\n\nFR-17, FR-22, FR-23, NFR-4, NFR-5, NFR-8, NFR-9.",
+        "operationId": "register_user_api_v1_auth_register__role__post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "role",
+            "required": true,
+            "schema": {
+              "enum": [
+                "founder",
+                "talent",
+                "mentor",
+                "investor"
+              ],
+              "title": "Role",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserRegisterRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserRead"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Register User"
+      }
+    },
+    "/api/v1/compliance/questions": {
+      "post": {
+        "operationId": "ask_compliance_question_api_v1_compliance_questions_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ComplianceQuestionRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ComplianceAnswerResult"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Ask Compliance Question",
+        "tags": [
+          "compliance"
+        ]
+      }
+    },
+    "/api/v1/founders/me/profile": {
+      "get": {
+        "operationId": "read_founder_profile_api_v1_founders_me_profile_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FounderProfileRead"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Read Founder Profile",
+        "tags": [
+          "founders"
+        ]
+      },
+      "put": {
+        "description": "Create or update the caller's founder profile after explicit consent.",
+        "operationId": "save_founder_profile_api_v1_founders_me_profile_put",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FounderProfileWrite"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FounderProfileRead"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Save Founder Profile",
+        "tags": [
+          "founders"
+        ]
+      }
+    },
+    "/api/v1/founders/me/startups": {
+      "get": {
+        "operationId": "list_startups_api_v1_founders_me_startups_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/StartupRead"
+                  },
+                  "title": "Response List Startups Api V1 Founders Me Startups Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "List Startups",
+        "tags": [
+          "founders"
+        ]
+      },
+      "post": {
+        "operationId": "create_startup_api_v1_founders_me_startups_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StartupCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StartupRead"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Create Startup",
+        "tags": [
+          "founders"
+        ]
+      }
+    },
+    "/api/v1/founders/me/startups/{startup_id}": {
+      "patch": {
+        "operationId": "update_startup_api_v1_founders_me_startups__startup_id__patch",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "startup_id",
+            "required": true,
+            "schema": {
+              "title": "Startup Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StartupUpdate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StartupRead"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Update Startup",
+        "tags": [
+          "founders"
+        ]
+      }
+    },
+    "/api/v1/job-applications/{application_id}": {
+      "patch": {
+        "operationId": "update_application_status_api_v1_job_applications__application_id__patch",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "application_id",
+            "required": true,
+            "schema": {
+              "title": "Application Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/JobApplicationStatusUpdate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FounderJobApplicationRead"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Update Application Status",
+        "tags": [
+          "jobs"
+        ]
+      }
+    },
+    "/api/v1/jobs": {
+      "get": {
+        "operationId": "browse_listings_api_v1_jobs_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "maximum": 100,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "minimum": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/JobListingRead"
+                  },
+                  "title": "Response Browse Listings Api V1 Jobs Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Browse Listings",
+        "tags": [
+          "jobs"
+        ]
+      }
+    },
+    "/api/v1/jobs/applications/me": {
+      "get": {
+        "operationId": "my_applications_api_v1_jobs_applications_me_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/TalentJobApplicationRead"
+                  },
+                  "title": "Response My Applications Api V1 Jobs Applications Me Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "My Applications",
+        "tags": [
+          "jobs"
+        ]
+      }
+    },
+    "/api/v1/jobs/saved": {
+      "get": {
+        "operationId": "saved_listings_api_v1_jobs_saved_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/JobListingRead"
+                  },
+                  "title": "Response Saved Listings Api V1 Jobs Saved Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Saved Listings",
+        "tags": [
+          "jobs"
+        ]
+      }
+    },
+    "/api/v1/jobs/{job_id}": {
+      "delete": {
+        "operationId": "delete_listing_api_v1_jobs__job_id__delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "job_id",
+            "required": true,
+            "schema": {
+              "title": "Job Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Delete Listing",
+        "tags": [
+          "jobs"
+        ]
+      },
+      "patch": {
+        "operationId": "update_listing_api_v1_jobs__job_id__patch",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "job_id",
+            "required": true,
+            "schema": {
+              "title": "Job Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/JobListingPatch"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobListingRead"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Update Listing",
+        "tags": [
+          "jobs"
+        ]
+      }
+    },
+    "/api/v1/jobs/{job_id}/applications": {
+      "post": {
+        "operationId": "apply_to_listing_api_v1_jobs__job_id__applications_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "job_id",
+            "required": true,
+            "schema": {
+              "title": "Job Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/JobApplicationCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TalentJobApplicationRead"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Apply To Listing",
+        "tags": [
+          "jobs"
+        ]
+      }
+    },
+    "/api/v1/jobs/{job_id}/save": {
+      "delete": {
+        "operationId": "unsave_listing_api_v1_jobs__job_id__save_delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "job_id",
+            "required": true,
+            "schema": {
+              "title": "Job Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Unsave Listing",
+        "tags": [
+          "jobs"
+        ]
+      },
+      "post": {
+        "operationId": "save_listing_api_v1_jobs__job_id__save_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "job_id",
+            "required": true,
+            "schema": {
+              "title": "Job Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "anyOf": [
+                      {
+                        "type": "integer"
+                      },
+                      {
+                        "type": "boolean"
+                      }
+                    ]
+                  },
+                  "title": "Response Save Listing Api V1 Jobs  Job Id  Save Post",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Save Listing",
+        "tags": [
+          "jobs"
+        ]
+      }
+    },
+    "/api/v1/market-research": {
+      "post": {
+        "operationId": "create_market_research_api_v1_market_research_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MarketResearchRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MarketResearchRead"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Create Market Research",
+        "tags": [
+          "market research"
+        ]
+      }
+    },
+    "/api/v1/matching/me": {
+      "get": {
+        "operationId": "list_my_matches_api_v1_matching_me_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "maximum": 100,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "minimum": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/MatchRead"
+                  },
+                  "title": "Response List My Matches Api V1 Matching Me Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "List My Matches",
+        "tags": [
+          "startup intelligence"
+        ]
+      }
+    },
+    "/api/v1/matching/me/profile": {
+      "put": {
+        "operationId": "save_ecosystem_profile_api_v1_matching_me_profile_put",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EcosystemProfileWrite"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EcosystemProfileRead"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Save Ecosystem Profile",
+        "tags": [
+          "startup intelligence"
+        ]
+      }
+    },
+    "/api/v1/matching/startups/{startup_id}": {
+      "get": {
+        "operationId": "recommend_profiles_api_v1_matching_startups__startup_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "startup_id",
+            "required": true,
+            "schema": {
+              "title": "Startup Id",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "top_k",
+            "required": false,
+            "schema": {
+              "default": 3,
+              "maximum": 3,
+              "minimum": 1,
+              "title": "Top K",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/MatchRead"
+                  },
+                  "title": "Response Recommend Profiles Api V1 Matching Startups  Startup Id  Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Recommend Profiles",
+        "tags": [
+          "startup intelligence"
+        ]
+      }
+    },
+    "/api/v1/matching/{match_id}/accept": {
+      "post": {
+        "operationId": "accept_match_api_v1_matching__match_id__accept_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "match_id",
+            "required": true,
+            "schema": {
+              "title": "Match Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MatchRead"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Accept Match",
+        "tags": [
+          "startup intelligence"
+        ]
+      }
+    },
+    "/api/v1/matching/{match_id}/decline": {
+      "post": {
+        "operationId": "decline_match_api_v1_matching__match_id__decline_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "match_id",
+            "required": true,
+            "schema": {
+              "title": "Match Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MatchRead"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Decline Match",
+        "tags": [
+          "startup intelligence"
+        ]
+      }
+    },
+    "/api/v1/matching/{match_id}/request": {
+      "post": {
+        "operationId": "request_match_api_v1_matching__match_id__request_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "match_id",
+            "required": true,
+            "schema": {
+              "title": "Match Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MatchRead"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Request Match",
+        "tags": [
+          "startup intelligence"
+        ]
+      }
+    },
+    "/api/v1/pitch/history": {
+      "get": {
+        "operationId": "pitch_history_api_v1_pitch_history_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "maximum": 100,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "minimum": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/PitchSessionRead"
+                  },
+                  "title": "Response Pitch History Api V1 Pitch History Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Pitch History",
+        "tags": [
+          "startup intelligence"
+        ]
+      }
+    },
+    "/api/v1/pitch/sessions": {
+      "post": {
+        "operationId": "start_pitch_session_api_v1_pitch_sessions_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PitchStart"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PitchSessionRead"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Start Pitch Session",
+        "tags": [
+          "startup intelligence"
+        ]
+      }
+    },
+    "/api/v1/pitch/sessions/{session_id}/abandon": {
+      "post": {
+        "operationId": "abandon_pitch_session_api_v1_pitch_sessions__session_id__abandon_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "session_id",
+            "required": true,
+            "schema": {
+              "title": "Session Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PitchSessionRead"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Abandon Pitch Session",
+        "tags": [
+          "startup intelligence"
+        ]
+      }
+    },
+    "/api/v1/pitch/sessions/{session_id}/turns": {
+      "post": {
+        "operationId": "answer_pitch_turn_api_v1_pitch_sessions__session_id__turns_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "session_id",
+            "required": true,
+            "schema": {
+              "title": "Session Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PitchAnswer"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PitchSessionRead"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Answer Pitch Turn",
+        "tags": [
+          "startup intelligence"
+        ]
+      }
+    },
+    "/api/v1/resumes/history": {
+      "get": {
+        "operationId": "resume_history_api_v1_resumes_history_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "maximum": 100,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "minimum": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ResumeOptimizationRead"
+                  },
+                  "title": "Response Resume History Api V1 Resumes History Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Resume History",
+        "tags": [
+          "resume optimizer"
+        ]
+      }
+    },
+    "/api/v1/resumes/optimize": {
+      "post": {
+        "description": "Send the PDF bytes as the raw request body. Set Content-Type to application/pdf and X-Resume-Processing-Consent to true.",
+        "operationId": "optimize_resume_api_v1_resumes_optimize_post",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "target_role",
+            "required": true,
+            "schema": {
+              "maxLength": 120,
+              "minLength": 2,
+              "title": "Target Role",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-Resume-Processing-Consent",
+            "required": false,
+            "schema": {
+              "default": false,
+              "title": "X-Resume-Processing-Consent",
+              "type": "boolean"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/pdf": {
+              "schema": {
+                "format": "binary",
+                "type": "string"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResumeOptimizationRead"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Optimize Resume",
+        "tags": [
+          "resume optimizer"
+        ]
+      }
+    },
+    "/api/v1/resumes/{resume_id}": {
+      "delete": {
+        "operationId": "delete_resume_api_v1_resumes__resume_id__delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "resume_id",
+            "required": true,
+            "schema": {
+              "title": "Resume Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Delete Resume",
+        "tags": [
+          "resume optimizer"
+        ]
+      }
+    },
+    "/api/v1/startups/{startup_id}/job-applications": {
+      "get": {
+        "operationId": "founder_applications_api_v1_startups__startup_id__job_applications_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "startup_id",
+            "required": true,
+            "schema": {
+              "title": "Startup Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/FounderJobApplicationRead"
+                  },
+                  "title": "Response Founder Applications Api V1 Startups  Startup Id  Job Applications Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Founder Applications",
+        "tags": [
+          "jobs"
+        ]
+      }
+    },
+    "/api/v1/startups/{startup_id}/jobs": {
+      "get": {
+        "operationId": "list_founder_listings_api_v1_startups__startup_id__jobs_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "startup_id",
+            "required": true,
+            "schema": {
+              "title": "Startup Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/JobListingRead"
+                  },
+                  "title": "Response List Founder Listings Api V1 Startups  Startup Id  Jobs Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "List Founder Listings",
+        "tags": [
+          "jobs"
+        ]
+      },
+      "post": {
+        "operationId": "create_listing_api_v1_startups__startup_id__jobs_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "startup_id",
+            "required": true,
+            "schema": {
+              "title": "Startup Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/JobListingCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobListingRead"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Create Listing",
+        "tags": [
+          "jobs"
+        ]
+      }
+    },
+    "/api/v1/startups/{startup_id}/market-research": {
+      "get": {
+        "operationId": "market_research_history_api_v1_startups__startup_id__market_research_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "startup_id",
+            "required": true,
+            "schema": {
+              "title": "Startup Id",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "maximum": 100,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "minimum": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/MarketResearchRead"
+                  },
+                  "title": "Response Market Research History Api V1 Startups  Startup Id  Market Research Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Market Research History",
+        "tags": [
+          "market research"
+        ]
+      }
+    },
+    "/api/v1/startups/{startup_id}/readiness": {
+      "get": {
+        "operationId": "readiness_history_api_v1_startups__startup_id__readiness_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "startup_id",
+            "required": true,
+            "schema": {
+              "title": "Startup Id",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "maximum": 100,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "minimum": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ReadinessRead"
+                  },
+                  "title": "Response Readiness History Api V1 Startups  Startup Id  Readiness Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Readiness History",
+        "tags": [
+          "startup intelligence"
+        ]
+      },
+      "post": {
+        "operationId": "assess_readiness_api_v1_startups__startup_id__readiness_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "startup_id",
+            "required": true,
+            "schema": {
+              "title": "Startup Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReadinessRead"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Assess Readiness",
+        "tags": [
+          "startup intelligence"
+        ]
+      }
+    },
+    "/api/v1/talent/me/profile": {
+      "put": {
+        "operationId": "save_talent_profile_api_v1_talent_me_profile_put",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TalentProfileWrite"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TalentProfileRead"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Save Talent Profile",
+        "tags": [
+          "startup intelligence"
+        ]
+      }
+    },
+    "/api/v1/users/me": {
+      "get": {
+        "description": "Return the current authenticated user's profile.\n\nNFR-5: protected endpoints require a valid token and caller role.",
+        "operationId": "read_current_user_api_v1_users_me_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserRead"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Read Current User"
+      }
+    },
+    "/api/v1/users/me/consent/withdraw": {
+      "post": {
+        "description": "Withdraw non-essential processing consent and preserve the audit record (FR-27, NFR-9).",
+        "operationId": "withdraw_consent_api_v1_users_me_consent_withdraw_post",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConsentStatusRead"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Withdraw Consent"
+      }
+    },
+    "/api/v1/users/me/deletion-request": {
+      "post": {
+        "description": "Disable the account now and schedule the 30-day purge for step 9 (FR-27, NFR-11).",
+        "operationId": "request_account_deletion_api_v1_users_me_deletion_request_post",
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeletionRequestRead"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Request Account Deletion"
+      }
+    },
+    "/api/v1/verification/me": {
+      "get": {
+        "operationId": "read_my_verification_api_v1_verification_me_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfileVerificationRead"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Read My Verification",
+        "tags": [
+          "profile verification"
+        ]
+      },
+      "post": {
+        "operationId": "submit_verification_api_v1_verification_me_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProfileVerificationWrite"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfileVerificationRead"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Submit Verification",
+        "tags": [
+          "profile verification"
+        ]
+      }
+    },
+    "/api/v1/verification/me/appeals": {
+      "post": {
+        "operationId": "appeal_auto_rejection_api_v1_verification_me_appeals_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VerificationAppealWrite"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfileVerificationRead"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Appeal Auto Rejection",
+        "tags": [
+          "profile verification"
+        ]
+      }
+    },
+    "/api/v1/verification/profiles/{profile_user_id}/reports": {
+      "post": {
+        "operationId": "report_profile_api_v1_verification_profiles__profile_user_id__reports_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "profile_user_id",
+            "required": true,
+            "schema": {
+              "title": "Profile User Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProfileReportWrite"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfileReportRead"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Report Profile",
+        "tags": [
+          "profile verification"
+        ]
+      }
+    }
+  }
+}

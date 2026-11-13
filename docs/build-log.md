@@ -63,6 +63,68 @@ One entry per finished piece of work, newest first. This is what we use to write
 - **Tested:** `rag/.venv/Scripts/python.exe -m pytest rag/tests -q` passed (21 passed). All 15 manifest hashes passed. pypdf extracted all active PDFs with text and no extraction errors. Chunk totals: 496 across 11 active source texts. Generated 10 Companies Act samples and 3 each from the Finance Act and Seventh Schedule for manual review.
 - **Cut or partial:** Embeddings, indexing, retrieval, answer generation, endpoint, and evaluation were not part of this step.
 - **Differs from the report?** No; see the 2026-11-13 entry in `docs/DECISIONS.md` for the verifier behavior and mixed manifest text-hash convention.
+## 2026-11-12: Admin verification queue and appeals (Codex)
+
+- **Feature and IDs:** Administrative review and profile verification appeals, FR-16, FR-21, FR-26.
+- **Built:** Extended the admin-only queue with all persisted signal values, outcomes, input snapshots, and reasons. Added coverage for 401/403 access, both queue statuses, privacy, approve/reject decisions, reviewer attribution, trimmed non-empty reasons, final appeal outcomes, the one-appeal limit, report-to-queue rescore locking, and status visibility. Kept the existing tables and migration history; refreshed `backend/openapi.json` with both admin routes.
+- **Tested:** Focused admin tests: 6 passed. Full backend suite: 108 passed, 0 failed, 1 existing Starlette/AnyIO warning. Isolated compliance regression tests: 22 passed; RAG regression tests: 11 passed. Compliance and RAG are regression-only and out of scope. Console and JUnit results are saved under `docs/test-results/step5-admin-20261112-2320.*`, `docs/test-results/step5-compliance-regression-20261112-2320.*`, and `docs/test-results/step5-compliance-rag-regression-20261112-2316.*`.
+- **Cut or partial:** No block-profile operation exists in the current API, so blocked-profile routing was not added or tested; a new operation would exceed the approved contract. PostgreSQL/production behavior was not exercised; tests use SQLite.
+- **Differs from the report?** The available requirement summary does not specify route paths, per-signal response fields, or appeal audit columns. The specific API contract and report follow-up are recorded in `docs/DECISIONS.md` and `docs/pending-report-changes.md`.
+
+## 2026-11-12: Containers, Redis, Celery worker, and OpenAPI export (Codex)
+
+- **Feature and IDs:** Backend infrastructure, NFR-2, NFR-19, NFR-21, NFR-23.
+- **Built:** Added Redis, API, and Celery worker services beside the existing PostgreSQL 17 service; added pinned Celery and Redis dependencies, Redis settings, a worker entrypoint, an API Dockerfile, and an OpenAPI export script. Added focused infrastructure tests and the backend test ledger.
+- **Tested:** Focused infrastructure tests: 4 passed. Full backend suite: 94 passed, 0 failed, 1 existing Starlette/AnyIO deprecation warning. Console and JUnit output are saved under `docs/test-results/step1-containers-20261112-2200.*`. Docker Compose validation was not run because Docker is unavailable. Local Ruff validation was not run because Ruff is not installed locally; CI installs it.
+- **Cut or partial:** No Celery feature tasks were added; profile embedding regeneration and deletion purge remain scheduled for step 9. The Backend Implementation Guide was not present, so BT-01..BT-12 mapping remains pending.
+
+## 2026-11-11: Profile verification scoring and appeals (Codex)
+
+- **Feature and IDs:** Hybrid profile verification, FR-12, FR-14, FR-15, FR-16, FR-19, FR-20, FR-21, NFR-9, NFR-11, NFR-19, NFR-22.
+- **Built:** Added consented mentor/investor verification, Firecrawl portfolio extraction and Gateway-based consistency assessment, configurable score bands, persisted signals and threshold version, status history, one appeal, report-to-review handling, and rescore lock. Matching now returns mentors/investors only when their verification status is verified. Added migration `0009`.
+- **Tested:** Backend suite: 90 passed; RAG suite: 11 passed; focused verification, matching, and migration tests: 23 passed. One existing Starlette/AnyIO deprecation warning remains. Firecrawl and Gemini calls were mocked; no live provider or PostgreSQL server was used.
+- **Cut or partial:** LinkedIn OAuth is cut; SECP identity checking is manual, and the admin review/decision routes are the next feature. High scores remain pending until a reviewer confirms SECP identity. Threshold defaults are not calibrated.
+- **Differs from the report?** No; the method for the report's SECP cross-check is recorded in `docs/DECISIONS.md`.
+
+## 2026-11-11: Job and internship board (Codex)
+
+- **Feature and IDs:** Job and internship board, FR-6, FR-24, FR-25, NFR-5.
+- **Built:** Verified founders can create, edit, close, delete listings and review applicants. Talent can browse, save, apply, and track application status. Added migration `0008` and documented the routes.
+- **Tested:** Backend suite: 81 passed (one existing Starlette/AnyIO deprecation warning); RAG suite: 11 passed. Job tests cover role/owner checks, verification gates, duplicate applications, closed listings, status changes, and cascading deletion. Migration test checks all three tables. No live PostgreSQL server was used.
+- **Cut or partial:** Search/filter polish and candidate application withdrawal are not included in this minimum slice.
+- **Differs from the report?** No; implements FR-6, FR-24, and FR-25.
+
+## 2026-11-11: Private resume upload and line edits (Codex)
+
+- **Feature and IDs:** Resume and profile optimizer, FR-5, NFR-7, NFR-19, NFR-22.
+- **Built:** Added a talent-only raw-PDF upload API with a 5 MiB cap, MIME and signature checks, PDF page/text limits, explicit processing consent recorded by version and time, and storage outside served/source directories. The LLM Gateway returns structured line edits; each `before` must match the exact numbered extracted line. Saved owner-scoped history and a delete endpoint remove the stored file. Added migration `0007`; private local storage is ignored by git. No package was installed.
+- **Tested:** Backend suite: 79 passed (one existing Starlette/AnyIO deprecation warning); RAG suite: 11 passed; `git diff --check` passed; Alembic head is `0007`. Tests use synthetic PDFs and a mocked gateway to cover upload limits, consent, PDF extraction, ownership, deletion, line validation, and provider failure. No live Gemini call was made.
+- **Cut or partial:** PDF only; DOCX and scanned-PDF OCR are not supported. A working Gemini configuration is still required for real suggestions.
+- **Differs from the report?** No; this implements the report's consented CV upload, private storage, and line-level suggestions.
+
+## 2026-11-11: Market research with saved evidence (Codex)
+
+- **Feature and IDs:** Market research synthesis, FR-4, NFR-19, NFR-22.
+- **Built:** Added founder-only `POST /api/v1/market-research` and paged startup-owned history. Firecrawl search is bounded to five public web results, excludes major social-profile domains, validates and truncates source content, and logs counts/timing without the query or API key. Gemini receives only the retrieved evidence and produces a structured interpretation with source IDs. The API validates every source ID, returns evidence separately, and stores query, evidence, interpretation, model, and prompt version. Empty evidence is recorded as `insufficient_evidence`; failed synthesis remains `generation_failed` with evidence saved. Added migration `0006` and configuration examples.
+- **Tested:** Backend suite: 70 passed (one existing Starlette/AnyIO deprecation warning); RAG suite: 11 passed; `git diff --check` passed. Mocked HTTP tests cover Firecrawl request/response handling and sanitized failures; API tests cover source-grounded output, empty search, invalid citations, provider failure, history, and startup ownership. No live Firecrawl or Gemini request was made.
+- **Cut or partial:** Configure `FIRECRAWL_API_KEY` and a working Gemini key/model before using live search and synthesis. Search uses a synchronous request with a 25-second provider limit; caching/refresh remain cut per plan.
+- **Differs from the report?** No; this implements the report's evidence-separated synthesis and saved output/evidence log.
+
+## 2026-11-11: Pitch simulator rubric and failure recovery (Codex)
+
+- **Feature and IDs:** Pitch simulator, FR-3, FR-28, NFR-15.
+- **Built:** Added fixed 1-to-5 anchors for clarity, written confidence, and content. The rubric scores the full founder transcript, explains evidence, and avoids inferring emotional state or predicting funding. Kept model calls behind the LLM Gateway and preserved the submitted founder answer before generation.
+- **Tested:** Backend suite: 62 passed (one existing Starlette/AnyIO deprecation warning); RAG suite: 11 passed; `git diff --check` passed. Mocked tests check rubric delivery, completed-session scores/history, and transcript preservation after a generation failure.
+- **Cut or partial:** No live Gemini pitch session was run; provider availability still depends on the configured account/model. Readiness was already implemented with seven validated dimensions, versioned storage, and founder history.
+- **Differs from the report?** No; this makes the report's fixed rubric concrete while retaining its three scoring areas.
+
+## 2026-11-10: Matching ranking and mutual-accept request lifecycle (Codex)
+
+- **Feature and IDs:** Ecosystem matching baseline, FR-7, FR-10, FR-29, NFR-3, NFR-6, NFR-15, NFR-20.
+- **Built:** Added the report's top-K range (1 to 3, default 3). Role, active-account, open-profile, embedding-model, geography, and investor verification/readiness eligibility are applied before PostgreSQL's vector limit. Sector and stage remain weighted factors per the coding plan. Excluded vector-dimension mismatches before cosine distance; select only needed user fields; join saved match records to avoid per-candidate lookups. Added explicit request, accept, and decline routes with stored request status and requester, mutual-accept contact reveal, and a migration that backfills existing acceptance flags. The legacy accept route remains compatible by treating its first call as the request.
+- **Tested:** Backend suite: 61 passed (one existing Starlette/AnyIO deprecation warning); RAG suite: 11 passed. PostgreSQL-dialect compilation checks candidate filtering before vector top-K and avoids selecting password hashes; migration tests cover legacy-state backfill. The actual PostgreSQL/pgvector server and seeded two-second performance target were not tested because Docker and PostgreSQL are unavailable here.
+- **Cut or partial:** The seeded demo performance evaluation remains. Report alignment for weighted sector/stage scoring is recorded in `docs/DECISIONS.md` and `docs/pending-report-changes.md`.
+- **Differs from the report?** Yes: sector and stage are weighted ranking factors per the coding plan, while the report currently describes them as hard filters. The reason and required report update are recorded in the decision log and pending changes table.
 
 ## 2026-10-18: Auth refactoring, role route guards & removal of demo role switcher (Shahzeb, with Antigravity)
 
@@ -359,6 +421,58 @@ One entry per finished piece of work, newest first. This is what we use to write
 - **Cut or partial:** No OCR package was installed; transcription is manual and explicitly annotated. Corpus indexing and gold-set evaluation remain.
 - **Differs from the report?** No; this implements the report corpus source with the hand-transcription method allowed by the corpus plan.
 
+## 2026-11-12: FYP-1 schema gap report (Codex)
+
+- **Feature and IDs:** Schema inventory; supports FR-6, FR-8, FR-10, FR-12, FR-13, FR-14, FR-15, FR-16, FR-17, FR-19, FR-20, FR-21, FR-22, FR-24, FR-25, FR-26, FR-27, FR-29 and NFR-15. Compliance rows are regression-only and out of scope.
+- **Built:** Added `docs/schema_gap_report.md`, mapping all 37 FYP-1 ER-diagram tables to their current implementation status and documenting differing physical names and columns.
+- **Tested:** Ran the existing backend suite with results saved under `docs/test-results/`; no schema or application behavior changed.
+- **Cut or partial:** No migrations, tables, API contracts, or compliance changes. The missing Backend Implementation Guide leaves BT-01..BT-12 mapping pending.
+- **Differs from the report?** The report baseline is represented by existing ER diagrams because the formal data dictionary is not present in this checkout.
+
+## 2026-11-12: Auth consent, deletion, and fake LinkedIn provider (Codex)
+
+- **Feature and IDs:** FR-17, FR-22, FR-27, NFR-4, NFR-5, NFR-9, NFR-11, NFR-22.
+- **Built:** Added registration consent records, validated role path registration with no public admin role, consent withdrawal, immediate account disablement with a 30-day purge schedule, `oauth_identities`, and a fake LinkedIn provider behind a provider interface. Added migration `0010` and updated existing registration tests for the approved contract.
+- **Tested:** 99 backend tests passed with one existing Starlette/AnyIO deprecation warning; compliance/RAG tests ran only as regression tests and remain out of scope.
+- **Cut or partial:** Real LinkedIn OAuth credentials and network integration are not included; the purge worker remains step 9.
+- **Differs from the report?** Yes. The report still needs to describe the new auth endpoints and the fake-provider boundary; see `docs/pending-report-changes.md`.
+
+## 2026-11-12: Talent profiles and five-signal verification (Codex)
+
+- **Feature and IDs:** FR-12, FR-13, FR-14, FR-15, FR-19, FR-20, NFR-9, NFR-15, NFR-22.
+- **Built:** Added `talent_profiles` and `verification_signals` in migration `0011`; added optional validated GitHub links, full talent verification, versioned configurable weights/thresholds, manual-SECP and portfolio interfaces, all five signal inputs/outcomes/reasons, and auto-verified/review/auto-rejected band handling.
+- **Tested:** 102 backend tests passed with one existing Starlette/AnyIO deprecation warning; compliance/RAG tests ran only for regression and remain frozen/out of scope.
+- **Cut or partial:** GitHub activity metrics are represented by optional link presence in this slice; real SECP lookup is intentionally not implemented. High scores remain pending while the manual SECP signal is pending.
+- **Differs from the report?** Yes. The report needs to describe full talent verification and normalized signal audit storage; see `docs/pending-report-changes.md`.
+## 2026-11-12: LLM Gateway cache, queue position, and call metadata (Codex)
+
+- **Feature and IDs:** NFR-2, NFR-8, NFR-11, NFR-19, NFR-22.
+- **Built:** Added a private per-user disk cache for non-compliance structured results with a 24-hour expiry and account-deletion cleanup; a FIFO tracker reports waiting position in internal logs and persisted metadata; migration `0012` stores sanitized per-attempt gateway metadata without prompt, evidence, input, or output content. Public route contracts and compliance generation signatures/behavior remain unchanged.
+- **Tested:** 114 backend tests passed; 22 compliance regression tests passed; 11 RAG regression tests passed. Each run has console and JUnit output in `docs/test-results/`. One existing Starlette/AnyIO deprecation warning appeared in backend and compliance runs.
+- **Cut or partial:** Cache is process-local filesystem storage; no distributed cache or API queue-position field was added. Report follow-up is in `docs/pending-report-changes.md`.
+- **Differs from the report?** Yes. The report currently describes prompt/evidence logging; update it to describe sanitized metadata and the private cache as specified in `docs/pending-report-changes.md`.
+## 2026-11-13: Matching eligibility and contact visibility review (Codex)
+
+- **Feature and IDs:** Matching, FR-7, FR-10, FR-29, NFR-3, NFR-5, NFR-6.
+- **Built:** Fixed founder match history to filter closed profiles and inactive candidates in the database query before pagination. Added regressions for page filling, inactive candidates, contact visibility while acceptance is pending, and the PostgreSQL pgvector cosine-distance query. Existing ranking weights and sector/stage scoring decision were preserved.
+- **Tested:** 15 focused matching tests, 116 backend tests, 22 isolated compliance regression tests, and 11 RAG regression tests passed. Saved console and JUnit output under `docs/test-results/`; `git diff --check` passed.
+- **Cut or partial:** No live PostgreSQL/pgvector server was used; PostgreSQL SQL compilation and the local Python cosine path were tested. Match records remain startup-anchored, so the direct talent–mentor pairing named by FR-7 is not implemented and needs an API/domain-model decision.
+- **Differs from the report?** Sector/stage weights remain as already recorded in `docs/DECISIONS.md` and `docs/pending-report-changes.md`. `main.tex` is absent from this checkout, so review used `docs/context/requirements.md` and `docs/context/architecture.md`.
+## 2026-11-13: Job board eligibility and listing validation (Codex)
+
+- **Feature and IDs:** Job and internship board, FR-6, FR-24, FR-25, NFR-5, NFR-22.
+- **Built:** Talent can save only open listings from verified startups, matching browse and application eligibility. Listing create and patch now reject whitespace-only titles, descriptions, and locations. No endpoint or database contract was added.
+- **Tested:** 4 focused job tests, 118 backend tests, 22 isolated compliance regression tests, and 11 RAG regression tests passed. Console and JUnit output is saved under `docs/test-results/`; `git diff --check` passed.
+- **Cut or partial:** No frontend job-board walkthrough or live deployment test was run. The report source `main.tex` is absent; the behavior was compared with `docs/context/requirements.md` and the coding plan.
+- **Differs from the report?** No change to the feature flow or schema; this closes consistency and input-validation gaps in the existing contract.
+
+## 2026-11-13: Background profile embeddings and account deletion purge (Codex)
+
+- **Feature and IDs:** Profile matching embeddings (FR-7, NFR-20); consent deletion (FR-27, NFR-10, NFR-11); worker and scheduler (NFR-2, NFR-21).
+- **Built:** Added retryable, result-free Celery tasks to regenerate saved profile embeddings and purge inactive accounts once their 30-day deletion date is due. Purge clears per-user response cache, private resume PDFs, and cascaded user data. A single Beat service queues purges every 15 minutes. Profile saves enqueue embedding work and fall back to synchronous generation if Redis is unavailable. No migration or endpoint contract changed.
+- **Tested:** 122 backend tests passed with 93.8% app line coverage (848/904 executable line starts; 2329.72 seconds). After final test dependency wiring, 29 focused task, infrastructure, matching, and admin tests passed. The isolated compliance regression suite passed 22 tests and the RAG regression suite passed 11. One existing Starlette/AnyIO deprecation warning appeared in backend and compliance runs. Console, JUnit, and coverage outputs are recorded in `docs/test-results/` and `backend/TESTS.md`.
+- **Cut or partial:** No live Redis/Celery deployment or PostgreSQL purge run was performed; task behavior was verified with isolated SQLite, private disk-cache, and PDF fixtures.
+- **Differs from the report?** No known difference from the available requirements summary; `main.tex` is absent from this checkout.
 ## 2026-11-02: graphify installed, skill-only (Ali, with Claude Code)
 
 - **Feature and IDs:** Developer tooling for context and token savings (no FR/NFR).

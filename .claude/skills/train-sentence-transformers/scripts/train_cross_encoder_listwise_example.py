@@ -50,10 +50,7 @@ import os
 from contextlib import nullcontext
 
 import torch
-import torch.nn as nn
 from datasets import load_dataset, load_from_disk
-from transformers import EarlyStoppingCallback
-
 from sentence_transformers import (
     CrossEncoder,
     CrossEncoderModelCardData,
@@ -68,6 +65,8 @@ from sentence_transformers.cross_encoder.evaluation import (
 )
 from sentence_transformers.cross_encoder.losses import LambdaLoss
 from sentence_transformers.util import mine_hard_negatives
+from torch import nn
+from transformers import EarlyStoppingCallback
 
 
 def autocast_ctx():

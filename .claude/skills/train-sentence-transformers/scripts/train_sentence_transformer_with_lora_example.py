@@ -97,7 +97,6 @@ from contextlib import nullcontext
 import torch
 from datasets import load_dataset
 from peft import LoraConfig, TaskType
-
 from sentence_transformers import (
     SentenceTransformer,
     SentenceTransformerModelCardData,
@@ -106,7 +105,9 @@ from sentence_transformers import (
 )
 from sentence_transformers.base.sampler import BatchSamplers
 from sentence_transformers.sentence_transformer.evaluation import NanoBEIREvaluator
-from sentence_transformers.sentence_transformer.losses import CachedMultipleNegativesRankingLoss
+from sentence_transformers.sentence_transformer.losses import (
+    CachedMultipleNegativesRankingLoss,
+)
 
 
 def autocast_ctx():

@@ -28,11 +28,16 @@ def create_access_token(*, subject: str, role: str, token_version: int = 0) -> s
 
 def decode_access_token(token: str) -> dict:
     try:
-        payload = jwt.decode(token, settings.secret_key, algorithms=[settings.algorithm])
+        payload = jwt.decode(
+            token, settings.secret_key, algorithms=[settings.algorithm]
+        )
         if not payload.get("sub"):
             raise ValueError("missing subject")
         return payload
-    except (JWTError, ValueError) as exc:  # pragma: no cover - behavior enforced by dependency
+    except (
+        JWTError,
+        ValueError,
+    ) as exc:  # pragma: no cover - behavior enforced by dependency
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid or expired token",
