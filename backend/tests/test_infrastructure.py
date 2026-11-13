@@ -3,6 +3,7 @@ from pathlib import Path
 
 from app.celery_app import celery_app
 from app.config import Settings
+
 REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
 EXPORT_SCRIPT = REPOSITORY_ROOT / "scripts" / "export_openapi.py"
 spec = importlib.util.spec_from_file_location("export_openapi", EXPORT_SCRIPT)
@@ -43,4 +44,3 @@ def test_openapi_export_contains_existing_api_routes(tmp_path: Path) -> None:
     assert '"/api/v1/auth/register/{role}"' in schema
     assert '"/api/v1/jobs"' in schema
     assert '"/api/v1/verification/me"' in schema
-

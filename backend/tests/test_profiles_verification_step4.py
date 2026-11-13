@@ -8,7 +8,6 @@ from app.services.feature_ai import get_encoder, get_gateway
 from app.services.portfolio_verification import get_portfolio_fetcher
 from app.services.secp_check import SecpCheckResult, get_secp_checker
 
-
 client = TestClient(app)
 
 
@@ -32,7 +31,9 @@ class FakeGateway:
         from app.verification_schemas import PortfolioLinkAssessment
 
         self.calls += 1
-        return PortfolioLinkAssessment(result="consistent", reason="The page matches the submitted profile.")
+        return PortfolioLinkAssessment(
+            result="consistent", reason="The page matches the submitted profile."
+        )
 
 
 class VerifiedFakeSecpChecker:
@@ -104,18 +105,24 @@ def test_talent_profile_stores_optional_github_link_and_requires_talent_role():
     saved = client.put(
         "/api/v1/talent/me/profile",
         headers=talent,
-        json={"consent_accepted": True, "github_url": "https://github.com/example-user"},
+        json={
+            "consent_accepted": True,
+            "github_url": "https://github.com/example-user",
+        },
     )
 
     assert saved.status_code == 200, saved.text
     assert saved.json()["github_url"] == "https://github.com/example-user"
 
     founder = _register("founder-step4@example.com", "founder")
-    assert client.put(
-        "/api/v1/talent/me/profile",
-        headers=founder,
-        json={"consent_accepted": True, "github_url": None},
-    ).status_code == 403
+    assert (
+        client.put(
+            "/api/v1/talent/me/profile",
+            headers=founder,
+            json={"consent_accepted": True, "github_url": None},
+        ).status_code
+        == 403
+    )
 
 
 def test_talent_verification_stores_all_five_signals_and_only_calls_gateway_for_link():
@@ -127,7 +134,10 @@ def test_talent_verification_stores_all_five_signals_and_only_calls_gateway_for_
     github = client.put(
         "/api/v1/talent/me/profile",
         headers=talent,
-        json={"consent_accepted": True, "github_url": "https://github.com/example-user"},
+        json={
+            "consent_accepted": True,
+            "github_url": "https://github.com/example-user",
+        },
     )
     assert github.status_code == 200, github.text
 
@@ -160,9 +170,15 @@ def test_talent_verification_stores_all_five_signals_and_only_calls_gateway_for_
     db = next(db_generator)
     try:
         verification_id = body["id"]
-        rows = db.execute(
-            select(VerificationSignal).where(VerificationSignal.verification_id == verification_id)
-        ).scalars().all()
+        rows = (
+            db.execute(
+                select(VerificationSignal).where(
+                    VerificationSignal.verification_id == verification_id
+                )
+            )
+            .scalars()
+            .all()
+        )
         assert {row.signal_name for row in rows} == {
             "linkedin_oauth",
             "secp_cross_check",
@@ -182,7 +198,10 @@ def test_verified_secp_and_complete_signals_can_auto_verify():
     client.put(
         "/api/v1/talent/me/profile",
         headers=talent,
-        json={"consent_accepted": True, "github_url": "https://github.com/example-user"},
+        json={
+            "consent_accepted": True,
+            "github_url": "https://github.com/example-user",
+        },
     )
 
     response = client.post(

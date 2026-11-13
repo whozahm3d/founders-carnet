@@ -6,10 +6,15 @@ from typing import Literal
 
 from pydantic import AnyHttpUrl, BaseModel, ConfigDict, Field, field_validator
 
-
 PortfolioVerdict = Literal["consistent", "inconsistent", "insufficient"]
 ProfileVerificationStatus = Literal[
-    "pending_review", "auto_verified", "auto_rejected", "appeal_pending", "verified", "rejected", "blocked"
+    "pending_review",
+    "auto_verified",
+    "auto_rejected",
+    "appeal_pending",
+    "verified",
+    "rejected",
+    "blocked",
 ]
 
 

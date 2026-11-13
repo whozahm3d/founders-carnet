@@ -3,24 +3,22 @@ import logging
 import sys
 import time
 from concurrent.futures import ThreadPoolExecutor
-from types import ModuleType
-from types import SimpleNamespace
 from threading import Event
 from types import ModuleType, SimpleNamespace
 
 import pytest
+from conftest import TestSessionLocal
 from google.genai.errors import ServerError
 from pydantic import BaseModel
 from sqlalchemy import select
 
 import app.services.llm_gateway as gateway_module
+from app.feature_models import LLMGatewayCallLog
 from app.services.compliance_assistant import GroundingValidation
 from app.services.compliance_retrieval import RetrievedChunk
-from app.services.llm_gateway import GeminiGateway
 from app.services.llm_cache import StructuredResponseDiskCache
+from app.services.llm_gateway import GeminiGateway
 from app.services.llm_gateway_logging import write_gateway_call_log
-from app.feature_models import LLMGatewayCallLog
-from conftest import TestSessionLocal
 
 
 class FakeModels:
@@ -49,11 +47,15 @@ class StructuredResult(BaseModel):
 def test_gateway_requests_structured_evidence_bound_answer_and_validation(caplog):
     client = FakeClient(
         [
-            json.dumps({"answer": "The source says this.", "citation_chunk_ids": ["c1"]}),
+            json.dumps(
+                {"answer": "The source says this.", "citation_chunk_ids": ["c1"]}
+            ),
             json.dumps({"is_supported": True, "unsupported_claims": []}),
         ]
     )
-    gateway = GeminiGateway(api_key="test-key", model_name="configured-model", client=client)
+    gateway = GeminiGateway(
+        api_key="test-key", model_name="configured-model", client=client
+    )
     passage = RetrievedChunk(
         chunk=SimpleNamespace(
             chunk_id="c1",
@@ -85,7 +87,8 @@ def test_gateway_requests_structured_evidence_bound_answer_and_validation(caplog
     assert client.models.calls[0]["model"] == "configured-model"
     assert "Gemini generation completed" in caplog.text
     completed_records = [
-        record for record in caplog.records
+        record
+        for record in caplog.records
         if record.message.startswith("Gemini generation completed")
     ]
     assert len(completed_records) == 2
@@ -102,7 +105,9 @@ def test_gateway_requests_structured_evidence_bound_answer_and_validation(caplog
 
 def test_gateway_closes_its_client():
     client = FakeClient([])
-    gateway = GeminiGateway(api_key="test-key", model_name="configured-model", client=client)
+    gateway = GeminiGateway(
+        api_key="test-key", model_name="configured-model", client=client
+    )
 
     gateway.close()
 
@@ -136,7 +141,9 @@ def test_gateway_propagates_provider_errors_to_compliance_service():
             raise RuntimeError("provider unavailable")
 
     client = SimpleNamespace(models=FailingModels())
-    gateway = GeminiGateway(api_key="test-key", model_name="configured-model", client=client)
+    gateway = GeminiGateway(
+        api_key="test-key", model_name="configured-model", client=client
+    )
 
     with pytest.raises(RuntimeError, match="provider unavailable"):
         gateway.generate_answer("Question?", [])
@@ -158,7 +165,9 @@ def test_gateway_logs_and_propagates_timeout_without_prompt_contents(caplog):
             raise provider_error
 
     client = SimpleNamespace(models=TimeoutModels())
-    gateway = GeminiGateway(api_key="test-key", model_name="configured-model", client=client)
+    gateway = GeminiGateway(
+        api_key="test-key", model_name="configured-model", client=client
+    )
     passage = RetrievedChunk(
         chunk=SimpleNamespace(
             chunk_id="c1",
@@ -212,7 +221,9 @@ def test_gateway_retries_504_once_and_logs_each_attempt(monkeypatch, caplog):
 
     monkeypatch.setattr(gateway_module, "sleep", lambda seconds: None)
     client = SimpleNamespace(models=RetryModels())
-    gateway = GeminiGateway(api_key="test-key", model_name="configured-model", client=client)
+    gateway = GeminiGateway(
+        api_key="test-key", model_name="configured-model", client=client
+    )
     passage = RetrievedChunk(
         chunk=SimpleNamespace(
             chunk_id="c1",
@@ -235,10 +246,13 @@ def test_gateway_retries_504_once_and_logs_each_attempt(monkeypatch, caplog):
     assert len(client.models.calls) == 2
     assert all(call["model"] == "configured-model" for call in client.models.calls)
     retry_record = next(
-        record for record in caplog.records if record.message.startswith("Gemini retry scheduled")
+        record
+        for record in caplog.records
+        if record.message.startswith("Gemini retry scheduled")
     )
     success_record = next(
-        record for record in caplog.records
+        record
+        for record in caplog.records
         if record.message.startswith("Gemini generation completed")
     )
     assert retry_record.attempt_number == 1
@@ -251,7 +265,9 @@ def test_gateway_retries_504_once_and_logs_each_attempt(monkeypatch, caplog):
 def test_gateway_uses_only_an_explicit_configured_fallback(monkeypatch, caplog):
     not_found = ServerError(
         code=404,
-        response_json={"error": {"message": "model unavailable", "status": "NOT_FOUND"}},
+        response_json={
+            "error": {"message": "model unavailable", "status": "NOT_FOUND"}
+        },
     )
 
     class FallbackModels:
@@ -262,7 +278,9 @@ def test_gateway_uses_only_an_explicit_configured_fallback(monkeypatch, caplog):
             self.calls.append(kwargs)
             if len(self.calls) == 1:
                 raise not_found
-            return SimpleNamespace(text=json.dumps({"answer": "", "citation_chunk_ids": []}))
+            return SimpleNamespace(
+                text=json.dumps({"answer": "", "citation_chunk_ids": []})
+            )
 
     monkeypatch.setattr(gateway_module, "sleep", lambda seconds: None)
     client = SimpleNamespace(models=FallbackModels())
@@ -281,7 +299,8 @@ def test_gateway_uses_only_an_explicit_configured_fallback(monkeypatch, caplog):
         "configured-fallback",
     ]
     assert any(
-        record.message.startswith("Gemini fallback selected") for record in caplog.records
+        record.message.startswith("Gemini fallback selected")
+        for record in caplog.records
     )
 
 
@@ -298,7 +317,9 @@ def test_gateway_uses_fallback_only_after_primary_retry_fails(monkeypatch, caplo
             self.calls.append(kwargs)
             if len(self.calls) <= 2:
                 raise ServerError(code=504, response_json=timeout_response)
-            return SimpleNamespace(text=json.dumps({"answer": "", "citation_chunk_ids": []}))
+            return SimpleNamespace(
+                text=json.dumps({"answer": "", "citation_chunk_ids": []})
+            )
 
     monkeypatch.setattr(gateway_module, "sleep", lambda seconds: None)
     client = SimpleNamespace(models=RepeatedTimeoutModels())
@@ -325,7 +346,9 @@ def test_gateway_uses_fallback_only_after_primary_retry_fails(monkeypatch, caplo
 def test_gateway_does_not_retry_quota_errors(monkeypatch):
     quota_error = ServerError(
         code=429,
-        response_json={"error": {"message": "quota exceeded", "status": "RESOURCE_EXHAUSTED"}},
+        response_json={
+            "error": {"message": "quota exceeded", "status": "RESOURCE_EXHAUSTED"}
+        },
     )
 
     class QuotaModels:
@@ -338,7 +361,9 @@ def test_gateway_does_not_retry_quota_errors(monkeypatch):
 
     monkeypatch.setattr(gateway_module, "sleep", lambda seconds: None)
     client = SimpleNamespace(models=QuotaModels())
-    gateway = GeminiGateway(api_key="test-key", model_name="configured-model", client=client)
+    gateway = GeminiGateway(
+        api_key="test-key", model_name="configured-model", client=client
+    )
 
     with pytest.raises(ServerError):
         gateway.generate_answer("Question?", [])
@@ -348,7 +373,9 @@ def test_gateway_does_not_retry_quota_errors(monkeypatch):
 
 def test_gateway_minimal_diagnostic_uses_no_retrieved_evidence():
     client = FakeClient(["OK"])
-    gateway = GeminiGateway(api_key="test-key", model_name="configured-model", client=client)
+    gateway = GeminiGateway(
+        api_key="test-key", model_name="configured-model", client=client
+    )
 
     gateway.diagnostic_ping()
 
@@ -359,7 +386,9 @@ def test_gateway_minimal_diagnostic_uses_no_retrieved_evidence():
 
 def test_gateway_bounds_oversized_and_duplicate_evidence_context():
     client = FakeClient([json.dumps({"answer": "", "citation_chunk_ids": []})])
-    gateway = GeminiGateway(api_key="test-key", model_name="configured-model", client=client)
+    gateway = GeminiGateway(
+        api_key="test-key", model_name="configured-model", client=client
+    )
     passages = []
     for index in range(12):
         passages.append(
@@ -384,17 +413,21 @@ def test_gateway_bounds_oversized_and_duplicate_evidence_context():
 
     payload = json.loads(client.models.calls[0]["contents"])
     assert len(payload["evidence"]) <= 5
-    assert len({item["chunk_id"] for item in payload["evidence"]}) == len(payload["evidence"])
+    assert len({item["chunk_id"] for item in payload["evidence"]}) == len(
+        payload["evidence"]
+    )
     assert sum(len(item["text"]) for item in payload["evidence"]) <= 6_000
     assert payload["evidence"][0]["chunk_id"] == "chunk-0"
 
 
 def test_structured_generation_caches_by_user_input_and_prompt_version(tmp_path):
-    client = FakeClient([
-        json.dumps({"value": "first result"}),
-        json.dumps({"value": "other user's result"}),
-        json.dumps({"value": "new prompt result"}),
-    ])
+    client = FakeClient(
+        [
+            json.dumps({"value": "first result"}),
+            json.dumps({"value": "other user's result"}),
+            json.dumps({"value": "new prompt result"}),
+        ]
+    )
     events = []
     gateway = GeminiGateway(
         api_key="test-key",
@@ -427,15 +460,27 @@ def test_structured_generation_caches_by_user_input_and_prompt_version(tmp_path)
     assert other_user.value == "other user's result"
     assert changed_prompt.value == "new prompt result"
     assert len(client.models.calls) == 3
-    assert [event["outcome"] for event in events] == ["success", "cache_hit", "success", "success"]
-    assert all(b"private user input" not in path.read_bytes() for path in tmp_path.rglob("*.json"))
+    assert [event["outcome"] for event in events] == [
+        "success",
+        "cache_hit",
+        "success",
+        "success",
+    ]
+    assert all(
+        b"private user input" not in path.read_bytes()
+        for path in tmp_path.rglob("*.json")
+    )
 
 
 def test_structured_cache_expiry_forces_provider_call(tmp_path):
     now = [1_000.0]
     cache = StructuredResponseDiskCache(tmp_path, ttl_seconds=60, clock=lambda: now[0])
-    client = FakeClient([json.dumps({"value": "first"}), json.dumps({"value": "after expiry"})])
-    gateway = GeminiGateway(api_key="test-key", model_name="configured-model", client=client, cache=cache)
+    client = FakeClient(
+        [json.dumps({"value": "first"}), json.dumps({"value": "after expiry"})]
+    )
+    gateway = GeminiGateway(
+        api_key="test-key", model_name="configured-model", client=client, cache=cache
+    )
     request = {
         "system_instruction": "Use the input.",
         "payload": {"input": "repeat"},
@@ -455,14 +500,24 @@ def test_structured_cache_expiry_forces_provider_call(tmp_path):
 def test_structured_cache_clear_removes_only_the_requested_scope(tmp_path):
     cache = StructuredResponseDiskCache(tmp_path / "private-cache")
     first_key = cache.make_key(
-        model_name="model", fallback_model=None, operation="readiness",
-        prompt_version="v1", system_instruction="system", payload={"x": 1},
-        schema={"type": "object"}, output_instruction="return",
+        model_name="model",
+        fallback_model=None,
+        operation="readiness",
+        prompt_version="v1",
+        system_instruction="system",
+        payload={"x": 1},
+        schema={"type": "object"},
+        output_instruction="return",
     )
     second_key = cache.make_key(
-        model_name="model", fallback_model=None, operation="readiness",
-        prompt_version="v1", system_instruction="system", payload={"x": 2},
-        schema={"type": "object"}, output_instruction="return",
+        model_name="model",
+        fallback_model=None,
+        operation="readiness",
+        prompt_version="v1",
+        system_instruction="system",
+        payload={"x": 2},
+        schema={"type": "object"},
+        output_instruction="return",
     )
     cache.set(101, first_key, '{"value":"first"}')
     cache.set(202, second_key, '{"value":"second"}')
@@ -474,10 +529,12 @@ def test_structured_cache_clear_removes_only_the_requested_scope(tmp_path):
 
 
 def test_compliance_generation_does_not_use_structured_response_cache(tmp_path):
-    client = FakeClient([
-        json.dumps({"answer": "First answer", "citation_chunk_ids": ["c1"]}),
-        json.dumps({"answer": "Second answer", "citation_chunk_ids": ["c1"]}),
-    ])
+    client = FakeClient(
+        [
+            json.dumps({"answer": "First answer", "citation_chunk_ids": ["c1"]}),
+            json.dumps({"answer": "Second answer", "citation_chunk_ids": ["c1"]}),
+        ]
+    )
     gateway = GeminiGateway(
         api_key="test-key",
         model_name="configured-model",
@@ -490,7 +547,9 @@ def test_compliance_generation_does_not_use_structured_response_cache(tmp_path):
             text="Official evidence.",
             section="1",
             page_number=1,
-            document=SimpleNamespace(title="Sample Act", issuing_body="SECP", effective_date="2026-06-30"),
+            document=SimpleNamespace(
+                title="Sample Act", issuing_body="SECP", effective_date="2026-06-30"
+            ),
         ),
         similarity=0.9,
     )

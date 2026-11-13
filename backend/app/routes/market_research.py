@@ -21,8 +21,11 @@ from app.market_research_schemas import (
 from app.models import FounderProfile, Startup, User
 from app.services.feature_ai import get_gateway
 from app.services.llm_gateway import GeminiGateway
-from app.services.web_search import FirecrawlSearch, FirecrawlSearchError, get_market_search
-
+from app.services.web_search import (
+    FirecrawlSearch,
+    FirecrawlSearchError,
+    get_market_search,
+)
 
 MARKET_RESEARCH_PROMPT_VERSION = "market-research-v1"
 logger = logging.getLogger(__name__)
@@ -33,7 +36,11 @@ GatewayDep = Annotated[GeminiGateway, Depends(get_gateway)]
 SearchDep = Annotated[FirecrawlSearch, Depends(get_market_search)]
 
 
-@router.post("/market-research", response_model=MarketResearchRead, status_code=status.HTTP_201_CREATED)
+@router.post(
+    "/market-research",
+    response_model=MarketResearchRead,
+    status_code=status.HTTP_201_CREATED,
+)
 def create_market_research(
     payload: MarketResearchRequest,
     user: Founder,
@@ -120,7 +127,9 @@ def create_market_research(
     return _report_read(record)
 
 
-@router.get("/startups/{startup_id}/market-research", response_model=list[MarketResearchRead])
+@router.get(
+    "/startups/{startup_id}/market-research", response_model=list[MarketResearchRead]
+)
 def market_research_history(
     startup_id: int,
     user: Founder,
@@ -132,7 +141,9 @@ def market_research_history(
     records = db.scalars(
         select(MarketResearchReport)
         .where(MarketResearchReport.startup_id == startup.id)
-        .order_by(MarketResearchReport.created_at.desc(), MarketResearchReport.id.desc())
+        .order_by(
+            MarketResearchReport.created_at.desc(), MarketResearchReport.id.desc()
+        )
         .offset(offset)
         .limit(limit)
     ).all()
@@ -146,12 +157,19 @@ def _owned_startup(db: Session, startup_id: int, user_id: int) -> Startup:
         .where(Startup.id == startup_id, FounderProfile.user_id == user_id)
     )
     if startup is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Startup not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Startup not found"
+        )
     return startup
 
 
-def _validate_source_ids(interpretation: MarketResearchInterpretation, available: set[str]) -> None:
-    statements: list[CitedStatement] = [interpretation.overview, *interpretation.opportunities]
+def _validate_source_ids(
+    interpretation: MarketResearchInterpretation, available: set[str]
+) -> None:
+    statements: list[CitedStatement] = [
+        interpretation.overview,
+        *interpretation.opportunities,
+    ]
     if interpretation.market_size is not None:
         statements.append(interpretation.market_size)
     statements.extend(item.finding for item in interpretation.competitors)

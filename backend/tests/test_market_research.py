@@ -3,7 +3,11 @@ import pytest
 from fastapi.testclient import TestClient
 
 from app.main import app
-from app.market_research_schemas import CitedStatement, CompetitorFinding, MarketResearchInterpretation
+from app.market_research_schemas import (
+    CitedStatement,
+    CompetitorFinding,
+    MarketResearchInterpretation,
+)
 from app.services.feature_ai import get_gateway
 from app.services.web_search import (
     FirecrawlSearch,
@@ -11,7 +15,6 @@ from app.services.web_search import (
     SearchEvidence,
     get_market_search,
 )
-
 
 client = TestClient(app)
 fake_search = None
@@ -42,12 +45,18 @@ class FakeGateway:
             raise RuntimeError("mock provider error")
         source_id = "S999" if self.unknown_source else "S1"
         return MarketResearchInterpretation(
-            overview=CitedStatement(text="The market is developing.", source_ids=[source_id]),
-            market_size=CitedStatement(text="The source estimates market growth.", source_ids=[source_id]),
+            overview=CitedStatement(
+                text="The market is developing.", source_ids=[source_id]
+            ),
+            market_size=CitedStatement(
+                text="The source estimates market growth.", source_ids=[source_id]
+            ),
             competitors=[
                 CompetitorFinding(
                     name="Example competitor",
-                    finding=CitedStatement(text="It serves small businesses.", source_ids=[source_id]),
+                    finding=CitedStatement(
+                        text="It serves small businesses.", source_ids=[source_id]
+                    ),
                 )
             ],
             opportunities=[],
@@ -56,14 +65,16 @@ class FakeGateway:
 
 def setup_function():
     global fake_search, fake_gateway
-    fake_search = FakeSearch([
-        SearchEvidence(
-            title="Pakistan logistics market report",
-            url="https://example.org/logistics",
-            content="Publicly available market evidence.",
-            published_date="2026-01-01",
-        )
-    ])
+    fake_search = FakeSearch(
+        [
+            SearchEvidence(
+                title="Pakistan logistics market report",
+                url="https://example.org/logistics",
+                content="Publicly available market evidence.",
+                published_date="2026-01-01",
+            )
+        ]
+    )
     fake_gateway = FakeGateway()
     app.dependency_overrides[get_gateway] = lambda: fake_gateway
     app.dependency_overrides[get_market_search] = lambda: fake_search
@@ -75,28 +86,39 @@ def teardown_function():
 
 
 def founder_and_startup(email="market-research@example.com"):
-    registration = client.post("/api/v1/auth/register/founder", json={
-        "email": email,
-        "password": "SecurePass123!",
-        "full_name": "Market Founder",
-        "consent_accepted": True,
-    })
+    registration = client.post(
+        "/api/v1/auth/register/founder",
+        json={
+            "email": email,
+            "password": "SecurePass123!",
+            "full_name": "Market Founder",
+            "consent_accepted": True,
+        },
+    )
     assert registration.status_code == 201, registration.text
-    login = client.post("/api/v1/auth/login", json={"email": email, "password": "SecurePass123!"})
+    login = client.post(
+        "/api/v1/auth/login", json={"email": email, "password": "SecurePass123!"}
+    )
     assert login.status_code == 200, login.text
     headers = {"Authorization": f"Bearer {login.json()['access_token']}"}
-    profile = client.put("/api/v1/founders/me/profile", headers=headers, json={"consent_accepted": True})
+    profile = client.put(
+        "/api/v1/founders/me/profile", headers=headers, json={"consent_accepted": True}
+    )
     assert profile.status_code == 200, profile.text
-    startup_response = client.post("/api/v1/founders/me/startups", headers=headers, json={
-        "name": "Routewise",
-        "description": "Delivery tools for local shops.",
-        "sector": "logistics",
-        "stage": "mvp",
-        "location": "Lahore, Pakistan",
-        "business_model": "subscription",
-        "traction_summary": "Pilot stage",
-        "customer_count": 12,
-    })
+    startup_response = client.post(
+        "/api/v1/founders/me/startups",
+        headers=headers,
+        json={
+            "name": "Routewise",
+            "description": "Delivery tools for local shops.",
+            "sector": "logistics",
+            "stage": "mvp",
+            "location": "Lahore, Pakistan",
+            "business_model": "subscription",
+            "traction_summary": "Pilot stage",
+            "customer_count": 12,
+        },
+    )
     assert startup_response.status_code == 201, startup_response.text
     return headers, startup_response.json()
 
@@ -106,20 +128,23 @@ def test_firecrawl_search_sends_bounded_web_search_and_parses_evidence():
 
     def handler(request: httpx.Request) -> httpx.Response:
         requests.append(request)
-        return httpx.Response(200, json={
-            "success": True,
-            "data": {
-                "web": [
-                    {
-                        "title": "Pakistan startup sector report",
-                        "url": "https://example.org/report",
-                        "description": "A public market overview.",
-                        "markdown": "The report summarizes startup activity.",
-                        "metadata": {"publishedTime": "2026-01-05"},
-                    }
-                ]
+        return httpx.Response(
+            200,
+            json={
+                "success": True,
+                "data": {
+                    "web": [
+                        {
+                            "title": "Pakistan startup sector report",
+                            "url": "https://example.org/report",
+                            "description": "A public market overview.",
+                            "markdown": "The report summarizes startup activity.",
+                            "metadata": {"publishedTime": "2026-01-05"},
+                        }
+                    ]
+                },
             },
-        })
+        )
 
     client = httpx.Client(transport=httpx.MockTransport(handler))
     search = FirecrawlSearch(api_key="test-key", client=client)
@@ -148,7 +173,9 @@ def test_firecrawl_search_sends_bounded_web_search_and_parses_evidence():
 
 def test_firecrawl_rejects_malformed_search_response():
     client = httpx.Client(
-        transport=httpx.MockTransport(lambda request: httpx.Response(200, json={"success": True, "data": {}}))
+        transport=httpx.MockTransport(
+            lambda request: httpx.Response(200, json={"success": True, "data": {}})
+        )
     )
     search = FirecrawlSearch(api_key="test-key", client=client)
 
@@ -159,7 +186,11 @@ def test_firecrawl_rejects_malformed_search_response():
 
 
 def test_firecrawl_provider_failure_is_sanitized():
-    client = httpx.Client(transport=httpx.MockTransport(lambda request: httpx.Response(401, json={"error": "secret detail"})))
+    client = httpx.Client(
+        transport=httpx.MockTransport(
+            lambda request: httpx.Response(401, json={"error": "secret detail"})
+        )
+    )
     search = FirecrawlSearch(api_key="test-key", client=client)
 
     with pytest.raises(FirecrawlSearchError) as captured:
@@ -173,10 +204,14 @@ def test_firecrawl_provider_failure_is_sanitized():
 def test_market_research_keeps_evidence_separate_and_stores_history():
     headers, startup = founder_and_startup()
 
-    response = client.post("/api/v1/market-research", headers=headers, json={
-        "startup_id": startup["id"],
-        "question": "Who are our local delivery competitors?",
-    })
+    response = client.post(
+        "/api/v1/market-research",
+        headers=headers,
+        json={
+            "startup_id": startup["id"],
+            "question": "Who are our local delivery competitors?",
+        },
+    )
 
     assert response.status_code == 201, response.text
     report = response.json()
@@ -191,7 +226,9 @@ def test_market_research_keeps_evidence_separate_and_stores_history():
     assert sent["payload"]["public_web_evidence"][0]["source_id"] == "S1"
     assert "only the supplied public web evidence" in sent["system_instruction"]
 
-    history = client.get(f"/api/v1/startups/{startup['id']}/market-research", headers=headers)
+    history = client.get(
+        f"/api/v1/startups/{startup['id']}/market-research", headers=headers
+    )
     assert history.status_code == 200
     assert history.json()[0]["id"] == report["id"]
     assert history.json()[0]["evidence"] == report["evidence"]
@@ -201,10 +238,14 @@ def test_market_research_with_no_search_results_abstains_without_llm_call():
     headers, startup = founder_and_startup("market-empty@example.com")
     fake_search.results = []
 
-    response = client.post("/api/v1/market-research", headers=headers, json={
-        "startup_id": startup["id"],
-        "question": "What is the market size?",
-    })
+    response = client.post(
+        "/api/v1/market-research",
+        headers=headers,
+        json={
+            "startup_id": startup["id"],
+            "question": "What is the market size?",
+        },
+    )
 
     assert response.status_code == 201, response.text
     assert response.json()["status"] == "insufficient_evidence"
@@ -217,13 +258,19 @@ def test_market_research_rejects_unknown_citation_and_keeps_evidence_log():
     headers, startup = founder_and_startup("market-invalid-citation@example.com")
     fake_gateway.unknown_source = True
 
-    response = client.post("/api/v1/market-research", headers=headers, json={
-        "startup_id": startup["id"],
-        "question": "Who are our local delivery competitors?",
-    })
+    response = client.post(
+        "/api/v1/market-research",
+        headers=headers,
+        json={
+            "startup_id": startup["id"],
+            "question": "Who are our local delivery competitors?",
+        },
+    )
 
     assert response.status_code == 502
-    history = client.get(f"/api/v1/startups/{startup['id']}/market-research", headers=headers)
+    history = client.get(
+        f"/api/v1/startups/{startup['id']}/market-research", headers=headers
+    )
     assert history.json()[0]["status"] == "generation_failed"
     assert history.json()[0]["evidence"][0]["source_id"] == "S1"
 
@@ -232,26 +279,36 @@ def test_market_research_failure_preserves_search_evidence_and_hides_provider_er
     headers, startup = founder_and_startup("market-provider-failure@example.com")
     fake_gateway.fail = True
 
-    response = client.post("/api/v1/market-research", headers=headers, json={
-        "startup_id": startup["id"],
-        "question": "Who are our local delivery competitors?",
-    })
+    response = client.post(
+        "/api/v1/market-research",
+        headers=headers,
+        json={
+            "startup_id": startup["id"],
+            "question": "Who are our local delivery competitors?",
+        },
+    )
 
     assert response.status_code == 502
     assert "mock provider error" not in response.text
-    history = client.get(f"/api/v1/startups/{startup['id']}/market-research", headers=headers)
+    history = client.get(
+        f"/api/v1/startups/{startup['id']}/market-research", headers=headers
+    )
     assert history.json()[0]["status"] == "generation_failed"
     assert history.json()[0]["evidence"]
 
 
 def test_market_research_is_founder_only_and_startup_owned():
-    headers, startup = founder_and_startup("market-owner@example.com")
+    _headers, startup = founder_and_startup("market-owner@example.com")
     other_headers, _ = founder_and_startup("market-other@example.com")
 
-    response = client.post("/api/v1/market-research", headers=other_headers, json={
-        "startup_id": startup["id"],
-        "question": "Who are our local delivery competitors?",
-    })
+    response = client.post(
+        "/api/v1/market-research",
+        headers=other_headers,
+        json={
+            "startup_id": startup["id"],
+            "question": "Who are our local delivery competitors?",
+        },
+    )
 
     assert response.status_code == 404
     assert fake_search.queries == []

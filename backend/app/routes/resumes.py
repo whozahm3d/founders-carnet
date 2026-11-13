@@ -5,7 +5,16 @@ from __future__ import annotations
 import logging
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, Header, HTTPException, Query, Request, Response, status
+from fastapi import (
+    APIRouter,
+    Depends,
+    Header,
+    HTTPException,
+    Query,
+    Request,
+    Response,
+    status,
+)
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
@@ -23,7 +32,6 @@ from app.services.resume_optimizer import (
     extract_resume_lines,
     store_resume_pdf,
 )
-
 
 RESUME_PROMPT_VERSION = "resume-optimizer-v1"
 RESUME_CONSENT_VERSION = "resume-ai-processing-v1"
@@ -45,7 +53,9 @@ GatewayDep = Annotated[GeminiGateway, Depends(get_gateway)]
     openapi_extra={
         "requestBody": {
             "required": True,
-            "content": {"application/pdf": {"schema": {"type": "string", "format": "binary"}}},
+            "content": {
+                "application/pdf": {"schema": {"type": "string", "format": "binary"}}
+            },
         }
     },
 )
@@ -55,30 +65,48 @@ async def optimize_resume(
     db: SessionDep,
     gateway: GatewayDep,
     target_role: str = Query(min_length=2, max_length=120),
-    processing_consent: bool = Header(default=False, alias="X-Resume-Processing-Consent"),
+    processing_consent: bool = Header(
+        default=False, alias="X-Resume-Processing-Consent"
+    ),
 ) -> ResumeOptimizationRead:
     if not processing_consent:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Explicit consent is required to process resume text with the AI service",
         )
-    content_type = request.headers.get("content-type", "").split(";", maxsplit=1)[0].strip().casefold()
+    content_type = (
+        request.headers.get("content-type", "")
+        .split(";", maxsplit=1)[0]
+        .strip()
+        .casefold()
+    )
     if content_type != "application/pdf":
-        raise HTTPException(status_code=status.HTTP_415_UNSUPPORTED_MEDIA_TYPE, detail="Only PDF resumes are supported")
+        raise HTTPException(
+            status_code=status.HTTP_415_UNSUPPORTED_MEDIA_TYPE,
+            detail="Only PDF resumes are supported",
+        )
 
     content = await _read_bounded_body(request)
     if not content.startswith(b"%PDF-"):
-        raise HTTPException(status_code=status.HTTP_415_UNSUPPORTED_MEDIA_TYPE, detail="Uploaded file is not a PDF")
+        raise HTTPException(
+            status_code=status.HTTP_415_UNSUPPORTED_MEDIA_TYPE,
+            detail="Uploaded file is not a PDF",
+        )
     try:
         lines = extract_resume_lines(content)
     except ResumeFileError as exc:
-        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=str(exc)) from exc
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=str(exc)
+        ) from exc
 
     try:
         storage_key, file_sha256 = store_resume_pdf(content)
     except (OSError, RuntimeError) as exc:
         logger.exception("Resume private storage failed user_id=%d", user.id)
-        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Resume could not be stored") from exc
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Resume could not be stored",
+        ) from exc
 
     record = ResumeOptimization(
         user_id=user.id,
@@ -102,7 +130,9 @@ async def optimize_resume(
         except (OSError, RuntimeError):
             logger.exception("Orphaned resume cleanup failed user_id=%d", user.id)
         logger.exception("Resume record creation failed user_id=%d", user.id)
-        raise HTTPException(status_code=500, detail="Resume could not be stored") from exc
+        raise HTTPException(
+            status_code=500, detail="Resume could not be stored"
+        ) from exc
 
     try:
         result = gateway.generate_structured(
@@ -180,12 +210,16 @@ def delete_resume(
         )
     )
     if record is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Resume record not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Resume record not found"
+        )
     try:
         delete_resume_pdf(record.storage_key)
     except (OSError, RuntimeError) as exc:
         logger.exception("Resume file deletion failed resume_id=%d", resume_id)
-        raise HTTPException(status_code=500, detail="Resume file could not be deleted") from exc
+        raise HTTPException(
+            status_code=500, detail="Resume file could not be deleted"
+        ) from exc
     db.delete(record)
     db.commit()
     return Response(status_code=status.HTTP_204_NO_CONTENT)

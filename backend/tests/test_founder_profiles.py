@@ -73,7 +73,11 @@ def test_founder_profile_requires_explicit_consent():
     response = client.put(
         "/api/v1/founders/me/profile",
         headers={"Authorization": f"Bearer {token}"},
-        json={"bio": "A profile without consent", "location": "Lahore", "consent_accepted": False},
+        json={
+            "bio": "A profile without consent",
+            "location": "Lahore",
+            "consent_accepted": False,
+        },
     )
     assert response.status_code == 400
 

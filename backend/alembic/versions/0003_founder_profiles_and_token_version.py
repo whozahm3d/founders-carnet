@@ -64,7 +64,9 @@ def upgrade() -> None:
         sa.Column("skills", sa.JSON(), nullable=False),
         sa.Column("funding_need_min", sa.Numeric(14, 2), nullable=True),
         sa.Column("funding_need_max", sa.Numeric(14, 2), nullable=True),
-        sa.Column("is_verified", sa.Boolean(), server_default=sa.false(), nullable=False),
+        sa.Column(
+            "is_verified", sa.Boolean(), server_default=sa.false(), nullable=False
+        ),
         sa.Column(
             "created_at",
             sa.DateTime(),

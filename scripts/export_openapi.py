@@ -6,13 +6,12 @@ import json
 import sys
 from pathlib import Path
 
-
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
 BACKEND_ROOT = REPOSITORY_ROOT / "backend"
 if str(BACKEND_ROOT) not in sys.path:
     sys.path.insert(0, str(BACKEND_ROOT))
 
-from app.main import app  # noqa: E402
+from app.main import app
 
 
 def export_openapi(output_path: Path = BACKEND_ROOT / "openapi.json") -> Path:

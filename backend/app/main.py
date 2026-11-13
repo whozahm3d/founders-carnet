@@ -73,7 +73,9 @@ async def sanitized_validation_error(
         }
         for error in exc.errors()
     ]
-    return JSONResponse(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, content={"detail": errors})
+    return JSONResponse(
+        status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, content={"detail": errors}
+    )
 
 
 REGISTRATION_CONSENT_TYPE = "non_essential_processing"
@@ -100,8 +102,14 @@ def _record_consent(db: Session, user_id: int, source: str) -> ConsentRecord:
     return record
 
 
-@app.post("/api/v1/auth/register/{role}", response_model=UserRead, status_code=status.HTTP_201_CREATED)
-def register_user(role: UserRole, payload: UserRegisterRequest, db: Session = Depends(get_db)) -> User:
+@app.post(
+    "/api/v1/auth/register/{role}",
+    response_model=UserRead,
+    status_code=status.HTTP_201_CREATED,
+)
+def register_user(
+    role: UserRole, payload: UserRegisterRequest, db: Session = Depends(get_db)
+) -> User:
     """Register a public role with explicit consent; admin is never public.
 
     FR-17, FR-22, FR-23, NFR-4, NFR-5, NFR-8, NFR-9.
@@ -110,7 +118,9 @@ def register_user(role: UserRole, payload: UserRegisterRequest, db: Session = De
     normalized_email = payload.email.lower()
     existing = db.query(User).filter(User.email == normalized_email).first()
     if existing is not None:
-        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="User already exists")
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT, detail="User already exists"
+        )
 
     user = User(
         email=normalized_email,
@@ -127,7 +137,11 @@ def register_user(role: UserRole, payload: UserRegisterRequest, db: Session = De
     return user
 
 
-@app.post("/api/v1/auth/linkedin/{role}", response_model=UserRead, status_code=status.HTTP_201_CREATED)
+@app.post(
+    "/api/v1/auth/linkedin/{role}",
+    response_model=UserRead,
+    status_code=status.HTTP_201_CREATED,
+)
 def linkedin_sign_in(
     role: UserRole,
     payload: LinkedInSignInRequest,
@@ -139,7 +153,10 @@ def linkedin_sign_in(
     try:
         identity_data = linkedin_provider.authenticate(payload.authorization_code)
     except ValueError as exc:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="LinkedIn authentication failed") from exc
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="LinkedIn authentication failed",
+        ) from exc
 
     identity = (
         db.query(OAuthIdentity)
@@ -151,13 +168,17 @@ def linkedin_sign_in(
     )
     if identity is not None:
         if not identity.user.is_active:
-            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Account is disabled")
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED, detail="Account is disabled"
+            )
         response.status_code = status.HTTP_200_OK
         return identity.user
 
     existing = db.query(User).filter(User.email == identity_data.email.lower()).first()
     if existing is not None:
-        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="User already exists")
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT, detail="User already exists"
+        )
 
     user = User(
         email=identity_data.email.lower(),
@@ -182,15 +203,23 @@ def linkedin_sign_in(
 
 
 @app.post("/api/v1/auth/login", response_model=TokenResponse)
-def login_user(payload: UserLoginRequest, db: Annotated[Session, Depends(get_db)]) -> TokenResponse:
+def login_user(
+    payload: UserLoginRequest, db: Annotated[Session, Depends(get_db)]
+) -> TokenResponse:
     """Sign in and issue a JWT for role-scoped access.
 
     FR-23, NFR-4, NFR-5.
     """
     normalized_email = payload.email.lower()
     user = db.query(User).filter(User.email == normalized_email).first()
-    if user is None or not user.is_active or not verify_password(payload.password, user.hashed_password):
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials")
+    if (
+        user is None
+        or not user.is_active
+        or not verify_password(payload.password, user.hashed_password)
+    ):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials"
+        )
 
     token = create_access_token(
         subject=str(user.id),
@@ -241,7 +270,11 @@ def withdraw_consent(
     )
 
 
-@app.post("/api/v1/users/me/deletion-request", response_model=DeletionRequestRead, status_code=status.HTTP_202_ACCEPTED)
+@app.post(
+    "/api/v1/users/me/deletion-request",
+    response_model=DeletionRequestRead,
+    status_code=status.HTTP_202_ACCEPTED,
+)
 def request_account_deletion(
     current_user: User = Depends(require_roles(*PUBLIC_ROLES)),
     db: Session = Depends(get_db),
@@ -272,7 +305,9 @@ def read_current_user(current_user: Annotated[User, Depends(get_current_user)]) 
 
 
 @app.get("/api/v1/admin/stats")
-def admin_stats(current_user: Annotated[User, Depends(require_roles("admin"))]) -> dict[str, str]:
+def admin_stats(
+    current_user: Annotated[User, Depends(require_roles("admin"))],
+) -> dict[str, str]:
     """Admin-only endpoint for the first access-control slice.
 
     FR-23, NFR-5.

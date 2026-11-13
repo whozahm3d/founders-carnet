@@ -4,8 +4,8 @@ from sqlalchemy import create_engine, event, select
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import StaticPool
 
-from app.config import Settings
 from app.celery_app import celery_app
+from app.config import Settings
 from app.feature_models import EcosystemProfile, ResumeOptimization
 from app.models import Base, ComplianceQuery, ConsentRecord, User
 from app.services import llm_cache, resume_optimizer
@@ -101,7 +101,9 @@ def test_profile_embedding_task_regenerates_with_current_model(monkeypatch, tmp_
         engine.dispose()
 
 
-def test_account_purge_removes_due_user_data_and_private_resume_and_cache(monkeypatch, tmp_path):
+def test_account_purge_removes_due_user_data_and_private_resume_and_cache(
+    monkeypatch, tmp_path
+):
     engine, session_factory, settings = _task_database(monkeypatch, tmp_path)
     cutoff = datetime(2026, 1, 31, 12, 0, 0)
     due_for = cutoff - timedelta(days=1)
@@ -115,27 +117,33 @@ def test_account_purge_removes_due_user_data_and_private_resume_and_cache(monkey
                 deletion_scheduled_for=due_for,
             )
             due_user_id = due_user.id
-            session.add(ConsentRecord(
-                user_id=due_user.id,
-                consent_type="registration",
-                consent_version="v1",
-                source="web",
-            ))
-            session.add(ComplianceQuery(
-                user_id=due_user.id,
-                question="Private compliance question",
-                outcome="abstained",
-            ))
-            session.add(EcosystemProfile(
-                user_id=due_user.id,
-                sector="logistics",
-                stages=["mvp"],
-                skills=[],
-                availability="open",
-                location="Lahore",
-                summary="Private profile summary",
-                consent_version="ecosystem-profile-v1",
-            ))
+            session.add(
+                ConsentRecord(
+                    user_id=due_user.id,
+                    consent_type="registration",
+                    consent_version="v1",
+                    source="web",
+                )
+            )
+            session.add(
+                ComplianceQuery(
+                    user_id=due_user.id,
+                    question="Private compliance question",
+                    outcome="abstained",
+                )
+            )
+            session.add(
+                EcosystemProfile(
+                    user_id=due_user.id,
+                    sector="logistics",
+                    stages=["mvp"],
+                    skills=[],
+                    availability="open",
+                    location="Lahore",
+                    summary="Private profile summary",
+                    consent_version="ecosystem-profile-v1",
+                )
+            )
             resume = ResumeOptimization(
                 user_id=due_user.id,
                 storage_key="a" * 32,
@@ -177,18 +185,36 @@ def test_account_purge_removes_due_user_data_and_private_resume_and_cache(monkey
             assert session.get(User, due_user_id) is None
             assert session.get(User, future_user_id) is not None
             assert session.get(User, still_active_id) is not None
-            assert session.scalar(
-                select(ConsentRecord.id).where(ConsentRecord.user_id == due_user_id)
-            ) is None
-            assert session.scalar(
-                select(ComplianceQuery.id).where(ComplianceQuery.user_id == due_user_id)
-            ) is None
-            assert session.scalar(
-                select(EcosystemProfile.id).where(EcosystemProfile.user_id == due_user_id)
-            ) is None
-            assert session.scalar(
-                select(ResumeOptimization.id).where(ResumeOptimization.user_id == due_user_id)
-            ) is None
+            assert (
+                session.scalar(
+                    select(ConsentRecord.id).where(ConsentRecord.user_id == due_user_id)
+                )
+                is None
+            )
+            assert (
+                session.scalar(
+                    select(ComplianceQuery.id).where(
+                        ComplianceQuery.user_id == due_user_id
+                    )
+                )
+                is None
+            )
+            assert (
+                session.scalar(
+                    select(EcosystemProfile.id).where(
+                        EcosystemProfile.user_id == due_user_id
+                    )
+                )
+                is None
+            )
+            assert (
+                session.scalar(
+                    select(ResumeOptimization.id).where(
+                        ResumeOptimization.user_id == due_user_id
+                    )
+                )
+                is None
+            )
         assert purged_count == 1
         assert not resume_path.exists()
         assert cache.get(due_user_id, cache_key) is None

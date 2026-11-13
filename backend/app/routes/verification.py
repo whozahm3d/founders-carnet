@@ -1,6 +1,6 @@
 """Opt-in mentor/investor profile verification and reporting (FR-12, FR-14 to FR-16, FR-19 to FR-21)."""
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, HTTPException, status
@@ -15,18 +15,21 @@ from app.feature_models import (
     EcosystemProfile,
     ProfileReport,
     ProfileVerification,
+    TalentProfile,
     VerificationAppeal,
     VerificationDecision,
-    TalentProfile,
     VerificationSignal,
 )
-from app.models import User
+from app.models import OAuthIdentity, User
 from app.services.feature_ai import get_gateway
 from app.services.llm_gateway import GeminiGateway
-from app.services.portfolio_verification import FirecrawlPortfolioFetcher, PortfolioFetchError, get_portfolio_fetcher
+from app.services.portfolio_verification import (
+    FirecrawlPortfolioFetcher,
+    PortfolioFetchError,
+    get_portfolio_fetcher,
+)
 from app.services.profile_verification import score_profile_verification
 from app.services.secp_check import SecpChecker, get_secp_checker
-from app.models import OAuthIdentity
 from app.verification_schemas import (
     PortfolioLinkAssessment,
     ProfileReportRead,
@@ -36,28 +39,37 @@ from app.verification_schemas import (
     VerificationAppealWrite,
 )
 
-
 router = APIRouter(prefix="/api/v1/verification", tags=["profile verification"])
 PORTFOLIO_ASSESSMENT_PROMPT_VERSION = "portfolio-consistency-v1"
 SessionDep = Annotated[Session, Depends(get_db)]
 CurrentUser = Annotated[User, Depends(get_current_user)]
-VerificationUser = Annotated[User, Depends(require_roles("mentor", "investor", "talent"))]
-ReportUser = Annotated[User, Depends(require_roles("founder", "talent", "mentor", "investor"))]
+VerificationUser = Annotated[
+    User, Depends(require_roles("mentor", "investor", "talent"))
+]
+ReportUser = Annotated[
+    User, Depends(require_roles("founder", "talent", "mentor", "investor"))
+]
 GatewayDep = Annotated[GeminiGateway, Depends(get_gateway)]
 SecpCheckerDep = Annotated[SecpChecker, Depends(get_secp_checker)]
 
 
-@router.post("/me", response_model=ProfileVerificationRead, status_code=status.HTTP_201_CREATED)
+@router.post(
+    "/me", response_model=ProfileVerificationRead, status_code=status.HTTP_201_CREATED
+)
 def submit_verification(
     payload: ProfileVerificationWrite,
     user: VerificationUser,
     session: SessionDep,
     gateway: GatewayDep,
     secp_checker: SecpCheckerDep,
-    portfolio_fetcher: Annotated[FirecrawlPortfolioFetcher, Depends(get_portfolio_fetcher)],
+    portfolio_fetcher: Annotated[
+        FirecrawlPortfolioFetcher, Depends(get_portfolio_fetcher)
+    ],
 ) -> ProfileVerificationRead:
     if user.role not in {"mentor", "investor", "talent"}:
-        raise HTTPException(status_code=403, detail="This role cannot request verification")
+        raise HTTPException(
+            status_code=403, detail="This role cannot request verification"
+        )
     if not payload.processing_consent_accepted or not payload.trust_notice_accepted:
         raise HTTPException(
             status_code=400,
@@ -67,12 +79,17 @@ def submit_verification(
         select(EcosystemProfile).where(EcosystemProfile.user_id == user.id)
     )
     if ecosystem_profile is None:
-        raise HTTPException(status_code=409, detail="Create a matching profile before requesting verification")
+        raise HTTPException(
+            status_code=409,
+            detail="Create a matching profile before requesting verification",
+        )
     existing = session.scalar(
         select(ProfileVerification.id).where(ProfileVerification.user_id == user.id)
     )
     if existing is not None:
-        raise HTTPException(status_code=409, detail="A verification request already exists")
+        raise HTTPException(
+            status_code=409, detail="A verification request already exists"
+        )
 
     try:
         portfolio_text = portfolio_fetcher.fetch(str(payload.portfolio_url))
@@ -118,12 +135,15 @@ def submit_verification(
     talent_profile = session.scalar(
         select(TalentProfile).where(TalentProfile.user_id == user.id)
     )
-    linkedin_connected = session.scalar(
-        select(OAuthIdentity.id).where(
-            OAuthIdentity.user_id == user.id,
-            OAuthIdentity.provider == "linkedin",
+    linkedin_connected = (
+        session.scalar(
+            select(OAuthIdentity.id).where(
+                OAuthIdentity.user_id == user.id,
+                OAuthIdentity.provider == "linkedin",
+            )
         )
-    ) is not None
+        is not None
+    )
     secp_result = secp_checker.check(
         payload.secp_entity_name.strip(),
         payload.secp_registration_number.strip(),
@@ -138,7 +158,7 @@ def submit_verification(
         portfolio_reason=assessment.reason,
         settings=get_settings(),
     )
-    now = datetime.now(timezone.utc).replace(tzinfo=None)
+    now = datetime.now(UTC).replace(tzinfo=None)
     verification = ProfileVerification(
         user_id=user.id,
         portfolio_url=str(payload.portfolio_url),
@@ -162,8 +182,13 @@ def submit_verification(
         "linkedin_oauth": {
             "score": 1.0 if linkedin_connected else 0.0,
             "outcome": "connected" if linkedin_connected else "not_connected",
-            "input_snapshot": {"provider": "linkedin", "identity_present": linkedin_connected},
-            "reason": "A LinkedIn OAuth identity is linked." if linkedin_connected else "No LinkedIn OAuth identity is linked.",
+            "input_snapshot": {
+                "provider": "linkedin",
+                "identity_present": linkedin_connected,
+            },
+            "reason": "A LinkedIn OAuth identity is linked."
+            if linkedin_connected
+            else "No LinkedIn OAuth identity is linked.",
         },
         "secp_cross_check": {
             "score": secp_result.score,
@@ -183,11 +208,18 @@ def submit_verification(
         "github_for_talent": {
             "score": bool(talent_profile and talent_profile.github_url),
             "outcome": result.signals["github_for_talent"],
-            "input_snapshot": {"github_url_present": bool(talent_profile and talent_profile.github_url), "role": user.role},
+            "input_snapshot": {
+                "github_url_present": bool(
+                    talent_profile and talent_profile.github_url
+                ),
+                "role": user.role,
+            },
             "reason": "The optional GitHub link rule was evaluated.",
         },
         "portfolio_link": {
-            "score": {"consistent": 1.0, "insufficient": 0.5, "inconsistent": 0.0}[assessment.result],
+            "score": {"consistent": 1.0, "insufficient": 0.5, "inconsistent": 0.0}[
+                assessment.result
+            ],
             "outcome": assessment.result,
             "input_snapshot": {"portfolio_url": str(payload.portfolio_url)},
             "reason": assessment.reason,
@@ -219,13 +251,17 @@ def submit_verification(
         session.commit()
     except IntegrityError as exc:
         session.rollback()
-        raise HTTPException(status_code=409, detail="A verification request already exists") from exc
+        raise HTTPException(
+            status_code=409, detail="A verification request already exists"
+        ) from exc
     session.refresh(verification)
     return _verification_read(session, verification)
 
 
 @router.get("/me", response_model=ProfileVerificationRead)
-def read_my_verification(user: VerificationUser, session: SessionDep) -> ProfileVerificationRead:
+def read_my_verification(
+    user: VerificationUser, session: SessionDep
+) -> ProfileVerificationRead:
     verification = session.scalar(
         select(ProfileVerification).where(ProfileVerification.user_id == user.id)
     )
@@ -234,7 +270,11 @@ def read_my_verification(user: VerificationUser, session: SessionDep) -> Profile
     return _verification_read(session, verification)
 
 
-@router.post("/me/appeals", response_model=ProfileVerificationRead, status_code=status.HTTP_201_CREATED)
+@router.post(
+    "/me/appeals",
+    response_model=ProfileVerificationRead,
+    status_code=status.HTTP_201_CREATED,
+)
 def appeal_auto_rejection(
     payload: VerificationAppealWrite,
     user: VerificationUser,
@@ -244,9 +284,13 @@ def appeal_auto_rejection(
         select(ProfileVerification).where(ProfileVerification.user_id == user.id)
     )
     if verification is None or verification.status != "auto_rejected":
-        raise HTTPException(status_code=409, detail="Only an auto-rejected profile can be appealed")
+        raise HTTPException(
+            status_code=409, detail="Only an auto-rejected profile can be appealed"
+        )
     prior = session.scalar(
-        select(VerificationAppeal.id).where(VerificationAppeal.verification_id == verification.id)
+        select(VerificationAppeal.id).where(
+            VerificationAppeal.verification_id == verification.id
+        )
     )
     if prior is not None:
         raise HTTPException(status_code=409, detail="Only one appeal is allowed")
@@ -287,9 +331,13 @@ def report_profile(
     session: SessionDep,
 ) -> ProfileReport:
     if profile_user_id == user.id:
-        raise HTTPException(status_code=400, detail="You cannot report your own profile")
+        raise HTTPException(
+            status_code=400, detail="You cannot report your own profile"
+        )
     verification = session.scalar(
-        select(ProfileVerification).where(ProfileVerification.user_id == profile_user_id)
+        select(ProfileVerification).where(
+            ProfileVerification.user_id == profile_user_id
+        )
     )
     if verification is None:
         raise HTTPException(status_code=404, detail="Verified profile not found")
@@ -300,7 +348,9 @@ def report_profile(
         )
     )
     if duplicate is not None:
-        raise HTTPException(status_code=409, detail="You have already reported this profile")
+        raise HTTPException(
+            status_code=409, detail="You have already reported this profile"
+        )
 
     report = ProfileReport(
         reporter_user_id=user.id,
@@ -327,12 +377,17 @@ def report_profile(
     return ProfileReportRead(id=report.id)
 
 
-def _verification_read(session: Session, verification: ProfileVerification) -> ProfileVerificationRead:
-    appeal_exists = session.scalar(
-        select(VerificationAppeal.id).where(
-            VerificationAppeal.verification_id == verification.id
+def _verification_read(
+    session: Session, verification: ProfileVerification
+) -> ProfileVerificationRead:
+    appeal_exists = (
+        session.scalar(
+            select(VerificationAppeal.id).where(
+                VerificationAppeal.verification_id == verification.id
+            )
         )
-    ) is not None
+        is not None
+    )
     return ProfileVerificationRead(
         id=verification.id,
         user_id=verification.user_id,

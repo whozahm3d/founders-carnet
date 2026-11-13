@@ -24,7 +24,9 @@ def get_current_user(
     payload = decode_access_token(token)
     user_id = payload.get("sub")
     if not isinstance(user_id, str):
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token"
+        )
 
     try:
         parsed_user_id = int(user_id)
@@ -41,7 +43,10 @@ def get_current_user(
         or payload.get("ver") != user.token_version
         or payload.get("role") != user.role
     ):
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="User not found or inactive")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="User not found or inactive",
+        )
     return user
 
 

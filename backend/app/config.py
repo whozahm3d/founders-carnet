@@ -69,7 +69,9 @@ class Settings(BaseSettings):
     @model_validator(mode="after")
     def validate_verification_thresholds(self) -> "Settings":
         if self.verification_high_threshold <= self.verification_low_threshold:
-            raise ValueError("Verification high threshold must exceed the low threshold")
+            raise ValueError(
+                "Verification high threshold must exceed the low threshold"
+            )
         weights = (
             self.verification_linkedin_weight,
             self.verification_secp_weight,

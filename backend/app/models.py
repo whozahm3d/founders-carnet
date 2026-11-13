@@ -30,7 +30,9 @@ class User(Base):
     __tablename__ = "users"
 
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
-    email: Mapped[str] = mapped_column(String(255), unique=True, index=True, nullable=False)
+    email: Mapped[str] = mapped_column(
+        String(255), unique=True, index=True, nullable=False
+    )
     full_name: Mapped[str] = mapped_column(String(255), nullable=False)
     hashed_password: Mapped[str] = mapped_column(String(255), nullable=False)
     role: Mapped[str] = mapped_column(String(50), default="founder", nullable=False)
@@ -65,15 +67,21 @@ class ConsentRecord(Base):
 
     __tablename__ = "consent_records"
     __table_args__ = (
-        UniqueConstraint("user_id", "consent_type", name="uq_consent_records_user_type"),
+        UniqueConstraint(
+            "user_id", "consent_type", name="uq_consent_records_user_type"
+        ),
         Index("ix_consent_records_user_type", "user_id", "consent_type"),
     )
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    user_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    user_id: Mapped[int] = mapped_column(
+        ForeignKey("users.id", ondelete="CASCADE"), nullable=False
+    )
     consent_type: Mapped[str] = mapped_column(String(80), nullable=False)
     consent_version: Mapped[str] = mapped_column(String(80), nullable=False)
-    accepted_at: Mapped[datetime] = mapped_column(DateTime, default=func.now(), nullable=False)
+    accepted_at: Mapped[datetime] = mapped_column(
+        DateTime, default=func.now(), nullable=False
+    )
     withdrawn_at: Mapped[datetime | None] = mapped_column(DateTime)
     source: Mapped[str] = mapped_column(String(30), nullable=False)
 
@@ -85,15 +93,21 @@ class OAuthIdentity(Base):
 
     __tablename__ = "oauth_identities"
     __table_args__ = (
-        UniqueConstraint("provider", "provider_subject", name="uq_oauth_provider_subject"),
+        UniqueConstraint(
+            "provider", "provider_subject", name="uq_oauth_provider_subject"
+        ),
         UniqueConstraint("user_id", "provider", name="uq_oauth_user_provider"),
     )
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    user_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    user_id: Mapped[int] = mapped_column(
+        ForeignKey("users.id", ondelete="CASCADE"), nullable=False
+    )
     provider: Mapped[str] = mapped_column(String(40), nullable=False)
     provider_subject: Mapped[str] = mapped_column(String(255), nullable=False)
-    created_at: Mapped[datetime] = mapped_column(DateTime, default=func.now(), nullable=False)
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime, default=func.now(), nullable=False
+    )
 
     user: Mapped[User] = relationship(back_populates="oauth_identities")
 
@@ -112,8 +126,12 @@ class FounderProfile(Base):
     bio: Mapped[str | None] = mapped_column(Text)
     location: Mapped[str | None] = mapped_column(String(255))
     consent_version: Mapped[str] = mapped_column(String(50), nullable=False)
-    consented_at: Mapped[datetime] = mapped_column(DateTime, default=func.now(), nullable=False)
-    created_at: Mapped[datetime] = mapped_column(DateTime, default=func.now(), nullable=False)
+    consented_at: Mapped[datetime] = mapped_column(
+        DateTime, default=func.now(), nullable=False
+    )
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime, default=func.now(), nullable=False
+    )
     updated_at: Mapped[datetime] = mapped_column(
         DateTime,
         default=func.now(),
@@ -171,7 +189,9 @@ class Startup(Base):
     funding_need_min: Mapped[float | None] = mapped_column(Numeric(14, 2))
     funding_need_max: Mapped[float | None] = mapped_column(Numeric(14, 2))
     is_verified: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
-    created_at: Mapped[datetime] = mapped_column(DateTime, default=func.now(), nullable=False)
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime, default=func.now(), nullable=False
+    )
     updated_at: Mapped[datetime] = mapped_column(
         DateTime,
         default=func.now(),
@@ -239,7 +259,9 @@ class ComplianceQuery(Base):
     )
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    user_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    user_id: Mapped[int] = mapped_column(
+        ForeignKey("users.id", ondelete="CASCADE"), nullable=False
+    )
     question: Mapped[str] = mapped_column(Text, nullable=False)
     answer_text: Mapped[str | None] = mapped_column(Text)
     outcome: Mapped[str] = mapped_column(String(20), nullable=False)
@@ -247,7 +269,9 @@ class ComplianceQuery(Base):
     passage_count: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
     latency_ms: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
     prompt_version: Mapped[str | None] = mapped_column(String(100))
-    created_at: Mapped[datetime] = mapped_column(DateTime, default=func.now(), nullable=False)
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime, default=func.now(), nullable=False
+    )
 
     user: Mapped[User] = relationship(back_populates="compliance_queries")
     citations: Mapped[list[ComplianceCitation]] = relationship(
@@ -259,7 +283,9 @@ class ComplianceQuery(Base):
 class ComplianceCitation(Base):
     __tablename__ = "compliance_citations"
     __table_args__ = (
-        UniqueConstraint("query_id", "chunk_id", name="uq_compliance_citations_query_chunk"),
+        UniqueConstraint(
+            "query_id", "chunk_id", name="uq_compliance_citations_query_chunk"
+        ),
     )
 
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -279,7 +305,7 @@ class ComplianceCitation(Base):
 
 # Import after Base and the existing models are defined so all tables register
 # with the same metadata used by Alembic and SQLite tests.
-from app.feature_models import (  # noqa: E402,F401
+from app.feature_models import (  # noqa: F401
     EcosystemProfile,
     JobApplication,
     JobListing,

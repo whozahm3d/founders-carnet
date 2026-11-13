@@ -45,7 +45,6 @@ from contextlib import nullcontext
 
 import torch
 from datasets import load_dataset, load_from_disk
-
 from sentence_transformers import (
     SparseEncoder,
     SparseEncoderModelCardData,

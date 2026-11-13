@@ -5,9 +5,10 @@ from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
-
 EmploymentType = Literal["job", "internship"]
-ApplicationStatus = Literal["submitted", "reviewing", "shortlisted", "rejected", "withdrawn"]
+ApplicationStatus = Literal[
+    "submitted", "reviewing", "shortlisted", "rejected", "withdrawn"
+]
 
 
 def _reject_whitespace_only(value: str) -> str:

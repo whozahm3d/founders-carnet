@@ -171,7 +171,9 @@ def cosine_similarity(first: Sequence[float], second: Sequence[float]) -> float:
     if first_norm == 0.0 or second_norm == 0.0:
         return 0.0
 
-    dot_product = math.fsum(a * b for a, b in zip(first_vector, second_vector, strict=True))
+    dot_product = math.fsum(
+        a * b for a, b in zip(first_vector, second_vector, strict=True)
+    )
     return dot_product / (first_norm * second_norm)
 
 

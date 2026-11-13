@@ -1,6 +1,6 @@
 """Background work for profile embeddings and scheduled account deletion."""
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from celery.utils.log import get_task_logger
 from sqlalchemy import select
@@ -13,7 +13,6 @@ from app.services.feature_ai import get_encoder
 from app.services.llm_cache import clear_structured_response_cache
 from app.services.matching import profile_match_text
 from app.services.resume_optimizer import delete_resume_pdf
-
 
 logger = get_task_logger(__name__)
 
@@ -97,8 +96,8 @@ def purge_due_accounts(cutoff_iso: str | None = None, batch_size: int = 100) -> 
 
 def _parse_cutoff(value: str | None) -> datetime:
     if value is None:
-        return datetime.now(timezone.utc).replace(tzinfo=None)
+        return datetime.now(UTC).replace(tzinfo=None)
     parsed = datetime.fromisoformat(value)
     if parsed.tzinfo is not None:
-        return parsed.astimezone(timezone.utc).replace(tzinfo=None)
+        return parsed.astimezone(UTC).replace(tzinfo=None)
     return parsed

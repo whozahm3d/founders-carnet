@@ -7,7 +7,6 @@ from app.config import get_settings
 from app.services.compliance_assistant import ComplianceAnswerService
 from app.services.llm_gateway import GeminiGateway
 from app.services.llm_gateway_logging import write_gateway_call_log
-from rag.compliance.embeddings import SentenceTransformerEncoder
 
 
 @lru_cache(maxsize=1)

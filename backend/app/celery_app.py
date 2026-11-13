@@ -5,7 +5,6 @@ from celery.schedules import crontab
 
 from app.config import get_settings
 
-
 settings = get_settings()
 celery_app = Celery(
     "founders_carnet",
@@ -26,4 +25,3 @@ celery_app.conf.update(
         },
     },
 )
-

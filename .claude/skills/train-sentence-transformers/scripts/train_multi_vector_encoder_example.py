@@ -54,7 +54,6 @@ from contextlib import nullcontext
 
 import torch
 from datasets import load_dataset
-
 from sentence_transformers import (
     MultiVectorEncoder,
     MultiVectorEncoderModelCardData,
@@ -62,8 +61,12 @@ from sentence_transformers import (
     MultiVectorEncoderTrainingArguments,
 )
 from sentence_transformers.base.sampler import BatchSamplers
-from sentence_transformers.multi_vector_encoder.evaluation import MultiVectorNanoBEIREvaluator
-from sentence_transformers.multi_vector_encoder.losses import MultiVectorMultipleNegativesRankingLoss
+from sentence_transformers.multi_vector_encoder.evaluation import (
+    MultiVectorNanoBEIREvaluator,
+)
+from sentence_transformers.multi_vector_encoder.losses import (
+    MultiVectorMultipleNegativesRankingLoss,
+)
 
 
 def autocast_ctx():

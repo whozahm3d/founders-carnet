@@ -6,7 +6,6 @@ from sqlalchemy.orm import Session, sessionmaker
 from sqlalchemy.pool import StaticPool
 
 import app.tasks as background_tasks
-
 from app.celery_app import celery_app
 from app.database import get_db
 from app.main import app

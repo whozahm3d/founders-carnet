@@ -5,11 +5,11 @@ from __future__ import annotations
 import json
 import logging
 import re
-from collections.abc import Sequence
+from collections.abc import Callable, Iterator, Sequence
 from contextlib import contextmanager
 from threading import Condition, Lock
 from time import perf_counter, sleep
-from typing import Any, Callable, Iterator, TypeVar
+from typing import Any, TypeVar
 from uuid import uuid4
 
 import httpx
@@ -93,7 +93,9 @@ class GeminiGateway:
         if not model_name.strip():
             raise ValueError("Gemini model name is not configured")
         if not 10_000 <= request_timeout_ms <= 120_000:
-            raise ValueError("Gemini request timeout must be between 10000 and 120000 ms")
+            raise ValueError(
+                "Gemini request timeout must be between 10000 and 120000 ms"
+            )
 
         if client is None:
             from google import genai
@@ -165,7 +167,9 @@ class GeminiGateway:
                 "an effective date in its cited source."
             ),
             response_schema=GroundingValidation,
-            output_instruction=json.dumps({"proposed_answer": answer}, ensure_ascii=False),
+            output_instruction=json.dumps(
+                {"proposed_answer": answer}, ensure_ascii=False
+            ),
         )
         return GroundingValidation.model_validate_json(response)
 
@@ -187,7 +191,11 @@ class GeminiGateway:
             {"input_data": payload, "task": output_instruction},
             ensure_ascii=False,
         )
-        prompt_chars = len(contents) + len(system_instruction) + len(json.dumps(schema, ensure_ascii=False))
+        prompt_chars = (
+            len(contents)
+            + len(system_instruction)
+            + len(json.dumps(schema, ensure_ascii=False))
+        )
         cache_key: str | None = None
         if cache_scope is not None and self._cache is not None:
             try:
@@ -203,7 +211,10 @@ class GeminiGateway:
                 )
                 cached_response = self._cache.get(cache_scope, cache_key)
             except Exception as exc:
-                logger.warning("Gemini structured cache read failed error_type=%s", type(exc).__name__)
+                logger.warning(
+                    "Gemini structured cache read failed error_type=%s",
+                    type(exc).__name__,
+                )
                 cached_response = None
             if cached_response is not None:
                 try:
@@ -255,11 +266,18 @@ class GeminiGateway:
         if not isinstance(response_text, str) or not response_text.strip():
             raise ValueError("Gemini returned no structured response")
         result = response_schema.model_validate_json(response_text)
-        if cache_scope is not None and cache_key is not None and self._cache is not None:
+        if (
+            cache_scope is not None
+            and cache_key is not None
+            and self._cache is not None
+        ):
             try:
                 self._cache.set(cache_scope, cache_key, response_text)
             except Exception as exc:
-                logger.warning("Gemini structured cache write failed error_type=%s", type(exc).__name__)
+                logger.warning(
+                    "Gemini structured cache write failed error_type=%s",
+                    type(exc).__name__,
+                )
         return result
 
     def close(self) -> None:
@@ -323,7 +341,7 @@ class GeminiGateway:
             attempt_started = perf_counter()
             queue_position = 0
 
-            def log_queued(position: int) -> None:
+            def log_queued(position: int, current_model: str = current_model) -> None:
                 logger.info(
                     "Gemini request queued request_id=%s operation=%s model=%s queue_position=%d",
                     request_id,
@@ -383,11 +401,17 @@ class GeminiGateway:
                         "model_unavailable",
                     }
                 )
-                next_model = current_model if retry_primary else (
-                    self.fallback_model if use_fallback else None
+                next_model = (
+                    current_model
+                    if retry_primary
+                    else (self.fallback_model if use_fallback else None)
                 )
                 if next_model is not None:
-                    event = "Gemini fallback selected" if use_fallback else "Gemini retry scheduled"
+                    event = (
+                        "Gemini fallback selected"
+                        if use_fallback
+                        else "Gemini retry scheduled"
+                    )
                     logger.warning(
                         "%s model=%s operation=%s attempt_number=%d next_model=%s "
                         "status_code=%s failure_category=%s passages=%d "
@@ -441,7 +465,7 @@ class GeminiGateway:
                         "status_code": status_code,
                         "failure_category": category,
                         "elapsed_ms": elapsed_ms,
-                            "queue_position": queue_position,
+                        "queue_position": queue_position,
                     },
                 )
                 raise
@@ -488,7 +512,10 @@ class GeminiGateway:
         try:
             self._call_log_writer(event)
         except Exception as exc:
-            logger.warning("Gemini call metadata persistence failed error_type=%s", type(exc).__name__)
+            logger.warning(
+                "Gemini call metadata persistence failed error_type=%s",
+                type(exc).__name__,
+            )
 
     def _generate_json(
         self,
@@ -522,11 +549,15 @@ class GeminiGateway:
         )
         while evidence and approximate_prompt_chars > MAX_COMPLIANCE_PROMPT_CHARS:
             evidence.pop()
-            contents = _build_compliance_contents(question, evidence, output_instruction)
+            contents = _build_compliance_contents(
+                question, evidence, output_instruction
+            )
             approximate_prompt_chars = (
                 len(contents)
                 + len(system_instruction)
-                + len(json.dumps(response_schema.model_json_schema(), ensure_ascii=False))
+                + len(
+                    json.dumps(response_schema.model_json_schema(), ensure_ascii=False)
+                )
             )
         if approximate_prompt_chars > MAX_COMPLIANCE_PROMPT_CHARS:
             raise ValueError("Compliance prompt exceeds the configured context limit")

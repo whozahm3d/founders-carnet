@@ -1,6 +1,6 @@
 """Admin review queue and final verification decisions (FR-16, FR-21, FR-26)."""
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, HTTPException, status
@@ -25,14 +25,15 @@ from app.verification_schemas import (
     ProfileVerificationRead,
 )
 
-
 router = APIRouter(prefix="/api/v1/admin/verification", tags=["admin verification"])
 SessionDep = Annotated[Session, Depends(get_db)]
 AdminUser = Annotated[User, Depends(require_roles("admin"))]
 
 
 @router.get("/review-queue", response_model=list[AdminVerificationQueueItem])
-def read_review_queue(_: AdminUser, session: SessionDep) -> list[AdminVerificationQueueItem]:
+def read_review_queue(
+    _: AdminUser, session: SessionDep
+) -> list[AdminVerificationQueueItem]:
     rows = session.execute(
         select(ProfileVerification, User.role)
         .join(User, User.id == ProfileVerification.user_id)
@@ -42,16 +43,23 @@ def read_review_queue(_: AdminUser, session: SessionDep) -> list[AdminVerificati
     items = []
     for verification, user_role in rows:
         appeal = session.scalar(
-            select(VerificationAppeal).where(VerificationAppeal.verification_id == verification.id)
+            select(VerificationAppeal).where(
+                VerificationAppeal.verification_id == verification.id
+            )
         )
         signal_rows = session.scalars(
             select(VerificationSignal)
             .where(VerificationSignal.verification_id == verification.id)
             .order_by(VerificationSignal.id.asc())
         ).all()
-        report_count = session.scalar(
-            select(func.count(ProfileReport.id)).where(ProfileReport.target_user_id == verification.user_id)
-        ) or 0
+        report_count = (
+            session.scalar(
+                select(func.count(ProfileReport.id)).where(
+                    ProfileReport.target_user_id == verification.user_id
+                )
+            )
+            or 0
+        )
         items.append(
             AdminVerificationQueueItem(
                 verification_id=verification.id,
@@ -62,7 +70,8 @@ def read_review_queue(_: AdminUser, session: SessionDep) -> list[AdminVerificati
                 band=verification.band,
                 signals=verification.signals,
                 signal_details=[
-                    AdminVerificationSignalRead.model_validate(signal) for signal in signal_rows
+                    AdminVerificationSignalRead.model_validate(signal)
+                    for signal in signal_rows
                 ],
                 reason=verification.reason,
                 threshold_version=verification.threshold_version,
@@ -83,19 +92,26 @@ def decide_verification(
 ) -> ProfileVerificationRead:
     verification = session.get(ProfileVerification, verification_id)
     if verification is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Verification case not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Verification case not found"
+        )
     if verification.status not in {"pending_review", "appeal_pending"}:
-        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="This verification case has a final decision")
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="This verification case has a final decision",
+        )
 
     final_status = "verified" if payload.decision == "approve" else "rejected"
     appeal = session.scalar(
-        select(VerificationAppeal).where(VerificationAppeal.verification_id == verification.id)
+        select(VerificationAppeal).where(
+            VerificationAppeal.verification_id == verification.id
+        )
     )
     if appeal is not None and appeal.status == "pending":
         appeal.status = "approved" if payload.decision == "approve" else "rejected"
         appeal.decision_reason = payload.reason
         appeal.reviewed_by = reviewer.id
-        appeal.reviewed_at = datetime.now(timezone.utc).replace(tzinfo=None)
+        appeal.reviewed_at = datetime.now(UTC).replace(tzinfo=None)
 
     verification.status = final_status
     verification.reason = payload.reason
@@ -114,9 +130,14 @@ def decide_verification(
     session.commit()
     session.refresh(verification)
 
-    appeal_exists = session.scalar(
-        select(VerificationAppeal.id).where(VerificationAppeal.verification_id == verification.id)
-    ) is not None
+    appeal_exists = (
+        session.scalar(
+            select(VerificationAppeal.id).where(
+                VerificationAppeal.verification_id == verification.id
+            )
+        )
+        is not None
+    )
     return ProfileVerificationRead(
         id=verification.id,
         user_id=verification.user_id,

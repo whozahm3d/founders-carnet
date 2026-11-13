@@ -17,11 +17,16 @@ def test_portfolio_fetch_uses_configured_provider_and_caps_extracted_content():
         observed["payload"] = request.read()
         return httpx.Response(
             200,
-            json={"success": True, "data": {"markdown": "x" * (PORTFOLIO_CONTENT_LIMIT + 100)}},
+            json={
+                "success": True,
+                "data": {"markdown": "x" * (PORTFOLIO_CONTENT_LIMIT + 100)},
+            },
         )
 
     with httpx.Client(transport=httpx.MockTransport(handler)) as client:
-        fetcher = FirecrawlPortfolioFetcher(api_key="test-key", timeout_ms=1000, client=client)
+        fetcher = FirecrawlPortfolioFetcher(
+            api_key="test-key", timeout_ms=1000, client=client
+        )
         content = fetcher.fetch("https://example.org/product")
 
     assert observed["url"] == "https://api.firecrawl.dev/v2/scrape"
@@ -35,7 +40,9 @@ def test_portfolio_fetch_errors_are_sanitized():
         return httpx.Response(503, text="provider response containing private details")
 
     with httpx.Client(transport=httpx.MockTransport(handler)) as client:
-        fetcher = FirecrawlPortfolioFetcher(api_key="test-key", timeout_ms=1000, client=client)
+        fetcher = FirecrawlPortfolioFetcher(
+            api_key="test-key", timeout_ms=1000, client=client
+        )
         with pytest.raises(PortfolioFetchError) as error:
             fetcher.fetch("https://example.org/private")
 

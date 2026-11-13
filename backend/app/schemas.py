@@ -4,7 +4,6 @@ from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, EmailStr, Field
 
-
 UserRole = Literal["founder", "talent", "mentor", "investor"]
 
 

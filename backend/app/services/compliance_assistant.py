@@ -27,7 +27,9 @@ _CASE_SPECIFIC_ADVICE = re.compile(
     r"\b(?:licen[cs]e|permit|registration)\b",
     re.IGNORECASE,
 )
-_MONEY_OR_RATE = re.compile(r"(?:\d+(?:\.\d+)?\s*%|\b(?:PKR|Rs\.?)\s*[\d,]+)", re.IGNORECASE)
+_MONEY_OR_RATE = re.compile(
+    r"(?:\d+(?:\.\d+)?\s*%|\b(?:PKR|Rs\.?)\s*[\d,]+)", re.IGNORECASE
+)
 logger = logging.getLogger(__name__)
 
 
@@ -109,7 +111,9 @@ class ComplianceAnswerService:
         if close is not None:
             close()
 
-    def ask(self, session: Session, *, user_id: int, question: str) -> ComplianceAnswerResult:
+    def ask(
+        self, session: Session, *, user_id: int, question: str
+    ) -> ComplianceAnswerResult:
         normalized_question = question.strip()
         if not normalized_question:
             raise ValueError("Question must not be empty")
@@ -208,7 +212,9 @@ class ComplianceAnswerService:
                 )
             passage_by_id = {passage.chunk.chunk_id: passage for passage in passages}
             cited_ids = tuple(dict.fromkeys(draft.citation_chunk_ids))
-            if not cited_ids or any(chunk_id not in passage_by_id for chunk_id in cited_ids):
+            if not cited_ids or any(
+                chunk_id not in passage_by_id for chunk_id in cited_ids
+            ):
                 return self._abstain_after_retrieval(
                     session,
                     user_id=user_id,
@@ -220,7 +226,8 @@ class ComplianceAnswerService:
 
             cited_passages = tuple(passage_by_id[chunk_id] for chunk_id in cited_ids)
             if _MONEY_OR_RATE.search(draft.answer) and any(
-                passage.chunk.document.effective_date is None for passage in cited_passages
+                passage.chunk.document.effective_date is None
+                for passage in cited_passages
             ):
                 return self._abstain_after_retrieval(
                     session,
@@ -232,7 +239,9 @@ class ComplianceAnswerService:
                 )
 
             validation = GroundingValidation.model_validate(
-                self.gateway.validate_answer(normalized_question, draft.answer, cited_passages)
+                self.gateway.validate_answer(
+                    normalized_question, draft.answer, cited_passages
+                )
             )
             if not validation.is_supported:
                 return self._abstain_after_retrieval(
@@ -244,7 +253,9 @@ class ComplianceAnswerService:
                     started_at=started_at,
                 )
 
-            citation_results = tuple(_citation_result(passage) for passage in cited_passages)
+            citation_results = tuple(
+                _citation_result(passage) for passage in cited_passages
+            )
             return self._save_result(
                 session,
                 user_id=user_id,
@@ -259,7 +270,9 @@ class ComplianceAnswerService:
             )
         except Exception as exc:
             if not getattr(exc, "_carnet_generation_failure_logged", False):
-                logger.exception("Compliance answer generation failed for user_id=%s", user_id)
+                logger.exception(
+                    "Compliance answer generation failed for user_id=%s", user_id
+                )
             self._save_failed_query(
                 session,
                 user_id=user_id,
@@ -267,7 +280,9 @@ class ComplianceAnswerService:
                 passage_count=len(passages),
                 started_at=started_at,
             )
-            raise ComplianceServiceUnavailable("Compliance answer generation failed") from exc
+            raise ComplianceServiceUnavailable(
+                "Compliance answer generation failed"
+            ) from exc
 
     def _abstain_after_retrieval(
         self,
@@ -314,14 +329,18 @@ class ComplianceAnswerService:
             abstention_reason=reason,
             passage_count=len(passages),
             latency_ms=max(0, int((perf_counter() - started_at) * 1000)),
-            prompt_version=self.gateway.prompt_version if outcome == "answered" else None,
+            prompt_version=self.gateway.prompt_version
+            if outcome == "answered"
+            else None,
         )
         session.add(query)
         session.flush()
         passage_by_id = {passage.chunk.chunk_id: passage for passage in passages}
         for rank, citation in enumerate(citation_results, start=1):
             chunk = passage_by_id[citation.chunk_id].chunk
-            session.add(ComplianceCitation(query_id=query.id, chunk_id=chunk.id, rank=rank))
+            session.add(
+                ComplianceCitation(query_id=query.id, chunk_id=chunk.id, rank=rank)
+            )
         session.commit()
         session.refresh(query)
         return ComplianceAnswerResult(
@@ -357,11 +376,15 @@ class ComplianceAnswerService:
             )
             session.commit()
         except Exception:
-            logger.exception("Could not record failed compliance query for user_id=%s", user_id)
+            logger.exception(
+                "Could not record failed compliance query for user_id=%s", user_id
+            )
             try:
                 session.rollback()
             except Exception:
-                logger.exception("Could not reset database session after failed query logging")
+                logger.exception(
+                    "Could not reset database session after failed query logging"
+                )
 
 
 def _citation_result(passage: RetrievedChunk) -> CitationResult:

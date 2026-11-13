@@ -1,9 +1,8 @@
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from fastapi.testclient import TestClient
 
 from app.main import app
-
 
 client = TestClient(app)
 
@@ -20,14 +19,20 @@ def _registration_payload(email: str) -> dict[str, object]:
 def test_registration_requires_explicit_consent_and_does_not_create_user():
     response = client.post(
         "/api/v1/auth/register/founder",
-        json={**_registration_payload("no-consent@example.com"), "consent_accepted": False},
+        json={
+            **_registration_payload("no-consent@example.com"),
+            "consent_accepted": False,
+        },
     )
 
     assert response.status_code == 400
-    assert client.post(
-        "/api/v1/auth/login",
-        json={"email": "no-consent@example.com", "password": "SecurePass123!"},
-    ).status_code == 401
+    assert (
+        client.post(
+            "/api/v1/auth/login",
+            json={"email": "no-consent@example.com", "password": "SecurePass123!"},
+        ).status_code
+        == 401
+    )
 
 
 def test_registration_role_is_in_path_and_admin_cannot_be_selected():
@@ -37,10 +42,13 @@ def test_registration_role_is_in_path_and_admin_cannot_be_selected():
     )
 
     assert response.status_code == 422
-    assert client.post(
-        "/api/v1/auth/login",
-        json={"email": "admin-choice@example.com", "password": "SecurePass123!"},
-    ).status_code == 401
+    assert (
+        client.post(
+            "/api/v1/auth/login",
+            json={"email": "admin-choice@example.com", "password": "SecurePass123!"},
+        ).status_code
+        == 401
+    )
 
 
 def test_consent_can_be_withdrawn_without_exposing_password_or_token():
@@ -62,7 +70,9 @@ def test_consent_can_be_withdrawn_without_exposing_password_or_token():
     assert "SecurePass123!" not in response.text
 
 
-def test_deletion_request_disables_account_invalidates_token_and_clears_llm_cache(monkeypatch):
+def test_deletion_request_disables_account_invalidates_token_and_clears_llm_cache(
+    monkeypatch,
+):
     import app.main as main_module
 
     cleared_scopes = []
@@ -91,12 +101,20 @@ def test_deletion_request_disables_account_invalidates_token_and_clears_llm_cach
     assert len(cleared_scopes) == 1
     assert isinstance(cleared_scopes[0], int)
     scheduled = datetime.fromisoformat(response.json()["deletion_scheduled_for"])
-    assert scheduled > datetime.now(timezone.utc).replace(tzinfo=None)
-    assert client.get("/api/v1/users/me", headers={"Authorization": f"Bearer {token}"}).status_code == 401
-    assert client.post(
-        "/api/v1/auth/login",
-        json={"email": "delete-me@example.com", "password": "SecurePass123!"},
-    ).status_code == 401
+    assert scheduled > datetime.now(UTC).replace(tzinfo=None)
+    assert (
+        client.get(
+            "/api/v1/users/me", headers={"Authorization": f"Bearer {token}"}
+        ).status_code
+        == 401
+    )
+    assert (
+        client.post(
+            "/api/v1/auth/login",
+            json={"email": "delete-me@example.com", "password": "SecurePass123!"},
+        ).status_code
+        == 401
+    )
 
 
 def test_fake_linkedin_provider_creates_identity_and_reuses_it():

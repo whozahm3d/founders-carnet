@@ -4,9 +4,9 @@ Revision ID: 0007
 Revises: 0006
 """
 
-from alembic import op
 import sqlalchemy as sa
 
+from alembic import op
 
 revision = "0007"
 down_revision = "0006"
@@ -51,5 +51,7 @@ def upgrade() -> None:
 
 
 def downgrade() -> None:
-    op.drop_index("ix_resume_optimizations_user_created", table_name="resume_optimizations")
+    op.drop_index(
+        "ix_resume_optimizations_user_created", table_name="resume_optimizations"
+    )
     op.drop_table("resume_optimizations")

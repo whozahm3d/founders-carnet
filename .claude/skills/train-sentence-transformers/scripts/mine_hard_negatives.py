@@ -71,7 +71,6 @@ import logging
 import sys
 
 from datasets import load_dataset
-
 from sentence_transformers import CrossEncoder, SentenceTransformer
 from sentence_transformers.util import mine_hard_negatives
 

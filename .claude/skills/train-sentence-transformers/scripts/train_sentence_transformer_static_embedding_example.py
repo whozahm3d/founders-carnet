@@ -59,8 +59,6 @@ from contextlib import nullcontext
 import datasets
 import torch
 from datasets import load_dataset
-from tokenizers import Tokenizer
-
 from sentence_transformers import (
     SentenceTransformer,
     SentenceTransformerModelCardData,
@@ -74,6 +72,7 @@ from sentence_transformers.sentence_transformer.losses import (
     MultipleNegativesRankingLoss,
 )
 from sentence_transformers.sentence_transformer.modules import StaticEmbedding
+from tokenizers import Tokenizer
 
 
 def autocast_ctx():

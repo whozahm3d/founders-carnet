@@ -50,7 +50,9 @@ class FirecrawlSearch:
         if not api_key:
             raise ValueError("Firecrawl API key is not configured")
         if not 5_000 <= request_timeout_ms <= 55_000:
-            raise ValueError("Firecrawl request timeout must be between 5000 and 55000 ms")
+            raise ValueError(
+                "Firecrawl request timeout must be between 5000 and 55000 ms"
+            )
         self._api_key = api_key
         self._request_timeout_ms = request_timeout_ms
         self._client = client
@@ -84,10 +86,12 @@ class FirecrawlSearch:
         except (httpx.HTTPError, ValueError, TypeError, KeyError) as exc:
             logger.exception(
                 "Firecrawl search failed status_code=%s elapsed_ms=%d",
-                getattr(getattr(exc, "response", None), "status_code", "unavailable"),
+                getattr(getattr(exc, "response", None), "status_code", "unavailable"),  # noqa: TRY401
                 int((perf_counter() - request_started) * 1000),
             )
-            raise FirecrawlSearchError("Public web search is temporarily unavailable") from exc
+            raise FirecrawlSearchError(
+                "Public web search is temporarily unavailable"
+            ) from exc
         finally:
             if owns_client:
                 client.close()
@@ -106,7 +110,7 @@ class FirecrawlSearch:
         data = body.get("data")
         web_results = data.get("web") if isinstance(data, dict) else None
         if not isinstance(web_results, list):
-            raise ValueError("Invalid Firecrawl results")
+            raise TypeError("Invalid Firecrawl results")
 
         evidence: list[SearchEvidence] = []
         seen_urls: set[str] = set()

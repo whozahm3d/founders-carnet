@@ -38,10 +38,13 @@ def test_public_registration_cannot_create_an_admin():
         },
     )
     assert response.status_code == 422
-    assert client.post(
-        "/api/v1/auth/login",
-        json={"email": "admin@example.com", "password": "SecurePass123!"},
-    ).status_code == 401
+    assert (
+        client.post(
+            "/api/v1/auth/login",
+            json={"email": "admin@example.com", "password": "SecurePass123!"},
+        ).status_code
+        == 401
+    )
 
 
 def test_registration_validation_does_not_echo_the_submitted_password():

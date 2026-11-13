@@ -14,7 +14,6 @@ from pathlib import Path
 
 from app.config import _REPOSITORY_ROOT, get_settings
 
-
 DEFAULT_CACHE_TTL_SECONDS = 24 * 60 * 60
 _HASH_PATTERN = re.compile(r"^[a-f0-9]{64}$")
 
@@ -55,7 +54,9 @@ class StructuredResponseDiskCache:
             "schema": schema,
             "output_instruction": output_instruction,
         }
-        canonical = json.dumps(request, sort_keys=True, ensure_ascii=False, separators=(",", ":"))
+        canonical = json.dumps(
+            request, sort_keys=True, ensure_ascii=False, separators=(",", ":")
+        )
         return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
 
     def get(self, scope: int | str, key: str) -> str | None:
@@ -116,7 +117,10 @@ class StructuredResponseDiskCache:
         if not _HASH_PATTERN.fullmatch(key):
             raise ValueError("Invalid structured cache key")
         path = self._scope_directory(scope) / f"{key}.json"
-        if path.parent.resolve() != self.root and self.root not in path.parent.resolve().parents:
+        if (
+            path.parent.resolve() != self.root
+            and self.root not in path.parent.resolve().parents
+        ):
             raise RuntimeError("Invalid private cache path")
         return path
 
@@ -138,7 +142,12 @@ def _validated_cache_root(cache_dir: Path) -> Path:
     if (
         root == served_directory
         or served_directory in root.parents
-        or (root.is_relative_to(repository_root) and not root.is_relative_to(private_base))
+        or (
+            root.is_relative_to(repository_root)
+            and not root.is_relative_to(private_base)
+        )
     ):
-        raise RuntimeError("Structured response cache must be private and outside served source directories")
+        raise RuntimeError(
+            "Structured response cache must be private and outside served source directories"
+        )
     return root

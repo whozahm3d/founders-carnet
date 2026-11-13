@@ -18,8 +18,14 @@ from app.job_schemas import (
     JobListingRead,
     TalentJobApplicationRead,
 )
-from app.models import FounderProfile, JobApplication, JobListing, JobSave, Startup, User
-
+from app.models import (
+    FounderProfile,
+    JobApplication,
+    JobListing,
+    JobSave,
+    Startup,
+    User,
+)
 
 router = APIRouter(prefix="/api/v1", tags=["jobs"])
 FounderDep = Annotated[User, Depends(require_roles("founder"))]
@@ -59,7 +65,9 @@ def _owned_listing(session: Session, job_id: int, user_id: int) -> JobListing:
 
 
 def _listing_read(session: Session, listing: JobListing) -> JobListingRead:
-    startup_name = session.scalar(select(Startup.name).where(Startup.id == listing.startup_id))
+    startup_name = session.scalar(
+        select(Startup.name).where(Startup.id == listing.startup_id)
+    )
     return JobListingRead(
         id=listing.id,
         startup_id=listing.startup_id,
@@ -143,7 +151,9 @@ def update_listing(
 
 
 @router.delete("/jobs/{job_id}", status_code=status.HTTP_204_NO_CONTENT)
-def delete_listing(job_id: int, current_user: FounderDep, session: SessionDep) -> Response:
+def delete_listing(
+    job_id: int, current_user: FounderDep, session: SessionDep
+) -> Response:
     listing = _owned_listing(session, job_id, current_user.id)
     session.delete(listing)
     session.commit()
@@ -151,7 +161,9 @@ def delete_listing(job_id: int, current_user: FounderDep, session: SessionDep) -
 
 
 @router.post("/jobs/{job_id}/save", status_code=status.HTTP_200_OK)
-def save_listing(job_id: int, current_user: TalentDep, session: SessionDep) -> dict[str, int | bool]:
+def save_listing(
+    job_id: int, current_user: TalentDep, session: SessionDep
+) -> dict[str, int | bool]:
     listing = session.scalar(
         select(JobListing)
         .join(Startup, Startup.id == JobListing.startup_id)
@@ -163,7 +175,9 @@ def save_listing(job_id: int, current_user: TalentDep, session: SessionDep) -> d
     if listing is None or listing.status != "open":
         raise HTTPException(status_code=404, detail="Open job listing not found")
     existing = session.scalar(
-        select(JobSave).where(JobSave.job_id == job_id, JobSave.user_id == current_user.id)
+        select(JobSave).where(
+            JobSave.job_id == job_id, JobSave.user_id == current_user.id
+        )
     )
     if existing is None:
         session.add(JobSave(job_id=job_id, user_id=current_user.id))
@@ -172,7 +186,9 @@ def save_listing(job_id: int, current_user: TalentDep, session: SessionDep) -> d
         except IntegrityError:
             session.rollback()
             existing = session.scalar(
-                select(JobSave).where(JobSave.job_id == job_id, JobSave.user_id == current_user.id)
+                select(JobSave).where(
+                    JobSave.job_id == job_id, JobSave.user_id == current_user.id
+                )
             )
             if existing is None:
                 raise
@@ -180,9 +196,13 @@ def save_listing(job_id: int, current_user: TalentDep, session: SessionDep) -> d
 
 
 @router.delete("/jobs/{job_id}/save", status_code=status.HTTP_204_NO_CONTENT)
-def unsave_listing(job_id: int, current_user: TalentDep, session: SessionDep) -> Response:
+def unsave_listing(
+    job_id: int, current_user: TalentDep, session: SessionDep
+) -> Response:
     saved = session.scalar(
-        select(JobSave).where(JobSave.job_id == job_id, JobSave.user_id == current_user.id)
+        select(JobSave).where(
+            JobSave.job_id == job_id, JobSave.user_id == current_user.id
+        )
     )
     if saved is not None:
         session.delete(saved)
@@ -191,7 +211,9 @@ def unsave_listing(job_id: int, current_user: TalentDep, session: SessionDep) ->
 
 
 @router.get("/jobs/saved", response_model=list[JobListingRead])
-def saved_listings(current_user: TalentDep, session: SessionDep) -> list[JobListingRead]:
+def saved_listings(
+    current_user: TalentDep, session: SessionDep
+) -> list[JobListingRead]:
     listings = session.scalars(
         select(JobListing)
         .join(JobSave, JobSave.job_id == JobListing.id)
@@ -216,10 +238,16 @@ def apply_to_listing(
     listing = session.scalar(
         select(JobListing)
         .join(Startup, Startup.id == JobListing.startup_id)
-        .where(JobListing.id == job_id, JobListing.status == "open", Startup.is_verified.is_(True))
+        .where(
+            JobListing.id == job_id,
+            JobListing.status == "open",
+            Startup.is_verified.is_(True),
+        )
     )
     if listing is None:
-        raise HTTPException(status_code=409, detail="Job listing is closed or unavailable")
+        raise HTTPException(
+            status_code=409, detail="Job listing is closed or unavailable"
+        )
     application = JobApplication(
         job_id=job_id,
         candidate_user_id=current_user.id,
@@ -237,10 +265,14 @@ def apply_to_listing(
             )
         )
         if duplicate is not None:
-            raise HTTPException(status_code=409, detail="Already applied to this listing") from exc
+            raise HTTPException(
+                status_code=409, detail="Already applied to this listing"
+            ) from exc
         raise
     session.refresh(application)
-    startup_name = session.scalar(select(Startup.name).where(Startup.id == listing.startup_id))
+    startup_name = session.scalar(
+        select(Startup.name).where(Startup.id == listing.startup_id)
+    )
     return TalentJobApplicationRead(
         id=application.id,
         job_id=job_id,
@@ -255,7 +287,9 @@ def apply_to_listing(
 
 
 @router.get("/jobs/applications/me", response_model=list[TalentJobApplicationRead])
-def my_applications(current_user: TalentDep, session: SessionDep) -> list[TalentJobApplicationRead]:
+def my_applications(
+    current_user: TalentDep, session: SessionDep
+) -> list[TalentJobApplicationRead]:
     rows = session.execute(
         select(JobApplication, JobListing, Startup)
         .join(JobListing, JobApplication.job_id == JobListing.id)
@@ -312,7 +346,9 @@ def founder_applications(
     ]
 
 
-@router.patch("/job-applications/{application_id}", response_model=FounderJobApplicationRead)
+@router.patch(
+    "/job-applications/{application_id}", response_model=FounderJobApplicationRead
+)
 def update_application_status(
     application_id: int,
     payload: JobApplicationStatusUpdate,

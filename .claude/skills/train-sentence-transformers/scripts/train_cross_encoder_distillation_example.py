@@ -48,10 +48,7 @@ import os
 from contextlib import nullcontext
 
 import torch
-import torch.nn as nn
 from datasets import load_dataset, load_from_disk
-from transformers import EarlyStoppingCallback
-
 from sentence_transformers import (
     CrossEncoder,
     CrossEncoderModelCardData,
@@ -60,6 +57,8 @@ from sentence_transformers import (
 )
 from sentence_transformers.cross_encoder.evaluation import CrossEncoderNanoBEIREvaluator
 from sentence_transformers.cross_encoder.losses import MarginMSELoss
+from torch import nn
+from transformers import EarlyStoppingCallback
 
 
 def autocast_ctx():

@@ -3,7 +3,14 @@
 from datetime import datetime
 from typing import Literal
 
-from pydantic import AnyHttpUrl, BaseModel, ConfigDict, Field, field_validator, model_validator
+from pydantic import (
+    AnyHttpUrl,
+    BaseModel,
+    ConfigDict,
+    Field,
+    field_validator,
+    model_validator,
+)
 
 
 class TalentProfileWrite(BaseModel):
@@ -51,7 +58,11 @@ class EcosystemProfileWrite(BaseModel):
     def validate_profile_state(self) -> "EcosystemProfileWrite":
         if self.availability == "closed" and self.is_open:
             raise ValueError("A closed profile must set is_open to false")
-        if self.ticket_min is not None and self.ticket_max is not None and self.ticket_min > self.ticket_max:
+        if (
+            self.ticket_min is not None
+            and self.ticket_max is not None
+            and self.ticket_min > self.ticket_max
+        ):
             raise ValueError("ticket_max must be at least ticket_min")
         return self
 
@@ -112,8 +123,13 @@ class ReadinessResult(BaseModel):
     @model_validator(mode="after")
     def require_all_dimensions_once(self) -> "ReadinessResult":
         expected = {
-            "problem_clarity", "market_definition", "differentiation",
-            "business_model_coherence", "traction", "team", "scalability",
+            "problem_clarity",
+            "market_definition",
+            "differentiation",
+            "business_model_coherence",
+            "traction",
+            "team",
+            "scalability",
         }
         actual = [item.dimension for item in self.dimensions]
         if set(actual) != expected or len(actual) != len(set(actual)):
@@ -144,10 +160,18 @@ class PitchTurnResult(BaseModel):
     @model_validator(mode="after")
     def match_completion_fields(self) -> "PitchTurnResult":
         scores = (self.clarity, self.confidence, self.content)
-        if self.finished and (self.next_question is not None or any(score is None for score in scores)):
-            raise ValueError("A finished pitch must contain the three scores and no next question")
-        if not self.finished and (not self.next_question or any(score is not None for score in scores)):
-            raise ValueError("An unfinished pitch needs a follow-up question and no scores")
+        if self.finished and (
+            self.next_question is not None or any(score is None for score in scores)
+        ):
+            raise ValueError(
+                "A finished pitch must contain the three scores and no next question"
+            )
+        if not self.finished and (
+            not self.next_question or any(score is not None for score in scores)
+        ):
+            raise ValueError(
+                "An unfinished pitch needs a follow-up question and no scores"
+            )
         return self
 
 

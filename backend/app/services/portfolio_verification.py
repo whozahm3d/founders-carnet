@@ -9,7 +9,6 @@ from fastapi import HTTPException, status
 
 from app.config import get_settings
 
-
 FIRECRAWL_SCRAPE_URL = "https://api.firecrawl.dev/v2/scrape"
 PORTFOLIO_CONTENT_LIMIT = 10_000
 logger = logging.getLogger(__name__)
@@ -20,7 +19,9 @@ class PortfolioFetchError(RuntimeError):
 
 
 class FirecrawlPortfolioFetcher:
-    def __init__(self, *, api_key: str, timeout_ms: int, client: httpx.Client | None = None) -> None:
+    def __init__(
+        self, *, api_key: str, timeout_ms: int, client: httpx.Client | None = None
+    ) -> None:
         self._api_key = api_key
         self._timeout_ms = timeout_ms
         self._client = client
@@ -45,12 +46,16 @@ class FirecrawlPortfolioFetcher:
             if markdown is None:
                 return ""
             if not isinstance(markdown, str):
-                raise ValueError("Invalid portfolio content response")
+                raise TypeError("Invalid portfolio content response")
             return markdown[:PORTFOLIO_CONTENT_LIMIT]
         except (httpx.HTTPError, ValueError, TypeError, AttributeError) as exc:
             # Avoid logging a user-supplied URL or provider response body.
-            logger.warning("Portfolio page fetch failed error_type=%s", type(exc).__name__)
-            raise PortfolioFetchError("Portfolio check is temporarily unavailable") from exc
+            logger.warning(
+                "Portfolio page fetch failed error_type=%s", type(exc).__name__
+            )
+            raise PortfolioFetchError(
+                "Portfolio check is temporarily unavailable"
+            ) from exc
         finally:
             if owns_client:
                 client.close()
