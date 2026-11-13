@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Mentor Atelier &amp; Advisory Workspace — The Founder's Carnet</title>
+<!-- Google Fonts: Hanken Grotesk, Instrument Serif, JetBrains Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,300..900;1,300..900&amp;family=Instrument+Serif:ital@0;1&amp;family=JetBrains+Mono:ital,wght@0,400..700;1,400..700&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS v3 with Plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script data-purpose="tailwind-config">
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Hanken Grotesk"', 'sans-serif'],
+            serif: ['"Instrument Serif"', 'Georgia', 'serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            ink: '#0A0A0A',
+            carnet: {
+              accent: '#B15F2C',
+              'accent-deep': '#964E22',
+              'accent-wash': '#F8EDE5',
+              gold: '#F5C842',
+              border: '#E6E5E2',
+              neutral: '#F1F0EE',
+              stone: '#52525B',
+              muted: '#71717A',
+              card: '#FFFFFF',
+              darkcard: '#141414',
+              darkborder: '#262626',
+            }
+          }
+        }
+      }
+    }
+  </script>
+<!-- Layout & Global Styling -->
+<style data-purpose="custom-theme">
+    body {
+      background: radial-gradient(circle at 85% 15%, #F5C842 0%, #FF8A2B 30%, #C4451A 55%, #3A1206 100%) fixed;
+      min-height: 100vh;
+      color: #0A0A0A;
+      font-family: 'Hanken Grotesk', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    .glass-nav {
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    .custom-scroll::-webkit-scrollbar {
+      width: 4px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #B15F2C;
+      border-radius: 9999px;
+    }
+  </style>
+</head>
+<body class="p-3 sm:p-6 lg:p-8 flex flex-col justify-between selection:bg-[#B15F2C] selection:text-white">
+<!-- BEGIN: NavigationBar -->
+<header class="w-full max-w-7xl mx-auto mb-8 sticky top-4 z-50">
+<nav aria-label="Main Navigation" class="glass-nav rounded-full px-4 py-2.5 sm:px-6 sm:py-3 border border-[#E6E5E2] shadow-lg flex items-center justify-between gap-4">
+<!-- Left: Logo & Role Pill -->
+<div class="flex items-center gap-3">
+<a aria-label="The Founder's Carnet Homepage" class="flex items-center gap-2.5 focus:outline-none" href="#">
+<!-- Ink Tile with Bookmark Ribbon SVG -->
+<div class="relative w-8 h-8 rounded-lg bg-ink flex items-center justify-center shadow-inner overflow-hidden flex-shrink-0">
+<span class="text-white font-bold text-sm leading-none tracking-tight">F</span>
+<!-- Burnt Orange Ribbon Tag -->
+<div class="absolute top-0 right-1 w-1.5 h-3.5 bg-[#B15F2C] rounded-b-sm"></div>
+</div>
+<span class="font-semibold text-ink text-sm sm:text-base tracking-tight whitespace-nowrap">The Founder's Carnet</span>
+</a>
+<span class="hidden md:inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-mono font-medium tracking-wide bg-[#F8EDE5] text-[#964E22] border border-[#B15F2C]/20">
+          ROLE: MENTOR
+        </span>
+</div>
+<!-- Center: Nav Pills -->
+<div class="hidden sm:flex items-center bg-[#F1F0EE] p-1 rounded-full border border-[#E6E5E2]">
+<a aria-current="page" class="px-4 py-1 rounded-full text-xs font-semibold bg-ink text-white shadow-sm transition-all" href="#">Dashboard</a>
+<a class="px-4 py-1 rounded-full text-xs font-medium text-[#52525B] hover:text-ink transition-colors" href="#">Profile</a>
+<a class="px-4 py-1 rounded-full text-xs font-medium text-[#52525B] hover:text-ink transition-colors flex items-center gap-1.5" href="#">
+<span>Requests</span>
+<span class="w-4 h-4 bg-[#B15F2C] text-white rounded-full text-[9px] flex items-center justify-center font-mono">3</span>
+</a>
+</div>
+<!-- Right: Time chip & Mentor Avatar -->
+<div class="flex items-center gap-3">
+<div class="hidden lg:flex items-center gap-1.5 px-3 py-1 bg-white/70 rounded-full border border-[#E6E5E2] text-[11px] font-mono text-[#52525B]">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+<span>Karachi 3:55pm, 9 Nov 2026</span>
+</div>
+<!-- Mentor Profile Avatar -->
+<div class="flex items-center gap-2" data-purpose="user-profile-badge">
+<div class="w-8 h-8 rounded-full bg-[#3A1206] text-[#F5C842] flex items-center justify-center text-xs font-semibold font-mono ring-2 ring-white shadow-sm" title="Asad Khan">
+            AK
+          </div>
+</div>
+</div>
+</nav>
+</header>
+<!-- END: NavigationBar -->
+<main class="w-full max-w-7xl mx-auto space-y-6 flex-grow">
+<!-- BEGIN: HeaderAndGreeting -->
+<section class="space-y-4" data-purpose="mentor-greeting-section">
+<!-- Eyebrow Pill -->
+<div class="flex items-center gap-2">
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/40 backdrop-blur-md text-[#F5C842] border border-white/10 text-[11px] font-mono tracking-wider uppercase">
+<span class="w-1.5 h-1.5 rounded-full bg-[#F5C842]"></span>
+          MENTOR ATELIER // ADVISORY WORKSPACE
+        </div>
+</div>
+<!-- Main Headline -->
+<div class="flex flex-col lg:flex-row lg:items-end justify-between gap-4">
+<div>
+<h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-tight">
+            Welcome back, <span class="font-serif italic font-normal text-[#F5C842]">Asad</span>
+</h1>
+<p class="mt-2 text-sm sm:text-base text-white/85 max-w-2xl font-normal leading-relaxed">
+            Review inbound founder advisory requests, manage active mentee dialogues, and schedule venture office hours across Pakistan's tech hubs.
+          </p>
+</div>
+<!-- Verification Banner Chip & Availability Toggle -->
+<div class="flex flex-wrap items-center gap-3 bg-white/90 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-white/30 shadow-sm">
+<div class="flex items-center gap-2 text-xs text-[#0A0A0A] font-medium">
+<span class="w-2 h-2 rounded-full bg-emerald-600"></span>
+<span>Verified Mentor • Visible in Karachi, Lahore &amp; Islamabad</span>
+</div>
+<div class="h-4 w-px bg-[#E6E5E2] hidden sm:block"></div>
+<!-- Toggle component -->
+<div class="flex items-center gap-2">
+<span class="text-xs text-[#52525B] font-medium">Accepting requests</span>
+<label aria-label="Toggle Mentor Availability" class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-9 h-5 bg-[#E6E5E2] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-ink"></div>
+</label>
+</div>
+</div>
+</div>
+</section>
+<!-- END: HeaderAndGreeting -->
+<!-- BEGIN: MonolithCard -->
+<section class="bg-[#0A0A0A] rounded-[24px] border border-[#262626] p-6 sm:p-8 text-white shadow-2xl" data-purpose="advisory-caseload-metrics">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-[#262626]">
+<div>
+<span class="text-[11px] font-mono tracking-widest text-[#F5C842] uppercase font-semibold">ADVISORY CASELOAD &amp; CAPACITY</span>
+<h2 class="text-xl sm:text-2xl font-bold tracking-tight text-white mt-1">Operational Overview</h2>
+</div>
+<div class="flex items-center gap-3 bg-[#1A1A1A] px-4 py-2 rounded-xl border border-[#333333]">
+<div class="text-xs">
+<span class="text-white/60 block font-mono text-[10px] uppercase tracking-wide">Monthly Commitment</span>
+<span class="font-semibold text-white">4 hrs / month • Pro bono (PKR 0 fee)</span>
+</div>
+<a class="text-xs font-semibold text-[#F5C842] hover:underline underline-offset-4 ml-2" href="#">Edit capacity</a>
+</div>
+</div>
+<!-- Plain Counts Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-6">
+<!-- Count 1 -->
+<div class="space-y-1">
+<div class="text-3xl sm:text-4xl font-mono font-bold text-white tracking-tight">3</div>
+<div class="text-sm font-semibold text-white/90">Inbound requests</div>
+<p class="text-xs text-[#71717A]">Pending review this week • High priority</p>
+</div>
+<!-- Count 2 -->
+<div class="space-y-1 sm:border-l sm:border-[#262626] sm:pl-6">
+<div class="text-3xl sm:text-4xl font-mono font-bold text-white tracking-tight">6</div>
+<div class="text-sm font-semibold text-white/90">Active mentees</div>
+<p class="text-xs text-[#71717A]">Ongoing founder dialogues across cohorts</p>
+</div>
+<!-- Count 3 -->
+<div class="space-y-1 sm:border-l sm:border-[#262626] sm:pl-6">
+<div class="text-3xl sm:text-4xl font-mono font-bold text-white tracking-tight">8</div>
+<div class="text-sm font-semibold text-white/90">Sessions this month</div>
+<p class="text-xs text-[#71717A]">Completed 1:1 advisory &amp; pitch practices</p>
+</div>
+</div>
+</section>
+<!-- END: MonolithCard -->
+<!-- BEGIN: TwoColumnWorkspace -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+<!-- LEFT COLUMN: Recommended Founders (Wide: 7 cols on LG) -->
+<section class="lg:col-span-7 bg-white rounded-[24px] border border-[#E6E5E2] p-6 sm:p-7 shadow-sm space-y-6" data-purpose="recommended-founders">
+<div class="flex items-center justify-between border-b border-[#E6E5E2] pb-4">
+<div class="flex items-center gap-2.5">
+<h2 class="text-xl sm:text-2xl font-bold tracking-tight text-ink">
+              Recommended <span class="font-serif italic font-normal text-[#B15F2C]">founders</span>
+</h2>
+<span class="px-2 py-0.5 bg-[#F8EDE5] text-[#964E22] text-[10px] font-mono font-medium rounded-full border border-[#B15F2C]/30 uppercase">Curated</span>
+</div>
+<a class="text-xs font-semibold text-[#B15F2C] hover:text-[#964E22] transition-colors flex items-center gap-1" href="#">
+<span>View all</span>
+<span>→</span>
+</a>
+</div>
+<p class="text-xs text-[#52525B] leading-relaxed">
+          Ranked by operational stage and sector fit. Mutual-consent introductions keep your contact details private until both parties accept.
+        </p>
+<!-- Recommended Founder Cards List -->
+<div class="space-y-4">
+<!-- Founder Item 01 -->
+<article class="p-4 sm:p-5 rounded-2xl border border-[#E6E5E2] hover:border-[#B15F2C]/40 hover:shadow-md transition-all bg-white" data-purpose="founder-card">
+<div class="flex items-start justify-between gap-3">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-[#F8EDE5] text-[#964E22] font-mono font-bold flex items-center justify-center text-sm border border-[#B15F2C]/20 flex-shrink-0">
+                  MB
+                </div>
+<div>
+<div class="flex items-center gap-2">
+<h3 class="font-bold text-ink text-sm sm:text-base">01. Bilal Ahmed</h3>
+<span class="text-xs text-[#52525B] font-medium">• Munshi Books</span>
+</div>
+<span class="text-xs text-[#71717A]">Fintech • Seed Stage • Karachi</span>
+</div>
+</div>
+<span class="text-xs font-mono font-semibold text-[#B15F2C] bg-[#F8EDE5] px-2.5 py-1 rounded-full whitespace-nowrap">
+                94% Profile similarity
+              </span>
+</div>
+<p class="mt-3 text-xs sm:text-sm text-[#52525B] leading-relaxed">
+              "Building automated SME bookkeeping and tax compliance ledger for wholesale merchants in Karachi trade corridors."
+            </p>
+<div class="mt-3.5 flex flex-wrap gap-1.5">
+<span class="text-[11px] font-mono bg-[#F1F0EE] text-[#52525B] px-2 py-0.5 rounded-md">B2B Fintech</span>
+<span class="text-[11px] font-mono bg-[#F1F0EE] text-[#52525B] px-2 py-0.5 rounded-md">Seed Stage</span>
+<span class="text-[11px] font-mono bg-[#F1F0EE] text-[#52525B] px-2 py-0.5 rounded-md">Karachi Hub</span>
+</div>
+<div class="mt-4 pt-3 border-t border-[#F1F0EE] flex flex-wrap items-center justify-end gap-2">
+<button class="px-4 py-2 rounded-full text-xs font-medium text-ink bg-[#F1F0EE] hover:bg-[#E6E5E2] transition-colors" type="button">
+                View profile
+              </button>
+<button class="px-4 py-2 rounded-full text-xs font-medium text-white bg-ink hover:bg-neutral-800 transition-colors shadow-sm" type="button">
+                Review advisory request →
+              </button>
+</div>
+</article>
+<!-- Founder Item 02 -->
+<article class="p-4 sm:p-5 rounded-2xl border border-[#E6E5E2] hover:border-[#B15F2C]/40 hover:shadow-md transition-all bg-white" data-purpose="founder-card">
+<div class="flex items-start justify-between gap-3">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-[#F8EDE5] text-[#964E22] font-mono font-bold flex items-center justify-center text-sm border border-[#B15F2C]/20 flex-shrink-0">
+                  FL
+                </div>
+<div>
+<div class="flex items-center gap-2">
+<h3 class="font-bold text-ink text-sm sm:text-base">02. Asad Ullah</h3>
+<span class="text-xs text-[#52525B] font-medium">• Fasal Labs</span>
+</div>
+<span class="text-xs text-[#71717A]">Agritech • Pre-seed • Lahore</span>
+</div>
+</div>
+<span class="text-xs font-mono font-semibold text-[#B15F2C] bg-[#F8EDE5] px-2.5 py-1 rounded-full whitespace-nowrap">
+                88% Profile similarity
+              </span>
+</div>
+<p class="mt-3 text-xs sm:text-sm text-[#52525B] leading-relaxed">
+              "Developing satellite IoT soil analytics and farm yield forecasting for Punjab citrus and cotton growers."
+            </p>
+<div class="mt-3.5 flex flex-wrap gap-1.5">
+<span class="text-[11px] font-mono bg-[#F1F0EE] text-[#52525B] px-2 py-0.5 rounded-md">Agritech</span>
+<span class="text-[11px] font-mono bg-[#F1F0EE] text-[#52525B] px-2 py-0.5 rounded-md">Pre-seed</span>
+<span class="text-[11px] font-mono bg-[#F1F0EE] text-[#52525B] px-2 py-0.5 rounded-md">Lahore Hub</span>
+</div>
+<div class="mt-4 pt-3 border-t border-[#F1F0EE] flex flex-wrap items-center justify-end gap-2">
+<button class="px-4 py-2 rounded-full text-xs font-medium text-ink bg-[#F1F0EE] hover:bg-[#E6E5E2] transition-colors" type="button">
+                View profile
+              </button>
+<button class="px-4 py-2 rounded-full text-xs font-medium text-white bg-ink hover:bg-neutral-800 transition-colors shadow-sm" type="button">
+                Review advisory request →
+              </button>
+</div>
+</article>
+<!-- Founder Item 03 -->
+<article class="p-4 sm:p-5 rounded-2xl border border-[#E6E5E2] hover:border-[#B15F2C]/40 hover:shadow-md transition-all bg-white" data-purpose="founder-card">
+<div class="flex items-start justify-between gap-3">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-[#F8EDE5] text-[#964E22] font-mono font-bold flex items-center justify-center text-sm border border-[#B15F2C]/20 flex-shrink-0">
+                  CH
+                </div>
+<div>
+<div class="flex items-center gap-2">
+<h3 class="font-bold text-ink text-sm sm:text-base">03. Nida Farooq</h3>
+<span class="text-xs text-[#52525B] font-medium">• CuraHealth</span>
+</div>
+<span class="text-xs text-[#71717A]">Healthtech • Series A • Islamabad</span>
+</div>
+</div>
+<span class="text-xs font-mono font-semibold text-[#B15F2C] bg-[#F8EDE5] px-2.5 py-1 rounded-full whitespace-nowrap">
+                82% Profile similarity
+              </span>
+</div>
+<p class="mt-3 text-xs sm:text-sm text-[#52525B] leading-relaxed">
+              "Scaling tele-diagnostics and pharmacy supply chain integration across tier-2 hospitals in KPK and Punjab."
+            </p>
+<div class="mt-3.5 flex flex-wrap gap-1.5">
+<span class="text-[11px] font-mono bg-[#F1F0EE] text-[#52525B] px-2 py-0.5 rounded-md">Healthtech</span>
+<span class="text-[11px] font-mono bg-[#F1F0EE] text-[#52525B] px-2 py-0.5 rounded-md">Series A</span>
+<span class="text-[11px] font-mono bg-[#F1F0EE] text-[#52525B] px-2 py-0.5 rounded-md">Islamabad</span>
+</div>
+<div class="mt-4 pt-3 border-t border-[#F1F0EE] flex flex-wrap items-center justify-end gap-2">
+<button class="px-4 py-2 rounded-full text-xs font-medium text-ink bg-[#F1F0EE] hover:bg-[#E6E5E2] transition-colors" type="button">
+                View profile
+              </button>
+<button class="px-4 py-2 rounded-full text-xs font-medium text-white bg-ink hover:bg-neutral-800 transition-colors shadow-sm" type="button">
+                Review advisory request →
+              </button>
+</div>
+</article>
+</div>
+<!-- Honesty Notice -->
+<div class="pt-2 flex items-center justify-center text-xs text-[#71717A] bg-[#F1F0EE]/60 py-2.5 rounded-xl border border-[#E6E5E2]">
+<span>🔒 Contact details are revealed only after both parties accept.</span>
+</div>
+</section>
+<!-- RIGHT COLUMN: Pending Requests & Mentoring Code (Narrow: 5 cols on LG) -->
+<section class="lg:col-span-5 space-y-6" data-purpose="pending-requests-column">
+<!-- Pending Requests Card -->
+<div class="bg-white rounded-[24px] border border-[#E6E5E2] p-6 shadow-sm space-y-5">
+<div class="flex items-center justify-between border-b border-[#E6E5E2] pb-4">
+<h2 class="text-xl sm:text-2xl font-bold tracking-tight text-ink">
+              Pending <span class="font-serif italic font-normal text-[#B15F2C]">requests</span>
+</h2>
+<span class="px-2.5 py-0.5 bg-[#0A0A0A] text-white text-xs font-mono font-medium rounded-full">3 Pending</span>
+</div>
+<div class="space-y-4">
+<!-- Request 1: NovaPay -->
+<article class="p-4 rounded-xl border border-[#E6E5E2] bg-white space-y-3 hover:border-black transition-colors" data-purpose="inbound-request-item">
+<div class="flex items-start justify-between gap-2">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-lg bg-black text-white font-mono text-xs font-bold flex items-center justify-center">
+                    NP
+                  </div>
+<div>
+<h3 class="font-bold text-ink text-sm">NovaPay</h3>
+<p class="text-[11px] text-[#71717A]">Seed Fintech • Karachi • Farooq Khan</p>
+</div>
+</div>
+<span class="text-[10px] font-mono text-[#71717A] whitespace-nowrap">2h ago</span>
+</div>
+<p class="text-xs text-[#52525B] leading-relaxed">
+                "Needs fundraising guidance and unit economics pitch feedback for an upcoming $1.2M seed round."
+              </p>
+<div class="flex items-center gap-1.5 text-[11px] font-mono text-[#B15F2C]">
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span>Deck attached (12 slides)</span>
+</div>
+<div class="grid grid-cols-2 gap-2 pt-2 border-t border-[#F1F0EE]">
+<button class="w-full py-1.5 text-xs font-semibold rounded-full bg-ink text-white hover:bg-neutral-800 transition-colors" type="button">
+                  Accept
+                </button>
+<button class="w-full py-1.5 text-xs font-semibold rounded-full bg-transparent text-[#52525B] border border-[#E6E5E2] hover:bg-[#F1F0EE] transition-colors" type="button">
+                  Decline
+                </button>
+</div>
+</article>
+<!-- Request 2: Hira Tariq -->
+<article class="p-4 rounded-xl border border-[#E6E5E2] bg-white space-y-3 hover:border-black transition-colors" data-purpose="inbound-request-item">
+<div class="flex items-start justify-between gap-2">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-lg bg-[#F8EDE5] text-[#964E22] font-mono text-xs font-bold flex items-center justify-center border border-[#B15F2C]/30">
+                    HT
+                  </div>
+<div>
+<h3 class="font-bold text-ink text-sm">Hira Tariq</h3>
+<p class="text-[11px] text-[#71717A]">Talent / VP Eng • Lahore</p>
+</div>
+</div>
+<span class="text-[10px] font-mono text-[#71717A] whitespace-nowrap">Yesterday</span>
+</div>
+<p class="text-xs text-[#52525B] leading-relaxed">
+                "Looking for career transition advice into startup engineering leadership and equity structures."
+              </p>
+<div class="flex items-center gap-1.5 text-[11px] font-mono text-[#B15F2C]">
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span>Metrics memo preview</span>
+</div>
+<div class="grid grid-cols-2 gap-2 pt-2 border-t border-[#F1F0EE]">
+<button class="w-full py-1.5 text-xs font-semibold rounded-full bg-ink text-white hover:bg-neutral-800 transition-colors" type="button">
+                  Accept
+                </button>
+<button class="w-full py-1.5 text-xs font-semibold rounded-full bg-transparent text-[#52525B] border border-[#E6E5E2] hover:bg-[#F1F0EE] transition-colors" type="button">
+                  Decline
+                </button>
+</div>
+</article>
+<!-- Request 3: LedgerLite -->
+<article class="p-4 rounded-xl border border-[#E6E5E2] bg-white space-y-3 hover:border-black transition-colors" data-purpose="inbound-request-item">
+<div class="flex items-start justify-between gap-2">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-lg bg-black text-white font-mono text-xs font-bold flex items-center justify-center">
+                    LL
+                  </div>
+<div>
+<h3 class="font-bold text-ink text-sm">LedgerLite</h3>
+<p class="text-[11px] text-[#71717A]">B2B SaaS • Islamabad</p>
+</div>
+</div>
+<span class="text-[10px] font-mono text-[#71717A] whitespace-nowrap">2d ago</span>
+</div>
+<p class="text-xs text-[#52525B] leading-relaxed">
+                "Seeking product pricing strategy validation and cross-border SaaS tax compliance guidance."
+              </p>
+<div class="flex items-center gap-1.5 text-[11px] font-mono text-[#B15F2C]">
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span>Deck attached (12 slides)</span>
+</div>
+<div class="grid grid-cols-2 gap-2 pt-2 border-t border-[#F1F0EE]">
+<button class="w-full py-1.5 text-xs font-semibold rounded-full bg-ink text-white hover:bg-neutral-800 transition-colors" type="button">
+                  Accept
+                </button>
+<button class="w-full py-1.5 text-xs font-semibold rounded-full bg-transparent text-[#52525B] border border-[#E6E5E2] hover:bg-[#F1F0EE] transition-colors" type="button">
+                  Decline
+                </button>
+</div>
+</article>
+</div>
+</div>
+<!-- Mentoring Code Card -->
+<div class="bg-[#0A0A0A] rounded-[24px] border border-[#262626] p-5 text-white space-y-3" data-purpose="mentorship-guidelines">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-[#F5C842]"></span>
+<span class="text-[11px] font-mono uppercase tracking-wider text-[#F5C842]">Mentoring Code &amp; Ethics</span>
+</div>
+<p class="text-xs text-white/80 leading-relaxed font-normal">
+            Advisory sessions are intended for candid bottleneck-solving and governance guidance. Direct funding solicitation during initial calls is strictly restricted.
+          </p>
+<div class="pt-2 border-t border-[#262626] flex items-center justify-between text-[11px] text-[#71717A] font-mono">
+<span>100% confidential under Founder Carnet bilateral pact.</span>
+</div>
+</div>
+</section>
+<!-- END: Pending Requests Column -->
+</div>
+<!-- END: TwoColumnWorkspace -->
+</main>
+<!-- BEGIN: MainFooter -->
+<footer class="w-full max-w-7xl mx-auto mt-12 pt-6 border-t border-white/20 text-xs text-white/80 flex flex-col sm:flex-row items-center justify-between gap-4 pb-4 font-mono" data-purpose="site-footer">
+<div class="flex items-center gap-2.5">
+<div class="w-4 h-4 rounded bg-ink flex items-center justify-center text-[9px] text-white font-bold">F</div>
+<span>© 2026 The Founder's Carnet. Confidential &amp; Reserved.</span>
+</div>
+<div class="flex items-center gap-6">
+<a class="hover:text-white transition-colors underline-offset-4 hover:underline" href="#">Privacy</a>
+<a class="hover:text-white transition-colors underline-offset-4 hover:underline" href="#">Terms</a>
+<a class="hover:text-white transition-colors underline-offset-4 hover:underline" href="#">Contact</a>
+</div>
+</footer>
+<!-- END: MainFooter -->
+</body></html>

@@ -1,0 +1,442 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>The Founder's Carnet | Authentication</title>
+<!-- Google Fonts: Hanken Grotesk -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS v3 with Forms & Container-Queries -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Hanken Grotesk"', 'sans-serif'],
+          },
+          colors: {
+            carnet: {
+              charcoal: '#0A0A0A',
+              card: '#FFFFFF',
+              border: '#E2DFD9',
+              neutral: '#F1F0EE',
+              muted: '#52525B',
+              subtle: '#71717A',
+              accent: '#B15F2C',
+            }
+          },
+          letterSpacing: {
+            tighterDisplay: '-0.025em',
+          }
+        }
+      }
+    };
+  </script>
+<!-- BEGIN: Custom Styles -->
+<style data-purpose="background-atmosphere">
+    /* Multi-stop warm artwork radiant glow deepening from top-right to bottom-left */
+    .bg-carnet-mesh {
+      background-color: #3A1206;
+      background-image: 
+        radial-gradient(circle at 92% 8%, #FFF6E2 0%, #F5C842 22%, transparent 48%),
+        radial-gradient(circle at 75% 28%, #FF8A2B 0%, #C4451A 40%, transparent 68%),
+        radial-gradient(circle at 18% 85%, #190502 0%, #3A1206 50%, #C4451A 100%),
+        linear-gradient(135deg, #1C0702 0%, #3A1206 40%, #7A240C 75%, #F5C842 100%);
+      background-blend-mode: screen, normal, hard-light, normal;
+    }
+  </style>
+<style data-purpose="layout-and-interactions">
+    /* Subtle transitions for tabs and controls */
+    .tab-btn {
+      transition: color 0.18s ease, border-color 0.18s ease;
+    }
+    .custom-scroll::-webkit-scrollbar {
+      width: 4px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #E2DFD9;
+      border-radius: 4px;
+    }
+  </style>
+<!-- END: Custom Styles -->
+</head>
+<body class="font-sans antialiased text-[#0A0A0A] bg-carnet-mesh min-h-screen flex flex-col justify-between selection:bg-[#B15F2C] selection:text-white">
+<!-- BEGIN: SiteHeader -->
+<header class="w-full px-6 lg:px-14 py-6 flex items-center justify-between z-20" data-purpose="global-header">
+<!-- Brand identity: enlarged prominent SVG logo (52px) and wordmark (text-2xl sm:text-3xl font-bold) -->
+<a aria-label="The Founder's Carnet Homepage" class="flex items-center gap-4 group focus:outline-none" href="#">
+<svg aria-hidden="true" class="w-[52px] h-[52px] flex-shrink-0 drop-shadow-md transition-transform duration-200 group-hover:scale-105" viewBox="0 0 64 64">
+<rect fill="#0A0A0A" height="64" rx="14" width="64"></rect>
+<path d="M45 0H52V22L48.5 18L45 22Z" fill="#B15F2C"></path>
+<path d="M14 14H40V23H24V28.5H36V37.5H24V50H14Z" fill="#fff"></path>
+</svg>
+<span class="text-white text-2xl sm:text-3xl font-bold tracking-tight drop-shadow-md">The Founder's Carnet</span>
+</a>
+<!-- Top Navigation Links -->
+<nav aria-label="Secondary Navigation" class="flex items-center gap-1.5 sm:gap-2 bg-white/70 backdrop-blur-md border border-white/60 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full shadow-sm text-sm font-semibold text-[#0A0A0A]"><a class="hidden sm:inline-block px-3 py-1 rounded-full hover:bg-black/5 hover:text-carnet-accent focus:outline-none focus:ring-2 focus:ring-[#B15F2C] transition-colors text-xs font-semibold tracking-wider uppercase" style="font-family: &quot;JetBrains Mono&quot;, monospace; letter-spacing: 0.08em;" href="#about">About</a><a class="hidden sm:inline-block px-3 py-1 rounded-full hover:bg-black/5 hover:text-carnet-accent focus:outline-none focus:ring-2 focus:ring-[#B15F2C] transition-colors text-xs font-semibold tracking-wider uppercase" style="font-family: &quot;JetBrains Mono&quot;, monospace; letter-spacing: 0.08em;" href="#faq">FAQ</a><a class="px-3 py-1 rounded-full hover:bg-black/5 hover:text-carnet-accent focus:outline-none focus:ring-2 focus:ring-[#B15F2C] transition-colors text-xs font-semibold tracking-wider uppercase" style="font-family: &quot;JetBrains Mono&quot;, monospace; letter-spacing: 0.08em;" href="#contact">Contact</a><button aria-expanded="false" aria-haspopup="true" aria-label="Open navigation menu" class="sm:hidden px-2.5 py-1 text-xs font-semibold uppercase tracking-wider rounded-full hover:bg-black/5 focus:outline-none focus:ring-2 focus:ring-[#B15F2C] transition-colors inline-flex items-center gap-1" type="button"><span class="w-3.5 h-3.5 flex flex-col justify-center gap-0.5"><span class="h-0.5 w-full bg-[#0A0A0A] rounded-full"></span><span class="h-0.5 w-full bg-[#0A0A0A] rounded-full"></span></span><span>Menu</span></button></nav>
+</header>
+<!-- END: SiteHeader -->
+<!-- BEGIN: MainContent -->
+<main class="w-full flex-grow flex items-center justify-center px-4 sm:px-6 lg:px-14 py-6 lg:py-10 z-10" id="main-content">
+<div class="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+<!-- BEGIN: LeftColumn (Hero / Brand area) -->
+<section aria-labelledby="hero-title" class="lg:col-span-7 flex flex-col justify-center text-white"><!-- Top kicker badge with city coverage --><div class="inline-flex flex-wrap items-center gap-2.5 mb-6"><span class="inline-flex items-center gap-2 bg-white/15 backdrop-blur-md border border-white/25 px-3.5 py-1.5 rounded-full shadow-sm"><span class="h-2 w-2 rounded-full bg-[#F5C842]"></span><span class="text-xs uppercase tracking-widest font-bold text-white">Ecosystem Network</span></span><span class="text-xs tracking-wider uppercase font-medium text-white/80 hidden sm:inline-block">Karachi • Lahore • Islamabad • Peshawar</span></div><!-- Display Headline --><h1 class="text-4xl sm:text-5xl lg:text-[60px] font-bold leading-[1.08] tracking-tighterDisplay mb-6 text-white drop-shadow-sm" id="hero-title">Introductions for Pakistan's startup ecosystem.</h1><!-- Editorial Subline --><p class="text-lg sm:text-xl text-white/95 font-normal leading-relaxed max-w-xl mb-8">Where founders, talent, mentors, and vetted capital connect across hubs. Mutual-consent introductions ensure your contact details remain private until you decide to connect.</p><!-- Primary Frosted Platform Note Card --><div class="bg-white/15 backdrop-blur-md border border-white/20 rounded-3xl p-6 sm:p-7 text-white max-w-xl shadow-xl shadow-black/10 mb-5" data-purpose="platform-note-carousel"><div class="flex items-center justify-between mb-3 text-base tracking-wider uppercase font-semibold text-white/90"><span class="flex items-center gap-2"><svg class="w-4 h-4 text-[#F5C842]" fill="currentColor" viewBox="0 0 20 20"><path clip-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" fill-rule="evenodd"></path></svg><span class="text-[18px] font-semibold">Platform Note</span></span><div class="flex items-center gap-3"><span class="text-white font-medium text-base" id="note-counter">1 of 3</span><div class="flex items-center gap-1.5"><button aria-label="Previous note" class="w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center transition-colors" id="prev-note-btn" type="button"><svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"></path></svg></button><button aria-label="Next note" class="w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center transition-colors" id="next-note-btn" type="button"><svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"></path></svg></button></div></div></div><p class="text-base sm:text-lg font-medium leading-relaxed text-white" id="note-text">Mutual consent introductions: Contact details remain hidden until both parties accept an introduction request.</p></div><!-- Anchoring Bottom Highlight Badges to balance vertical space --><div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-xl"><div class="bg-black/20 backdrop-blur-md border border-white/10 rounded-2xl p-5 flex items-center gap-3.5"><div class="w-11 h-11 rounded-xl bg-white/15 flex items-center justify-center text-[#F5C842] flex-shrink-0"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path></svg></div><div><p class="text-[18px] font-semibold text-white uppercase tracking-wider font-mono" style="font-family: 'JetBrains Mono', monospace; letter-spacing: 0.08em;">Dual-Layer Verification</p><p class="text-base text-white/85 leading-relaxed mt-1" style="font-family: 'Inter', sans-serif;">Algorithmic checks backed by human peer verification</p></div></div><div class="bg-black/20 backdrop-blur-md border border-white/10 rounded-2xl p-5 flex items-center gap-3.5"><div class="w-11 h-11 rounded-xl bg-white/15 flex items-center justify-center text-[#F5C842] flex-shrink-0"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"></path></svg></div><div><p class="text-[18px] font-semibold text-white uppercase tracking-wider font-mono" style="font-family: 'JetBrains Mono', monospace; letter-spacing: 0.08em;">Zero Cold Spam</p><p class="text-base text-white/85 leading-relaxed mt-1" style="font-family: 'Inter', sans-serif;">Private intro requests only with mutual approval</p></div></div></div></section>
+<!-- END: LeftColumn -->
+<!-- BEGIN: RightColumn (Authentication Card) -->
+<section aria-label="Authentication Form Section" class="lg:col-span-5 flex justify-center lg:justify-end">
+<div class="w-full max-w-[520px] bg-white rounded-3xl p-8 sm:p-10 border border-carnet-border shadow-2xl relative overflow-y-auto" data-purpose="auth-card">
+<!-- Tab Switcher: Login / Register (Login active by default) -->
+<div aria-label="Account access options" class="flex items-center gap-8 border-b border-carnet-border mb-6" role="tablist">
+<button aria-selected="true" class="tab-btn min-h-[48px] py-3 text-base uppercase tracking-wider relative focus:outline-none focus:ring-2 focus:ring-[#B15F2C] rounded-lg hover:text-carnet-charcoal text-carnet-charcoal font-bold active:scale-95 transition-all" id="tab-login" onclick="switchAuthTab('login')" role="tab" style="font-family: &quot;JetBrains Mono&quot;, monospace; letter-spacing: 0.08em;" type="button">Sign in<span class="absolute bottom-0 left-0 right-0 h-[2px] bg-carnet-charcoal" id="login-active-indicator"></span></button>
+<button aria-selected="false" class="tab-btn min-h-[48px] py-3 text-base uppercase tracking-wider relative focus:outline-none focus:ring-2 focus:ring-[#B15F2C] rounded-lg text-carnet-muted font-semibold hover:text-carnet-charcoal active:scale-95 transition-all" id="tab-register" onclick="switchAuthTab('register')" role="tab" style="font-family: &quot;JetBrains Mono&quot;, monospace; letter-spacing: 0.08em;" type="button">Register<span class="block absolute bottom-0 left-0 right-0 h-[2px] bg-carnet-charcoal hidden" id="register-active-indicator"></span></button>
+</div>
+<!-- ============================================== -->
+<!-- VIEW 1: LOGIN FORM VIEW (Active / Rendered by default) -->
+<!-- ============================================== -->
+<div class="block space-y-6" data-purpose="login-view" id="login-view-container">
+<!-- Heading & Subtitle -->
+<div>
+<h2 class="text-[22px] font-semibold text-carnet-charcoal tracking-tight">Welcome back</h2>
+<p class="text-lg text-carnet-muted mt-1 leading-relaxed">Enter your credentials to access your workspace.</p>
+</div>
+<form class="space-y-5" id="login-form" onsubmit="event.preventDefault();">
+<!-- Email Address -->
+<div data-purpose="form-group-login-email">
+<label class="block text-base font-semibold text-carnet-subtle uppercase tracking-wider mb-2" for="login-email">Email address</label>
+<input class="w-full h-12 px-4 rounded-xl border border-[#8D8D8D] bg-white text-carnet-charcoal placeholder:text-[#A1A1AA] text-base focus:border-carnet-charcoal focus:ring-1 focus:ring-carnet-charcoal outline-none transition-colors" id="login-email" name="login_email" placeholder="name@company.com" required="" type="email">
+</div>
+<!-- Password with right-aligned Forgot password? link -->
+<div data-purpose="form-group-login-password">
+<div class="flex items-center justify-between mb-2">
+<label class="block text-base font-semibold text-carnet-subtle uppercase tracking-wider" for="login-password">Password</label>
+<button class="text-base font-medium text-[#B15F2C] hover:underline focus:outline-none" onclick="openForgotPasswordModal()" type="button">Forgot password?</button>
+</div>
+<input class="w-full h-12 px-4 rounded-xl border border-[#8D8D8D] bg-white text-carnet-charcoal placeholder:text-[#A1A1AA] text-base focus:border-carnet-charcoal focus:ring-1 focus:ring-carnet-charcoal outline-none transition-colors" id="login-password" name="login_password" placeholder="••••••••••••" required="" type="password">
+</div>
+<!-- Remember Me Checkbox -->
+<div class="flex items-center gap-2.5 pt-1">
+<input class="rounded border-carnet-border text-carnet-charcoal focus:ring-carnet-charcoal h-5 w-5 cursor-pointer" id="remember-me" name="remember" type="checkbox">
+<label class="text-base font-medium text-carnet-charcoal cursor-pointer select-none" for="remember-me">Remember me</label>
+</div>
+<!-- Primary Action: Sign in pill button -->
+<div class="pt-2">
+<button class="w-full min-h-[52px] h-[52px] bg-carnet-charcoal hover:bg-[#171717] active:scale-[0.99] text-white font-semibold rounded-full flex items-center justify-between px-6 transition-all shadow-md group focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#B15F2C] text-base" type="submit"><span>Sign in</span><span aria-hidden="true" class="w-9 h-9 rounded-full bg-white text-carnet-charcoal flex items-center justify-center font-bold text-base transform transition-transform group-hover:translate-x-0.5">→</span></button>
+</div>
+<!-- Divider line: OR CONTINUE WITH -->
+<div class="relative py-3 flex items-center justify-center">
+<div class="absolute inset-0 flex items-center">
+<div class="w-full border-t border-[#E2DFD9]"></div>
+</div>
+<div class="relative bg-white px-3 text-base font-semibold text-carnet-subtle uppercase tracking-wider">
+        Or continue with
+      </div>
+</div>
+<!-- Social Login Buttons -->
+<div class="space-y-3" data-purpose="social-auth-buttons">
+<button aria-label="Continue with LinkedIn" class="w-full min-h-[52px] h-[52px] rounded-full border border-[#8D8D8D] bg-white text-carnet-charcoal font-semibold text-base hover:bg-[#F9F8F6] active:scale-[0.99] transition-all flex items-center justify-center gap-3 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#B15F2C]" type="button">
+<svg aria-hidden="true" class="w-5 h-5 fill-[#0077B5] flex-shrink-0" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"></path></svg>
+<span>Continue with LinkedIn</span>
+</button>
+<div class="grid grid-cols-2 gap-3">
+<button aria-label="Continue with Google" class="w-full min-h-[52px] h-[52px] rounded-full border border-[#8D8D8D] bg-white text-carnet-charcoal font-semibold text-base hover:bg-[#F9F8F6] active:scale-[0.99] transition-all flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#B15F2C]" type="button">
+<svg aria-hidden="true" class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"></path><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"></path></svg>
+<span>Google</span>
+</button>
+<button aria-label="Continue with GitHub" class="w-full min-h-[52px] h-[52px] rounded-full border border-[#8D8D8D] bg-white text-carnet-charcoal font-semibold text-base hover:bg-[#F9F8F6] active:scale-[0.99] transition-all flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#B15F2C]" type="button">
+<svg aria-hidden="true" class="w-5 h-5 fill-current flex-shrink-0 text-[#0A0A0A]" viewBox="0 0 24 24"><path clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" fill-rule="evenodd"></path></svg>
+<span>GitHub</span>
+</button>
+</div>
+</div>
+</form>
+<!-- Bottom Switch to Register -->
+<div class="mt-6 text-center text-base text-carnet-subtle">
+<span>Don't have an account?</span>
+<button class="font-semibold text-carnet-charcoal hover:underline ml-1 focus:outline-none" onclick="switchAuthTab('register')" type="button">
+      Register
+    </button>
+</div>
+</div>
+<!-- ============================================== -->
+<!-- VIEW 2: REGISTER FORM VIEW (Hidden by default) -->
+<!-- ============================================== -->
+<div class="hidden space-y-5" data-purpose="register-view" id="register-view-container">
+<form class="space-y-4" id="register-form" onsubmit="event.preventDefault();">
+<!-- Full Name -->
+<div data-purpose="form-group-fullname">
+<label class="block text-base font-semibold text-carnet-subtle uppercase tracking-wider mb-2" for="full-name">Full name</label>
+<input class="w-full h-12 px-4 rounded-xl border border-carnet-border text-carnet-charcoal placeholder:text-[#A1A1AA] text-base focus:border-carnet-charcoal focus:ring-1 focus:ring-carnet-charcoal outline-none transition-colors" id="full-name" name="fullname" placeholder="e.g. Farooq Khan" required="" type="text">
+</div>
+<!-- Age & Profession -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5" data-purpose="form-group-demographics">
+<div>
+<label class="block text-base font-semibold text-carnet-subtle uppercase tracking-wider mb-2" for="age">Age</label>
+<input class="w-full h-12 px-4 rounded-xl border border-carnet-border text-carnet-charcoal placeholder:text-[#A1A1AA] text-base focus:border-carnet-charcoal focus:ring-1 focus:ring-carnet-charcoal outline-none transition-colors" id="age" max="100" min="16" name="age" placeholder="e.g. 28" type="number">
+</div>
+<div>
+<label class="block text-base font-semibold text-carnet-subtle uppercase tracking-wider mb-2" for="profession">Profession / Title</label>
+<input class="w-full h-12 px-4 rounded-xl border border-carnet-border text-carnet-charcoal placeholder:text-[#A1A1AA] text-base focus:border-carnet-charcoal focus:ring-1 focus:ring-carnet-charcoal outline-none transition-colors" id="profession" name="profession" placeholder="e.g. Senior Software Engineer / Founder" type="text">
+</div>
+</div>
+<!-- Email Address -->
+<div data-purpose="form-group-email">
+<label class="block text-base font-semibold text-carnet-subtle uppercase tracking-wider mb-2" for="email">Email address</label>
+<input class="w-full h-12 px-4 rounded-xl border border-carnet-border text-carnet-charcoal placeholder:text-[#A1A1AA] text-base focus:border-carnet-charcoal focus:ring-1 focus:ring-carnet-charcoal outline-none transition-colors" id="email" name="email" placeholder="name@company.com" required="" type="email">
+</div>
+<!-- Password -->
+<div data-purpose="form-group-password">
+<label class="block text-base font-semibold text-carnet-subtle uppercase tracking-wider mb-2" for="password">Password</label>
+<input class="w-full h-12 px-4 rounded-xl border border-carnet-border text-carnet-charcoal placeholder:text-[#A1A1AA] text-base focus:border-carnet-charcoal focus:ring-1 focus:ring-carnet-charcoal outline-none transition-colors" id="password" name="password" placeholder="••••••••••••" required="" type="password">
+</div>
+<!-- Role Selector Pills -->
+<div data-purpose="form-group-role">
+<label class="block text-base font-semibold text-carnet-subtle uppercase tracking-wider mb-2">Select your role</label>
+<div aria-label="Select role" class="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-3.5" role="radiogroup">
+<button class="py-2.5 px-3 text-base font-semibold rounded-xl bg-carnet-charcoal text-white shadow-sm border border-carnet-charcoal flex items-center justify-center transition-all" type="button">Founder</button>
+<button class="py-2.5 px-3 text-base font-medium rounded-xl bg-white text-carnet-charcoal border border-carnet-border hover:bg-[#F9F8F6] flex items-center justify-center transition-colors" type="button">Talent</button>
+<button class="py-2.5 px-3 text-base font-medium rounded-xl bg-white text-carnet-charcoal border border-carnet-border hover:bg-[#F9F8F6] flex items-center justify-center transition-colors" type="button">Mentor</button>
+<button class="py-2.5 px-3 text-base font-medium rounded-xl bg-white text-carnet-charcoal border border-carnet-border hover:bg-[#F9F8F6] flex items-center justify-center transition-colors" type="button">Investor</button>
+</div>
+<input id="role-select" name="role" type="hidden" value="founder">
+<!-- Sectors / Interests tags -->
+<div class="mt-3.5" data-purpose="form-group-sectors">
+<label class="block text-base font-semibold text-carnet-subtle uppercase tracking-wider mb-2">Primary sectors / interests</label>
+<div aria-label="Select sectors" class="flex flex-wrap gap-2" role="group">
+<button class="px-3 py-1.5 text-base font-medium rounded-full bg-[#FAF0EA] text-[#733100] border border-[#B15F2C] flex items-center gap-1.5 transition-colors" type="button"><span class="w-2 h-2 rounded-full bg-[#B15F2C]"></span>Fintech</button>
+<button class="px-3 py-1.5 text-base font-medium rounded-full bg-white text-carnet-charcoal border border-carnet-border hover:bg-[#F9F8F6] transition-colors" type="button">Agritech</button>
+<button class="px-3 py-1.5 text-base font-medium rounded-full bg-white text-carnet-charcoal border border-carnet-border hover:bg-[#F9F8F6] transition-colors" type="button">Healthtech</button>
+<button class="px-3 py-1.5 text-base font-medium rounded-full bg-white text-carnet-charcoal border border-carnet-border hover:bg-[#F9F8F6] transition-colors" type="button">Logistics</button>
+<button class="px-3 py-1.5 text-base font-medium rounded-full bg-white text-carnet-charcoal border border-carnet-border hover:bg-[#F9F8F6] transition-colors" type="button">Edtech</button>
+<button class="px-3 py-1.5 text-base font-medium rounded-full bg-[#FAF0EA] text-[#733100] border border-[#B15F2C] flex items-center gap-1.5 transition-colors" type="button"><span class="w-2 h-2 rounded-full bg-[#B15F2C]"></span>SaaS</button>
+<button class="px-3 py-1.5 text-base font-medium rounded-full bg-white text-carnet-charcoal border border-carnet-border hover:bg-[#F9F8F6] transition-colors" type="button">AI/ML</button>
+<button class="px-3 py-1.5 text-base font-medium rounded-full bg-white text-carnet-charcoal border border-carnet-border hover:bg-[#F9F8F6] transition-colors" type="button">E-commerce</button>
+</div>
+</div>
+</div>
+<!-- Social OAuth Buttons -->
+<div class="pt-1 space-y-3" data-purpose="social-auth-buttons">
+<button class="w-full h-12 rounded-full border border-[#8D8D8D] bg-white text-carnet-charcoal font-semibold text-base hover:bg-[#F9F8F6] transition-colors flex items-center justify-center gap-3 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-carnet-charcoal" type="button">
+<svg aria-hidden="true" class="w-5 h-5 fill-[#0077B5] flex-shrink-0" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"></path></svg>
+<span>Continue with LinkedIn</span>
+</button>
+<div class="grid grid-cols-2 gap-3">
+<button class="w-full h-12 rounded-full border border-[#8D8D8D] bg-white text-carnet-charcoal font-semibold text-base hover:bg-[#F9F8F6] transition-colors flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-carnet-charcoal" type="button">
+<svg aria-hidden="true" class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"></path><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"></path></svg>
+<span>Google</span>
+</button>
+<button class="w-full h-12 rounded-full border border-[#8D8D8D] bg-white text-carnet-charcoal font-semibold text-base hover:bg-[#F9F8F6] transition-colors flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-carnet-charcoal" type="button">
+<svg aria-hidden="true" class="w-5 h-5 fill-current flex-shrink-0 text-[#0A0A0A]" viewBox="0 0 24 24"><path clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" fill-rule="evenodd"></path></svg>
+<span>GitHub</span>
+</button>
+</div>
+</div>
+<!-- Consent & Data Notice Box -->
+<div class="rounded-xl bg-carnet-neutral p-4 space-y-3 mt-2" data-purpose="consent-and-data-notice" id="consent-box">
+<p class="text-base font-semibold text-carnet-charcoal">Consent and data notice</p>
+<p class="text-base leading-relaxed text-carnet-muted">
+        By creating an account, you agree to our Terms of Service and Privacy Policy. We process your personal data to provide our services, connect you with relevant opportunities, and improve your experience. You may opt out of non-essential data processing in your account settings.
+      </p>
+<p class="text-base leading-relaxed text-carnet-muted">
+        Profiles use hybrid verification. Automated checks run first, and anything unclear gets a second look from a person.
+      </p>
+<div class="pt-2 border-t border-black/5 flex items-start gap-2.5">
+<input class="mt-1 rounded border-carnet-border text-carnet-charcoal focus:ring-carnet-charcoal h-5 w-5 cursor-pointer" id="consent-checkbox" name="consent" onchange="toggleRegisterSubmitState()" required="" type="checkbox">
+<label class="text-base font-medium text-carnet-charcoal leading-tight cursor-pointer" for="consent-checkbox">
+          I agree to the Terms of Service and Privacy Policy <span class="text-carnet-accent">*</span>
+</label>
+</div>
+</div>
+<!-- Helper Notice text for disabled submit -->
+<p class="text-base text-carnet-subtle pt-1" id="consent-disabled-hint">
+      Create account is disabled until you agree to the Terms of Service and Privacy Policy.
+    </p>
+<!-- Create Account Button (Disabled until consent checked) -->
+<div class="pt-2">
+<button class="w-full min-h-[52px] h-[52px] bg-carnet-charcoal hover:bg-[#171717] active:scale-[0.99] disabled:bg-[#E2DFD9] disabled:cursor-not-allowed disabled:active:scale-100 text-white font-semibold rounded-full flex items-center justify-between px-6 transition-all shadow-md group focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#B15F2C] text-base" id="register-submit-btn" type="submit"><span>Create account</span><span aria-hidden="true" class="w-9 h-9 rounded-full bg-white text-carnet-charcoal flex items-center justify-center font-bold text-base transform transition-transform group-hover:translate-x-0.5">→</span></button>
+</div>
+</form>
+<!-- Bottom Switch to Login -->
+<div class="mt-6 text-center text-base text-carnet-subtle">
+<span>Already have an account?</span>
+<button class="font-semibold text-carnet-charcoal hover:underline ml-1 focus:outline-none" onclick="switchAuthTab('login')" type="button">
+      Sign in
+    </button>
+</div>
+</div>
+</div>
+</section>
+<!-- END: RightColumn -->
+</div>
+</main>
+<!-- END: MainContent -->
+<!-- BEGIN: Forgot Password Accessible Modal -->
+<div aria-hidden="true" aria-labelledby="modal-title" aria-modal="true" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm hidden" id="forgot-password-modal" role="dialog">
+<div class="bg-white rounded-3xl p-7 sm:p-9 max-w-lg w-full shadow-2xl border border-carnet-border relative">
+<button aria-label="Close modal" class="absolute top-4 right-4 min-w-[44px] min-h-[44px] flex items-center justify-center text-carnet-subtle hover:text-carnet-charcoal focus:outline-none focus:ring-2 focus:ring-[#B15F2C] rounded-full transition-colors" onclick="closeForgotPasswordModal()" type="button"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></button>
+<div class="w-12 h-12 rounded-2xl bg-[#FAF0EA] text-[#B15F2C] flex items-center justify-center mb-4">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+<h3 class="text-[22px] font-bold text-carnet-charcoal" id="modal-title">Reset your password</h3>
+<p class="text-base text-carnet-muted mt-2 leading-relaxed">Enter the email associated with your account, and we'll send you an intro recovery link to reset your credentials.</p>
+<form class="mt-5 space-y-4" onsubmit="event.preventDefault(); handlePasswordResetSubmit();">
+<div>
+<label class="block text-base font-semibold text-carnet-subtle uppercase tracking-wider mb-2" for="reset-email">Email address</label>
+<input class="w-full h-12 px-4 rounded-xl border border-[#8D8D8D] bg-white text-carnet-charcoal placeholder:text-[#A1A1AA] text-base focus:border-carnet-charcoal focus:ring-1 focus:ring-carnet-charcoal outline-none transition-colors" id="reset-email" placeholder="name@company.com" required="" type="email">
+</div>
+<div class="hidden p-3.5 rounded-xl bg-green-50 border border-green-200 text-base text-green-800" id="reset-confirmation">
+        Password reset link has been dispatched to your email!
+      </div>
+<div class="pt-2 flex gap-3">
+<button class="w-full h-12 bg-carnet-charcoal hover:bg-[#171717] text-white font-semibold rounded-full text-base transition-all focus:outline-none shadow-md" type="submit">
+          Send reset link
+        </button>
+</div>
+</form>
+</div>
+</div>
+<!-- END: Forgot Password Accessible Modal -->
+<!-- BEGIN: SiteFooter -->
+<footer class="w-full px-6 lg:px-14 py-6 border-t border-white/20 text-sm font-medium text-white/95 flex flex-col sm:flex-row items-center justify-between gap-4 z-10" data-purpose="global-footer"><div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-[#F5C842]"></span><span class="font-medium tracking-wide text-white">The Founder's Carnet © 2026. All rights reserved.</span></div><div class="flex items-center gap-6 bg-white/10 backdrop-blur-md border border-white/15 px-4 py-1.5 rounded-full text-white text-sm font-medium"><a class="hover:text-[#F5C842] transition-colors" href="#privacy">Privacy</a><span class="text-white/40">•</span><a class="hover:text-[#F5C842] transition-colors" href="#terms">Terms</a><span class="text-white/40">•</span><a class="hover:text-[#F5C842] transition-colors" href="#contact">Contact</a></div></footer>
+<!-- END: SiteFooter -->
+<!-- BEGIN: Logic & Interactivity Scripts -->
+<script data-purpose="auth-tab-switching">
+  let currentMode = 'login';
+
+  function switchAuthTab(mode) {
+    currentMode = mode;
+    
+    const tabLogin = document.getElementById('tab-login');
+    const tabRegister = document.getElementById('tab-register');
+    const loginIndicator = document.getElementById('login-active-indicator');
+    const registerIndicator = document.getElementById('register-active-indicator');
+    
+    const loginView = document.getElementById('login-view-container');
+    const registerView = document.getElementById('register-view-container');
+
+    if (mode === 'login') {
+      // Tab styling: Login active
+      tabLogin.setAttribute('aria-selected', 'true');
+      tabLogin.classList.remove('text-carnet-muted', 'font-semibold');
+      tabLogin.classList.add('text-carnet-charcoal', 'font-bold');
+      loginIndicator.classList.remove('hidden');
+
+      tabRegister.setAttribute('aria-selected', 'false');
+      tabRegister.classList.remove('text-carnet-charcoal', 'font-bold');
+      tabRegister.classList.add('text-carnet-muted', 'font-semibold');
+      registerIndicator.classList.add('hidden');
+
+      // Containers show/hide
+      loginView.classList.remove('hidden');
+      registerView.classList.add('hidden');
+    } else {
+      // Tab styling: Register active
+      tabRegister.setAttribute('aria-selected', 'true');
+      tabRegister.classList.remove('text-carnet-muted', 'font-semibold');
+      tabRegister.classList.add('text-carnet-charcoal', 'font-bold');
+      registerIndicator.classList.remove('hidden');
+
+      tabLogin.setAttribute('aria-selected', 'false');
+      tabLogin.classList.remove('text-carnet-charcoal', 'font-bold');
+      tabLogin.classList.add('text-carnet-muted', 'font-semibold');
+      loginIndicator.classList.add('hidden');
+
+      // Containers show/hide
+      loginView.classList.add('hidden');
+      registerView.classList.remove('hidden');
+      toggleRegisterSubmitState();
+    }
+  }
+
+  function toggleRegisterSubmitState() {
+    const checkbox = document.getElementById('consent-checkbox');
+    const submitBtn = document.getElementById('register-submit-btn');
+    const consentHint = document.getElementById('consent-disabled-hint');
+    
+    if (checkbox && submitBtn) {
+      if (checkbox.checked) {
+        submitBtn.disabled = false;
+        if (consentHint) consentHint.classList.add('opacity-0');
+      } else {
+        submitBtn.disabled = true;
+        if (consentHint) consentHint.classList.remove('opacity-0');
+      }
+    }
+  }
+
+  // Modal dialog handlers
+  function openForgotPasswordModal() {
+    const modal = document.getElementById('forgot-password-modal');
+    modal.classList.remove('hidden');
+    modal.setAttribute('aria-hidden', 'false');
+    document.getElementById('reset-email').focus();
+  }
+
+  function closeForgotPasswordModal() {
+    const modal = document.getElementById('forgot-password-modal');
+    modal.classList.add('hidden');
+    modal.setAttribute('aria-hidden', 'true');
+    const confirmation = document.getElementById('reset-confirmation');
+    if (confirmation) confirmation.classList.add('hidden');
+  }
+
+  function handlePasswordResetSubmit() {
+    const confirmation = document.getElementById('reset-confirmation');
+    confirmation.classList.remove('hidden');
+    setTimeout(() => {
+      closeForgotPasswordModal();
+    }, 2000);
+  }
+
+  // Keydown listener for modal escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      const modal = document.getElementById('forgot-password-modal');
+      if (!modal.classList.contains('hidden')) {
+        closeForgotPasswordModal();
+      }
+    }
+  });
+
+  // Modal background click dismissal
+  document.getElementById('forgot-password-modal').addEventListener('click', (e) => {
+    if (e.target.id === 'forgot-password-modal') {
+      closeForgotPasswordModal();
+    }
+  });
+</script>
+<script data-purpose="platform-note-carousel">
+  // Interactive notes carousel on the left hero card
+  const notes = [
+    "Mutual consent introductions: Contact details remain hidden until both parties accept an introduction request.",
+    "Verified founder ecosystem: Direct channels without spam, ensuring high-trust peer-to-peer collaboration.",
+    "Hybrid curation: Automated algorithmic matching paired with personal community reviews."
+  ];
+
+  let currentNoteIndex = 0;
+  const noteTextEl = document.getElementById('note-text');
+  const noteCounterEl = document.getElementById('note-counter');
+  const prevBtn = document.getElementById('prev-note-btn');
+  const nextBtn = document.getElementById('next-note-btn');
+
+  function updateNoteView() {
+    noteTextEl.textContent = notes[currentNoteIndex];
+    noteCounterEl.textContent = `${currentNoteIndex + 1} of ${notes.length}`;
+  }
+
+  if (prevBtn && nextBtn) {
+    prevBtn.addEventListener('click', () => {
+      currentNoteIndex = (currentNoteIndex - 1 + notes.length) % notes.length;
+      updateNoteView();
+    });
+
+    nextBtn.addEventListener('click', () => {
+      currentNoteIndex = (currentNoteIndex + 1) % notes.length;
+      updateNoteView();
+    });
+  }
+</script>
+<!-- END: Logic & Interactivity Scripts -->
+
+
+</body></html>

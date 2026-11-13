@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><title>The Founder's Carnet — Investor Portal</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&amp;family=Instrument+Serif:ital@0;1&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}.founder-gradient-bg{background:radial-gradient(circle at 85% 15%, #F5C842 0%, #FF8A2B 30%, #C4451A 55%, #3A1206 100%) fixed;min-height:100vh;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-tertiary-fixed-variant": "#743408", "inverse-primary": "#ffb68e", "outline-variant": "#dac2b6", "surface-container-low": "#f4f2fd", "on-primary": "#ffffff", "surface-dim": "#dad9e3", "on-background": "#1a1b22", "surface": "#fbf8ff", "on-surface-variant": "#54433a", "on-primary-fixed-variant": "#773300", "tertiary-container": "#ae6133", "on-tertiary-container": "#fffdff", "primary-fixed-dim": "#ffb68e", "tertiary": "#90491e", "inverse-surface": "#2f3038", "on-secondary-container": "#62626b", "secondary-container": "#e0dee9", "tertiary-fixed": "#ffdbca", "on-tertiary-fixed": "#331100", "secondary-fixed": "#e3e1ec", "surface-tint": "#954917", "surface-bright": "#fbf8ff", "on-error": "#ffffff", "surface-container-high": "#e8e7f1", "on-secondary-fixed-variant": "#46464f", "surface-variant": "#e3e1ec", "on-error-container": "#93000a", "on-primary-container": "#fffcff", "surface-container-lowest": "#ffffff", "primary-fixed": "#ffdbca", "on-surface": "#1a1b22", "secondary": "#5e5e67", "primary": "#924715", "on-secondary-fixed": "#1a1b23", "error": "#ba1a1a", "background": "#fbf8ff", "primary-container": "#b15f2c", "surface-container-highest": "#e3e1ec", "error-container": "#ffdad6", "on-primary-fixed": "#331200", "surface-container": "#eeedf7", "outline": "#877369", "on-secondary": "#ffffff", "on-tertiary": "#ffffff", "tertiary-fixed-dim": "#ffb68f", "inverse-on-surface": "#f1effa", "secondary-fixed-dim": "#c7c5d0" }, "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, "spacing": { "space-md": "1rem", "margin": "1.25rem", "space-xl": "2.5rem", "margin-desktop": "4rem", "margin-tablet": "2.5rem", "space-xs": "0.25rem", "gutter-desktop": "2rem", "space-lg": "1.5rem", "gutter": "1.5rem", "space-sm": "0.5rem" }, "fontFamily": { "headline-sm": ["Hanken Grotesk"], "code-metric": ["JetBrains Mono"], "display": ["Hanken Grotesk"], "body-md": ["Hanken Grotesk"], "headline-md": ["Hanken Grotesk"], "headline-lg": ["Hanken Grotesk"], "body-sm": ["Hanken Grotesk"], "label-caps": ["JetBrains Mono"], "code-metric-lg": ["JetBrains Mono"], "body-lg": ["Hanken Grotesk"], "display-mobile": ["Hanken Grotesk"], "accent-italic": ["Instrument Serif"], "headline-lg-mobile": ["Hanken Grotesk"] }, "fontSize": { "headline-sm": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "code-metric": ["14px", { "lineHeight": "20px", "letterSpacing": "-0.01em", "fontWeight": "500" }], "display": ["56px", { "lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "700" }], "body-md": ["15px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400" }], "headline-md": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.015em", "fontWeight": "600" }], "headline-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "600" }], "body-sm": ["13px", { "lineHeight": "20px", "letterSpacing": "0.005em", "fontWeight": "400" }], "label-caps": ["11px", { "lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "500" }], "code-metric-lg": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.02em", "fontWeight": "600" }], "body-lg": ["18px", { "lineHeight": "28px", "letterSpacing": "0em", "fontWeight": "400" }], "display-mobile": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.025em", "fontWeight": "700" }], "accent-italic": ["inherit", { "lineHeight": "inherit", "fontWeight": "400" }], "headline-lg-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.015em", "fontWeight": "600" }] } } } };</script></head><body class="founder-gradient-bg font-body-md text-body-md text-on-surface antialiased"><header class="fixed top-0 w-full z-50"><div class="h-20 w-full px-margin lg:px-margin-desktop flex items-center justify-between"><div class="w-full max-w-7xl mx-auto flex items-center justify-between px-space-md py-space-xs bg-surface-container-lowest/80 backdrop-blur-xl rounded-full shadow-[0_4px_24px_rgba(10,10,10,0.06)]"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-sm"><svg class="w-9 h-9 rounded-lg shrink-0" fill="none" viewbox="0 0 36 36" xmlns="http://www.w3.org/2000/svg"><rect fill="#0A0A0A" height="36" rx="4" width="36"></rect><path d="M23 0H29V14L26 11.5L23 14V0Z" fill="#B15F2C"></path><text fill="#FFFFFF" font-family="Instrument Serif" font-size="22" font-weight="400" x="10" y="25">F</text></svg><div class="hidden sm:flex flex-col"><span class="font-headline-sm text-body-sm leading-none tracking-tight text-on-surface font-semibold">The Founder's Carnet</span><span class="font-label-caps text-label-caps tracking-widest text-on-surface-variant">PORTAL // PRIVATE LEDGER</span></div></div><div class="h-5 w-px bg-outline-variant/40 hidden md:block"></div><span class="hidden md:inline-flex items-center px-space-sm py-0.5 rounded-full bg-secondary-container/70 text-on-secondary-fixed font-label-caps text-label-caps font-semibold tracking-wider">ROLE: INVESTOR</span></div><nav class="flex items-center gap-space-xs bg-surface-container-low/70 p-1 rounded-full" data-active-classes="bg-inverse-surface text-inverse-on-surface font-medium"><a class="px-space-md py-1.5 rounded-full font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="dashboard" href="#">Dashboard</a><a class="px-space-md py-1.5 rounded-full font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="profile" href="#">Profile</a><a aria-current="page" class="px-space-md py-1.5 rounded-full transition-colors bg-inverse-surface text-inverse-on-surface font-medium" data-path="founders" href="#">Founders</a><a class="px-space-md py-1.5 rounded-full font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="requests" href="#">Requests</a></nav><div class="flex items-center gap-space-md"><div class="hidden lg:flex items-center gap-space-xs px-space-sm py-1 rounded-full bg-surface-container-high/60"><span class="material-symbols-outlined text-tertiary text-[16px]">schedule</span><span class="font-label-caps text-label-caps text-on-surface-variant">KHI // GMT+5</span><span class="font-code-metric text-body-sm font-semibold text-on-surface">17:42</span></div><div class="flex items-center gap-space-sm pl-space-xs"><div class="hidden xl:flex flex-col text-right"><span class="font-body-sm text-body-sm font-semibold text-on-surface leading-tight">Sana Rauf</span><span class="font-label-caps text-label-caps text-on-surface-variant">Margalla Ventures</span></div><div class="w-9 h-9 rounded-full bg-primary flex items-center justify-center text-on-primary font-code-metric text-body-sm font-semibold ring-2 ring-surface-container-lowest/80"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></div></div></header><main class="w-full pt-20"><div class="flex flex-col w-full">
+<!-- Content Canvas Container -->
+<div class="w-full max-w-7xl mx-auto px-margin lg:px-margin-desktop pb-24 flex flex-col gap-y-10">
+<!-- PAGE HEADER -->
+<header class="pt-8 sm:pt-12 flex flex-col gap-y-4 max-w-4xl">
+<!-- Eyebrow Badge -->
+<div class="inline-flex items-center gap-space-xs self-start px-3 py-1 rounded-full bg-surface-container-lowest/90 backdrop-blur-md shadow-sm">
+<span class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span>
+<span class="font-label-caps text-label-caps text-on-surface-variant font-medium tracking-wider">
+          INVESTOR WORKSPACE // VERIFIED DEALFLOW DIRECTORY
+        </span>
+</div>
+<!-- Main Display Headline -->
+<h1 class="font-display text-display tracking-tight text-on-surface">
+        Browse <span class="font-accent-italic italic text-[#F5C842]">founders</span>
+</h1>
+<!-- Subtitle -->
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl leading-relaxed">
+        Discover verified Pakistani founders actively preparing for institutional capital. Filter by sector, stage, metro hub, and objective readiness score benchmark.
+      </p>
+<!-- Summary Pill -->
+<div class="pt-2 flex items-center">
+<div class="inline-flex flex-wrap items-center gap-2 px-4 py-2 rounded-full bg-surface-container-lowest/80 backdrop-blur-md shadow-sm">
+<span class="material-symbols-outlined text-[16px] text-primary">verified</span>
+<span class="font-label-caps text-label-caps text-on-surface font-semibold">
+            Showing 18 verified founders across Karachi, Lahore &amp; Islamabad
+          </span>
+<span class="text-outline-variant font-label-caps">•</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">
+            All profiles vetted with mutual-consent introduction protocol
+          </span>
+</div>
+</div>
+</header>
+<!-- SEARCH & FILTER TOOLBAR -->
+<section class="w-full bg-surface-container-lowest/95 backdrop-blur-md rounded-[24px] p-6 lg:p-8 shadow-sm flex flex-col gap-6">
+<!-- Search Input & Secondary Controls -->
+<div class="flex flex-col lg:flex-row items-stretch lg:items-center gap-4">
+<!-- Search Input Bar -->
+<div class="relative flex-1">
+<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="w-full h-11 pl-11 pr-4 bg-surface-container-lowest text-on-surface font-body-md text-body-md rounded-lg shadow-inner focus:outline-none focus:ring-1 focus:ring-primary-container transition-all" id="founder-search" placeholder="Search founders, startups, or keywords (e.g. B2B SaaS, SBP sandbox, logistics)..." type="text"/>
+</div>
+<!-- Filter Selectors -->
+<div class="flex flex-wrap sm:flex-nowrap items-center gap-3">
+<!-- Readiness Dropdown -->
+<div class="relative flex-1 sm:flex-initial">
+<button class="w-full sm:w-auto h-11 px-4 rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors flex items-center justify-between sm:justify-start gap-3 text-on-surface font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[18px] text-tertiary">tune</span>
+<span class="font-label-caps text-label-caps tracking-wider text-on-surface font-medium">Readiness: ≥ 3.0 / 5.0</span>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">expand_more</span>
+</button>
+</div>
+<!-- Sort Dropdown -->
+<div class="relative flex-1 sm:flex-initial">
+<button class="w-full sm:w-auto h-11 px-4 rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors flex items-center justify-between sm:justify-start gap-3 text-on-surface font-body-sm text-body-sm">
+<span class="font-label-caps text-label-caps tracking-wider text-on-surface font-medium">Sort: Profile similarity</span>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">sort</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Filter Chips Matrix -->
+<div class="flex flex-col gap-4 pt-2">
+<!-- Sectors -->
+<div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest shrink-0 w-20">Sector</span>
+<div class="flex flex-wrap items-center gap-2">
+<button class="px-3 py-1.5 rounded-full bg-[#0A0A0A] text-white font-label-caps text-label-caps transition-transform active:scale-95 shadow-sm">
+              All Sectors
+            </button>
+<button class="px-3 py-1.5 rounded-full bg-surface-container-low hover:bg-surface-container text-on-surface-variant font-label-caps text-label-caps transition-colors">
+              Fintech (6)
+            </button>
+<button class="px-3 py-1.5 rounded-full bg-surface-container-low hover:bg-surface-container text-on-surface-variant font-label-caps text-label-caps transition-colors">
+              B2B SaaS (5)
+            </button>
+<button class="px-3 py-1.5 rounded-full bg-surface-container-low hover:bg-surface-container text-on-surface-variant font-label-caps text-label-caps transition-colors">
+              Logistics &amp; Supply Chain (3)
+            </button>
+<button class="px-3 py-1.5 rounded-full bg-surface-container-low hover:bg-surface-container text-on-surface-variant font-label-caps text-label-caps transition-colors">
+              Agritech (2)
+            </button>
+<button class="px-3 py-1.5 rounded-full bg-surface-container-low hover:bg-surface-container text-on-surface-variant font-label-caps text-label-caps transition-colors">
+              Healthtech (2)
+            </button>
+</div>
+</div>
+<!-- Stage & Hub Rows Split -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+<!-- Stages -->
+<div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest shrink-0 w-20">Stage</span>
+<div class="flex flex-wrap items-center gap-2">
+<button class="px-3 py-1 rounded-full bg-surface-container-low hover:bg-surface-container text-on-surface-variant font-label-caps text-label-caps transition-colors">
+                All Stages
+              </button>
+<button class="px-3 py-1 rounded-full bg-surface-container-low hover:bg-surface-container text-on-surface-variant font-label-caps text-label-caps transition-colors">
+                Idea / Pre-Seed
+              </button>
+<button class="px-3 py-1 rounded-full bg-[#F8EDE5] text-[#964E22] font-label-caps text-label-caps font-semibold shadow-xs">
+                Seed Stage
+              </button>
+<button class="px-3 py-1 rounded-full bg-surface-container-low hover:bg-surface-container text-on-surface-variant font-label-caps text-label-caps transition-colors">
+                Series A
+              </button>
+</div>
+</div>
+<!-- Hubs -->
+<div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest shrink-0 w-20">Metro Hub</span>
+<div class="flex flex-wrap items-center gap-2">
+<button class="px-3 py-1 rounded-full bg-surface-container-low hover:bg-surface-container text-on-surface-variant font-label-caps text-label-caps transition-colors">
+                All Hubs
+              </button>
+<button class="px-3 py-1 rounded-full bg-[#F8EDE5] text-[#964E22] font-label-caps text-label-caps font-semibold">
+                Karachi
+              </button>
+<button class="px-3 py-1 rounded-full bg-surface-container-low hover:bg-surface-container text-on-surface-variant font-label-caps text-label-caps transition-colors">
+                Lahore
+              </button>
+<button class="px-3 py-1 rounded-full bg-surface-container-low hover:bg-surface-container text-on-surface-variant font-label-caps text-label-caps transition-colors">
+                Islamabad
+              </button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- HONESTY PROTOCOL BANNER -->
+<section class="w-full bg-[#0A0A0A] text-white rounded-[20px] p-5 sm:p-6 shadow-md flex items-start sm:items-center gap-4">
+<div class="p-2.5 rounded-full bg-surface-container-highest/20 shrink-0 text-[#F5C842]">
+<span class="material-symbols-outlined text-[20px]">verified_user</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="font-label-caps text-label-caps text-[#F5C842] uppercase tracking-wider font-semibold">Honesty Protocol &amp; Thesis Alignment</span>
+<p class="font-body-sm text-body-sm text-surface-container-low/90 leading-relaxed">
+          Readiness scores are an objective 1 to 5 rubric guide across 7 venture dimensions, not a funding probability. Profile similarity reflects thesis alignment, not likelihood of success. Contact details are quarantined until mutual acceptance.
+        </p>
+</div>
+</section>
+<!-- VERIFIED FOUNDERS LIST -->
+<div class="flex flex-col gap-5">
+<!-- CARD 1: Bilal Ahmed (Munshi Books) -->
+<article class="w-full bg-[#FFFFFF] rounded-[24px] p-6 lg:p-8 shadow-sm hover:shadow-md transition-all flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+<!-- Main Info Block -->
+<div class="flex-1 flex flex-col gap-4">
+<div class="flex flex-wrap items-center gap-3">
+<h2 class="font-headline-md text-headline-md text-on-surface">Bilal Ahmed <span class="text-on-surface-variant font-normal">·</span> Munshi Books</h2>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#F8EDE5] text-[#964E22] font-label-caps text-label-caps font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-[#B15F2C]"></span>
+              VERIFIED FOUNDER
+            </span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-3xl leading-relaxed">
+            Automated SME bookkeeping and tax compliance ledger for wholesale trade corridors across Karachi wholesale markets.
+          </p>
+<!-- Dossier Chips -->
+<div class="flex flex-wrap items-center gap-2 pt-1">
+<span class="px-2.5 py-1 rounded bg-[#F8EDE5] text-[#964E22] font-label-caps text-label-caps">Fintech</span>
+<span class="px-2.5 py-1 rounded bg-[#F8EDE5] text-[#964E22] font-label-caps text-label-caps">Seed Stage</span>
+<span class="px-2.5 py-1 rounded bg-[#F8EDE5] text-[#964E22] font-label-caps text-label-caps">Karachi Hub</span>
+<span class="px-2.5 py-1 rounded bg-[#F8EDE5] text-[#964E22] font-label-caps text-label-caps font-semibold">PKR 18M Monthly GMV</span>
+</div>
+</div>
+<!-- Metrics & Actions Block -->
+<div class="lg:w-80 shrink-0 flex flex-col gap-4 lg:pl-6 bg-surface-container-low/40 p-4 lg:p-5 rounded-xl">
+<!-- Readiness & Similarity -->
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Similarity</span>
+<span class="font-code-metric-lg text-code-metric-lg font-bold text-[#B15F2C]">94%</span>
+</div>
+<div class="flex flex-col items-end text-right">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Readiness</span>
+<span class="font-code-metric-lg text-code-metric-lg font-bold text-on-surface">3.1 <span class="text-on-surface-variant font-normal text-body-sm">/ 5</span></span>
+</div>
+</div>
+<!-- Thin Visual Progress Bar -->
+<div class="w-full flex flex-col gap-1.5">
+<div class="w-full h-1.5 bg-secondary-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container rounded-full" style="width: 62%;"></div>
+</div>
+<span class="font-label-caps text-[10px] text-on-surface-variant leading-none">A rubric guide, not a funding probability</span>
+</div>
+<!-- Action Buttons -->
+<div class="flex flex-col gap-2 pt-1">
+<div class="flex items-center gap-2">
+<button class="flex-1 py-2 px-3 rounded-lg bg-surface-container-lowest hover:bg-surface-container text-on-surface font-body-sm text-body-sm font-medium transition-colors text-center shadow-xs" onclick="toggleDossier(true)">
+                Inspect readiness breakdown
+              </button>
+<button class="py-2 px-4 rounded-full bg-[#0A0A0A] hover:bg-neutral-800 text-white font-body-sm text-body-sm font-medium transition-all flex items-center justify-center gap-1.5 shadow-sm active:scale-95">
+<span>Request match</span>
+<span class="material-symbols-outlined text-[16px]">arrow_outward</span>
+</button>
+</div>
+<span class="font-label-caps text-[10px] text-on-surface-variant text-center">🔒 Contact details quarantined until mutual acceptance</span>
+</div>
+</div>
+</article>
+<!-- CARD 2: Farooq Khan (NovaPay) -->
+<article class="w-full bg-[#FFFFFF] rounded-[24px] p-6 lg:p-8 shadow-sm hover:shadow-md transition-all flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+<div class="flex-1 flex flex-col gap-4">
+<div class="flex flex-wrap items-center gap-3">
+<h2 class="font-headline-md text-headline-md text-on-surface">Farooq Khan <span class="text-on-surface-variant font-normal">·</span> NovaPay</h2>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#F8EDE5] text-[#964E22] font-label-caps text-label-caps font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-[#B15F2C]"></span>
+              VERIFIED FOUNDER
+            </span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-3xl leading-relaxed">
+            Digital wallet and offline SMS-based reconciliation protocol for underbanked retail merchants; SBP sandbox participant.
+          </p>
+<div class="flex flex-wrap items-center gap-2 pt-1">
+<span class="px-2.5 py-1 rounded bg-[#F8EDE5] text-[#964E22] font-label-caps text-label-caps">Fintech &amp; Payments</span>
+<span class="px-2.5 py-1 rounded bg-[#F8EDE5] text-[#964E22] font-label-caps text-label-caps">Seed Stage</span>
+<span class="px-2.5 py-1 rounded bg-[#F8EDE5] text-[#964E22] font-label-caps text-label-caps">Karachi</span>
+<span class="px-2.5 py-1 rounded bg-[#F8EDE5] text-[#964E22] font-label-caps text-label-caps font-semibold">SBP Sandbox</span>
+</div>
+</div>
+<div class="lg:w-80 shrink-0 flex flex-col gap-4 lg:pl-6 bg-surface-container-low/40 p-4 lg:p-5 rounded-xl">
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Similarity</span>
+<span class="font-code-metric-lg text-code-metric-lg font-bold text-[#B15F2C]">92%</span>
+</div>
+<div class="flex flex-col items-end text-right">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Readiness</span>
+<span class="font-code-metric-lg text-code-metric-lg font-bold text-on-surface">4.2 <span class="text-on-surface-variant font-normal text-body-sm">/ 5</span></span>
+</div>
+</div>
+<div class="w-full flex flex-col gap-1.5">
+<div class="w-full h-1.5 bg-secondary-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container rounded-full" style="width: 84%;"></div>
+</div>
+<span class="font-label-caps text-[10px] text-on-surface-variant leading-none">A rubric guide, not a funding probability</span>
+</div>
+<div class="flex flex-col gap-2 pt-1">
+<div class="flex items-center gap-2">
+<button class="flex-1 py-2 px-3 rounded-lg bg-surface-container-lowest hover:bg-surface-container text-on-surface font-body-sm text-body-sm font-medium transition-colors text-center shadow-xs" onclick="toggleDossier(true)">
+                Inspect readiness breakdown
+              </button>
+<button class="py-2 px-4 rounded-full bg-[#0A0A0A] hover:bg-neutral-800 text-white font-body-sm text-body-sm font-medium transition-all flex items-center justify-center gap-1.5 shadow-sm active:scale-95">
+<span>Request match</span>
+<span class="material-symbols-outlined text-[16px]">arrow_outward</span>
+</button>
+</div>
+<span class="font-label-caps text-[10px] text-on-surface-variant text-center">🔒 Contact details quarantined until mutual acceptance</span>
+</div>
+</div>
+</article>
+<!-- CARD 3: Asad Ullah (Fasal Labs) -->
+<article class="w-full bg-[#FFFFFF] rounded-[24px] p-6 lg:p-8 shadow-sm hover:shadow-md transition-all flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+<div class="flex-1 flex flex-col gap-4">
+<div class="flex flex-wrap items-center gap-3">
+<h2 class="font-headline-md text-headline-md text-on-surface">Asad Ullah <span class="text-on-surface-variant font-normal">·</span> Fasal Labs</h2>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#F8EDE5] text-[#964E22] font-label-caps text-label-caps font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-[#B15F2C]"></span>
+              VERIFIED FOUNDER
+            </span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-3xl leading-relaxed">
+            Satellite and multispectral sensor analytics for citrus and cotton yield forecasting across central Punjab farming clusters.
+          </p>
+<div class="flex flex-wrap items-center gap-2 pt-1">
+<span class="px-2.5 py-1 rounded bg-[#F8EDE5] text-[#964E22] font-label-caps text-label-caps">Agritech &amp; IoT</span>
+<span class="px-2.5 py-1 rounded bg-[#F8EDE5] text-[#964E22] font-label-caps text-label-caps">Pre-seed</span>
+<span class="px-2.5 py-1 rounded bg-[#F8EDE5] text-[#964E22] font-label-caps text-label-caps">Lahore Hub</span>
+<span class="px-2.5 py-1 rounded bg-[#F8EDE5] text-[#964E22] font-label-caps text-label-caps font-semibold">4 Farmer Co-ops</span>
+</div>
+</div>
+<div class="lg:w-80 shrink-0 flex flex-col gap-4 lg:pl-6 bg-surface-container-low/40 p-4 lg:p-5 rounded-xl">
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Similarity</span>
+<span class="font-code-metric-lg text-code-metric-lg font-bold text-[#B15F2C]">88%</span>
+</div>
+<div class="flex flex-col items-end text-right">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Readiness</span>
+<span class="font-code-metric-lg text-code-metric-lg font-bold text-on-surface">3.6 <span class="text-on-surface-variant font-normal text-body-sm">/ 5</span></span>
+</div>
+</div>
+<div class="w-full flex flex-col gap-1.5">
+<div class="w-full h-1.5 bg-secondary-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container rounded-full" style="width: 72%;"></div>
+</div>
+<span class="font-label-caps text-[10px] text-on-surface-variant leading-none">A rubric guide, not a funding probability</span>
+</div>
+<div class="flex flex-col gap-2 pt-1">
+<div class="flex items-center gap-2">
+<button class="flex-1 py-2 px-3 rounded-lg bg-surface-container-lowest hover:bg-surface-container text-on-surface font-body-sm text-body-sm font-medium transition-colors text-center shadow-xs" onclick="toggleDossier(true)">
+                Inspect readiness breakdown
+              </button>
+<button class="py-2 px-4 rounded-full bg-[#0A0A0A] hover:bg-neutral-800 text-white font-body-sm text-body-sm font-medium transition-all flex items-center justify-center gap-1.5 shadow-sm active:scale-95">
+<span>Request match</span>
+<span class="material-symbols-outlined text-[16px]">arrow_outward</span>
+</button>
+</div>
+<span class="font-label-caps text-[10px] text-on-surface-variant text-center">🔒 Contact details quarantined until mutual acceptance</span>
+</div>
+</div>
+</article>
+<!-- CARD 4: Nida Farooq (CuraHealth) -->
+<article class="w-full bg-[#FFFFFF] rounded-[24px] p-6 lg:p-8 shadow-sm hover:shadow-md transition-all flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+<div class="flex-1 flex flex-col gap-4">
+<div class="flex flex-wrap items-center gap-3">
+<h2 class="font-headline-md text-headline-md text-on-surface">Nida Farooq <span class="text-on-surface-variant font-normal">·</span> CuraHealth</h2>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#F8EDE5] text-[#964E22] font-label-caps text-label-caps font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-[#B15F2C]"></span>
+              VERIFIED FOUNDER
+            </span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-3xl leading-relaxed">
+            Tele-diagnostics and integrated hospital pharmacy supply chains for tier-2 healthcare centers across KPK and Punjab.
+          </p>
+<div class="flex flex-wrap items-center gap-2 pt-1">
+<span class="px-2.5 py-1 rounded bg-[#F8EDE5] text-[#964E22] font-label-caps text-label-caps">Healthtech</span>
+<span class="px-2.5 py-1 rounded bg-[#F8EDE5] text-[#964E22] font-label-caps text-label-caps">Series A Mandate</span>
+<span class="px-2.5 py-1 rounded bg-[#F8EDE5] text-[#964E22] font-label-caps text-label-caps">Islamabad</span>
+<span class="px-2.5 py-1 rounded bg-[#F8EDE5] text-[#964E22] font-label-caps text-label-caps font-semibold">38 Hospitals Active</span>
+</div>
+</div>
+<div class="lg:w-80 shrink-0 flex flex-col gap-4 lg:pl-6 bg-surface-container-low/40 p-4 lg:p-5 rounded-xl">
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Similarity</span>
+<span class="font-code-metric-lg text-code-metric-lg font-bold text-[#B15F2C]">82%</span>
+</div>
+<div class="flex flex-col items-end text-right">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Readiness</span>
+<span class="font-code-metric-lg text-code-metric-lg font-bold text-on-surface">3.8 <span class="text-on-surface-variant font-normal text-body-sm">/ 5</span></span>
+</div>
+</div>
+<div class="w-full flex flex-col gap-1.5">
+<div class="w-full h-1.5 bg-secondary-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container rounded-full" style="width: 76%;"></div>
+</div>
+<span class="font-label-caps text-[10px] text-on-surface-variant leading-none">A rubric guide, not a funding probability</span>
+</div>
+<div class="flex flex-col gap-2 pt-1">
+<div class="flex items-center gap-2">
+<button class="flex-1 py-2 px-3 rounded-lg bg-surface-container-lowest hover:bg-surface-container text-on-surface font-body-sm text-body-sm font-medium transition-colors text-center shadow-xs" onclick="toggleDossier(true)">
+                Inspect readiness breakdown
+              </button>
+<button class="py-2 px-4 rounded-full bg-[#0A0A0A] hover:bg-neutral-800 text-white font-body-sm text-body-sm font-medium transition-all flex items-center justify-center gap-1.5 shadow-sm active:scale-95">
+<span>Request match</span>
+<span class="material-symbols-outlined text-[16px]">arrow_outward</span>
+</button>
+</div>
+<span class="font-label-caps text-[10px] text-on-surface-variant text-center">🔒 Contact details quarantined until mutual acceptance</span>
+</div>
+</div>
+</article>
+<!-- CARD 5: Tariq Mehmood (SaaSFlow) -->
+<article class="w-full bg-[#FFFFFF] rounded-[24px] p-6 lg:p-8 shadow-sm hover:shadow-md transition-all flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+<div class="flex-1 flex flex-col gap-4">
+<div class="flex flex-wrap items-center gap-3">
+<h2 class="font-headline-md text-headline-md text-on-surface">Tariq Mehmood <span class="text-on-surface-variant font-normal">·</span> SaaSFlow</h2>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#F8EDE5] text-[#964E22] font-label-caps text-label-caps font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-[#B15F2C]"></span>
+              VERIFIED FOUNDER
+            </span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-3xl leading-relaxed">
+            Multi-entity automated accounting workflows and sales tax e-invoicing integrations for Pakistani Shopify and WooCommerce merchants.
+          </p>
+<div class="flex flex-wrap items-center gap-2 pt-1">
+<span class="px-2.5 py-1 rounded bg-[#F8EDE5] text-[#964E22] font-label-caps text-label-caps">B2B SaaS</span>
+<span class="px-2.5 py-1 rounded bg-[#F8EDE5] text-[#964E22] font-label-caps text-label-caps">Seed Stage</span>
+<span class="px-2.5 py-1 rounded bg-[#F8EDE5] text-[#964E22] font-label-caps text-label-caps">Lahore Hub</span>
+<span class="px-2.5 py-1 rounded bg-[#F8EDE5] text-[#964E22] font-label-caps text-label-caps font-semibold">Zero Churn</span>
+</div>
+</div>
+<div class="lg:w-80 shrink-0 flex flex-col gap-4 lg:pl-6 bg-surface-container-low/40 p-4 lg:p-5 rounded-xl">
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Similarity</span>
+<span class="font-code-metric-lg text-code-metric-lg font-bold text-[#B15F2C]">80%</span>
+</div>
+<div class="flex flex-col items-end text-right">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Readiness</span>
+<span class="font-code-metric-lg text-code-metric-lg font-bold text-on-surface">3.9 <span class="text-on-surface-variant font-normal text-body-sm">/ 5</span></span>
+</div>
+</div>
+<div class="w-full flex flex-col gap-1.5">
+<div class="w-full h-1.5 bg-secondary-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container rounded-full" style="width: 78%;"></div>
+</div>
+<span class="font-label-caps text-[10px] text-on-surface-variant leading-none">A rubric guide, not a funding probability</span>
+</div>
+<div class="flex flex-col gap-2 pt-1">
+<div class="flex items-center gap-2">
+<button class="flex-1 py-2 px-3 rounded-lg bg-surface-container-lowest hover:bg-surface-container text-on-surface font-body-sm text-body-sm font-medium transition-colors text-center shadow-xs" onclick="toggleDossier(true)">
+                Inspect readiness breakdown
+              </button>
+<button class="py-2 px-4 rounded-full bg-[#0A0A0A] hover:bg-neutral-800 text-white font-body-sm text-body-sm font-medium transition-all flex items-center justify-center gap-1.5 shadow-sm active:scale-95">
+<span>Request match</span>
+<span class="material-symbols-outlined text-[16px]">arrow_outward</span>
+</button>
+</div>
+<span class="font-label-caps text-[10px] text-on-surface-variant text-center">🔒 Contact details quarantined until mutual acceptance</span>
+</div>
+</div>
+</article>
+</div>
+</div>
+<!-- SLIDE-OVER FOUNDER DETAIL DRAWER (Inspect Founder & Readiness Breakdown) -->
+<div class="fixed inset-0 z-50 bg-[#0A0A0A]/60 backdrop-blur-sm transition-opacity duration-300 opacity-0 pointer-events-none" id="dossier-overlay" onclick="toggleDossier(false)"></div>
+<aside class="fixed top-0 right-0 z-50 w-full max-w-xl h-full bg-[#FAF9F7] text-on-surface shadow-2xl transition-transform duration-300 ease-out translate-x-full overflow-y-auto flex flex-col" id="dossier-drawer">
+<!-- Drawer Sticky Header -->
+<div class="sticky top-0 bg-[#FAF9F7]/95 backdrop-blur-md px-6 py-5 flex items-start justify-between gap-4 z-10 shadow-xs">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-primary uppercase tracking-widest font-semibold">FOUNDER DOSSIER</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">Bilal Ahmed</h3>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Munshi Books · Seed Stage Fintech, Karachi</span>
+</div>
+<button class="p-2 rounded-full hover:bg-surface-container-high transition-colors text-on-surface-variant" onclick="toggleDossier(false)">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Drawer Body -->
+<div class="p-6 flex flex-col gap-6 flex-1">
+<!-- Profile Similarity Badge -->
+<div class="flex items-center justify-between p-3.5 rounded-xl bg-[#F8EDE5] text-[#964E22]">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px] text-primary">auto_graph</span>
+<span class="font-label-caps text-label-caps font-semibold">Margalla Ventures Seed Mandate Match</span>
+</div>
+<span class="font-code-metric text-code-metric font-bold text-[#B15F2C]">94% SIMILARITY</span>
+</div>
+<!-- Overall Readiness Rubric Monolith -->
+<div class="p-6 rounded-2xl bg-[#0A0A0A] text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+<div class="flex flex-col gap-1">
+<span class="font-label-caps text-label-caps text-[#F5C842] uppercase tracking-wider">COMPREHENSIVE READINESS SCORE</span>
+<div class="flex items-baseline gap-2">
+<span class="font-display text-[48px] leading-tight font-bold text-white">3.1</span>
+<span class="font-body-lg text-body-lg text-surface-container-low/70">/ 5.0</span>
+</div>
+<span class="font-label-caps text-[11px] text-surface-container-low/80">A rubric guide, not a funding probability</span>
+</div>
+<div class="flex flex-col items-start sm:items-end text-left sm:text-right gap-1">
+<span class="font-label-caps text-[10px] text-surface-container-low/70 uppercase">LAST EVALUATED</span>
+<span class="font-code-metric text-body-sm text-white font-medium">TODAY // GMT+5</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-highest/20 text-[#F5C842] font-label-caps text-[10px]">7 DIMENSIONS AUDITED</span>
+</div>
+</div>
+<!-- 7-Dimension Readiness Breakdown List -->
+<div class="flex flex-col gap-2">
+<div class="flex items-center justify-between pb-1">
+<span class="font-label-caps text-label-caps text-on-surface uppercase tracking-wider font-semibold">7-Dimension Readiness Rubric</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">BENCHMARK: SEED</span>
+</div>
+<div class="flex flex-col gap-2.5">
+<!-- Dim 1 -->
+<div class="p-3.5 rounded-xl bg-white shadow-xs flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<span class="font-body-sm text-body-sm font-semibold text-on-surface">1. Problem clarity</span>
+<span class="font-code-metric text-body-sm font-bold text-primary">4.0 / 5</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Strong domain grip, validated merchant workflow friction across Jodia Bazaar trade corridors.</p>
+</div>
+<!-- Dim 2 -->
+<div class="p-3.5 rounded-xl bg-white shadow-xs flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<span class="font-body-sm text-body-sm font-semibold text-on-surface">2. Market definition</span>
+<span class="font-code-metric text-body-sm font-bold text-on-surface">2.5 / 5</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Bottom-up TAM for Karachi wholesale corridor defined; needs GCC expansion sizing.</p>
+</div>
+<!-- Dim 3 -->
+<div class="p-3.5 rounded-xl bg-white shadow-xs flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<span class="font-body-sm text-body-sm font-semibold text-on-surface">3. Differentiation &amp; Moats</span>
+<span class="font-code-metric text-body-sm font-bold text-on-surface">3.0 / 5</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Direct ERP sync, proprietary offline SMS fallback ledger for low-connectivity warehouses.</p>
+</div>
+<!-- Dim 4 -->
+<div class="p-3.5 rounded-xl bg-white shadow-xs flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<span class="font-body-sm text-body-sm font-semibold text-on-surface">4. Business model &amp; Unit economics</span>
+<span class="font-code-metric text-body-sm font-bold text-primary">3.5 / 5</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Positive gross margin, zero merchant churn over two consecutive operational quarters.</p>
+</div>
+<!-- Dim 5 -->
+<div class="p-3.5 rounded-xl bg-white shadow-xs flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<span class="font-body-sm text-body-sm font-semibold text-on-surface">5. Traction &amp; Proof points</span>
+<span class="font-code-metric text-body-sm font-bold text-primary">3.5 / 5</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">PKR 18M GMV tracked, 14 active commercial clusters across Karachi and Hyderabad.</p>
+</div>
+<!-- Dim 6 -->
+<div class="p-3.5 rounded-xl bg-white shadow-xs flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<span class="font-body-sm text-body-sm font-semibold text-on-surface">6. Team &amp; Technical capability</span>
+<span class="font-code-metric text-body-sm font-bold text-primary">4.0 / 5</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">In-house engineering team, ex-Finja tech co-founder with proven payments infrastructure tenure.</p>
+</div>
+<!-- Dim 7 -->
+<div class="p-3.5 rounded-xl bg-white shadow-xs flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<span class="font-body-sm text-body-sm font-semibold text-on-surface">7. Scalability &amp; Expansion</span>
+<span class="font-code-metric text-body-sm font-bold text-on-surface">2.5 / 5</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Single-city concentration; expansion roadmap for Lahore grain markets currently in progress.</p>
+</div>
+</div>
+</div>
+<!-- Founder Executive Summary -->
+<div class="p-5 rounded-2xl bg-white shadow-xs flex flex-col gap-3">
+<span class="font-label-caps text-label-caps text-on-surface uppercase tracking-wider font-semibold">Executive Narrative</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+          Bilal Ahmed spent eight years operating multi-commodity distribution networks before building Munshi Books. His core thesis targets the friction of fragmented credit accounting between wholesalers and sub-distributors, turning paper ledgers into verified digital audits.
+        </p>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+          The business demonstrates remarkable pilot customer retention: 100% of onboarded grain and spice distributors remain active after six months. Proposed seed capital will fund direct integrations with major commercial banking APIs and regional merchant onboarding in central Punjab.
+        </p>
+</div>
+<!-- Protocol Note -->
+<div class="p-4 rounded-xl bg-surface-container-low/70 flex items-start gap-3">
+<span class="material-symbols-outlined text-[20px] text-tertiary shrink-0">lock</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-snug">
+<strong class="text-on-surface font-semibold">Carnet Double-Blind Protocol:</strong> Requesting a match dispatches a confidential introduction request. Direct contact coordinates (email &amp; phone) remain locked until Bilal Ahmed accepts.
+        </p>
+</div>
+</div>
+<!-- Drawer Sticky Footer CTA -->
+<div class="sticky bottom-0 bg-[#FAF9F7]/95 backdrop-blur-md p-5 flex flex-col sm:flex-row items-center gap-3 z-10 shadow-md">
+<button class="w-full sm:flex-1 py-3 px-4 rounded-full bg-[#0A0A0A] hover:bg-neutral-800 text-white font-body-sm text-body-sm font-semibold transition-all flex items-center justify-center gap-2 shadow-sm active:scale-95">
+<span>Request match with Bilal Ahmed</span>
+<span class="material-symbols-outlined text-[18px]">arrow_outward</span>
+</button>
+<button class="w-full sm:w-auto py-3 px-5 rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface font-body-sm text-body-sm font-medium transition-colors" onclick="toggleDossier(false)">
+        Close drawer
+      </button>
+</div>
+</aside>
+<!-- Interactive Slide-over Logic -->
+<script>
+    function toggleDossier(open) {
+      const drawer = document.getElementById('dossier-drawer');
+      const overlay = document.getElementById('dossier-overlay');
+      if (open) {
+        drawer.classList.remove('translate-x-full');
+        overlay.classList.remove('opacity-0', 'pointer-events-none');
+        overlay.classList.add('opacity-100');
+        document.body.style.overflow = 'hidden';
+      } else {
+        drawer.classList.add('translate-x-full');
+        overlay.classList.add('opacity-0', 'pointer-events-none');
+        overlay.classList.remove('opacity-100');
+        document.body.style.overflow = '';
+      }
+    }
+  </script>
+</div></main><footer class="w-full mt-space-xl bg-surface-container-lowest/85 backdrop-blur-xl"><div class="max-w-7xl mx-auto px-margin lg:px-margin-desktop py-space-lg flex flex-col md:flex-row items-center justify-between gap-space-md"><div class="flex items-center gap-space-md"><span class="font-body-sm text-body-sm text-on-surface-variant">© 2025 The Founder's Carnet Ltd. Strictly Confidential.</span><span class="font-label-caps text-label-caps text-tertiary hidden sm:inline">ISLAMABAD // KARACHI // LONDON</span></div><div class="flex items-center gap-space-lg"><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="privacy-policy" href="#">Privacy</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="terms-of-service" href="#">Terms</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="contact" href="#">Contact</a><span class="font-code-metric text-body-sm text-on-surface-variant/80">v2.4.0</span></div></div></footer></body></html>

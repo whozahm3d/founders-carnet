@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><title>The Founder's Carnet</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&amp;family=Instrument+Serif:ital@0;1&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;background:radial-gradient(circle at 85% 15%, #F5C842 0%, #FF8A2B 30%, #C4451A 55%, #3A1206 100%) fixed;min-height:100vh;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "secondary": "#5e5e67",
+          "primary-fixed": "#ffdbca",
+          "tertiary-fixed": "#ffdbca",
+          "primary-container": "#b15f2c",
+          "on-background": "#1a1b22",
+          "on-secondary-fixed": "#1a1b23",
+          "surface-dim": "#dad9e3",
+          "tertiary": "#90491e",
+          "outline": "#877369",
+          "on-tertiary-fixed": "#331100",
+          "surface-tint": "#954917",
+          "on-error-container": "#93000a",
+          "outline-variant": "#dac2b6",
+          "primary": "#924715",
+          "surface-container-highest": "#e3e1ec",
+          "primary-fixed-dim": "#ffb68e",
+          "on-primary-container": "#fffcff",
+          "inverse-surface": "#2f3038",
+          "error": "#ba1a1a",
+          "inverse-primary": "#ffb68e",
+          "on-secondary-container": "#62626b",
+          "secondary-fixed": "#e3e1ec",
+          "on-error": "#ffffff",
+          "on-tertiary": "#ffffff",
+          "surface-container": "#eeedf7",
+          "secondary-fixed-dim": "#c7c5d0",
+          "on-primary-fixed-variant": "#773300",
+          "surface": "#fbf8ff",
+          "surface-container-high": "#e8e7f1",
+          "on-tertiary-fixed-variant": "#743408",
+          "on-secondary": "#ffffff",
+          "on-primary-fixed": "#331200",
+          "tertiary-fixed-dim": "#ffb68f",
+          "surface-container-lowest": "#ffffff",
+          "surface-variant": "#e3e1ec",
+          "tertiary-container": "#ae6133",
+          "error-container": "#ffdad6",
+          "on-tertiary-container": "#fffdff",
+          "on-surface-variant": "#54433a",
+          "on-surface": "#1a1b22",
+          "secondary-container": "#e0dee9",
+          "background": "#fbf8ff",
+          "surface-bright": "#fbf8ff",
+          "on-primary": "#ffffff",
+          "on-secondary-fixed-variant": "#46464f",
+          "surface-container-low": "#f4f2fd",
+          "inverse-on-surface": "#f1effa"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.125rem",
+          "lg": "0.25rem",
+          "xl": "0.5rem",
+          "full": "0.75rem"
+        },
+        "spacing": {
+          "space-sm": "0.5rem",
+          "gutter-desktop": "2rem",
+          "margin-desktop": "4rem",
+          "space-xl": "2.5rem",
+          "margin": "1.25rem",
+          "space-md": "1rem",
+          "gutter": "1.5rem",
+          "space-xs": "0.25rem",
+          "margin-tablet": "2.5rem",
+          "space-lg": "1.5rem"
+        },
+        "fontFamily": {
+          "headline-md": [
+            "Hanken Grotesk"
+          ],
+          "label-caps": [
+            "JetBrains Mono"
+          ],
+          "display": [
+            "Hanken Grotesk"
+          ],
+          "headline-lg": [
+            "Hanken Grotesk"
+          ],
+          "display-mobile": [
+            "Hanken Grotesk"
+          ],
+          "accent-italic": [
+            "Instrument Serif"
+          ],
+          "headline-sm": [
+            "Hanken Grotesk"
+          ],
+          "body-lg": [
+            "Hanken Grotesk"
+          ],
+          "body-sm": [
+            "Hanken Grotesk"
+          ],
+          "code-metric": [
+            "JetBrains Mono"
+          ],
+          "code-metric-lg": [
+            "JetBrains Mono"
+          ],
+          "body-md": [
+            "Hanken Grotesk"
+          ],
+          "headline-lg-mobile": [
+            "Hanken Grotesk"
+          ]
+        },
+        "fontSize": {
+          "headline-md": [
+            "28px",
+            {
+              "lineHeight": "36px",
+              "letterSpacing": "-0.015em",
+              "fontWeight": "600"
+            }
+          ],
+          "label-caps": [
+            "11px",
+            {
+              "lineHeight": "16px",
+              "letterSpacing": "0.08em",
+              "fontWeight": "500"
+            }
+          ],
+          "display": [
+            "56px",
+            {
+              "lineHeight": "64px",
+              "letterSpacing": "-0.03em",
+              "fontWeight": "700"
+            }
+          ],
+          "headline-lg": [
+            "40px",
+            {
+              "lineHeight": "48px",
+              "letterSpacing": "-0.02em",
+              "fontWeight": "600"
+            }
+          ],
+          "display-mobile": [
+            "36px",
+            {
+              "lineHeight": "44px",
+              "letterSpacing": "-0.025em",
+              "fontWeight": "700"
+            }
+          ],
+          "accent-italic": [
+            "inherit",
+            {
+              "lineHeight": "inherit",
+              "fontWeight": "400"
+            }
+          ],
+          "headline-sm": [
+            "20px",
+            {
+              "lineHeight": "28px",
+              "letterSpacing": "-0.01em",
+              "fontWeight": "600"
+            }
+          ],
+          "body-lg": [
+            "18px",
+            {
+              "lineHeight": "28px",
+              "letterSpacing": "0em",
+              "fontWeight": "400"
+            }
+          ],
+          "body-sm": [
+            "13px",
+            {
+              "lineHeight": "20px",
+              "letterSpacing": "0.005em",
+              "fontWeight": "400"
+            }
+          ],
+          "code-metric": [
+            "14px",
+            {
+              "lineHeight": "20px",
+              "letterSpacing": "-0.01em",
+              "fontWeight": "500"
+            }
+          ],
+          "code-metric-lg": [
+            "22px",
+            {
+              "lineHeight": "28px",
+              "letterSpacing": "-0.02em",
+              "fontWeight": "600"
+            }
+          ],
+          "body-md": [
+            "15px",
+            {
+              "lineHeight": "24px",
+              "letterSpacing": "0em",
+              "fontWeight": "400"
+            }
+          ],
+          "headline-lg-mobile": [
+            "28px",
+            {
+              "lineHeight": "36px",
+              "letterSpacing": "-0.015em",
+              "fontWeight": "600"
+            }
+          ]
+        }
+      }
+    }
+  }</script></head><body class="font-body-md text-body-md text-on-surface antialiased"><header class="fixed top-0 left-0 right-0 z-50 px-margin sm:px-margin-tablet lg:px-margin-desktop pt-space-sm"><div class="h-16 w-full mx-auto px-gutter bg-surface-container-lowest/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] rounded-xl flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-md min-w-0 flex-shrink-0"><div class="relative flex items-center justify-center w-8 h-8 rounded-lg bg-inverse-surface shadow-sm flex-shrink-0"><span class="font-headline-sm text-headline-sm text-on-primary font-bold leading-none select-none">F</span><span class="absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full bg-primary-container ring-1 ring-surface-container-lowest"></span></div><div class="flex flex-col min-w-0"><span class="font-headline-sm text-headline-sm font-semibold tracking-tight text-on-surface leading-tight whitespace-nowrap">The Founder's Carnet</span><span class="font-label-caps text-label-caps text-secondary truncate hidden xl:inline-block leading-tight">Bilal Ahmed / Munshi Books · Seed Fintech · Karachi</span></div></div><nav class="hidden lg:flex items-center gap-space-xs font-body-sm text-body-sm font-medium" data-active-classes="bg-primary-container text-on-primary-container rounded-lg"><a class="px-space-sm py-space-xs text-on-surface-variant hover:text-on-surface transition-colors whitespace-nowrap" data-path="dashboard" href="#">Dashboard</a><a class="px-space-sm py-space-xs text-on-surface-variant hover:text-on-surface transition-colors whitespace-nowrap" data-path="profile" href="#">Profile</a><a class="px-space-sm py-space-xs text-on-surface-variant hover:text-on-surface transition-colors whitespace-nowrap" data-path="readiness-score" href="#">Readiness score</a><a class="px-space-sm py-space-xs text-on-surface-variant hover:text-on-surface transition-colors whitespace-nowrap" data-path="pitch-practice" href="#">Pitch practice</a><a class="px-space-sm py-space-xs text-on-surface-variant hover:text-on-surface transition-colors whitespace-nowrap" data-path="session-feedback" href="#">Session feedback</a><a aria-current="page" class="px-space-sm py-space-xs transition-colors whitespace-nowrap bg-primary-container text-on-primary-container rounded-lg" data-path="matches" href="#">Matches</a></nav><div class="flex items-center gap-space-md flex-shrink-0"><div class="hidden sm:inline-flex items-center px-space-sm py-space-xs rounded-lg bg-surface-container-low text-on-surface font-code-metric text-code-metric"><span class="font-label-caps text-label-caps text-on-surface-variant">Karachi 3:55pm, 9 Nov 2026</span></div><div class="flex items-center gap-space-xs pl-space-xs"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center font-label-caps text-label-caps text-on-primary font-semibold select-none shadow-sm">BA</div></div></div></div></header><main class="w-full pt-16 min-h-[calc(100vh-4rem)] flex flex-col justify-between"><div><div class="flex flex-col w-full">
+<div class="w-full max-w-5xl mx-auto px-margin sm:px-margin-tablet lg:px-margin-desktop py-space-xl">
+<!-- Top Ledger Eyebrow -->
+<div class="flex items-center gap-space-xs mb-space-md">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">FOUNDER WORKSPACE // MUTUAL INTRODUCTION CONFIRMED</span>
+</div>
+<!-- Page Title & Editorial Introduction -->
+<div class="max-w-3xl mb-space-xl">
+<h1 class="font-display text-display text-on-surface tracking-tight leading-none mb-space-sm">
+        Introduction <span class="font-accent-italic text-accent-italic font-normal" style="color: #F5C842;">accepted</span>
+</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+        Both parties have agreed to connect. Direct contact coordinates are now unlocked and visible to both sides.
+      </p>
+</div>
+<!-- Master Architectural Dossier Card -->
+<div class="bg-surface-container-lowest rounded-full p-space-lg sm:p-space-xl shadow-xl">
+<!-- Status Ribbon Header -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between pb-space-lg mb-space-lg gap-space-sm bg-surface-container-low px-space-md py-space-sm rounded-lg">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-headline-sm" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-label-caps text-label-caps text-primary uppercase font-semibold">Mutual consent complete · Contact details unlocked</span>
+</div>
+<div class="flex items-center gap-space-xs font-code-metric text-code-metric text-secondary">
+<span class="material-symbols-outlined text-body-sm">schedule</span>
+<span>Timestamped: 9 Nov 2026, 15:55 PKT</span>
+</div>
+</div>
+<!-- Balanced Profile Coordinates Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-lg">
+<!-- Person 1: Founder Plate -->
+<div class="flex flex-col justify-between p-space-lg rounded-xl bg-surface-container-lowest shadow-sm">
+<div>
+<div class="flex items-center justify-between mb-space-md">
+<div class="w-12 h-12 rounded-full bg-inverse-surface text-surface flex items-center justify-center font-label-caps text-label-caps font-semibold">
+                BA
+              </div>
+<span class="font-label-caps text-label-caps text-secondary px-space-xs py-space-xs rounded bg-surface-container-high">FOUNDER</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold mb-space-xs">Bilal Ahmed</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-space-lg leading-snug">
+              Founder &amp; CEO · Munshi Books<br/>
+<span class="text-secondary font-code-metric text-code-metric">Fintech · Karachi</span>
+</p>
+<div class="space-y-space-md pt-space-md bg-surface-container-low p-space-md rounded-lg">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-secondary mb-space-xs uppercase">Direct Email</span>
+<div class="flex items-center justify-between group">
+<a class="font-code-metric text-code-metric text-on-surface hover:text-primary transition-colors select-all" href="mailto:bilal@munshibooks.pk">
+                    bilal@munshibooks.pk
+                  </a>
+<button class="text-secondary hover:text-primary transition-colors" onclick="navigator.clipboard.writeText('bilal@munshibooks.pk'); alert('Email copied: bilal@munshibooks.pk');" title="Copy email" type="button">
+<span class="material-symbols-outlined text-body-md">content_copy</span>
+</button>
+</div>
+</div>
+<div class="flex flex-col pt-space-xs">
+<span class="font-label-caps text-label-caps text-secondary mb-space-xs uppercase">Direct Mobile</span>
+<div class="flex items-center justify-between group">
+<a class="font-code-metric text-code-metric text-on-surface hover:text-primary transition-colors select-all" href="tel:+923008472910">
+                    +92 300 8472910
+                  </a>
+<button class="text-secondary hover:text-primary transition-colors" onclick="navigator.clipboard.writeText('+92 300 8472910'); alert('Phone copied: +92 300 8472910');" title="Copy phone" type="button">
+<span class="material-symbols-outlined text-body-md">content_copy</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-space-lg pt-space-sm flex items-center gap-space-xs text-secondary font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-body-sm text-primary">verified_user</span>
+<span>Identity confirmed via Founder Carnet Registry</span>
+</div>
+</div>
+<!-- Person 2: Institutional Investor Plate -->
+<div class="flex flex-col justify-between p-space-lg rounded-xl bg-surface-container-lowest shadow-sm">
+<div>
+<div class="flex items-center justify-between mb-space-md">
+<div class="w-12 h-12 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-label-caps text-label-caps font-semibold">
+                AQ
+              </div>
+<span class="font-label-caps text-label-caps text-primary px-space-xs py-space-xs rounded bg-primary-fixed">PARTNER · VC</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold mb-space-xs">Ayesha Qureshi</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-space-lg leading-snug">
+              Partner · Indus Valley Capital<br/>
+<span class="text-secondary font-code-metric text-code-metric">Early Stage Fund · Karachi</span>
+</p>
+<div class="space-y-space-md pt-space-md bg-surface-container-low p-space-md rounded-lg">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-secondary mb-space-xs uppercase">Direct Email</span>
+<div class="flex items-center justify-between group">
+<a class="font-code-metric text-code-metric text-on-surface hover:text-primary transition-colors select-all" href="mailto:ayesha@indusvalley.vc">
+                    ayesha@indusvalley.vc
+                  </a>
+<button class="text-secondary hover:text-primary transition-colors" onclick="navigator.clipboard.writeText('ayesha@indusvalley.vc'); alert('Email copied: ayesha@indusvalley.vc');" title="Copy email" type="button">
+<span class="material-symbols-outlined text-body-md">content_copy</span>
+</button>
+</div>
+</div>
+<div class="flex flex-col pt-space-xs">
+<span class="font-label-caps text-label-caps text-secondary mb-space-xs uppercase">Direct Mobile</span>
+<div class="flex items-center justify-between group">
+<a class="font-code-metric text-code-metric text-on-surface hover:text-primary transition-colors select-all" href="tel:+923214598120">
+                    +92 321 4598120
+                  </a>
+<button class="text-secondary hover:text-primary transition-colors" onclick="navigator.clipboard.writeText('+92 321 4598120'); alert('Phone copied: +92 321 4598120');" title="Copy phone" type="button">
+<span class="material-symbols-outlined text-body-md">content_copy</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-space-lg pt-space-sm flex items-center gap-space-xs text-secondary font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-body-sm text-primary">verified_user</span>
+<span>Authorized institutional partner portal</span>
+</div>
+</div>
+</div>
+<!-- Recessed Editorial Note Box -->
+<div class="mt-space-lg p-space-lg rounded-xl bg-surface-container-low flex items-start gap-space-md">
+<span class="material-symbols-outlined text-primary-container text-headline-sm mt-0.5">info</span>
+<div class="space-y-space-xs">
+<span class="font-label-caps text-label-caps text-on-surface uppercase tracking-wider font-semibold">Workspace Protocol</span>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+            These contact details are now visible to both of you in your respective workspaces. You may reach out directly via email or phone.
+          </p>
+</div>
+</div>
+<!-- Actions Ledger -->
+<div class="mt-space-xl pt-space-lg flex flex-col sm:flex-row items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md w-full sm:w-auto">
+<a class="w-full sm:w-auto inline-flex items-center justify-center h-11 px-space-lg rounded-full bg-inverse-surface hover:bg-on-surface text-surface font-body-sm text-body-sm font-semibold tracking-wide transition-colors shadow-sm" data-path="matches" href="#">
+            Back to matches
+          </a>
+<a class="w-full sm:w-auto inline-flex items-center justify-center h-11 px-space-lg rounded-full bg-surface-container-low hover:bg-surface-container-high text-on-surface font-body-sm text-body-sm font-medium transition-colors" data-path="dashboard" href="#">
+            Back to dashboard
+          </a>
+</div>
+<div class="flex items-center gap-space-xs text-secondary font-label-caps text-label-caps">
+<span>PORTFOLIO REF: INDUS-MUNSHI-2026</span>
+</div>
+</div>
+</div>
+<!-- Contextual Architectural Quote / Detail Footer -->
+<div class="mt-space-xl max-w-2xl text-on-surface-variant font-body-sm text-body-sm flex items-center gap-space-md">
+<span class="w-8 h-px bg-outline-variant"></span>
+<p class="italic text-secondary">
+        Direct introductions are facilitated upon explicit, mutual opt-in to preserve focused, high-conviction deal flow.
+      </p>
+</div>
+</div>
+</div></div><footer class="w-full mt-auto py-space-lg px-margin sm:px-margin-tablet lg:px-margin-desktop"><div class="w-full mx-auto flex flex-col sm:flex-row items-center justify-between gap-space-md pt-space-md text-on-surface-variant font-body-sm text-body-sm"><span>The Founder's Carnet © 2026. All rights reserved.</span><div class="flex items-center gap-space-lg font-body-sm text-body-sm"><a class="hover:text-on-surface transition-colors" data-path="privacy" href="#">Privacy</a><a class="hover:text-on-surface transition-colors" data-path="terms" href="#">Terms</a><a class="hover:text-on-surface transition-colors" data-path="contact" href="#">Contact</a></div></div></footer></main></body></html>
