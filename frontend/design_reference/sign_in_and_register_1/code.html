@@ -1,0 +1,627 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>The Founder's Carnet | Register</title>
+<!-- Google Fonts: Hanken Grotesk -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@500;600&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS v3 with Forms & Container-Queries -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Hanken Grotesk"', 'sans-serif'],
+          },
+          colors: {
+            carnet: {
+              charcoal: '#0A0A0A',
+              card: '#FFFFFF',
+              border: '#E2DFD9',
+              neutral: '#F1F0EE',
+              muted: '#52525B',
+              subtle: '#71717A',
+              accent: '#B15F2C',
+            }
+          },
+          letterSpacing: {
+            tighterDisplay: '-0.025em',
+          }
+        }
+      }
+    };
+  </script>
+<!-- BEGIN: Custom Styles -->
+<style data-purpose="background-atmosphere">
+    /* Multi-stop warm artwork radiant glow deepening from top-right to bottom-left */
+    .bg-carnet-mesh {
+      background-color: #3A1206;
+      background-image: 
+        radial-gradient(circle at 92% 8%, #FFF6E2 0%, #F5C842 22%, transparent 48%),
+        radial-gradient(circle at 75% 28%, #FF8A2B 0%, #C4451A 40%, transparent 68%),
+        radial-gradient(circle at 18% 85%, #190502 0%, #3A1206 50%, #C4451A 100%),
+        linear-gradient(135deg, #1C0702 0%, #3A1206 40%, #7A240C 75%, #F5C842 100%);
+      background-blend-mode: screen, normal, hard-light, normal;
+    }
+  </style>
+<style data-purpose="layout-and-interactions">
+    /* Subtle transitions for tabs and controls */
+    .tab-btn {
+      transition: color 0.18s ease, border-color 0.18s ease;
+    }
+    .custom-scroll::-webkit-scrollbar {
+      width: 4px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #E2DFD9;
+      border-radius: 4px;
+    }
+  </style>
+<!-- END: Custom Styles -->
+<style id="typography-pairing-override">body { font-family: 'Inter', sans-serif !important; font-size: 16px !important; } h1, h2, h3, h4, h5, #hero-title, [role="tablist"] button { font-family: 'Plus Jakarta Sans', sans-serif !important; font-weight: 700 !important; letter-spacing: -0.03em !important; } p, label, .text-body { font-family: 'Inter', sans-serif !important; font-size: 16px !important; } .mono-tag { font-family: 'JetBrains Mono', monospace !important; text-transform: uppercase !important; letter-spacing: 0.08em !important; font-size: 16px !important; } .role-pill, [data-purpose="form-group-sectors"] button { font-family: 'JetBrains Mono', monospace !important; text-transform: uppercase !important; letter-spacing: 0.05em !important; font-size: 16px !important; } #pwd-strength-label, header nav a, footer a, [data-purpose="platform-note-carousel"] span.uppercase, span.uppercase, span.tracking-widest, #note-counter { font-family: 'JetBrains Mono', monospace !important; letter-spacing: 0.08em !important; } input:not([type="checkbox"]):not([type="radio"]) { font-family: 'Inter', sans-serif !important; font-size: 16px !important; } input:focus-visible, select:focus-visible, textarea:focus-visible { outline: none !important; border-color: #B15F2C !important; box-shadow: 0 0 0 2px #FFFFFF, 0 0 0 4px #B15F2C !important; } [data-purpose="social-auth-buttons"] button:focus-visible, .role-pill:focus-visible, [data-purpose="form-group-sectors"] button:focus-visible { outline: none !important; box-shadow: 0 0 0 2px #FFFFFF, 0 0 0 4px #B15F2C !important; } #primary-submit-btn { transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1); } #primary-submit-btn:not(:disabled):hover { transform: scale(1.015); background-color: #171717; } #primary-submit-btn:not(:disabled):active { transform: scale(0.985); } #primary-submit-btn:not(:disabled):hover #primary-arrow-badge { transform: translateX(3px); background-color: #B15F2C !important; color: #FFFFFF !important; } #primary-submit-btn:focus-visible { outline: none !important; box-shadow: 0 0 0 2px #FFFFFF, 0 0 0 4px #B15F2C !important; } [data-purpose="social-auth-buttons"] button { transition: all 0.2s ease; } [data-purpose="social-auth-buttons"] button:hover { border-color: #0A0A0A !important; background-color: #FAF0EA !important; } .role-pill { transition: all 0.15s ease-in-out; } .role-pill:hover:not(.bg-carnet-charcoal) { border-color: #0A0A0A !important; background-color: #FAF0EA !important; color: #733100 !important; } .tab-btn:focus-visible { outline: 2px solid #B15F2C !important; outline-offset: 4px; border-radius: 4px; }</style></head>
+<body class="font-sans antialiased text-[#0A0A0A] bg-carnet-mesh min-h-screen flex flex-col justify-between selection:bg-[#B15F2C] selection:text-white">
+<!-- BEGIN: SiteHeader -->
+<header class="w-full px-6 lg:px-14 py-6 flex items-center justify-between z-20" data-purpose="global-header">
+<!-- Brand identity: exact specified SVG icon and wordmark -->
+<a aria-label="The Founder's Carnet Homepage" class="flex items-center gap-3.5 group focus:outline-none" href="#">
+<svg aria-hidden="true" class="w-9 h-9 flex-shrink-0 drop-shadow-sm transition-transform duration-200 group-hover:scale-105" viewBox="0 0 64 64"><rect fill="#0A0A0A" height="64" rx="14" width="64"></rect><path d="M45 0H52V22L48.5 18L45 22Z" fill="#B15F2C"></path><path d="M14 14H40V23H24V28.5H36V37.5H24V50H14Z" fill="#fff"></path></svg>
+<span class="text-white text-lg font-semibold tracking-tight drop-shadow-sm">The Founder's Carnet</span>
+</a>
+<!-- Top Navigation Links -->
+<nav aria-label="Secondary Navigation" class="hidden sm:flex items-center gap-2 bg-white/70 backdrop-blur-md border border-white/60 px-4 py-2 rounded-full shadow-sm text-sm font-semibold text-[#0A0A0A]"><a class="px-3 py-1 rounded-full hover:bg-black/5 hover:text-carnet-accent transition-colors" href="#about">About</a><a class="px-3 py-1 rounded-full hover:bg-black/5 hover:text-carnet-accent transition-colors" href="#faq">FAQ</a><a class="px-3 py-1 rounded-full hover:bg-black/5 hover:text-carnet-accent transition-colors" href="#contact">Contact</a></nav>
+</header>
+<!-- END: SiteHeader -->
+<!-- BEGIN: MainContent -->
+<main class="w-full flex-grow flex items-center justify-center px-4 sm:px-6 lg:px-14 py-6 lg:py-10 z-10" id="main-content">
+<div class="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+<!-- BEGIN: LeftColumn (Hero / Brand area) -->
+<section aria-labelledby="hero-title" class="lg:col-span-7 flex flex-col justify-center text-white"><!-- Top kicker badge with city coverage --><div class="inline-flex flex-wrap items-center gap-2.5 mb-6"><span class="inline-flex items-center gap-2 bg-white/15 backdrop-blur-md border border-white/25 px-3.5 py-1.5 rounded-full shadow-sm"><span class="h-2 w-2 rounded-full bg-[#F5C842]"></span><span class="text-xs uppercase tracking-widest font-bold text-white">Ecosystem Network</span></span><span class="text-xs tracking-wider uppercase font-medium text-white/80 hidden sm:inline-block">Karachi • Lahore • Islamabad • Peshawar</span></div><!-- Display Headline --><h1 class="text-4xl sm:text-5xl lg:text-[48px] font-bold leading-[1.12] mb-6 text-white drop-shadow-sm" id="hero-title" style="letter-spacing: -0.03em;">Introductions for Pakistan's <span style="font-family: &quot;Instrument Serif&quot;, Georgia, serif; font-style: italic; font-weight: 400; color: rgb(245, 200, 66);">startup ecosystem.</span></h1><!-- Editorial Subline --><p class="text-base md:text-lg text-white/85 font-normal max-w-xl mb-8 mt-4 leading-relaxed">Where founders, talent, mentors, and vetted capital connect across hubs. Mutual-consent introductions ensure your contact details remain private until you decide to connect.</p><!-- Primary Frosted Platform Note Card --><div class="bg-white/15 backdrop-blur-md border border-white/20 rounded-3xl p-6 text-white max-w-xl shadow-xl shadow-black/10 mb-5" data-purpose="platform-note-carousel"><div class="flex items-center justify-between mb-3 text-xs tracking-wider uppercase font-semibold text-white/80"><span class="flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-[#F5C842]" fill="currentColor" viewBox="0 0 20 20"><path clip-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" fill-rule="evenodd"></path></svg>Platform note</span><div class="flex items-center gap-3"><span class="text-white font-medium" id="note-counter">1 of 3</span><div class="flex items-center gap-1"><button aria-label="Previous note" class="w-6 h-6 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center transition-colors" id="prev-note-btn" type="button"><svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path></svg></button><button aria-label="Next note" class="w-6 h-6 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center transition-colors" id="next-note-btn" type="button"><svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg></button></div></div></div><p class="text-base font-medium leading-relaxed text-white" id="note-text" style="font-size: 16px; line-height: 1.6;">Mutual consent introductions: Contact details remain hidden until both parties accept an introduction request.</p></div><!-- Anchoring Bottom Highlight Badges to balance vertical space --><div class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-xl"><div class="bg-black/20 backdrop-blur-md border border-white/10 rounded-2xl p-4 flex items-center gap-3.5"><div class="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center text-[#F5C842] flex-shrink-0 font-bold text-base"><svg class="w-5 h-5 text-[#F5C842]" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg></div><div><p class="text-sm font-semibold text-white">Dual-Layer Verification</p><p class="text-xs text-white/80 leading-tight mt-0.5">Algorithmic checks backed by human peer verification</p></div></div><div class="bg-black/20 backdrop-blur-md border border-white/10 rounded-2xl p-4 flex items-center gap-3.5"><div class="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center text-[#F5C842] flex-shrink-0 font-bold text-base"><svg class="w-5 h-5 text-[#F5C842]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg></div><div><p class="text-sm font-semibold text-white">Zero Cold Spam</p><p class="text-xs text-white/80 leading-tight mt-0.5">Private intro requests only with mutual approval</p></div></div></div></section>
+<!-- END: LeftColumn -->
+<!-- BEGIN: RightColumn (Authentication Card) -->
+<section aria-label="Authentication Form Section" class="lg:col-span-5 flex justify-center lg:justify-end">
+<div class="w-full max-w-[540px] bg-white rounded-3xl p-7 sm:p-8 border border-carnet-border shadow-2xl relative" data-purpose="auth-card"><!-- 4-State Quick Navigation Pills -->
+<div class="flex items-center justify-between border-b border-carnet-border pb-3 mb-6 overflow-x-auto">
+  <div class="flex items-center gap-2 p-1 bg-carnet-neutral rounded-full text-xs font-semibold" id="state-switcher-bar" role="tablist">
+    <button type="button" onclick="setAuthState('signin')" id="btn-nav-signin" class="px-3 py-1.5 rounded-full transition-all text-carnet-muted hover:text-carnet-charcoal font-medium">Sign in</button>
+    <button type="button" onclick="setAuthState('register')" id="btn-nav-register" class="px-3.5 py-1.5 rounded-full transition-all bg-carnet-charcoal text-white shadow-sm font-semibold">Register</button>
+    <button type="button" onclick="setAuthState('forgot')" id="btn-nav-forgot" class="px-3 py-1.5 rounded-full transition-all text-carnet-muted hover:text-carnet-charcoal">Forgot</button>
+    <button type="button" onclick="setAuthState('reset')" id="btn-nav-reset" class="px-3 py-1.5 rounded-full transition-all text-carnet-muted hover:text-carnet-charcoal">Reset</button>
+  </div>
+  <button type="button" onclick="toggleErrorDemo()" id="btn-demo-error" class="text-xs font-semibold px-2.5 py-1 rounded border border-[#B91C1C]/30 text-[#B91C1C] hover:bg-[#FEF2F2] transition-colors flex items-center gap-1" title="Simulate error preview on active form">
+    <span class="w-1.5 h-1.5 rounded-full bg-[#B91C1C]"></span>Demo Error
+  </button>
+</div>
+
+<!-- STATE 1: SIGN IN VIEW -->
+<div id="view-signin" class="space-y-4 hidden">
+  <div>
+    <h2 class="text-2xl sm:text-[26px] font-bold text-carnet-charcoal tracking-tight mb-1">Welcome back</h2>
+    <p class="text-sm text-carnet-muted">Sign in to access your introductions and ecosystem network.</p>
+  </div>
+  <!-- Error Banner -->
+  <div id="signin-error-banner" class="hidden rounded-xl bg-[#FEF2F2] border border-[#B91C1C]/20 p-3 text-sm text-[#B91C1C] flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <svg class="w-4 h-4 flex-shrink-0 text-[#B91C1C]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+      <span>Invalid email or password. Please try again.</span>
+    </div>
+    <button type="button" onclick="document.getElementById('signin-error-banner').classList.add('hidden')" class="text-[#B91C1C] font-bold text-xs p-1 hover:opacity-75">✕</button>
+  </div>
+  <form class="space-y-4" onsubmit="event.preventDefault();">
+    <div>
+      <label class="block text-xs font-semibold text-carnet-subtle uppercase tracking-wider mb-2 mono-tag" for="signin-email">Email address</label>
+      <input class="w-full h-12 px-4 rounded-xl border border-carnet-border text-carnet-charcoal placeholder:text-[#A1A1AA] text-base focus:border-carnet-charcoal focus:ring-1 focus:ring-carnet-charcoal outline-none transition-colors" id="signin-email" name="email" placeholder="name@company.com" required="" type="email">
+    </div>
+    <div>
+      <div class="flex items-center justify-between mb-2">
+        <label class="block text-xs font-semibold text-carnet-subtle uppercase tracking-wider mono-tag" for="signin-password">Password</label>
+        <button type="button" onclick="setAuthState('forgot')" class="text-xs font-medium text-carnet-accent hover:underline focus:outline-none">Forgot password?</button>
+      </div>
+      <div class="relative">
+        <input class="w-full h-12 px-4 pr-12 rounded-xl border border-carnet-border text-carnet-charcoal placeholder:text-[#A1A1AA] text-base focus:border-carnet-charcoal focus:ring-1 focus:ring-carnet-charcoal outline-none transition-colors" id="signin-password" name="password" placeholder="••••••••••••" required="" type="password">
+        <button type="button" onclick="togglePasswordVisibility('signin-password', this)" class="absolute right-3 top-1/2 -translate-y-1/2 text-carnet-subtle hover:text-carnet-charcoal p-1 focus:outline-none text-xs font-medium uppercase mono-tag tracking-wider" aria-label="Toggle password visibility">Show</button>
+      </div>
+    </div>
+    <div class="flex items-center justify-between pt-1">
+      <label class="flex items-center gap-2 cursor-pointer select-none">
+        <input class="rounded border-carnet-border text-carnet-charcoal focus:ring-carnet-charcoal h-4 w-4 cursor-pointer" id="signin-remember" name="remember" type="checkbox">
+        <span class="text-xs font-medium text-carnet-muted leading-tight">Remember me for 30 days</span>
+      </label>
+    </div>
+    <div class="pt-2">
+      <button class="w-full h-14 bg-carnet-charcoal text-white font-semibold rounded-full flex items-center justify-between px-6 shadow-md hover:bg-[#171717] transition-all select-none" type="submit">
+        <span class="text-base font-semibold">Sign in</span>
+        <span aria-hidden="true" class="w-9 h-9 rounded-full bg-white text-carnet-charcoal flex items-center justify-center font-bold text-base shadow-sm">→</span>
+      </button>
+    </div>
+  </form>
+  <!-- Social Auth -->
+  <div class="pt-1">
+    <div class="relative flex items-center justify-center mb-4">
+      <div class="border-t border-carnet-border w-full"></div>
+      <span class="bg-white px-3 text-xs uppercase tracking-wider text-carnet-subtle font-semibold mono-tag absolute">or continue with</span>
+    </div>
+    <div class="grid grid-cols-3 gap-2">
+      <button type="button" class="h-12 rounded-xl border border-carnet-border bg-white text-carnet-charcoal font-semibold text-sm flex items-center justify-center gap-2 hover:bg-[#FAF0EA] transition-colors focus:outline-none">
+        <svg aria-hidden="true" class="w-4 h-4 fill-[#0077B5] flex-shrink-0" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"></path></svg>
+        <span>LinkedIn</span>
+      </button>
+      <button type="button" class="h-12 rounded-xl border border-carnet-border bg-white text-carnet-charcoal font-semibold text-sm flex items-center justify-center gap-2 hover:bg-[#FAF0EA] transition-colors focus:outline-none">
+        <svg aria-hidden="true" class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"></path><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"></path></svg>
+        <span>Google</span>
+      </button>
+      <button type="button" class="h-12 rounded-xl border border-carnet-border bg-white text-carnet-charcoal font-semibold text-sm flex items-center justify-center gap-2 hover:bg-[#FAF0EA] transition-colors focus:outline-none">
+        <svg aria-hidden="true" class="w-4 h-4 fill-current flex-shrink-0 text-[#0A0A0A]" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path></svg>
+        <span>GitHub</span>
+      </button>
+    </div>
+  </div>
+  <div class="mt-4 text-center text-sm text-carnet-subtle">
+    <span>Don't have an account?</span>
+    <button type="button" onclick="setAuthState('register')" class="font-semibold text-carnet-charcoal hover:underline ml-1 focus:outline-none">Create one</button>
+  </div>
+</div>
+
+<!-- STATE 2: REGISTER VIEW -->
+<div id="view-register" class="space-y-4">
+  <div>
+    <h2 class="text-2xl sm:text-[26px] font-bold text-carnet-charcoal tracking-tight mb-1">Join the ecosystem</h2>
+    <p class="text-sm text-carnet-muted">Connect with founders, talent, mentors, and investors across Pakistan.</p>
+  </div>
+  <!-- Error Banner -->
+  <div id="register-error-banner" class="hidden rounded-xl bg-[#FEF2F2] border border-[#B91C1C]/20 p-3 text-sm text-[#B91C1C] flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <svg class="w-4 h-4 flex-shrink-0 text-[#B91C1C]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+      <span>An account with this email already exists. Sign in or reset your password.</span>
+    </div>
+    <button type="button" onclick="document.getElementById('register-error-banner').classList.add('hidden')" class="text-[#B91C1C] font-bold text-xs p-1 hover:opacity-75">✕</button>
+  </div>
+  <form class="space-y-3.5" onsubmit="event.preventDefault();">
+    <div>
+      <label class="block text-xs font-semibold text-carnet-subtle uppercase tracking-wider mb-1.5 mono-tag" for="reg-name">Full name</label>
+      <input class="w-full h-11 px-4 rounded-xl border border-carnet-border text-carnet-charcoal placeholder:text-[#A1A1AA] text-base focus:border-carnet-charcoal focus:ring-1 focus:ring-carnet-charcoal outline-none transition-colors" id="reg-name" placeholder="e.g. Farooq Khan" required="" type="text">
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      <div>
+        <label class="block text-xs font-semibold text-carnet-subtle uppercase tracking-wider mb-1.5 mono-tag" for="reg-profession">Profession<br></label>
+        <input class="w-full h-11 px-4 rounded-xl border border-carnet-border text-carnet-charcoal placeholder:text-[#A1A1AA] text-base focus:border-carnet-charcoal focus:ring-1 focus:ring-carnet-charcoal outline-none transition-colors" id="reg-profession" placeholder="e.g. Software Engineer" required="" type="text">
+      </div>
+      <div>
+        <label class="block text-xs font-semibold text-carnet-subtle uppercase tracking-wider mb-1.5 mono-tag" for="reg-age">Age</label>
+        <input class="w-full h-11 px-4 rounded-xl border border-carnet-border text-carnet-charcoal placeholder:text-[#A1A1AA] text-base focus:border-carnet-charcoal focus:ring-1 focus:ring-carnet-charcoal outline-none transition-colors" id="reg-age" placeholder="e.g. 28" min="16" max="99" required="" type="number">
+      </div>
+    </div>
+    <div>
+      <label class="block text-xs font-semibold text-carnet-subtle uppercase tracking-wider mb-1.5 mono-tag" for="reg-email">Email address</label>
+      <input class="w-full h-11 px-4 rounded-xl border border-carnet-border text-carnet-charcoal placeholder:text-[#A1A1AA] text-base focus:border-carnet-charcoal focus:ring-1 focus:ring-carnet-charcoal outline-none transition-colors" id="reg-email" placeholder="name@company.com" required="" type="email">
+    </div>
+    <div>
+      <div class="flex items-center justify-between mb-1.5">
+        <label class="block text-xs font-semibold text-carnet-subtle uppercase tracking-wider mono-tag" for="reg-password">Password</label>
+        <div class="flex items-center gap-1.5 text-xs">
+          <span class="text-carnet-subtle">Strength:</span>
+          <span class="font-semibold text-carnet-accent mono-tag" id="reg-strength-label">Good</span>
+        </div>
+      </div>
+      <div class="relative">
+        <input oninput="updateStrength(this.value)" class="w-full h-11 px-4 pr-12 rounded-xl border border-carnet-border text-carnet-charcoal placeholder:text-[#A1A1AA] text-base focus:border-carnet-charcoal focus:ring-1 focus:ring-carnet-charcoal outline-none transition-colors" id="reg-password" placeholder="••••••••••••" required="" type="password">
+        <button type="button" onclick="togglePasswordVisibility('reg-password', this)" class="absolute right-3 top-1/2 -translate-y-1/2 text-carnet-subtle hover:text-carnet-charcoal p-1 focus:outline-none text-xs font-medium uppercase mono-tag tracking-wider" aria-label="Toggle password visibility">Show</button>
+      </div>
+      <div class="w-full h-1.5 bg-[#E2DFD9] rounded-full overflow-hidden flex gap-1 mt-2">
+        <div id="bar-1" class="h-full flex-1 bg-[#B15F2C] rounded-full transition-all duration-200"></div>
+        <div id="bar-2" class="h-full flex-1 bg-[#B15F2C] rounded-full transition-all duration-200"></div>
+        <div id="bar-3" class="h-full flex-1 bg-[#B15F2C] rounded-full transition-all duration-200"></div>
+        <div id="bar-4" class="h-full flex-1 bg-carnet-neutral rounded-full transition-all duration-200"></div>
+      </div>
+    </div>
+    <!-- Role Selection -->
+    <div>
+      <label class="block text-xs font-semibold text-carnet-subtle uppercase tracking-wider mb-2 mono-tag">Select role</label>
+      <div class="grid grid-cols-4 gap-2" id="role-buttons-grid">
+        <button type="button" onclick="selectRoleBtn(this)" class="role-pill py-2 px-2 text-xs font-semibold rounded-xl bg-carnet-charcoal text-white shadow-sm border border-carnet-charcoal flex items-center justify-center transition-all">Founder</button>
+        <button type="button" onclick="selectRoleBtn(this)" class="role-pill py-2 px-2 text-xs font-medium rounded-xl bg-white text-carnet-charcoal border border-carnet-border hover:bg-[#FAF0EA] flex items-center justify-center transition-colors">Talent</button>
+        <button type="button" onclick="selectRoleBtn(this)" class="role-pill py-2 px-2 text-xs font-medium rounded-xl bg-white text-carnet-charcoal border border-carnet-border hover:bg-[#FAF0EA] flex items-center justify-center transition-colors">Mentor</button>
+        <button type="button" onclick="selectRoleBtn(this)" class="role-pill py-2 px-2 text-xs font-medium rounded-xl bg-white text-carnet-charcoal border border-carnet-border hover:bg-[#FAF0EA] flex items-center justify-center transition-colors">Investor</button>
+      </div>
+    </div>
+    <!-- Consent Box -->
+    <div class="rounded-xl bg-carnet-neutral p-3.5 space-y-2 mt-2">
+      <p class="text-xs leading-relaxed text-carnet-muted">
+        By creating an account, you agree to our Terms of Service and Privacy Policy. Profiles undergo verification before introduction requests are active.
+      </p>
+      <label class="flex items-start gap-2.5 pt-1.5 border-t border-black/5 cursor-pointer select-none">
+        <input id="reg-consent-chk" onchange="updateRegisterSubmitState()" class="mt-0.5 rounded border-carnet-border text-carnet-charcoal focus:ring-carnet-charcoal h-4 w-4 cursor-pointer" type="checkbox">
+        <span class="text-xs font-medium text-carnet-charcoal leading-snug">I agree to the Terms of Service and Privacy Policy <span class="text-carnet-accent">*</span></span>
+      </label>
+    </div>
+    <!-- Primary Register Submit Button -->
+    <div class="pt-1">
+      <button id="btn-register-submit" disabled="" class="w-full h-14 bg-[#E2DFD9] text-carnet-subtle font-semibold rounded-full flex items-center justify-between px-6 shadow-md cursor-not-allowed select-none transition-all" type="submit">
+        <span class="text-base font-semibold">Create account</span>
+        <span aria-hidden="true" class="w-9 h-9 rounded-full bg-white text-carnet-charcoal flex items-center justify-center font-bold text-base shadow-sm">→</span>
+      </button>
+      <p id="reg-disabled-tip" class="text-xs text-carnet-subtle text-center mt-2 leading-tight">Check the agreement box above to enable account creation.</p>
+    </div>
+  </form><div class="pt-2"><div class="relative flex items-center justify-center mb-4"><div class="border-t border-carnet-border w-full"></div><span class="bg-white px-3 text-xs uppercase tracking-wider text-carnet-subtle font-semibold mono-tag absolute">or continue with</span></div><div class="grid grid-cols-3 gap-2"><button type="button" class="h-11 rounded-xl border border-carnet-border bg-white text-carnet-charcoal font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 hover:bg-[#FAF0EA] transition-colors focus:outline-none"><svg aria-hidden="true" class="w-4 h-4 fill-[#0077B5] flex-shrink-0" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"></path></svg><span>LinkedIn</span></button><button type="button" class="h-11 rounded-xl border border-carnet-border bg-white text-carnet-charcoal font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 hover:bg-[#FAF0EA] transition-colors focus:outline-none"><svg aria-hidden="true" class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"></path><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"></path></svg><span>Google</span></button><button type="button" class="h-11 rounded-xl border border-carnet-border bg-white text-carnet-charcoal font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 hover:bg-[#FAF0EA] transition-colors focus:outline-none"><svg aria-hidden="true" class="w-4 h-4 fill-current flex-shrink-0 text-[#0A0A0A]" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path></svg><span>GitHub</span></button></div></div>
+  <!-- Switch to sign in -->
+  <div class="mt-3 text-center text-sm text-carnet-subtle"><div class="flex items-center justify-between border-t border-carnet-border pt-3 text-xs"><span class="text-carnet-subtle">Already registered? <button type="button" onclick="setAuthState('signin')" class="font-semibold text-carnet-charcoal hover:underline focus:outline-none">Sign in</button></span><div class="flex items-center gap-3"><button type="button" onclick="setAuthState('forgot')" class="font-medium text-carnet-subtle hover:text-carnet-charcoal hover:underline focus:outline-none">Forgot password</button><span class="text-carnet-border">•</span><button type="button" onclick="setAuthState('reset')" class="font-medium text-carnet-subtle hover:text-carnet-charcoal hover:underline focus:outline-none">Reset password</button></div></div></div>
+</div>
+
+<!-- STATE 3: FORGOT PASSWORD VIEW -->
+<div id="view-forgot" class="hidden space-y-4">
+  <div>
+    <div class="inline-flex items-center gap-2 bg-[#FAF0EA] border border-[#B15F2C]/30 px-3 py-1 rounded-full mb-2">
+      <span class="w-1.5 h-1.5 rounded-full bg-[#B15F2C]"></span>
+      <span class="text-[11px] font-semibold text-[#733100] tracking-widest uppercase mono-tag">Password Recovery</span>
+    </div>
+    <h2 class="text-2xl sm:text-[26px] font-bold text-carnet-charcoal tracking-tight mb-1">Reset your password</h2>
+    <p class="text-sm text-carnet-muted leading-relaxed">Enter your registered email and we'll send you a password reset link.</p>
+  </div>
+  <!-- Success Banner -->
+  <div id="forgot-success-banner" class="hidden rounded-xl bg-[#FAF0EA] border border-[#B15F2C]/30 p-3.5 text-sm text-[#733100] flex items-start gap-2.5">
+    <svg class="w-5 h-5 flex-shrink-0 text-[#B15F2C] mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+    <div>
+      <span class="font-bold block text-carnet-charcoal">Reset link sent!</span>
+      <span class="text-xs text-carnet-muted mt-0.5 block">Check your inbox for instructions to reset your password.</span>
+    </div>
+  </div>
+  <!-- Error Banner -->
+  <div id="forgot-error-banner" class="hidden rounded-xl bg-[#FEF2F2] border border-[#B91C1C]/20 p-3 text-sm text-[#B91C1C] flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <svg class="w-4 h-4 flex-shrink-0 text-[#B91C1C]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+      <span>No account associated with this email address.</span>
+    </div>
+    <button type="button" onclick="document.getElementById('forgot-error-banner').classList.add('hidden')" class="text-[#B91C1C] font-bold text-xs p-1 hover:opacity-75">✕</button>
+  </div>
+  <form class="space-y-4" onsubmit="event.preventDefault(); document.getElementById('forgot-success-banner').classList.remove('hidden');">
+    <div>
+      <label class="block text-xs font-semibold text-carnet-subtle uppercase tracking-wider mb-2 mono-tag" for="forgot-email">Email address</label>
+      <input class="w-full h-12 px-4 rounded-xl border border-carnet-border text-carnet-charcoal placeholder:text-[#A1A1AA] text-base focus:border-carnet-charcoal focus:ring-1 focus:ring-carnet-charcoal outline-none transition-colors" id="forgot-email" placeholder="name@company.com" required="" type="email">
+    </div>
+    <div class="pt-2">
+      <button class="w-full h-14 bg-carnet-charcoal hover:bg-[#171717] text-white font-semibold rounded-full flex items-center justify-between px-6 shadow-md transition-all select-none" type="submit">
+        <span class="text-base font-semibold">Send reset link</span>
+        <span aria-hidden="true" class="w-9 h-9 rounded-full bg-white text-carnet-charcoal flex items-center justify-center font-bold text-base shadow-sm">→</span>
+      </button>
+    </div>
+  </form>
+  <div class="pt-4 border-t border-carnet-border flex items-center justify-between text-xs">
+    <button type="button" onclick="setAuthState('signin')" class="mono-tag uppercase tracking-wider font-semibold text-carnet-accent hover:underline flex items-center gap-1 focus:outline-none">
+      <span>←</span> Back to sign in
+    </button>
+    <button type="button" onclick="setAuthState('reset')" class="mono-tag uppercase tracking-wider font-semibold text-carnet-muted hover:text-carnet-charcoal focus:outline-none">
+      Preview new password screen →
+    </button>
+  </div>
+</div>
+
+<!-- STATE 4: RESET PASSWORD VIEW -->
+<div id="view-reset" class="hidden space-y-4">
+  <div>
+    <div class="inline-flex items-center gap-2 bg-[#FAF0EA] border border-[#B15F2C]/30 px-3 py-1 rounded-full mb-2">
+      <span class="w-1.5 h-1.5 rounded-full bg-[#B15F2C]"></span>
+      <span class="text-[11px] font-semibold text-[#733100] tracking-widest uppercase mono-tag">Update Credentials</span>
+    </div>
+    <h2 class="text-2xl sm:text-[26px] font-bold text-carnet-charcoal tracking-tight mb-1">Set new password</h2>
+    <p class="text-sm text-carnet-muted leading-relaxed">Choose a strong password with at least 8 characters.</p>
+  </div>
+  <!-- Error Banner -->
+  <div id="reset-error-banner" class="hidden rounded-xl bg-[#FEF2F2] border border-[#B91C1C]/20 p-3 text-sm text-[#B91C1C] flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <svg class="w-4 h-4 flex-shrink-0 text-[#B91C1C]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+      <span>Passwords do not match. Please verify both fields.</span>
+    </div>
+    <button type="button" onclick="document.getElementById('reset-error-banner').classList.add('hidden')" class="text-[#B91C1C] font-bold text-xs p-1 hover:opacity-75">✕</button>
+  </div>
+  <!-- Success Banner -->
+  <div id="reset-success-banner" class="hidden rounded-xl bg-[#FAF0EA] border border-[#B15F2C]/30 p-3.5 text-sm text-[#733100] flex items-center gap-2.5">
+    <svg class="w-5 h-5 flex-shrink-0 text-[#B15F2C]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+    <span class="font-medium">Password successfully updated! Redirecting to sign in...</span>
+  </div>
+  <form class="space-y-4" onsubmit="event.preventDefault(); validateResetForm();">
+    <div>
+      <label class="block text-xs font-semibold text-carnet-subtle uppercase tracking-wider mb-2 mono-tag" for="new-password">New password</label>
+      <div class="relative">
+        <input class="w-full h-12 px-4 pr-12 rounded-xl border border-carnet-border text-carnet-charcoal placeholder:text-[#A1A1AA] text-base focus:border-carnet-charcoal focus:ring-1 focus:ring-carnet-charcoal outline-none transition-colors" id="new-password" placeholder="At least 8 characters" required="" type="password">
+        <button type="button" onclick="togglePasswordVisibility('new-password', this)" class="absolute right-3 top-1/2 -translate-y-1/2 text-carnet-subtle hover:text-carnet-charcoal p-1 focus:outline-none text-xs font-medium uppercase mono-tag tracking-wider" aria-label="Toggle password visibility">Show</button>
+      </div>
+    </div>
+    <div>
+      <label class="block text-xs font-semibold text-carnet-subtle uppercase tracking-wider mb-2 mono-tag" for="confirm-password">Confirm password</label>
+      <div class="relative">
+        <input class="w-full h-12 px-4 pr-12 rounded-xl border border-carnet-border text-carnet-charcoal placeholder:text-[#A1A1AA] text-base focus:border-carnet-charcoal focus:ring-1 focus:ring-carnet-charcoal outline-none transition-colors" id="confirm-password" placeholder="Repeat new password" required="" type="password">
+        <button type="button" onclick="togglePasswordVisibility('confirm-password', this)" class="absolute right-3 top-1/2 -translate-y-1/2 text-carnet-subtle hover:text-carnet-charcoal p-1 focus:outline-none text-xs font-medium uppercase mono-tag tracking-wider" aria-label="Toggle password visibility">Show</button>
+      </div>
+      <p class="text-xs text-carnet-subtle mt-1.5">Passwords must match exactly.</p>
+    </div>
+    <div class="pt-2">
+      <button class="w-full h-14 bg-carnet-charcoal hover:bg-[#171717] text-white font-semibold rounded-full flex items-center justify-between px-6 shadow-md transition-all select-none" type="submit">
+        <span class="text-base font-semibold">Save password</span>
+        <span aria-hidden="true" class="w-9 h-9 rounded-full bg-white text-carnet-charcoal flex items-center justify-center font-bold text-base shadow-sm">→</span>
+      </button>
+    </div>
+  </form>
+  <div class="pt-4 border-t border-carnet-border text-center">
+    <button type="button" onclick="setAuthState('signin')" class="mono-tag uppercase text-xs tracking-wider font-semibold text-carnet-accent hover:underline inline-flex items-center gap-1 focus:outline-none">
+      <span>←</span> Back to sign in
+    </button>
+  </div>
+</div></div>
+</section>
+<!-- END: RightColumn -->
+</div>
+</main><div aria-labelledby="modal-title" aria-modal="true" class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/60 backdrop-blur-sm transition-opacity duration-200 hidden" id="forgot-password-modal" role="dialog"><div class="relative w-full max-w-md bg-white rounded-3xl p-6 sm:p-8 border border-carnet-border shadow-2xl overflow-hidden"><div class="flex items-start justify-between mb-4"><div class="inline-flex items-center gap-2 bg-[#FAF0EA] border border-[#B15F2C] px-3 py-1 rounded-full"><span class="w-1.5 h-1.5 rounded-full bg-[#B15F2C]"></span><span class="text-[11px] font-semibold text-[#733100] tracking-widest uppercase mono-tag">Password Recovery</span></div><button aria-label="Close dialog" class="w-8 h-8 rounded-full bg-carnet-neutral hover:bg-[#E2DFD9] text-carnet-charcoal flex items-center justify-center text-sm font-bold transition-colors focus:outline-none" id="close-modal-btn" onclick="closeForgotPasswordModal()" type="button">✕</button></div><div id="forgot-form-view"><h2 class="text-2xl sm:text-[26px] font-bold text-carnet-charcoal tracking-tight mb-2" id="modal-title" style="font-family: 'Plus Jakarta Sans', sans-serif !important; letter-spacing: -0.03em !important;">Reset your password</h2><p class="text-sm text-carnet-muted leading-relaxed mb-5" style="font-family: 'Inter', sans-serif !important;">Enter the email associated with your account and we will send a secure link to reset your credentials.</p><form class="space-y-4" id="forgot-password-form" onsubmit="handleForgotSubmit(event)"><div data-purpose="modal-group-email"><label class="block text-[11px] font-semibold text-carnet-subtle uppercase tracking-wider mb-1 mono-tag" for="reset-email">Account email</label><input class="w-full h-11 px-3.5 rounded-xl border border-carnet-border text-carnet-charcoal placeholder:text-[#A1A1AA] text-sm focus:border-carnet-charcoal focus:ring-1 focus:ring-carnet-charcoal outline-none transition-colors" id="reset-email" name="reset-email" placeholder="name@company.com" required="" type="email"></div><button class="w-full h-11 bg-carnet-charcoal hover:bg-[#171717] text-white font-semibold rounded-full flex items-center justify-between px-6 shadow-md transition-all select-none" id="send-reset-btn" type="submit"><span class="text-sm">Send reset link</span><span aria-hidden="true" class="w-7 h-7 rounded-full bg-white text-carnet-charcoal flex items-center justify-center font-bold text-xs shadow-sm transition-all">→</span></button></form></div><div class="hidden" id="forgot-success-view"><div class="w-12 h-12 rounded-2xl bg-[#FAF0EA] text-[#B15F2C] border border-[#B15F2C] flex items-center justify-center font-bold text-xl mb-4"><svg class="w-6 h-6 text-[#B15F2C]" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg></div><h2 class="text-2xl font-bold text-carnet-charcoal tracking-tight mb-2" style="font-family: 'Plus Jakarta Sans', sans-serif !important;">Check your inbox</h2><p class="text-sm text-carnet-muted leading-relaxed mb-6" id="reset-sent-notice">We have sent a password reset link to <span class="font-semibold text-carnet-charcoal" id="reset-target-email">name@company.com</span>. Please check your spam folder if it doesn't arrive within a few minutes.</p><button class="w-full h-11 bg-carnet-charcoal hover:bg-[#171717] text-white font-semibold rounded-full flex items-center justify-center text-sm shadow-md transition-all" onclick="closeForgotPasswordModal()" type="button">Back to login</button></div><div class="mt-5 pt-4 border-t border-carnet-border flex items-center justify-between text-xs"><button class="mono-tag uppercase text-[11px] tracking-wider font-semibold text-carnet-accent hover:underline flex items-center gap-1.5 focus:outline-none" onclick="closeForgotPasswordModal()" type="button"><span>←</span> Back to login</button><span class="text-carnet-subtle text-[11px]">Need assistance? <a class="text-carnet-charcoal font-medium hover:underline" href="#contact">Support</a></span></div></div></div>
+<!-- END: MainContent -->
+<!-- BEGIN: SiteFooter -->
+<footer class="w-full px-6 lg:px-14 py-6 border-t border-white/20 text-sm font-medium text-white/95 flex flex-col sm:flex-row items-center justify-between gap-4 z-10" data-purpose="global-footer"><div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-[#F5C842]"></span><span class="font-medium tracking-wide text-white">The Founder's Carnet © 2026. All rights reserved.</span></div><div class="flex items-center gap-6 bg-white/10 backdrop-blur-md border border-white/15 px-4 py-1.5 rounded-full text-white text-sm font-medium"><a class="hover:text-[#F5C842] transition-colors" href="#privacy">Privacy</a><span class="text-white/40">•</span><a class="hover:text-[#F5C842] transition-colors" href="#terms">Terms</a><span class="text-white/40">•</span><a class="hover:text-[#F5C842] transition-colors" href="#contact">Contact</a></div></footer>
+<!-- END: SiteFooter -->
+<!-- BEGIN: Logic & Interactivity Scripts -->
+<script data-purpose="auth-tab-switching">
+    // State machine for Login vs Register tab views
+    let currentMode = 'register';
+
+    function switchAuthTab(mode) {
+      currentMode = mode;
+      
+      const tabLogin = document.getElementById('tab-login');
+      const tabRegister = document.getElementById('tab-register');
+      const loginIndicator = document.getElementById('login-active-indicator');
+      const registerIndicator = document.getElementById('register-active-indicator');
+      
+      const roleContainer = document.getElementById('role-select-container');
+      const consentBox = document.getElementById('consent-box');
+      const consentHint = document.getElementById('consent-disabled-hint');
+      const forgotPasswordLink = document.getElementById('forgot-password-link');
+      const primaryBtnLabel = document.getElementById('primary-btn-label');
+      const primarySubmitBtn = document.getElementById('primary-submit-btn');
+      const switchPromptText = document.getElementById('switch-prompt-text');
+      const switchLinkBtn = document.getElementById('switch-link-btn');
+
+      if (mode === 'login') {
+        // Tab header styling
+        tabLogin.setAttribute('aria-selected', 'true');
+        tabLogin.classList.remove('text-carnet-muted', 'font-semibold');
+        tabLogin.classList.add('text-carnet-charcoal', 'font-bold');
+        loginIndicator.classList.remove('hidden');
+
+        tabRegister.setAttribute('aria-selected', 'false');
+        tabRegister.classList.remove('text-carnet-charcoal', 'font-bold');
+        tabRegister.classList.add('text-carnet-muted', 'font-semibold');
+        registerIndicator.classList.add('hidden');
+
+        // Form elements configuration for login
+        roleContainer.classList.add('hidden');
+        consentBox.classList.add('hidden');
+        consentHint.classList.add('hidden');
+        forgotPasswordLink.classList.remove('hidden');
+
+        primaryBtnLabel.textContent = 'Sign in';
+        primarySubmitBtn.disabled = false;
+
+        switchPromptText.textContent = "Don't have an account?";
+        switchLinkBtn.textContent = 'Sign up';
+      } else {
+        // Tab header styling
+        tabRegister.setAttribute('aria-selected', 'true');
+        tabRegister.classList.remove('text-carnet-muted', 'font-semibold');
+        tabRegister.classList.add('text-carnet-charcoal', 'font-bold');
+        registerIndicator.classList.remove('hidden');
+
+        tabLogin.setAttribute('aria-selected', 'false');
+        tabLogin.classList.remove('text-carnet-charcoal', 'font-bold');
+        tabLogin.classList.add('text-carnet-muted', 'font-semibold');
+        loginIndicator.classList.add('hidden');
+
+        // Form elements configuration for register
+        roleContainer.classList.remove('hidden');
+        consentBox.classList.remove('hidden');
+        forgotPasswordLink.classList.add('hidden');
+
+        primaryBtnLabel.textContent = 'Create account';
+        toggleSubmitState();
+
+        switchPromptText.textContent = 'Already have an account?';
+        switchLinkBtn.textContent = 'Sign in';
+      }
+    }
+
+    function toggleFormMode() {
+      if (currentMode === 'register') {
+        switchAuthTab('login');
+      } else {
+        switchAuthTab('register');
+      }
+    }
+
+    function toggleSubmitState() {
+      if (currentMode === 'register') {
+        const checkbox = document.getElementById('consent-checkbox');
+        const primaryBtn = document.getElementById('primary-submit-btn');
+        const consentHint = document.getElementById('consent-disabled-hint');
+        
+        if (checkbox.checked) {
+          primaryBtn.disabled = false;
+          consentHint.classList.add('opacity-0');
+        } else {
+          primaryBtn.disabled = true;
+          consentHint.classList.remove('opacity-0');
+          consentHint.classList.remove('hidden');
+        }
+      }
+    }
+  </script>
+<script data-purpose="platform-note-carousel">
+    // Interactive notes carousel on the left hero card
+    const notes = [
+      "Mutual consent introductions: Contact details remain hidden until both parties accept an introduction request.",
+      "Verified founder ecosystem: Direct channels without spam, ensuring high-trust peer-to-peer collaboration.",
+      "Hybrid curation: Automated algorithmic matching paired with personal community reviews."
+    ];
+
+    let currentNoteIndex = 0;
+    const noteTextEl = document.getElementById('note-text');
+    const noteCounterEl = document.getElementById('note-counter');
+    const prevBtn = document.getElementById('prev-note-btn');
+    const nextBtn = document.getElementById('next-note-btn');
+
+    function updateNoteView() {
+      noteTextEl.textContent = notes[currentNoteIndex];
+      noteCounterEl.textContent = `${currentNoteIndex + 1} of ${notes.length}`;
+    }
+
+    if (prevBtn && nextBtn) {
+      prevBtn.addEventListener('click', () => {
+        currentNoteIndex = (currentNoteIndex - 1 + notes.length) % notes.length;
+        updateNoteView();
+      });
+
+      nextBtn.addEventListener('click', () => {
+        currentNoteIndex = (currentNoteIndex + 1) % notes.length;
+        updateNoteView();
+      });
+    }
+  </script>
+<!-- END: Logic & Interactivity Scripts -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script id="multi-auth-state-handler">
+let currentAuthState = 'signin';
+
+function setAuthState(state) {
+  currentAuthState = state;
+  const states = ['signin', 'register', 'forgot', 'reset'];
+  states.forEach(s => {
+    const view = document.getElementById('view-' + s);
+    const btn = document.getElementById('btn-nav-' + s);
+    if (view) {
+      if (s === state) {
+        view.classList.remove('hidden');
+      } else {
+        view.classList.add('hidden');
+      }
+    }
+    if (btn) {
+      if (s === state) {
+        btn.className = 'px-3.5 py-1.5 rounded-full transition-all bg-carnet-charcoal text-white shadow-sm font-semibold';
+      } else {
+        btn.className = 'px-3 py-1.5 rounded-full transition-all text-carnet-muted hover:text-carnet-charcoal font-medium';
+      }
+    }
+  });
+}
+
+function togglePasswordVisibility(inputId, btn) {
+  const input = document.getElementById(inputId);
+  if (input) {
+    if (input.type === 'password') {
+      input.type = 'text';
+      btn.textContent = 'Hide';
+    } else {
+      input.type = 'password';
+      btn.textContent = 'Show';
+    }
+  }
+}
+
+function updateRegisterSubmitState() {
+  const chk = document.getElementById('reg-consent-chk');
+  const btn = document.getElementById('btn-register-submit');
+  const tip = document.getElementById('reg-disabled-tip');
+  if (chk && btn) {
+    if (chk.checked) {
+      btn.disabled = false;
+      btn.className = 'w-full h-14 bg-carnet-charcoal hover:bg-[#171717] text-white font-semibold rounded-full flex items-center justify-between px-6 shadow-md transition-all select-none cursor-pointer';
+      if (tip) tip.classList.add('opacity-0');
+    } else {
+      btn.disabled = true;
+      btn.className = 'w-full h-14 bg-[#E2DFD9] text-carnet-subtle font-semibold rounded-full flex items-center justify-between px-6 shadow-md cursor-not-allowed select-none transition-all';
+      if (tip) tip.classList.remove('opacity-0');
+    }
+  }
+}
+
+function selectRoleBtn(target) {
+  const buttons = document.querySelectorAll('#role-buttons-grid button');
+  buttons.forEach(b => {
+    b.className = 'role-pill py-2 px-2 text-xs font-medium rounded-xl bg-white text-carnet-charcoal border border-carnet-border hover:bg-[#FAF0EA] flex items-center justify-center transition-colors';
+  });
+  target.className = 'role-pill py-2 px-2 text-xs font-semibold rounded-xl bg-carnet-charcoal text-white shadow-sm border border-carnet-charcoal flex items-center justify-center transition-all';
+}
+
+function toggleErrorDemo() {
+  const bannerId = currentAuthState + '-error-banner';
+  const banner = document.getElementById(bannerId);
+  if (banner) {
+    banner.classList.toggle('hidden');
+  }
+}
+
+function validateResetForm() {
+  const p1 = document.getElementById('new-password').value;
+  const p2 = document.getElementById('confirm-password').value;
+  const errorBanner = document.getElementById('reset-error-banner');
+  const successBanner = document.getElementById('reset-success-banner');
+  if (p1 !== p2 || p1.length < 8) {
+    if (errorBanner) errorBanner.classList.remove('hidden');
+    if (successBanner) successBanner.classList.add('hidden');
+  } else {
+    if (errorBanner) errorBanner.classList.add('hidden');
+    if (successBanner) {
+      successBanner.classList.remove('hidden');
+      setTimeout(() => setAuthState('signin'), 1500);
+    }
+  }
+}
+
+function updateStrength(val) {
+  const label = document.getElementById('reg-strength-label');
+  const b1 = document.getElementById('bar-1');
+  const b2 = document.getElementById('bar-2');
+  const b3 = document.getElementById('bar-3');
+  const b4 = document.getElementById('bar-4');
+  if (!label || !b1) return;
+  
+  if (val.length === 0) {
+    label.textContent = 'Weak';
+    b1.className = 'h-full flex-1 bg-carnet-neutral rounded-full transition-all duration-200';
+    b2.className = 'h-full flex-1 bg-carnet-neutral rounded-full transition-all duration-200';
+    b3.className = 'h-full flex-1 bg-carnet-neutral rounded-full transition-all duration-200';
+    b4.className = 'h-full flex-1 bg-carnet-neutral rounded-full transition-all duration-200';
+  } else if (val.length < 6) {
+    label.textContent = 'Weak';
+    b1.className = 'h-full flex-1 bg-[#B91C1C] rounded-full transition-all duration-200';
+    b2.className = 'h-full flex-1 bg-carnet-neutral rounded-full transition-all duration-200';
+    b3.className = 'h-full flex-1 bg-carnet-neutral rounded-full transition-all duration-200';
+    b4.className = 'h-full flex-1 bg-carnet-neutral rounded-full transition-all duration-200';
+  } else if (val.length < 10) {
+    label.textContent = 'Good';
+    b1.className = 'h-full flex-1 bg-[#B15F2C] rounded-full transition-all duration-200';
+    b2.className = 'h-full flex-1 bg-[#B15F2C] rounded-full transition-all duration-200';
+    b3.className = 'h-full flex-1 bg-[#B15F2C] rounded-full transition-all duration-200';
+    b4.className = 'h-full flex-1 bg-carnet-neutral rounded-full transition-all duration-200';
+  } else {
+    label.textContent = 'Strong';
+    b1.className = 'h-full flex-1 bg-[#B15F2C] rounded-full transition-all duration-200';
+    b2.className = 'h-full flex-1 bg-[#B15F2C] rounded-full transition-all duration-200';
+    b3.className = 'h-full flex-1 bg-[#B15F2C] rounded-full transition-all duration-200';
+    b4.className = 'h-full flex-1 bg-[#B15F2C] rounded-full transition-all duration-200';
+  }
+}
+</script></body></html>

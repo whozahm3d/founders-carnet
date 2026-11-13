@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,300..900;1,300..900&amp;family=Instrument+Serif:ital@0;1&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"tertiary-fixed":"#ffdbca","inverse-on-surface":"#f1effa","on-primary-container":"#fffcff","surface-dim":"#dad9e3","on-secondary":"#ffffff","surface-container-highest":"#e3e1ec","secondary-fixed-dim":"#c7c5d0","on-surface-variant":"#54433a","tertiary":"#90491e","outline-variant":"#dac2b6","on-primary-fixed":"#331200","secondary-container":"#e0dee9","on-primary":"#ffffff","tertiary-container":"#ae6133","on-primary-fixed-variant":"#773300","outline":"#877369","inverse-surface":"#2f3038","on-error":"#ffffff","tertiary-fixed-dim":"#ffb68f","background":"#fbf8ff","on-surface":"#1a1b22","inverse-primary":"#ffb68e","surface-container-lowest":"#ffffff","primary-fixed":"#ffdbca","secondary":"#5e5e67","primary":"#924715","surface-container":"#eeedf7","secondary-fixed":"#e3e1ec","on-background":"#1a1b22","on-secondary-container":"#62626b","surface-container-low":"#f4f2fd","on-tertiary":"#ffffff","surface-container-high":"#e8e7f1","surface-tint":"#954917","error":"#ba1a1a","surface-variant":"#e3e1ec","error-container":"#ffdad6","primary-fixed-dim":"#ffb68e","on-tertiary-container":"#fffdff","on-secondary-fixed-variant":"#46464f","surface":"#fbf8ff","on-tertiary-fixed":"#331100","on-error-container":"#93000a","surface-bright":"#fbf8ff","primary-container":"#b15f2c","on-tertiary-fixed-variant":"#743408","on-secondary-fixed":"#1a1b23"},borderRadius:{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},spacing:{"margin-desktop":"4rem","space-xl":"2.5rem","gutter-desktop":"2rem","space-sm":"0.5rem","margin":"1.25rem","gutter":"1.5rem","space-lg":"1.5rem","space-md":"1rem","margin-tablet":"2.5rem","space-xs":"0.25rem"},fontFamily:{"display":["Hanken Grotesk"],"body-lg":["Hanken Grotesk"],"accent-italic":["Instrument Serif"],"code-metric":["JetBrains Mono"],"display-mobile":["Hanken Grotesk"],"label-caps":["JetBrains Mono"],"headline-md":["Hanken Grotesk"],"headline-lg":["Hanken Grotesk"],"code-metric-lg":["JetBrains Mono"],"body-md":["Hanken Grotesk"],"headline-lg-mobile":["Hanken Grotesk"],"headline-sm":["Hanken Grotesk"],"body-sm":["Hanken Grotesk"]},fontSize:{"display":["56px",{"lineHeight":"64px","letterSpacing":"-0.03em","fontWeight":"700"}],"body-lg":["18px",{"lineHeight":"28px","letterSpacing":"0em","fontWeight":"400"}],"accent-italic":["inherit",{"lineHeight":"inherit","fontWeight":"400"}],"code-metric":["14px",{"lineHeight":"20px","letterSpacing":"-0.01em","fontWeight":"500"}],"display-mobile":["36px",{"lineHeight":"44px","letterSpacing":"-0.025em","fontWeight":"700"}],"label-caps":["11px",{"lineHeight":"16px","letterSpacing":"0.08em","fontWeight":"500"}],"headline-md":["28px",{"lineHeight":"36px","letterSpacing":"-0.015em","fontWeight":"600"}],"headline-lg":["40px",{"lineHeight":"48px","letterSpacing":"-0.02em","fontWeight":"600"}],"code-metric-lg":["22px",{"lineHeight":"28px","letterSpacing":"-0.02em","fontWeight":"600"}],"body-md":["15px",{"lineHeight":"24px","letterSpacing":"0em","fontWeight":"400"}],"headline-lg-mobile":["28px",{"lineHeight":"36px","letterSpacing":"-0.015em","fontWeight":"600"}],"headline-sm":["20px",{"lineHeight":"28px","letterSpacing":"-0.01em","fontWeight":"600"}],"body-sm":["13px",{"lineHeight":"20px","letterSpacing":"0.005em","fontWeight":"400"}]}}}}</script></head><body class="text-on-surface antialiased selection:bg-primary-fixed selection:text-on-primary-fixed" style="background: radial-gradient(circle at 85% 15%, #F5C842 0%, #FF8A2B 30%, #C4451A 55%, #3A1206 100%) fixed; min-height: 100vh;"><header class="fixed top-4 inset-x-0 z-50 px-margin sm:px-margin-tablet lg:px-margin-desktop pointer-events-none"><div class="max-w-7xl mx-auto h-20 flex items-center justify-between px-space-lg py-space-sm rounded-full bg-surface-container-lowest/80 backdrop-blur-2xl shadow-[0_4px_24px_-2px_rgba(58,18,6,0.18),0_1px_4px_0_rgba(58,18,6,0.08)] pointer-events-auto"><div class="flex items-center gap-space-md"><div class="relative flex items-center justify-center w-10 h-10 rounded-lg bg-on-surface shadow-sm"><span class="font-display text-headline-sm text-surface-container-lowest leading-none select-none">F</span><div class="absolute -bottom-1 -right-1 w-3 h-3.5 bg-primary rounded-[1px] shadow-xs"></div></div><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-on-surface leading-tight tracking-tight">The Founder's Carnet</span><span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Dossier &amp; Ledger</span></div><div class="hidden md:inline-flex items-center px-space-xs py-0.5 rounded-[2px] bg-tertiary-fixed/60"><span class="font-label-caps text-label-caps text-on-tertiary-fixed font-semibold uppercase tracking-widest">ROLE: MENTOR</span></div></div><nav class="hidden lg:flex items-center gap-1.5 p-1 rounded-full bg-surface-container-highest/40 backdrop-blur-md" data-active-classes="bg-inverse-surface text-inverse-on-surface shadow-sm rounded-full"><a class="font-label-caps text-label-caps px-space-md py-1.5 rounded-full text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest/60 transition-all uppercase" data-path="dashboard" href="#">Dashboard</a><a class="font-label-caps text-label-caps px-space-md py-1.5 rounded-full text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest/60 transition-all uppercase" data-path="profile" href="#">Profile</a><a aria-current="page" class="font-label-caps px-space-md py-1.5 transition-all uppercase bg-inverse-surface text-inverse-on-surface shadow-sm rounded-full" data-path="requests" href="#">Requests (3)</a><a class="font-label-caps text-label-caps px-space-md py-1.5 rounded-full text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest/60 transition-all uppercase" data-path="portfolio" href="#">Portfolio</a></nav><div class="flex items-center gap-space-md"><div class="hidden sm:flex items-center gap-space-xs px-space-md py-1.5 rounded-full bg-surface-container-highest/50 backdrop-blur-md"><span class="material-symbols-outlined text-primary text-[14px]">schedule</span><span class="font-code-metric text-code-metric text-on-surface-variant">Karachi 3:55pm, 9 Nov 2026</span></div><div class="flex items-center gap-space-xs pl-space-xs"><div class="w-9 h-9 rounded-full bg-primary flex items-center justify-center shadow-xs cursor-pointer" title="Asad Khan"><span class="font-code-metric text-code-metric text-on-primary font-bold tracking-tight select-none">AK</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></div></header><main class="w-full pt-28 bg-transparent max-w-7xl mx-auto px-margin sm:px-margin-tablet lg:px-margin-desktop min-h-[calc(100vh-140px)]"><div class="flex flex-col w-full pb-16">
+<!-- Eyebrow & Page Header Section -->
+<section class="flex flex-col mb-space-lg">
+<div class="flex items-center gap-space-sm mb-space-xs">
+<span class="inline-block w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">
+        • MENTOR ATELIER // ADVISORY INTAKE &amp; BILATERAL PROTOCOL
+      </span>
+</div>
+<div class="flex flex-col lg:flex-row lg:items-end justify-between gap-space-md">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">
+          Advisory <span class="font-accent-italic text-[1.12em] text-[#F5C842] font-normal leading-none">requests</span>
+</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-3xl mt-1">
+          Review and evaluate inbound advisory requests from early-stage founders across Pakistan’s tech hubs. Bilateral consent quarantines direct contact coordinates until both parties accept.
+        </p>
+</div>
+<!-- Bilateral Protocol Mini Ribbon -->
+<div class="flex items-center gap-space-sm px-space-md py-space-xs rounded-full bg-surface-container-low shadow-sm">
+<span class="material-symbols-outlined text-primary text-[18px]">verified_user</span>
+<span class="font-code-metric text-body-sm text-on-surface-variant font-medium">
+          Mutual Consent: <span class="text-on-surface font-semibold">Active &amp; Quarantined</span>
+</span>
+</div>
+</div>
+</section>
+<!-- Control & Filter Bar -->
+<section class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-md mb-space-lg">
+<!-- Status Tabs -->
+<div class="inline-flex p-1 rounded-full bg-surface-container-lowest shadow-md">
+<button class="tab-btn px-space-md py-2 rounded-full font-label-caps text-label-caps uppercase transition-all duration-200 bg-inverse-surface text-inverse-on-surface shadow-sm" id="tab-pending-btn" onclick="switchTab('pending')">
+        Pending (3)
+      </button>
+<button class="tab-btn px-space-md py-2 rounded-full font-label-caps text-label-caps uppercase transition-all duration-200 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/60" id="tab-accepted-btn" onclick="switchTab('accepted')">
+        Accepted (4)
+      </button>
+<button class="tab-btn px-space-md py-2 rounded-full font-label-caps text-label-caps uppercase transition-all duration-200 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/60" id="tab-declined-btn" onclick="switchTab('declined')">
+        Declined (2)
+      </button>
+</div>
+<!-- Mode Toggle: Active Data vs Empty State Preview -->
+<div class="flex items-center gap-space-sm bg-surface-container-lowest px-space-md py-1.5 rounded-full shadow-sm">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Preview:</span>
+<button class="px-space-sm py-1 rounded-full font-code-metric text-body-sm text-primary font-bold bg-tertiary-fixed/40 transition-colors" id="toggle-populated-btn" onclick="toggleEmptyMode(false)">
+        Active Intake
+      </button>
+<span class="text-on-surface-variant/40">|</span>
+<button class="px-space-sm py-1 rounded-full font-code-metric text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" id="toggle-empty-btn" onclick="toggleEmptyMode(true)">
+        Zero State
+      </button>
+</div>
+</section>
+<!-- TAB PANELS CONTAINER -->
+<div class="w-full relative">
+<!-- 1. PENDING TAB CONTENT -->
+<div class="tab-panel flex flex-col gap-space-lg" id="panel-pending">
+<!-- Populated State: 3 Structured Rows -->
+<div class="bg-surface-container-lowest rounded-2xl shadow-xl overflow-hidden divide-y divide-surface-container-highest/60" id="pending-populated">
+<!-- Row 1: Farooq Khan / NovaPay -->
+<article class="p-space-lg lg:p-space-xl flex flex-col gap-space-md hover:bg-surface-container-low/30 transition-colors">
+<div class="flex flex-col lg:flex-row lg:items-start justify-between gap-space-md">
+<div class="flex items-start gap-space-md">
+<div class="w-12 h-12 rounded-xl bg-inverse-surface text-inverse-on-surface flex items-center justify-center font-code-metric text-headline-sm font-bold shadow-sm shrink-0">
+                FK
+              </div>
+<div>
+<div class="flex flex-wrap items-center gap-space-xs">
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Farooq Khan</h2>
+<span class="font-code-metric text-body-sm text-on-surface-variant">· Founder &amp; CEO</span>
+<span class="ml-1 px-space-xs py-0.5 rounded-[2px] bg-tertiary-fixed/60 font-label-caps text-label-caps text-on-tertiary-fixed font-semibold">
+                    92% MATCH
+                  </span>
+</div>
+<div class="flex flex-wrap items-center gap-space-xs mt-1 text-on-surface-variant">
+<span class="font-code-metric text-body-sm font-semibold text-primary">NovaPay</span>
+<span>·</span>
+<span class="font-body-sm text-body-sm">Fintech</span>
+<span>·</span>
+<span class="font-body-sm text-body-sm">Karachi</span>
+<span>·</span>
+<span class="font-code-metric text-body-sm px-1.5 py-0.5 rounded bg-surface-container text-on-surface-variant">Seed Stage</span>
+</div>
+</div>
+</div>
+<!-- Meta / Timestamps -->
+<div class="flex items-center gap-space-xs px-space-md py-1 rounded-full bg-surface-container-low shrink-0 self-start">
+<span class="material-symbols-outlined text-[16px] text-primary">hourglass_top</span>
+<span class="font-code-metric text-body-sm text-on-surface-variant">Received 2 hours ago</span>
+</div>
+</div>
+<!-- Body copy / Founder Need -->
+<div class="p-space-md rounded-xl bg-surface-container-low/70">
+<span class="font-label-caps text-label-caps text-primary uppercase font-bold tracking-wider block mb-1">
+              ADVISORY INTAKE MEMO
+            </span>
+<p class="font-body-md text-body-md text-on-surface">
+              “Seeking 45-minute advisory on our Series Seed fundraising pitch and unit economics narrative for GCC/Pakistani angel syndicates. We need strategic guidance on regulatory compliance pathways with SBP sandbox.”
+            </p>
+</div>
+<!-- Footer Row: Quarantined note + Actions -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-md pt-space-xs">
+<div class="flex items-center gap-space-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px] text-outline">lock</span>
+<span class="font-code-metric text-body-sm">Contact details quarantined until mutual acceptance</span>
+<span class="text-on-surface-variant/40">•</span>
+<span class="font-code-metric text-body-sm">Slot: 45 Mins 1:1 Strategic Call</span>
+</div>
+<div class="flex items-center gap-space-sm self-end sm:self-auto shrink-0">
+<button class="px-space-md py-2 rounded-full font-code-metric text-body-sm text-on-surface hover:bg-surface-container-high transition-colors font-semibold" onclick="openDrawer('farooq')">
+                Inspect founder dossier
+              </button>
+<button class="px-space-md py-2 rounded-full font-code-metric text-body-sm text-secondary hover:text-error hover:bg-error-container/20 transition-colors" onclick="quickDecline(this, 'Farooq Khan')">
+                Decline
+              </button>
+<button class="inline-flex items-center gap-space-xs px-space-md py-2 rounded-full bg-inverse-surface hover:bg-on-surface text-inverse-on-surface font-code-metric text-body-sm font-semibold transition-all shadow-md group" onclick="quickAccept(this, 'Farooq Khan')">
+<span>Accept request</span>
+<span class="w-5 h-5 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container group-hover:translate-x-0.5 transition-transform text-[12px]">→</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Row 2: Hira Tariq / Ravi Health -->
+<article class="p-space-lg lg:p-space-xl flex flex-col gap-space-md hover:bg-surface-container-low/30 transition-colors">
+<div class="flex flex-col lg:flex-row lg:items-start justify-between gap-space-md">
+<div class="flex items-start gap-space-md">
+<div class="w-12 h-12 rounded-xl bg-inverse-surface text-inverse-on-surface flex items-center justify-center font-code-metric text-headline-sm font-bold shadow-sm shrink-0">
+                HT
+              </div>
+<div>
+<div class="flex flex-wrap items-center gap-space-xs">
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Hira Tariq</h2>
+<span class="font-code-metric text-body-sm text-on-surface-variant">· VP Engineering / Founding Tech Lead</span>
+<span class="ml-1 px-space-xs py-0.5 rounded-[2px] bg-tertiary-fixed/60 font-label-caps text-label-caps text-on-tertiary-fixed font-semibold">
+                    88% MATCH
+                  </span>
+</div>
+<div class="flex flex-wrap items-center gap-space-xs mt-1 text-on-surface-variant">
+<span class="font-code-metric text-body-sm font-semibold text-primary">Ravi Health</span>
+<span>·</span>
+<span class="font-body-sm text-body-sm">Healthtech</span>
+<span>·</span>
+<span class="font-body-sm text-body-sm">Lahore</span>
+<span>·</span>
+<span class="font-code-metric text-body-sm px-1.5 py-0.5 rounded bg-surface-container text-on-surface-variant">Seed Stage</span>
+</div>
+</div>
+</div>
+<!-- Meta / Timestamps -->
+<div class="flex items-center gap-space-xs px-space-md py-1 rounded-full bg-surface-container-low shrink-0 self-start">
+<span class="material-symbols-outlined text-[16px] text-primary">schedule</span>
+<span class="font-code-metric text-body-sm text-on-surface-variant">Received yesterday</span>
+</div>
+</div>
+<!-- Body copy / Founder Need -->
+<div class="p-space-md rounded-xl bg-surface-container-low/70">
+<span class="font-label-caps text-label-caps text-primary uppercase font-bold tracking-wider block mb-1">
+              ADVISORY INTAKE MEMO
+            </span>
+<p class="font-body-md text-body-md text-on-surface">
+              “Looking for operational counsel on scaling our distributed engineering organization, migrating tele-diagnostic workloads, and structuring founder-level ESOP equity pools.”
+            </p>
+</div>
+<!-- Footer Row -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-md pt-space-xs">
+<div class="flex items-center gap-space-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px] text-outline">lock</span>
+<span class="font-code-metric text-body-sm">Contact details quarantined until mutual acceptance</span>
+<span class="text-on-surface-variant/40">•</span>
+<span class="font-code-metric text-body-sm">Slot: 45 Mins Executive Advisory</span>
+</div>
+<div class="flex items-center gap-space-sm self-end sm:self-auto shrink-0">
+<button class="px-space-md py-2 rounded-full font-code-metric text-body-sm text-on-surface hover:bg-surface-container-high transition-colors font-semibold" onclick="openDrawer('hira')">
+                Inspect founder dossier
+              </button>
+<button class="px-space-md py-2 rounded-full font-code-metric text-body-sm text-secondary hover:text-error hover:bg-error-container/20 transition-colors" onclick="quickDecline(this, 'Hira Tariq')">
+                Decline
+              </button>
+<button class="inline-flex items-center gap-space-xs px-space-md py-2 rounded-full bg-inverse-surface hover:bg-on-surface text-inverse-on-surface font-code-metric text-body-sm font-semibold transition-all shadow-md group" onclick="quickAccept(this, 'Hira Tariq')">
+<span>Accept request</span>
+<span class="w-5 h-5 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container group-hover:translate-x-0.5 transition-transform text-[12px]">→</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Row 3: Bilal Ahmed / Munshi Books -->
+<article class="p-space-lg lg:p-space-xl flex flex-col gap-space-md hover:bg-surface-container-low/30 transition-colors">
+<div class="flex flex-col lg:flex-row lg:items-start justify-between gap-space-md">
+<div class="flex items-start gap-space-md">
+<div class="w-12 h-12 rounded-xl bg-inverse-surface text-inverse-on-surface flex items-center justify-center font-code-metric text-headline-sm font-bold shadow-sm shrink-0">
+                BA
+              </div>
+<div>
+<div class="flex flex-wrap items-center gap-space-xs">
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Bilal Ahmed</h2>
+<span class="font-code-metric text-body-sm text-on-surface-variant">· Founder &amp; CEO</span>
+<span class="ml-1 px-space-xs py-0.5 rounded-[2px] bg-tertiary-fixed/60 font-label-caps text-label-caps text-on-tertiary-fixed font-semibold">
+                    94% MATCH
+                  </span>
+</div>
+<div class="flex flex-wrap items-center gap-space-xs mt-1 text-on-surface-variant">
+<span class="font-code-metric text-body-sm font-semibold text-primary">Munshi Books</span>
+<span>·</span>
+<span class="font-body-sm text-body-sm">B2B SaaS / Fintech</span>
+<span>·</span>
+<span class="font-body-sm text-body-sm">Karachi</span>
+<span>·</span>
+<span class="font-code-metric text-body-sm px-1.5 py-0.5 rounded bg-surface-container text-on-surface-variant">Pre-seed</span>
+</div>
+</div>
+</div>
+<!-- Meta / Timestamps -->
+<div class="flex items-center gap-space-xs px-space-md py-1 rounded-full bg-surface-container-low shrink-0 self-start">
+<span class="material-symbols-outlined text-[16px] text-primary">calendar_month</span>
+<span class="font-code-metric text-body-sm text-on-surface-variant">Received 2 days ago</span>
+</div>
+</div>
+<!-- Body copy / Founder Need -->
+<div class="p-space-md rounded-xl bg-surface-container-low/70">
+<span class="font-label-caps text-label-caps text-primary uppercase font-bold tracking-wider block mb-1">
+              ADVISORY INTAKE MEMO
+            </span>
+<p class="font-body-md text-body-md text-on-surface">
+              “Need advice on merchant acquisition funnels across Karachi wholesale markets and structuring bilateral distributor channel partnerships.”
+            </p>
+</div>
+<!-- Footer Row -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-md pt-space-xs">
+<div class="flex items-center gap-space-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px] text-outline">lock</span>
+<span class="font-code-metric text-body-sm">Contact details quarantined until mutual acceptance</span>
+<span class="text-on-surface-variant/40">•</span>
+<span class="font-code-metric text-body-sm">Slot: 60 Mins Pitch Practice</span>
+</div>
+<div class="flex items-center gap-space-sm self-end sm:self-auto shrink-0">
+<button class="px-space-md py-2 rounded-full font-code-metric text-body-sm text-on-surface hover:bg-surface-container-high transition-colors font-semibold" onclick="openDrawer('bilal')">
+                Inspect founder dossier
+              </button>
+<button class="px-space-md py-2 rounded-full font-code-metric text-body-sm text-secondary hover:text-error hover:bg-error-container/20 transition-colors" onclick="quickDecline(this, 'Bilal Ahmed')">
+                Decline
+              </button>
+<button class="inline-flex items-center gap-space-xs px-space-md py-2 rounded-full bg-inverse-surface hover:bg-on-surface text-inverse-on-surface font-code-metric text-body-sm font-semibold transition-all shadow-md group" onclick="quickAccept(this, 'Bilal Ahmed')">
+<span>Accept request</span>
+<span class="w-5 h-5 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container group-hover:translate-x-0.5 transition-transform text-[12px]">→</span>
+</button>
+</div>
+</div>
+</article>
+</div>
+<!-- Empty State for Pending Tab -->
+<div class="hidden bg-surface-container-lowest rounded-2xl shadow-xl p-space-xl text-center flex flex-col items-center justify-center py-20" id="pending-empty">
+<div class="w-16 h-16 rounded-full bg-surface-container-high flex items-center justify-center mb-space-md">
+<span class="material-symbols-outlined text-primary text-[32px]">drafts</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-space-xs">
+          No pending advisory requests
+        </h3>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-md mx-auto mb-space-lg">
+          When founders request your guidance, they will appear here. In the meantime, you can adjust your availability and sector preferences in your profile.
+        </p>
+<button class="px-space-lg py-2.5 rounded-full bg-inverse-surface text-inverse-on-surface font-code-metric text-body-sm font-semibold hover:bg-on-surface transition-colors">
+          Edit advisory preferences
+        </button>
+</div>
+</div>
+<!-- 2. ACCEPTED TAB CONTENT -->
+<div class="tab-panel hidden flex flex-col gap-space-lg" id="panel-accepted">
+<!-- Populated State: 4 Accepted Requests with Revealed Contact -->
+<div class="bg-surface-container-lowest rounded-2xl shadow-xl overflow-hidden divide-y divide-surface-container-highest/60" id="accepted-populated">
+<!-- Accepted Row 1: Asad Ullah (Fasal Labs) -->
+<article class="p-space-lg lg:p-space-xl flex flex-col gap-space-md hover:bg-surface-container-low/30 transition-colors">
+<div class="flex flex-col lg:flex-row lg:items-start justify-between gap-space-md">
+<div class="flex items-start gap-space-md">
+<div class="w-12 h-12 rounded-xl bg-primary-fixed-dim text-on-primary-fixed flex items-center justify-center font-code-metric text-headline-sm font-bold shadow-sm shrink-0">
+                AU
+              </div>
+<div>
+<div class="flex items-center gap-space-xs">
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Asad Ullah</h2>
+<span class="font-code-metric text-body-sm text-on-surface-variant">· Co-founder &amp; CEO</span>
+<span class="px-2 py-0.5 rounded-[2px] bg-tertiary-fixed font-label-caps text-label-caps text-on-tertiary-fixed font-semibold">
+                    UNLOCKED
+                  </span>
+</div>
+<div class="flex items-center gap-space-xs mt-1 text-on-surface-variant">
+<span class="font-code-metric text-body-sm font-semibold text-primary">Fasal Labs</span>
+<span>·</span>
+<span class="font-body-sm text-body-sm">Agritech IoT · Multan / Lahore</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-space-xs px-space-md py-1 rounded-full bg-surface-container-high shrink-0">
+<span class="material-symbols-outlined text-[16px] text-primary">event_available</span>
+<span class="font-code-metric text-body-sm text-on-surface font-semibold">Accepted 7 Nov 2026</span>
+</div>
+</div>
+<!-- Unlocked Coordinates Ribbon -->
+<div class="p-space-md rounded-xl bg-surface-container-low grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[18px]">mail</span>
+<span class="font-code-metric text-body-sm text-on-surface font-medium select-all">asad@fasallabs.pk</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[18px]">chat</span>
+<span class="font-code-metric text-body-sm text-on-surface font-medium select-all">+92 301 8492019 (WhatsApp)</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[18px]">link</span>
+<span class="font-code-metric text-body-sm text-on-surface font-medium">pitch.fasallabs.pk/carnet-v2</span>
+</div>
+</div>
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-md pt-space-xs">
+<span class="font-body-sm text-body-sm text-on-surface-variant">
+              Topic: Agri-sensor BOM optimization and institutional deployment with Fauji Foundation.
+            </span>
+<div class="flex items-center gap-space-sm self-end sm:self-auto">
+<button class="px-space-md py-2 rounded-full font-code-metric text-body-sm text-on-surface hover:bg-surface-container-high transition-colors font-medium">
+                View Carnet Dossier
+              </button>
+<button class="inline-flex items-center gap-1.5 px-space-md py-2 rounded-full bg-primary-container text-on-primary-container font-code-metric text-body-sm font-semibold hover:bg-primary transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[16px]">calendar_add_on</span>
+<span>Schedule 45m Session</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Accepted Row 2: Nida Farooq (CuraHealth) -->
+<article class="p-space-lg lg:p-space-xl flex flex-col gap-space-md hover:bg-surface-container-low/30 transition-colors">
+<div class="flex flex-col lg:flex-row lg:items-start justify-between gap-space-md">
+<div class="flex items-start gap-space-md">
+<div class="w-12 h-12 rounded-xl bg-primary-fixed-dim text-on-primary-fixed flex items-center justify-center font-code-metric text-headline-sm font-bold shadow-sm shrink-0">
+                NF
+              </div>
+<div>
+<div class="flex items-center gap-space-xs">
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Nida Farooq</h2>
+<span class="font-code-metric text-body-sm text-on-surface-variant">· Founder &amp; CEO</span>
+<span class="px-2 py-0.5 rounded-[2px] bg-tertiary-fixed font-label-caps text-label-caps text-on-tertiary-fixed font-semibold">
+                    UNLOCKED
+                  </span>
+</div>
+<div class="flex items-center gap-space-xs mt-1 text-on-surface-variant">
+<span class="font-code-metric text-body-sm font-semibold text-primary">CuraHealth</span>
+<span>·</span>
+<span class="font-body-sm text-body-sm">Health Diagnostics · Islamabad</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-space-xs px-space-md py-1 rounded-full bg-surface-container-high shrink-0">
+<span class="material-symbols-outlined text-[16px] text-primary">event_available</span>
+<span class="font-code-metric text-body-sm text-on-surface font-semibold">Accepted 5 Nov 2026</span>
+</div>
+</div>
+<div class="p-space-md rounded-xl bg-surface-container-low grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[18px]">mail</span>
+<span class="font-code-metric text-body-sm text-on-surface font-medium select-all">nida@curahealth.com</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[18px]">chat</span>
+<span class="font-code-metric text-body-sm text-on-surface font-medium select-all">+92 321 5590123 (WhatsApp)</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[18px]">calendar_today</span>
+<span class="font-code-metric text-body-sm text-on-surface font-medium">Scheduled: 14 Nov, 4:00 PM PKT</span>
+</div>
+</div>
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-md pt-space-xs">
+<span class="font-body-sm text-body-sm text-on-surface-variant">
+              Topic: B2B hospital procurement cycles and clinical validation protocols.
+            </span>
+<div class="flex items-center gap-space-sm self-end sm:self-auto">
+<button class="px-space-md py-2 rounded-full font-code-metric text-body-sm text-on-surface hover:bg-surface-container-high transition-colors font-medium">
+                View Carnet Dossier
+              </button>
+<button class="inline-flex items-center gap-1.5 px-space-md py-2 rounded-full bg-surface-container-high text-on-surface font-code-metric text-body-sm font-semibold hover:bg-surface-container-highest transition-colors shadow-xs">
+<span class="material-symbols-outlined text-[16px]">video_call</span>
+<span>Open Google Meet</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Accepted Row 3: Zeeshan Ali (Dastgyr Logistics Spin-off) -->
+<article class="p-space-lg lg:p-space-xl flex flex-col gap-space-md hover:bg-surface-container-low/30 transition-colors">
+<div class="flex flex-col lg:flex-row lg:items-start justify-between gap-space-md">
+<div class="flex items-start gap-space-md">
+<div class="w-12 h-12 rounded-xl bg-primary-fixed-dim text-on-primary-fixed flex items-center justify-center font-code-metric text-headline-sm font-bold shadow-sm shrink-0">
+                ZA
+              </div>
+<div>
+<div class="flex items-center gap-space-xs">
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Zeeshan Ali</h2>
+<span class="font-code-metric text-body-sm text-on-surface-variant">· Head of Fleet Architecture</span>
+<span class="px-2 py-0.5 rounded-[2px] bg-tertiary-fixed font-label-caps text-label-caps text-on-tertiary-fixed font-semibold">
+                    UNLOCKED
+                  </span>
+</div>
+<div class="flex items-center gap-space-xs mt-1 text-on-surface-variant">
+<span class="font-code-metric text-body-sm font-semibold text-primary">Dastgyr Freight</span>
+<span>·</span>
+<span class="font-body-sm text-body-sm">Supply Chain · Karachi</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-space-xs px-space-md py-1 rounded-full bg-surface-container-high shrink-0">
+<span class="material-symbols-outlined text-[16px] text-primary">event_available</span>
+<span class="font-code-metric text-body-sm text-on-surface font-semibold">Accepted 1 Nov 2026</span>
+</div>
+</div>
+<div class="p-space-md rounded-xl bg-surface-container-low grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[18px]">mail</span>
+<span class="font-code-metric text-body-sm text-on-surface font-medium select-all">zeeshan.a@dastgyr.com</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[18px]">chat</span>
+<span class="font-code-metric text-body-sm text-on-surface font-medium select-all">+92 333 9102938</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[18px]">verified</span>
+<span class="font-code-metric text-body-sm text-on-surface font-medium">Session Completed (1hr)</span>
+</div>
+</div>
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-md pt-space-xs">
+<span class="font-body-sm text-body-sm text-on-surface-variant">
+              Session completed: Fuel card reconciliation algorithms &amp; cross-border freight insurance.
+            </span>
+<div class="flex items-center gap-space-sm self-end sm:self-auto">
+<button class="px-space-md py-2 rounded-full font-code-metric text-body-sm text-on-surface hover:bg-surface-container-high transition-colors font-medium">
+                Log Advisory Notes
+              </button>
+</div>
+</div>
+</article>
+<!-- Accepted Row 4: Sana Rauf (Karachi Angels Fellow) -->
+<article class="p-space-lg lg:p-space-xl flex flex-col gap-space-md hover:bg-surface-container-low/30 transition-colors">
+<div class="flex flex-col lg:flex-row lg:items-start justify-between gap-space-md">
+<div class="flex items-start gap-space-md">
+<div class="w-12 h-12 rounded-xl bg-primary-fixed-dim text-on-primary-fixed flex items-center justify-center font-code-metric text-headline-sm font-bold shadow-sm shrink-0">
+                SR
+              </div>
+<div>
+<div class="flex items-center gap-space-xs">
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Sana Rauf</h2>
+<span class="font-code-metric text-body-sm text-on-surface-variant">· Venture Fellow &amp; Operator</span>
+<span class="px-2 py-0.5 rounded-[2px] bg-tertiary-fixed font-label-caps text-label-caps text-on-tertiary-fixed font-semibold">
+                    UNLOCKED
+                  </span>
+</div>
+<div class="flex items-center gap-space-xs mt-1 text-on-surface-variant">
+<span class="font-code-metric text-body-sm font-semibold text-primary">Karachi Angels</span>
+<span>·</span>
+<span class="font-body-sm text-body-sm">Syndicate Syndicate · Karachi</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-space-xs px-space-md py-1 rounded-full bg-surface-container-high shrink-0">
+<span class="material-symbols-outlined text-[16px] text-primary">event_available</span>
+<span class="font-code-metric text-body-sm text-on-surface font-semibold">Accepted 29 Oct 2026</span>
+</div>
+</div>
+<div class="p-space-md rounded-xl bg-surface-container-low grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[18px]">mail</span>
+<span class="font-code-metric text-body-sm text-on-surface font-medium select-all">sana@karachiangels.org</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[18px]">chat</span>
+<span class="font-code-metric text-body-sm text-on-surface font-medium select-all">+92 300 1204918</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[18px]">calendar_month</span>
+<span class="font-code-metric text-body-sm text-on-surface font-medium">Follow-up: 20 Nov 2026</span>
+</div>
+</div>
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-md pt-space-xs">
+<span class="font-body-sm text-body-sm text-on-surface-variant">
+              Advising cohort companies on valuation cap frameworks in high-interest rate environments.
+            </span>
+<div class="flex items-center gap-space-sm self-end sm:self-auto">
+<button class="px-space-md py-2 rounded-full font-code-metric text-body-sm text-on-surface hover:bg-surface-container-high transition-colors font-medium">
+                View Carnet Dossier
+              </button>
+<button class="inline-flex items-center gap-1.5 px-space-md py-2 rounded-full bg-primary-container text-on-primary-container font-code-metric text-body-sm font-semibold hover:bg-primary transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[16px]">calendar_add_on</span>
+<span>Schedule Follow-up</span>
+</button>
+</div>
+</div>
+</article>
+</div>
+<!-- Empty State for Accepted Tab -->
+<div class="hidden bg-surface-container-lowest rounded-2xl shadow-xl p-space-xl text-center flex flex-col items-center justify-center py-20" id="accepted-empty">
+<div class="w-16 h-16 rounded-full bg-surface-container-high flex items-center justify-center mb-space-md">
+<span class="material-symbols-outlined text-primary text-[32px]">handshake</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-space-xs">
+          No accepted introductions yet
+        </h3>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-md mx-auto mb-space-lg">
+          When you accept a founder request, both parties unlock direct communication coordinates and scheduling links here.
+        </p>
+<button class="px-space-lg py-2.5 rounded-full bg-inverse-surface text-inverse-on-surface font-code-metric text-body-sm font-semibold hover:bg-on-surface transition-colors" onclick="switchTab('pending')">
+          View Pending Requests
+        </button>
+</div>
+</div>
+<!-- 3. DECLINED TAB CONTENT -->
+<div class="tab-panel hidden flex flex-col gap-space-lg" id="panel-declined">
+<!-- Populated State: 2 Declined Requests with Archived Reason -->
+<div class="bg-surface-container-lowest rounded-2xl shadow-xl overflow-hidden divide-y divide-surface-container-highest/60" id="declined-populated">
+<!-- Declined Row 1 -->
+<article class="p-space-lg lg:p-space-xl flex flex-col sm:flex-row sm:items-center justify-between gap-space-md hover:bg-surface-container-low/30 transition-colors">
+<div class="flex items-start gap-space-md">
+<div class="w-10 h-10 rounded-xl bg-surface-container-highest text-on-surface-variant flex items-center justify-center font-code-metric text-body-lg font-bold shrink-0">
+              TR
+            </div>
+<div>
+<div class="flex items-center gap-space-xs">
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Taimoor Raza</h2>
+<span class="font-code-metric text-body-sm text-on-surface-variant">· SolarGrid PK (Hardware / Energy)</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+                Archived Reason: <span class="font-medium text-error">Out of current sector focus (Hardware &amp; Heavy CapEx)</span>
+</p>
+<span class="font-code-metric text-body-sm text-on-surface-variant/80 block mt-1">Declined on 2 Nov 2026</span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm self-end sm:self-auto shrink-0">
+<button class="px-space-md py-2 rounded-full font-code-metric text-body-sm text-on-surface bg-surface-container hover:bg-surface-container-high transition-colors font-semibold" onclick="reconsiderRequest(this, 'Taimoor Raza')">
+              Reconsider request
+            </button>
+</div>
+</article>
+<!-- Declined Row 2 -->
+<article class="p-space-lg lg:p-space-xl flex flex-col sm:flex-row sm:items-center justify-between gap-space-md hover:bg-surface-container-low/30 transition-colors">
+<div class="flex items-start gap-space-md">
+<div class="w-10 h-10 rounded-xl bg-surface-container-highest text-on-surface-variant flex items-center justify-center font-code-metric text-body-lg font-bold shrink-0">
+              MK
+            </div>
+<div>
+<div class="flex items-center gap-space-xs">
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Mariam Kamal</h2>
+<span class="font-code-metric text-body-sm text-on-surface-variant">· QuickMart Direct (Q-Commerce)</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+                Archived Reason: <span class="font-medium text-error">Capacity reached for Q4 2026</span>
+</p>
+<span class="font-code-metric text-body-sm text-on-surface-variant/80 block mt-1">Declined on 28 Oct 2026</span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm self-end sm:self-auto shrink-0">
+<button class="px-space-md py-2 rounded-full font-code-metric text-body-sm text-on-surface bg-surface-container hover:bg-surface-container-high transition-colors font-semibold" onclick="reconsiderRequest(this, 'Mariam Kamal')">
+              Reconsider request
+            </button>
+</div>
+</article>
+</div>
+<!-- Empty State for Declined Tab -->
+<div class="hidden bg-surface-container-lowest rounded-2xl shadow-xl p-space-xl text-center flex flex-col items-center justify-center py-20" id="declined-empty">
+<div class="w-16 h-16 rounded-full bg-surface-container-high flex items-center justify-center mb-space-md">
+<span class="material-symbols-outlined text-primary text-[32px]">archive</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-space-xs">
+          No declined requests
+        </h3>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-md mx-auto mb-space-lg">
+          Any requests you choose not to accept will remain archived here for future reference or re-engagement.
+        </p>
+<button class="px-space-lg py-2.5 rounded-full bg-inverse-surface text-inverse-on-surface font-code-metric text-body-sm font-semibold hover:bg-on-surface transition-colors" onclick="switchTab('pending')">
+          Return to Pending
+        </button>
+</div>
+</div>
+</div>
+<!-- 3. DETAIL DRAWER (Slide-over Modal for "Inspect founder dossier") -->
+<div class="fixed inset-0 z-50 pointer-events-none transition-opacity duration-300 opacity-0 bg-inverse-surface/40 backdrop-blur-sm flex justify-end" id="founder-drawer">
+<div class="pointer-events-auto w-full max-w-xl h-full bg-surface-container-lowest shadow-2xl flex flex-col transform translate-x-full transition-transform duration-300 ease-out overflow-y-auto" id="drawer-surface">
+<!-- Drawer Header -->
+<div class="p-space-lg sm:p-space-xl bg-surface-container-lowest sticky top-0 z-10 shadow-xs flex items-start justify-between gap-space-md">
+<div>
+<span class="font-label-caps text-label-caps text-primary uppercase font-bold tracking-widest block mb-1">
+            FOUNDER DOSSIER &amp; READINESS RUBRIC
+          </span>
+<h2 class="font-headline-md text-headline-md text-on-surface font-semibold tracking-tight" id="drawer-founder-name">
+            Farooq Khan
+          </h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5" id="drawer-founder-role">
+            Founder &amp; CEO, NovaPay (Seed Fintech · Karachi)
+          </p>
+</div>
+<button aria-label="Close dossier" class="w-10 h-10 rounded-full bg-surface-container hover:bg-surface-container-high flex items-center justify-center text-on-surface transition-colors shrink-0" onclick="closeDrawer()">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Drawer Content Body -->
+<div class="p-space-lg sm:p-space-xl flex flex-col gap-space-xl">
+<!-- Readiness Rubric Monolith Card -->
+<div class="bg-inverse-surface text-inverse-on-surface p-6 rounded-2xl shadow-xl flex flex-col gap-space-md">
+<div class="flex items-baseline justify-between">
+<div>
+<span class="font-label-caps text-label-caps text-tertiary-fixed uppercase tracking-wider block">
+                CARNET READINESS INDEX
+              </span>
+<div class="font-code-metric-lg text-[40px] leading-tight font-bold text-inverse-on-surface mt-1">
+                3.4 <span class="text-secondary text-[22px] font-normal">/ 5.0</span>
+</div>
+</div>
+<div class="text-right">
+<span class="px-2 py-1 rounded bg-surface-container-highest/20 font-code-metric text-body-sm text-primary-fixed-dim">
+                SYN-SCORE A3
+              </span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-secondary-fixed-dim italic">
+            “A rubric guide, not a funding probability. Calibrated against 40+ Pakistani seed round narratives.”
+          </p>
+<!-- Rubric Dimension Bars -->
+<div class="flex flex-col gap-2.5 pt-2">
+<div class="flex items-center justify-between text-body-sm font-code-metric">
+<span class="text-surface-dim">Problem Clarity</span>
+<div class="flex items-center gap-2">
+<div class="w-36 h-2 bg-inverse-surface/80 rounded-full overflow-hidden p-0.5 bg-neutral-800">
+<div class="h-full bg-primary-container rounded-full" style="width: 80%"></div>
+</div>
+<span class="text-on-primary-container font-semibold w-6 text-right">4/5</span>
+</div>
+</div>
+<div class="flex items-center justify-between text-body-sm font-code-metric">
+<span class="text-surface-dim">Market Definition</span>
+<div class="flex items-center gap-2">
+<div class="w-36 h-2 bg-neutral-800 rounded-full overflow-hidden p-0.5">
+<div class="h-full bg-primary-container rounded-full" style="width: 60%"></div>
+</div>
+<span class="text-on-primary-container font-semibold w-6 text-right">3/5</span>
+</div>
+</div>
+<div class="flex items-center justify-between text-body-sm font-code-metric">
+<span class="text-surface-dim">Differentiation</span>
+<div class="flex items-center gap-2">
+<div class="w-36 h-2 bg-neutral-800 rounded-full overflow-hidden p-0.5">
+<div class="h-full bg-primary-container rounded-full" style="width: 60%"></div>
+</div>
+<span class="text-on-primary-container font-semibold w-6 text-right">3/5</span>
+</div>
+</div>
+<div class="flex items-center justify-between text-body-sm font-code-metric">
+<span class="text-surface-dim">Business Model</span>
+<div class="flex items-center gap-2">
+<div class="w-36 h-2 bg-neutral-800 rounded-full overflow-hidden p-0.5">
+<div class="h-full bg-primary-container rounded-full" style="width: 60%"></div>
+</div>
+<span class="text-on-primary-container font-semibold w-6 text-right">3/5</span>
+</div>
+</div>
+<div class="flex items-center justify-between text-body-sm font-code-metric">
+<span class="text-surface-dim">Traction &amp; GMV</span>
+<div class="flex items-center gap-2">
+<div class="w-36 h-2 bg-neutral-800 rounded-full overflow-hidden p-0.5">
+<div class="h-full bg-primary-container rounded-full" style="width: 80%"></div>
+</div>
+<span class="text-on-primary-container font-semibold w-6 text-right">4/5</span>
+</div>
+</div>
+<div class="flex items-center justify-between text-body-sm font-code-metric">
+<span class="text-surface-dim">Team Velocity</span>
+<div class="flex items-center gap-2">
+<div class="w-36 h-2 bg-neutral-800 rounded-full overflow-hidden p-0.5">
+<div class="h-full bg-primary-container rounded-full" style="width: 80%"></div>
+</div>
+<span class="text-on-primary-container font-semibold w-6 text-right">4/5</span>
+</div>
+</div>
+<div class="flex items-center justify-between text-body-sm font-code-metric">
+<span class="text-surface-dim">Scalability Risk</span>
+<div class="flex items-center gap-2">
+<div class="w-36 h-2 bg-neutral-800 rounded-full overflow-hidden p-0.5">
+<div class="h-full bg-primary-container rounded-full" style="width: 60%"></div>
+</div>
+<span class="text-on-primary-container font-semibold w-6 text-right">3/5</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Narrative & Verification Summary -->
+<div class="flex flex-col gap-space-sm">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase font-bold tracking-wider">
+            EXECUTIVE OVERVIEW &amp; TRACTION PROOF
+          </span>
+<p class="font-body-md text-body-md text-on-surface leading-relaxed" id="drawer-narrative">
+            NovaPay is building an automated micro-settlement wallet and digital bookkeeping ledger for informal wholesale merchants in Karachi. Currently tracking PKR 22M in monthly GMV with 84% 90-day retention across Jodia Bazaar distribution routes.
+          </p>
+</div>
+<!-- Advisory Need Details Box -->
+<div class="p-space-lg rounded-xl bg-surface-container-low flex flex-col gap-space-md">
+<span class="font-label-caps text-label-caps text-primary uppercase font-bold tracking-wider">
+            INTAKE MANDATE &amp; TARGETS
+          </span>
+<div class="flex flex-col gap-space-sm text-body-md text-on-surface">
+<div class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[20px] shrink-0 mt-0.5">payments</span>
+<div>
+<strong class="font-semibold text-on-surface">Fundraising Target:</strong>
+<span class="text-on-surface-variant ml-1">Series Seed syndication ($1.2M round, $650k committed).</span>
+</div>
+</div>
+<div class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[20px] shrink-0 mt-0.5">warning</span>
+<div>
+<strong class="font-semibold text-on-surface">Primary Bottleneck:</strong>
+<span class="text-on-surface-variant ml-1">Unit economics defense against interchange fee compression and SBP regulatory Sandbox licensing.</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Platform Mutual Consent Quarantine Alert -->
+<div class="p-space-md rounded-xl bg-tertiary-fixed/30 flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[20px] shrink-0">lock</span>
+<p class="font-body-sm text-body-sm text-on-tertiary-fixed-variant leading-snug">
+<strong>Bilateral Protocol:</strong> Contact coordinates (direct WhatsApp line and institutional executive inbox) will be transmitted exclusively upon your formal bilateral acceptance below.
+          </p>
+</div>
+</div>
+<!-- Drawer Bottom Sticky Action Bar -->
+<div class="p-space-lg sm:p-space-xl bg-surface-container-lowest sticky bottom-0 z-10 shadow-lg mt-auto flex items-center justify-between gap-space-md">
+<button class="px-space-md py-2.5 rounded-full font-code-metric text-body-sm text-secondary hover:text-error hover:bg-error-container/20 transition-colors" onclick="closeDrawer()">
+          Decline request
+        </button>
+<button class="inline-flex items-center gap-space-xs px-space-lg py-2.5 rounded-full bg-inverse-surface hover:bg-on-surface text-inverse-on-surface font-code-metric text-body-sm font-semibold transition-all shadow-md group" onclick="acceptFromDrawer()">
+<span>Accept advisory request</span>
+<span class="w-5 h-5 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container group-hover:translate-x-0.5 transition-transform text-[12px]">→</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Micro-Interaction Notification Toast -->
+<div class="fixed bottom-6 right-6 z-50 pointer-events-none transform translate-y-12 opacity-0 transition-all duration-300 px-space-lg py-space-md rounded-xl bg-inverse-surface text-inverse-on-surface shadow-2xl flex items-center gap-space-sm" id="toast">
+<span class="material-symbols-outlined text-primary text-[20px]" id="toast-icon">check_circle</span>
+<span class="font-code-metric text-body-sm font-medium" id="toast-msg">Protocol updated</span>
+</div>
+</div>
+<!-- Vanilla JS Interactions -->
+<script>
+  let currentTab = 'pending';
+  let isEmptyMode = false;
+
+  const founderProfiles = {
+    farooq: {
+      name: "Farooq Khan",
+      role: "Founder & CEO, NovaPay (Seed Fintech · Karachi)",
+      score: "3.4 / 5.0",
+      syn: "SYN-SCORE A3",
+      narrative: "NovaPay is building an automated micro-settlement wallet and digital bookkeeping ledger for informal wholesale merchants in Karachi. Currently tracking PKR 22M in monthly GMV with 84% 90-day retention across Jodia Bazaar distribution routes."
+    },
+    hira: {
+      name: "Hira Tariq",
+      role: "VP Engineering / Founding Tech Lead, Ravi Health (Lahore)",
+      score: "4.1 / 5.0",
+      syn: "SYN-SCORE A1",
+      narrative: "Ravi Health connects tier-2 and tier-3 surgical units with centralized tele-diagnostic radiologist nodes. Scaled from 3 pilot clinics to 28 hospital wards across Punjab with zero cold pipeline drop-off."
+    },
+    bilal: {
+      name: "Bilal Ahmed",
+      role: "Founder & CEO, Munshi Books (Pre-seed SaaS · Karachi)",
+      score: "3.7 / 5.0",
+      syn: "SYN-SCORE B2",
+      narrative: "Munshi Books is digitizing inventory and credit credit-lines (Khaata) for electronics retailers. Currently piloting automated tax reconciliation workflows ahead of federal e-invoicing mandates."
+    }
+  };
+
+  function switchTab(tab) {
+    currentTab = tab;
+    
+    // Tab Button active classes
+    const tabs = ['pending', 'accepted', 'declined'];
+    tabs.forEach(t => {
+      const btn = document.getElementById(`tab-${t}-btn`);
+      const panel = document.getElementById(`panel-${t}`);
+      
+      if (t === tab) {
+        btn.className = "tab-btn px-space-md py-2 rounded-full font-label-caps text-label-caps uppercase transition-all duration-200 bg-inverse-surface text-inverse-on-surface shadow-sm";
+        panel.classList.remove('hidden');
+      } else {
+        btn.className = "tab-btn px-space-md py-2 rounded-full font-label-caps text-label-caps uppercase transition-all duration-200 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/60";
+        panel.classList.add('hidden');
+      }
+    });
+
+    renderViewState();
+  }
+
+  function toggleEmptyMode(empty) {
+    isEmptyMode = empty;
+    const popBtn = document.getElementById('toggle-populated-btn');
+    const emptyBtn = document.getElementById('toggle-empty-btn');
+
+    if (empty) {
+      emptyBtn.className = "px-space-sm py-1 rounded-full font-code-metric text-body-sm text-primary font-bold bg-tertiary-fixed/40 transition-colors";
+      popBtn.className = "px-space-sm py-1 rounded-full font-code-metric text-body-sm text-on-surface-variant hover:text-on-surface transition-colors";
+    } else {
+      popBtn.className = "px-space-sm py-1 rounded-full font-code-metric text-body-sm text-primary font-bold bg-tertiary-fixed/40 transition-colors";
+      emptyBtn.className = "px-space-sm py-1 rounded-full font-code-metric text-body-sm text-on-surface-variant hover:text-on-surface transition-colors";
+    }
+
+    renderViewState();
+  }
+
+  function renderViewState() {
+    const tabs = ['pending', 'accepted', 'declined'];
+    tabs.forEach(t => {
+      const popEl = document.getElementById(`${t}-populated`);
+      const empEl = document.getElementById(`${t}-empty`);
+      
+      if (popEl && empEl) {
+        if (isEmptyMode) {
+          popEl.classList.add('hidden');
+          empEl.classList.remove('hidden');
+        } else {
+          popEl.classList.remove('hidden');
+          empEl.classList.add('hidden');
+        }
+      }
+    });
+  }
+
+  function openDrawer(founderKey) {
+    const data = founderProfiles[founderKey] || founderProfiles['farooq'];
+    document.getElementById('drawer-founder-name').textContent = data.name;
+    document.getElementById('drawer-founder-role').textContent = data.role;
+    document.getElementById('drawer-narrative').textContent = data.narrative;
+
+    const drawer = document.getElementById('founder-drawer');
+    const surface = document.getElementById('drawer-surface');
+
+    drawer.classList.remove('opacity-0', 'pointer-events-none');
+    surface.classList.remove('translate-x-full');
+  }
+
+  function closeDrawer() {
+    const drawer = document.getElementById('founder-drawer');
+    const surface = document.getElementById('drawer-surface');
+
+    surface.classList.add('translate-x-full');
+    drawer.classList.add('opacity-0');
+    setTimeout(() => {
+      drawer.classList.add('pointer-events-none');
+    }, 300);
+  }
+
+  function acceptFromDrawer() {
+    const founderName = document.getElementById('drawer-founder-name').textContent.trim();
+    closeDrawer();
+    triggerToast(`Bilateral acceptance confirmed. Contact unlocked for ${founderName}`);
+  }
+
+  function quickAccept(buttonEl, founderName) {
+    const row = buttonEl.closest('article');
+    row.style.opacity = '0.5';
+    row.style.pointerEvents = 'none';
+    triggerToast(`Accepted advisory request from ${founderName}`);
+  }
+
+  function quickDecline(buttonEl, founderName) {
+    const row = buttonEl.closest('article');
+    row.style.opacity = '0.4';
+    row.style.pointerEvents = 'none';
+    triggerToast(`Declined request from ${founderName} (Archived)`);
+  }
+
+  function reconsiderRequest(buttonEl, founderName) {
+    const row = buttonEl.closest('article');
+    row.style.opacity = '0.5';
+    triggerToast(`Moved ${founderName} back to intake review`);
+  }
+
+  function triggerToast(message) {
+    const toast = document.getElementById('toast');
+    const msg = document.getElementById('toast-msg');
+    msg.textContent = message;
+
+    toast.classList.remove('opacity-0', 'translate-y-12');
+    setTimeout(() => {
+      toast.classList.add('opacity-0', 'translate-y-12');
+    }, 3800);
+  }
+
+  // Close drawer with Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeDrawer();
+  });
+</script></main><footer class="w-full mt-auto py-space-lg"><div class="max-w-7xl mx-auto px-margin sm:px-margin-tablet lg:px-margin-desktop"><div class="pt-space-md flex flex-col md:flex-row items-center justify-between gap-space-md"><div class="flex items-center gap-space-sm"><span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span><span class="font-body-sm text-body-sm text-on-surface-variant/90">© 2026 The Founder's Carnet. Confidential &amp; Reserved.</span></div><div class="flex items-center gap-space-lg"><a class="font-label-caps text-label-caps text-on-surface-variant hover:text-on-surface transition-colors uppercase" data-path="privacy-policy" href="#">Privacy</a><a class="font-label-caps text-label-caps text-on-surface-variant hover:text-on-surface transition-colors uppercase" data-path="terms-of-service" href="#">Terms</a><a class="font-label-caps text-label-caps text-on-surface-variant hover:text-on-surface transition-colors uppercase" data-path="contact-directory" href="#">Contact</a></div></div></div></footer></body></html>

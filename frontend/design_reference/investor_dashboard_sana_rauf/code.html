@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,300..900;1,300..900&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@500;600&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"surface-container-high":"#e8e7f1","on-surface-variant":"#54433a","surface-tint":"#954917","inverse-primary":"#ffb68e","tertiary-fixed-dim":"#ffb690","surface-container-highest":"#e3e1eb","on-surface":"#1a1b22","outline-variant":"#dac2b6","on-primary-fixed":"#331200","on-primary":"#ffffff","primary-container":"#924715","on-secondary-fixed-variant":"#46464f","tertiary-fixed":"#ffdbca","on-primary-fixed-variant":"#773300","on-tertiary-fixed-variant":"#743408","secondary":"#5e5e67","on-error":"#ffffff","primary-fixed-dim":"#ffb68e","outline":"#877369","secondary-fixed-dim":"#c7c5d0","on-error-container":"#93000a","inverse-surface":"#2f3037","error-container":"#ffdad6","surface":"#fbf8ff","secondary-container":"#e0dee9","on-tertiary-container":"#ffcaaf","inverse-on-surface":"#f1effa","primary-fixed":"#ffdbca","error":"#ba1a1a","on-secondary-fixed":"#1a1b23","surface-variant":"#e3e1eb","surface-dim":"#dad9e3","surface-container":"#eeedf7","tertiary-container":"#90491e","background":"#faf9f7","tertiary":"#723207","surface-bright":"#fbf8ff","on-background":"#0a0a0a","surface-container-low":"#f4f2fd","secondary-fixed":"#e3e1ec","primary":"#733100","on-tertiary-fixed":"#331100","on-secondary-container":"#64646d","on-primary-container":"#fffcff","on-tertiary":"#ffffff","surface-container-lowest":"#ffffff","on-secondary":"#ffffff"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"margin":"32px","space-md":"16px","space-lg":"24px","space-sm":"8px","space-xl":"48px","gutter":"24px","space-xs":"4px"},"fontFamily":{"headline-lg-mobile":["Hanken Grotesk"],"title-md":["Hanken Grotesk"],"body-lg":["Hanken Grotesk"],"caption":["Hanken Grotesk"],"title-lg":["Hanken Grotesk"],"headline-xl":["Hanken Grotesk"],"label-md":["Hanken Grotesk"],"headline-lg":["Hanken Grotesk"],"headline-xl-mobile":["Hanken Grotesk"],"title-sm":["Hanken Grotesk"],"headline-md-mobile":["Hanken Grotesk"],"headline-md":["Hanken Grotesk"],"headline-sm":["Hanken Grotesk"],"body-md":["Hanken Grotesk"]},"fontSize":{"headline-lg-mobile":["32px",{"lineHeight":"1.2","fontWeight":"700"}],"title-md":["20px",{"lineHeight":"1.35","fontWeight":"500"}],"body-lg":["16px",{"lineHeight":"1.5","fontWeight":"400"}],"caption":["12px",{"lineHeight":"1.4","fontWeight":"500"}],"title-lg":["24px",{"lineHeight":"1.3","fontWeight":"600"}],"headline-xl":["60px",{"lineHeight":"1.1","fontWeight":"700"}],"label-md":["14px",{"lineHeight":"1.4","fontWeight":"600"}],"headline-lg":["48px",{"lineHeight":"1.15","fontWeight":"700"}],"headline-xl-mobile":["38px",{"lineHeight":"1.15","fontWeight":"700"}],"title-sm":["18px",{"lineHeight":"1.4","fontWeight":"500"}],"headline-md-mobile":["28px",{"lineHeight":"1.2","fontWeight":"600"}],"headline-md":["36px",{"lineHeight":"1.2","fontWeight":"600"}],"headline-sm":["30px",{"lineHeight":"1.25","fontWeight":"600"}],"body-md":["14px",{"lineHeight":"1.5","fontWeight":"400"}]}}}};</script></head><body class="min-h-screen text-on-surface font-body-md text-body-md antialiased" style="background: radial-gradient(circle at 85% 15%, rgb(245, 200, 66) 0%, rgb(255, 138, 43) 30%, rgb(196, 69, 26) 55%, rgb(58, 18, 6) 100%) fixed; min-height: 100vh; font-family: Inter, sans-serif;"><header class="fixed top-0 left-0 right-0 z-50 pt-space-md px-margin"><div class="max-w-7xl mx-auto h-20 flex items-center justify-between px-space-lg bg-surface-container-lowest/90 backdrop-blur-xl rounded-full shadow-[0_4px_24px_rgba(58,18,6,0.12)]"><div class="flex items-center gap-space-md"><a class="flex items-center gap-space-sm group" data-path="founder-dashboard" href="#"><div class="w-9 h-9 shrink-0 shadow-sm"><svg class="w-full h-full" viewbox="0 0 64 64"><rect fill="#0A0A0A" height="64" rx="14" width="64"></rect><path d="M45 0H52V22L48.5 18L45 22Z" fill="#B15F2C"></path><path d="M14 14H40V23H24V28.5H36V37.5H24V50H14Z" fill="#fff"></path></svg></div><span class="font-title-sm text-title-sm text-on-surface font-bold tracking-tight">The Founder's Carnet</span></a><div class="h-5 w-px bg-outline-variant/60"></div><div class="flex items-center gap-space-xs bg-surface-container-low px-space-sm py-1 rounded-full"><span class="font-caption text-caption text-on-surface-variant font-medium">Role:</span><span class="font-caption text-caption text-primary font-bold tracking-wide uppercase">Investor</span></div></div><nav class="hidden xl:flex items-center gap-space-xs" data-active-classes="bg-primary-container text-on-primary font-semibold rounded-full px-space-md py-2 shadow-sm" style='font-family: "JetBrains Mono", monospace; text-transform: uppercase; letter-spacing: 0.08em;'><a class="nav-pill-item bg-[#0A0A0A] text-white font-semibold rounded-full px-4 py-1.5 shadow-sm font-label-md text-label-md interactive-press" data-tab="dashboard" href="#">Dashboard</a><a class="nav-pill-item text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/60 px-4 py-1.5 rounded-full transition-all font-label-md text-label-md interactive-press" data-tab="profile" href="#">Profile</a><a class="nav-pill-item text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/60 px-4 py-1.5 rounded-full transition-all font-label-md text-label-md interactive-press" data-tab="founders" href="#">Founders</a><a class="nav-pill-item text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/60 px-4 py-1.5 rounded-full transition-all font-label-md text-label-md interactive-press" data-tab="requests" href="#">Requests</a></nav><div class="flex items-center gap-space-sm"><div class="hidden sm:flex items-center gap-space-xs bg-surface-container-low px-space-md py-1.5 rounded-full"><span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span><span class="font-caption text-caption text-on-surface font-medium whitespace-nowrap">Karachi 3:55pm, 9 Nov 2026</span></div><div class="w-8 h-8 rounded-full bg-on-background flex items-center justify-center shrink-0 text-on-primary font-bold text-caption font-headline-xl">ZM</div></div></div></header><main class="w-full pt-20"><div class="flex flex-col w-full">
+<!-- Main Canvas Container -->
+<div class="w-full max-w-7xl mx-auto px-margin md:px-gutter-desktop py-space-xl flex flex-col space-y-space-xl">
+<!-- 1. Hero Header & Eyebrow Module -->
+<section class="flex flex-col space-y-space-md pt-2">
+<!-- Eyebrow & Status Row -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm pb-1">
+<div class="inline-flex items-center gap-2 bg-[#0A0A0A]/90 text-white px-3 py-1 rounded-full shadow-sm">
+<span class="w-2 h-2 rounded-full bg-[#B15F2C] animate-pulse"></span>
+<span class="font-label-caps text-label-caps uppercase tracking-[0.08em] text-[#FAF9F7]">INVESTOR WORKSPACE // DEALFLOW RADAR</span>
+</div>
+<div class="inline-flex items-center gap-2 bg-white/90 backdrop-blur-md px-3.5 py-1.5 rounded-full shadow-sm">
+<span class="material-symbols-outlined text-primary text-[16px]">verified</span>
+<span class="font-label-caps text-label-caps text-on-surface uppercase tracking-[0.06em]">Margalla Ventures · Pre-Seed &amp; Seed Mandate</span>
+<span class="w-1.5 h-1.5 rounded-full bg-[#0A0A0A]/20 mx-0.5"></span>
+<span class="font-label-caps text-label-caps text-primary uppercase font-bold tracking-wider">Active Intake</span>
+</div>
+</div>
+<!-- Grand Welcome Title -->
+<div class="flex flex-col lg:flex-row lg:items-end justify-between gap-space-md">
+<div>
+<h1 class="font-display text-display text-white tracking-tight drop-shadow-sm">
+            Welcome back, <span class="font-accent-italic text-accent-italic font-normal" style="color: #F5C842;">Sana</span>
+</h1>
+<p class="font-body-md text-body-md text-white/90 max-w-4xl mt-2 leading-relaxed">
+            Margalla Ventures · Pre-Seed &amp; Seed Fund · Focus: Fintech, B2B SaaS, Logistics &amp; Supply Chain · Check Size: PKR 15M – 45M · Geography: Islamabad, Lahore &amp; Karachi · 
+            <a class="text-[#F5C842] hover:text-white transition-colors underline font-semibold ml-1.5 inline-flex items-center gap-0.5" href="#">Edit investment thesis <span class="material-symbols-outlined text-[14px]">arrow_forward</span></a>
+</p>
+</div>
+<!-- Verified Institutional Badge -->
+<div class="bg-surface-container-lowest/90 backdrop-blur-md rounded-2xl p-space-md shadow-lg flex items-center gap-3 shrink-0 self-start lg:self-auto">
+<div class="w-10 h-10 rounded-xl bg-[#0A0A0A] text-white flex items-center justify-center font-bold text-[15px] shadow-sm">
+            MV
+          </div>
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-on-surface uppercase font-bold tracking-wider">Verified Institutional Partner</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-[#B15F2C]"></span> Visible to 142 Vetted Founders
+            </span>
+</div>
+</div>
+</div>
+</section>
+<!-- 2. Ink Monolith Card (Featured Caseload & Telemetry) -->
+<section class="w-full bg-[#0A0A0A] text-white rounded-3xl p-space-lg md:p-space-xl shadow-2xl relative overflow-hidden">
+<!-- Subtle architectural backdrop gradient -->
+<div class="absolute -right-24 -top-24 w-96 h-96 bg-[#B15F2C]/15 rounded-full blur-3xl pointer-events-none"></div>
+<div class="relative z-10 flex flex-col space-y-space-lg">
+<!-- Monolith Card Header -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm pb-space-sm border-b border-white/10">
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-3.5 bg-[#B15F2C] rounded-sm"></span>
+<span class="font-label-caps text-label-caps uppercase tracking-[0.1em] text-white/70">INVESTMENT DEALFLOW &amp; INTRODUCTIONS // LIVE LEDGER</span>
+</div>
+<div class="flex items-center gap-2 text-white/50 font-label-caps text-label-caps">
+<span class="material-symbols-outlined text-[14px] text-[#B15F2C]">lock</span>
+<span>BILATERAL DOUBLE-BLIND ENCRYPTION ENABLED</span>
+</div>
+</div>
+<!-- Telemetry Split: Metrics on Left, Thesis Ledger on Right -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-stretch">
+<!-- Key Counters (8 Cols) -->
+<div class="lg:col-span-8 grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<!-- Metric 1: New Matches -->
+<div class="bg-white/5 hover:bg-white/[0.08] transition-colors rounded-2xl p-space-md flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps uppercase text-white/60 tracking-wider">New Matches</span>
+<span class="px-2 py-0.5 rounded-full bg-[#B15F2C]/30 text-[#ffb68e] font-label-caps text-[10px] uppercase font-bold">Today</span>
+</div>
+<div class="my-space-sm">
+<span class="font-display text-display text-white leading-none font-bold">14</span>
+</div>
+<p class="font-body-sm text-body-sm text-white/70 leading-snug">
+                Profile similarity ≥ 80% with Margalla mandate.
+              </p>
+</div>
+<!-- Metric 2: Pending Requests -->
+<div class="bg-white/5 hover:bg-white/[0.08] transition-colors rounded-2xl p-space-md flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps uppercase text-white/60 tracking-wider">Pending Intros</span>
+<span class="px-2 py-0.5 rounded-full bg-white/10 text-white/70 font-label-caps text-[10px] uppercase font-bold">In Flight</span>
+</div>
+<div class="my-space-sm">
+<span class="font-display text-display text-white leading-none font-bold">3</span>
+</div>
+<p class="font-body-sm text-body-sm text-white/70 leading-snug">
+                Awaiting founder mutual authorization.
+              </p>
+</div>
+<!-- Metric 3: Accepted Introductions -->
+<div class="bg-white/5 hover:bg-white/[0.08] transition-colors rounded-2xl p-space-md flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps uppercase text-white/60 tracking-wider">Active Intros</span>
+<span class="px-2 py-0.5 rounded-full bg-[#B15F2C] text-white font-label-caps text-[10px] uppercase font-bold">Unlocked</span>
+</div>
+<div class="my-space-sm">
+<span class="font-display text-display text-[#F5C842] leading-none font-bold">7</span>
+</div>
+<p class="font-body-sm text-body-sm text-white/70 leading-snug">
+                Mutual consent secured. Coordinates open.
+              </p>
+</div>
+</div>
+<!-- Active Thesis Summary Capsule (4 Cols) -->
+<div class="lg:col-span-4 bg-white/5 rounded-2xl p-space-md flex flex-col justify-between space-y-space-sm">
+<div>
+<div class="flex items-center justify-between mb-3">
+<span class="font-label-caps text-label-caps uppercase text-[#F5C842] tracking-widest font-bold">ACTIVE THESIS PROFILE</span>
+<span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+</div>
+<div class="flex flex-wrap gap-1.5">
+<span class="px-2.5 py-1 rounded bg-white/10 text-white font-label-caps text-[11px] tracking-wide">FINTECH</span>
+<span class="px-2.5 py-1 rounded bg-white/10 text-white font-label-caps text-[11px] tracking-wide">B2B SAAS</span>
+<span class="px-2.5 py-1 rounded bg-white/10 text-white font-label-caps text-[11px] tracking-wide">LOGISTICS</span>
+<span class="px-2.5 py-1 rounded bg-white/10 text-white font-label-caps text-[11px] tracking-wide">PKR 15M–45M</span>
+<span class="px-2.5 py-1 rounded bg-white/10 text-white font-label-caps text-[11px] tracking-wide">PRE-SEED / SEED</span>
+</div>
+</div>
+<div class="pt-3 border-t border-white/10 flex items-center justify-between">
+<span class="font-body-sm text-body-sm text-white/60">Updated 12 hrs ago</span>
+<button class="px-3.5 py-1.5 rounded-lg bg-[#B15F2C] hover:bg-[#964E22] text-white font-label-caps text-label-caps uppercase tracking-wider transition-all shadow-sm" type="button">
+                Manage Mandate
+              </button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 3. Two-Column Asymmetric Content Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+<!-- LEFT COLUMN (Wide ~65% / 8 Cols): Recommended Founders -->
+<section class="lg:col-span-8 flex flex-col space-y-space-md">
+<!-- Section Header with Filters -->
+<div class="bg-surface-container-lowest rounded-3xl p-space-lg shadow-sm flex flex-col space-y-space-md">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-sm pb-space-sm border-b border-[#52525B]/15">
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="px-2.5 py-0.5 rounded-full bg-[#F8EDE5] text-[#964E22] font-label-caps text-label-caps uppercase font-bold tracking-wider">CURATED DEALFLOW</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Q4 2026 INTAKE</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface tracking-tight">
+                Recommended <span class="font-accent-italic text-accent-italic font-normal" style="color: #B15F2C;">founders</span>
+</h2>
+</div>
+<!-- Filter Segment Controls -->
+<div class="flex items-center flex-wrap gap-1 bg-surface-container-low p-1 rounded-xl">
+<button class="px-3 py-1 rounded-lg bg-[#0A0A0A] text-white font-label-caps text-label-caps uppercase font-semibold shadow-xs" type="button">All (14)</button>
+<button class="px-3 py-1 rounded-lg hover:bg-white text-on-surface-variant hover:text-on-surface font-label-caps text-label-caps uppercase transition-colors" type="button">Fintech (6)</button>
+<button class="px-3 py-1 rounded-lg hover:bg-white text-on-surface-variant hover:text-on-surface font-label-caps text-label-caps uppercase transition-colors" type="button">B2B SaaS (5)</button>
+<button class="px-3 py-1 rounded-lg hover:bg-white text-on-surface-variant hover:text-on-surface font-label-caps text-label-caps uppercase transition-colors" type="button">Logistics (3)</button>
+</div>
+</div>
+<!-- Honesty Disclosure Notice -->
+<div class="flex items-start gap-2.5 p-space-sm bg-[#F8EDE5] rounded-xl text-[#743408]">
+<span class="material-symbols-outlined text-[18px] text-[#B15F2C] shrink-0 mt-0.5">info</span>
+<p class="font-body-sm text-body-sm leading-relaxed">
+<strong class="font-semibold">Honesty Protocol:</strong> Ranked strictly by thesis alignment and readiness benchmarks. Mutual-consent introductions keep direct personal coordinates quarantined until both sides formally confirm.
+            </p>
+</div>
+</div>
+<!-- Founder Dossier Cards Stack -->
+<div class="flex flex-col space-y-space-md">
+<!-- Card 01: Bilal Ahmed · Munshi Books -->
+<article class="bg-surface-container-lowest rounded-3xl p-space-lg shadow-sm flex flex-col space-y-space-md transition-all hover:shadow-md">
+<!-- Header Row -->
+<div class="flex flex-col sm:flex-row sm:items-start justify-between gap-space-sm pb-space-sm border-b border-[#52525B]/15">
+<div class="flex items-start gap-3.5">
+<div class="w-12 h-12 rounded-xl bg-[#0A0A0A] text-white flex items-center justify-center font-bold text-[18px] shrink-0">
+                  MB
+                </div>
+<div>
+<div class="flex flex-wrap items-center gap-2">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold tracking-tight">Bilal Ahmed</h3>
+<span class="text-on-surface-variant font-body-md text-body-md">·</span>
+<span class="font-headline-sm text-headline-sm text-[#B15F2C] font-semibold">Munshi Books</span>
+</div>
+<div class="flex flex-wrap items-center gap-2 mt-1">
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-label-caps text-[11px] tracking-wide uppercase font-semibold">B2B Fintech</span>
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-label-caps text-[11px] tracking-wide uppercase font-semibold">Seed Stage</span>
+<span class="text-on-surface-variant font-body-sm text-body-sm flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[14px]">location_on</span> Karachi
+                    </span>
+</div>
+</div>
+</div>
+<!-- Alignment Metrics Capsule -->
+<div class="flex sm:flex-col items-end justify-between sm:justify-start gap-1 shrink-0 bg-surface-container-low px-3 py-2 rounded-xl">
+<span class="font-code-metric text-code-metric font-bold text-[#B15F2C]">94% Profile Similarity</span>
+<div class="text-right">
+<span class="font-label-caps text-label-caps text-on-surface font-bold">Readiness: 3.1 / 5.0</span>
+<span class="block text-[10px] text-on-surface-variant font-body-sm">Rubric guide, not funding certainty.</span>
+</div>
+</div>
+</div>
+<!-- Content Body -->
+<p class="font-body-md text-body-md text-on-surface leading-relaxed">
+              Automated SME bookkeeping and tax compliance ledger for wholesale trade corridors across Karachi. 14 active commercial markets onboarded with zero churn over the past two quarters.
+            </p>
+<!-- Tags & Operational Highlights -->
+<div class="flex flex-wrap items-center gap-2">
+<span class="px-2.5 py-1 rounded-md bg-surface-container text-on-surface-variant font-label-caps text-[11px]">POSTGRESQL / GO</span>
+<span class="px-2.5 py-1 rounded-md bg-surface-container text-on-surface-variant font-label-caps text-[11px]">B2B LEDGER</span>
+<span class="px-2.5 py-1 rounded-md bg-[#F8EDE5] text-[#964E22] font-label-caps text-[11px] font-semibold">PKR 18M MONTHLY GMV</span>
+</div>
+<!-- Actions Row -->
+<div class="pt-space-sm border-t border-[#52525B]/15 flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-1.5 text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px] text-primary">lock</span>
+<span class="font-body-sm text-body-sm">Contact coordinates quarantined until mutual acceptance.</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="px-4 py-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-caps text-label-caps uppercase transition-colors" onclick="openFounderModal('LedgerLite')" type="button">
+                  Inspect Venture Dossier
+                </button>
+<button class="px-4 py-2 rounded-lg bg-[#0A0A0A] hover:bg-[#B15F2C] text-white font-label-caps text-label-caps uppercase transition-all flex items-center gap-1.5 shadow-sm" onclick="alert('Introduction request dispatched to Bilal Ahmed (Munshi Books).')" type="button">
+<span>Request Match</span>
+<span class="material-symbols-outlined text-[15px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Card 02: Farooq Khan · NovaPay -->
+<article class="bg-surface-container-lowest rounded-3xl p-space-lg shadow-sm flex flex-col space-y-space-md transition-all hover:shadow-md">
+<!-- Header Row -->
+<div class="flex flex-col sm:flex-row sm:items-start justify-between gap-space-sm pb-space-sm border-b border-[#52525B]/15">
+<div class="flex items-start gap-3.5">
+<div class="w-12 h-12 rounded-xl bg-[#924715] text-white flex items-center justify-center font-bold text-[18px] shrink-0">
+                  NP
+                </div>
+<div>
+<div class="flex flex-wrap items-center gap-2">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold tracking-tight">Farooq Khan</h3>
+<span class="text-on-surface-variant font-body-md text-body-md">·</span>
+<span class="font-headline-sm text-headline-sm text-[#B15F2C] font-semibold">NovaPay</span>
+</div>
+<div class="flex flex-wrap items-center gap-2 mt-1">
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-label-caps text-[11px] tracking-wide uppercase font-semibold">Fintech &amp; Payments</span>
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-label-caps text-[11px] tracking-wide uppercase font-semibold">Seed Stage</span>
+<span class="text-on-surface-variant font-body-sm text-body-sm flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[14px]">location_on</span> Karachi
+                    </span>
+</div>
+</div>
+</div>
+<!-- Alignment Metrics Capsule -->
+<div class="flex sm:flex-col items-end justify-between sm:justify-start gap-1 shrink-0 bg-surface-container-low px-3 py-2 rounded-xl">
+<span class="font-code-metric text-code-metric font-bold text-[#B15F2C]">92% Profile Similarity</span>
+<div class="text-right">
+<span class="font-label-caps text-label-caps text-on-surface font-bold">Readiness: 4.2 / 5.0</span>
+<span class="block text-[10px] text-on-surface-variant font-body-sm">Rubric guide, not funding certainty.</span>
+</div>
+</div>
+</div>
+<!-- Content Body -->
+<p class="font-body-md text-body-md text-on-surface leading-relaxed">
+              Digital wallet for underbanked retail merchants featuring offline SMS reconciliations and instant settlement rails. Raising PKR 30M seed round to scale into 5 tiered wholesale hubs.
+            </p>
+<!-- Tags & Operational Highlights -->
+<div class="flex flex-wrap items-center gap-2">
+<span class="px-2.5 py-1 rounded-md bg-surface-container text-on-surface-variant font-label-caps text-[11px]">MERCHANT RAILS</span>
+<span class="px-2.5 py-1 rounded-md bg-surface-container text-on-surface-variant font-label-caps text-[11px]">OFFLINE SMS</span>
+<span class="px-2.5 py-1 rounded-md bg-[#F8EDE5] text-[#964E22] font-label-caps text-[11px] font-semibold">SBP SANDBOX GRANTED</span>
+</div>
+<!-- Actions Row -->
+<div class="pt-space-sm border-t border-[#52525B]/15 flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-1.5 text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px] text-primary">lock</span>
+<span class="font-body-sm text-body-sm">Contact coordinates quarantined until mutual acceptance.</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="px-4 py-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-caps text-label-caps uppercase transition-colors" onclick="openFounderModal('NovaPay')" type="button">
+                  Inspect Venture Dossier
+                </button>
+<button class="px-4 py-2 rounded-lg bg-[#0A0A0A] hover:bg-[#B15F2C] text-white font-label-caps text-label-caps uppercase transition-all flex items-center gap-1.5 shadow-sm" onclick="alert('Introduction request dispatched to Farooq Khan (NovaPay).')" type="button">
+<span>Request Match</span>
+<span class="material-symbols-outlined text-[15px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Card 03: Asad Ullah · Fasal Labs -->
+<article class="bg-surface-container-lowest rounded-3xl p-space-lg shadow-sm flex flex-col space-y-space-md transition-all hover:shadow-md">
+<!-- Header Row -->
+<div class="flex flex-col sm:flex-row sm:items-start justify-between gap-space-sm pb-space-sm border-b border-[#52525B]/15">
+<div class="flex items-start gap-3.5">
+<div class="w-12 h-12 rounded-xl bg-[#5e5e67] text-white flex items-center justify-center font-bold text-[18px] shrink-0">
+                  FL
+                </div>
+<div>
+<div class="flex flex-wrap items-center gap-2">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold tracking-tight">Asad Ullah</h3>
+<span class="text-on-surface-variant font-body-md text-body-md">·</span>
+<span class="font-headline-sm text-headline-sm text-[#B15F2C] font-semibold">Fasal Labs</span>
+</div>
+<div class="flex flex-wrap items-center gap-2 mt-1">
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-label-caps text-[11px] tracking-wide uppercase font-semibold">Agritech &amp; IoT</span>
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-label-caps text-[11px] tracking-wide uppercase font-semibold">Pre-Seed</span>
+<span class="text-on-surface-variant font-body-sm text-body-sm flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[14px]">location_on</span> Lahore
+                    </span>
+</div>
+</div>
+</div>
+<!-- Alignment Metrics Capsule -->
+<div class="flex sm:flex-col items-end justify-between sm:justify-start gap-1 shrink-0 bg-surface-container-low px-3 py-2 rounded-xl">
+<span class="font-code-metric text-code-metric font-bold text-[#B15F2C]">88% Profile Similarity</span>
+<div class="text-right">
+<span class="font-label-caps text-label-caps text-on-surface font-bold">Readiness: 3.6 / 5.0</span>
+<span class="block text-[10px] text-on-surface-variant font-body-sm">Rubric guide, not funding certainty.</span>
+</div>
+</div>
+</div>
+<!-- Content Body -->
+<p class="font-body-md text-body-md text-on-surface leading-relaxed">
+              Satellite and sensor-driven soil analytics and yield forecasting engine for citrus and cotton producers across central Punjab. Partnered with 4 farmer-producer organizations.
+            </p>
+<!-- Tags & Operational Highlights -->
+<div class="flex flex-wrap items-center gap-2">
+<span class="px-2.5 py-1 rounded-md bg-surface-container text-on-surface-variant font-label-caps text-[11px]">AGRITECH</span>
+<span class="px-2.5 py-1 rounded-md bg-surface-container text-on-surface-variant font-label-caps text-[11px]">PRE-SEED ROUND</span>
+<span class="px-2.5 py-1 rounded-md bg-[#F8EDE5] text-[#964E22] font-label-caps text-[11px] font-semibold">LAHORE AGRI HUB</span>
+</div>
+<!-- Actions Row -->
+<div class="pt-space-sm border-t border-[#52525B]/15 flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-1.5 text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px] text-primary">lock</span>
+<span class="font-body-sm text-body-sm">Contact coordinates quarantined until mutual acceptance.</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="px-4 py-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-caps text-label-caps uppercase transition-colors" onclick="openFounderModal('SaaSFlow')" type="button">
+                  Inspect Venture Dossier
+                </button>
+<button class="px-4 py-2 rounded-lg bg-[#0A0A0A] hover:bg-[#B15F2C] text-white font-label-caps text-label-caps uppercase transition-all flex items-center gap-1.5 shadow-sm" onclick="alert('Introduction request dispatched to Asad Ullah (Fasal Labs).')" type="button">
+<span>Request Match</span>
+<span class="material-symbols-outlined text-[15px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Card 04: Nida Farooq · CuraHealth -->
+<article class="bg-surface-container-lowest rounded-3xl p-space-lg shadow-sm flex flex-col space-y-space-md transition-all hover:shadow-md">
+<!-- Header Row -->
+<div class="flex flex-col sm:flex-row sm:items-start justify-between gap-space-sm pb-space-sm border-b border-[#52525B]/15">
+<div class="flex items-start gap-3.5">
+<div class="w-12 h-12 rounded-xl bg-[#723207] text-white flex items-center justify-center font-bold text-[18px] shrink-0">
+                  CH
+                </div>
+<div>
+<div class="flex flex-wrap items-center gap-2">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold tracking-tight">Nida Farooq</h3>
+<span class="text-on-surface-variant font-body-md text-body-md">·</span>
+<span class="font-headline-sm text-headline-sm text-[#B15F2C] font-semibold">CuraHealth</span>
+</div>
+<div class="flex flex-wrap items-center gap-2 mt-1">
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-label-caps text-[11px] tracking-wide uppercase font-semibold">Healthtech</span>
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-label-caps text-[11px] tracking-wide uppercase font-semibold">Series A Mandate</span>
+<span class="text-on-surface-variant font-body-sm text-body-sm flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[14px]">location_on</span> Islamabad
+                    </span>
+</div>
+</div>
+</div>
+<!-- Alignment Metrics Capsule -->
+<div class="flex sm:flex-col items-end justify-between sm:justify-start gap-1 shrink-0 bg-surface-container-low px-3 py-2 rounded-xl">
+<span class="font-code-metric text-code-metric font-bold text-[#B15F2C]">82% Profile Similarity</span>
+<div class="text-right">
+<span class="font-label-caps text-label-caps text-on-surface font-bold">Readiness: 3.8 / 5.0</span>
+<span class="block text-[10px] text-on-surface-variant font-body-sm">Rubric guide, not funding certainty.</span>
+</div>
+</div>
+</div>
+<!-- Content Body -->
+<p class="font-body-md text-body-md text-on-surface leading-relaxed">
+              Scaling tele-diagnostics and hospital pharmacy supply chains across KPK and Punjab tier-2 medical clusters. 38 hospital systems live with 44-minute avg prescription fulfillment.
+            </p>
+<!-- Tags & Operational Highlights -->
+<div class="flex flex-wrap items-center gap-2">
+<span class="px-2.5 py-1 rounded-md bg-surface-container text-on-surface-variant font-label-caps text-[11px]">HEALTHTECH</span>
+<span class="px-2.5 py-1 rounded-md bg-surface-container text-on-surface-variant font-label-caps text-[11px]">SUPPLY CHAIN</span>
+<span class="px-2.5 py-1 rounded-md bg-[#F8EDE5] text-[#964E22] font-label-caps text-[11px] font-semibold">ISLAMABAD HUB</span>
+</div>
+<!-- Actions Row -->
+<div class="pt-space-sm border-t border-[#52525B]/15 flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-1.5 text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px] text-primary">lock</span>
+<span class="font-body-sm text-body-sm">Contact coordinates quarantined until mutual acceptance.</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="px-4 py-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-caps text-label-caps uppercase transition-colors" onclick="openFounderModal('LedgerLite')" type="button">
+                  Inspect Venture Dossier
+                </button>
+<button class="px-4 py-2 rounded-lg bg-[#0A0A0A] hover:bg-[#B15F2C] text-white font-label-caps text-label-caps uppercase transition-all flex items-center gap-1.5 shadow-sm" onclick="alert('Introduction request dispatched to Nida Farooq (CuraHealth).')" type="button">
+<span>Request Match</span>
+<span class="material-symbols-outlined text-[15px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</article>
+</div>
+</section>
+<!-- RIGHT COLUMN (Narrow ~35% / 4 Cols): Latest Request Activity & Protocol -->
+<aside class="lg:col-span-4 flex flex-col space-y-space-md">
+<!-- Activity Stream Card -->
+<div class="bg-surface-container-lowest rounded-3xl p-space-lg shadow-sm flex flex-col space-y-space-md">
+<div class="flex items-center justify-between pb-space-sm border-b border-[#52525B]/15">
+<div>
+<span class="font-label-caps text-label-caps uppercase text-primary font-bold tracking-wider">MUTUAL PROTOCOL</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-bold tracking-tight">
+                Latest <span class="font-accent-italic text-accent-italic font-normal" style="color: #B15F2C;">activity</span>
+</h2>
+</div>
+<span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+</div>
+<!-- Activity Ledger Items -->
+<div class="flex flex-col space-y-space-md divide-y divide-[#52525B]/15">
+<!-- Item 1: NovaPay -->
+<div class="pt-space-sm first:pt-0 flex flex-col space-y-2">
+<div class="flex items-start justify-between gap-2">
+<div>
+<h4 class="font-body-md text-body-md font-bold text-on-surface">NovaPay</h4>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Farooq Khan · Karachi</span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-[#FFFBEB] text-[#B45309] font-label-caps text-[10px] uppercase font-bold tracking-wide">
+                  Pending Founder
+                </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-snug">
+                Intro request dispatched 2h ago · Check thesis: PKR 25M
+              </p>
+</div>
+<!-- Item 2: SaaSFlow -->
+<div class="pt-space-sm flex flex-col space-y-2">
+<div class="flex items-start justify-between gap-2">
+<div>
+<h4 class="font-body-md text-body-md font-bold text-on-surface">SaaSFlow</h4>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Tariq Mehmood · Lahore</span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-[#ECFDF5] text-[#047857] font-label-caps text-[10px] uppercase font-bold tracking-wide">
+                  Connected
+                </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-snug">
+                Connected yesterday · Coordinates shared: <code class="font-label-caps text-[#B15F2C] bg-[#F8EDE5] px-1 py-0.5 rounded">tariq@saasflow.pk</code>
+</p>
+<div>
+<a class="inline-flex items-center gap-1 font-label-caps text-label-caps uppercase text-primary hover:text-tertiary transition-colors font-bold" href="mailto:tariq@saasflow.pk">
+<span>Open direct channel</span>
+<span class="material-symbols-outlined text-[13px]">open_in_new</span>
+</a>
+</div>
+</div>
+<!-- Item 3: LedgerLite -->
+<div class="pt-space-sm flex flex-col space-y-2">
+<div class="flex items-start justify-between gap-2">
+<div>
+<h4 class="font-body-md text-body-md font-bold text-on-surface">LedgerLite</h4>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Haris Abbasi · Islamabad</span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-caps text-[10px] uppercase font-bold tracking-wide">
+                  Pending Dispatch
+                </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-snug">
+                Dispatched 2 days ago · Awaiting second partner clearance.
+              </p>
+</div>
+<!-- Item 4: MediLink -->
+<div class="pt-space-sm flex flex-col space-y-2">
+<div class="flex items-start justify-between gap-2">
+<div>
+<h4 class="font-body-md text-body-md font-bold text-on-surface">MediLink</h4>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Dr. Zainab Alvi · Karachi</span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-caps text-[10px] uppercase font-medium tracking-wide">
+                  Declined Discreetly
+                </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-snug">
+                Stage mismatch · Archived 4 days ago with zero outbound alert.
+              </p>
+</div>
+</div>
+<!-- Bottom Micro-Action -->
+<div class="pt-space-sm border-t border-[#52525B]/15">
+<a class="w-full py-2.5 rounded-xl bg-surface-container hover:bg-surface-container-high text-on-surface flex items-center justify-center gap-1.5 font-label-caps text-label-caps uppercase font-bold tracking-wider transition-colors" href="#">
+<span>View All 24 Activity Dispatches</span>
+<span class="material-symbols-outlined text-[15px]">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- Protocol Trust & Bilateral Integrity Box -->
+<div class="bg-[#0A0A0A] text-white rounded-3xl p-space-lg shadow-sm flex flex-col space-y-space-sm relative overflow-hidden">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-[#B15F2C]">verified_user</span>
+<span class="font-label-caps text-label-caps uppercase text-[#F5C842] font-bold tracking-wider">CARNET BILATERAL INTEGRITY PROTOCOL</span>
+</div>
+<p class="font-body-sm text-body-sm text-white/80 leading-relaxed pt-1">
+            All introductions are strictly opt-in and double-blind. Neither phone numbers nor direct emails are disclosed until both founder and investor independently approve the introduction request.
+          </p>
+<div class="pt-2 border-t border-white/10 flex items-center justify-between text-white/60 font-label-caps text-[11px]">
+<span>NO BROKER FEES</span>
+<span>•</span>
+<span>NO COMMISSIONS</span>
+<span>•</span>
+<span>NO EQUITY PLEDGE</span>
+</div>
+</div>
+<!-- Quick Portfolio Telemetry & Sector Breakdown SVG Visual -->
+<div class="bg-surface-container-lowest rounded-3xl p-space-lg shadow-sm flex flex-col space-y-space-md">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps uppercase font-bold text-on-surface tracking-wider">MANDATE ALLOCATION DISTRIBUTION</span>
+<span class="font-label-caps text-label-caps text-primary">PKR 45M Cap</span>
+</div>
+<!-- Miniature Vector Distribution Bar -->
+<div class="w-full space-y-2">
+<div class="h-3 w-full rounded-full bg-surface-container flex overflow-hidden">
+<div class="h-full bg-[#B15F2C]" style="width: 48%;" title="Fintech (48%)"></div>
+<div class="h-full bg-[#0A0A0A]" style="width: 32%;" title="B2B SaaS (32%)"></div>
+<div class="h-full bg-[#F5C842]" style="width: 20%;" title="Logistics (20%)"></div>
+</div>
+<div class="flex items-center justify-between font-label-caps text-[11px] text-on-surface-variant pt-1">
+<span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-[#B15F2C]"></span>Fintech (48%)</span>
+<span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-[#0A0A0A]"></span>SaaS (32%)</span>
+<span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-[#F5C842]"></span>Logistics (20%)</span>
+</div>
+</div>
+</div>
+</aside>
+</div>
+</div>
+</div></main><footer class="w-full py-space-xl px-margin mt-auto"><div class="max-w-7xl mx-auto bg-surface-container-lowest/85 backdrop-blur-xl rounded-full px-space-lg py-space-md flex flex-col md:flex-row items-center justify-between gap-space-md shadow-[0_4px_24px_rgba(58,18,6,0.08)]"><div class="flex items-center gap-space-sm"><div class="w-6 h-6"><svg class="w-full h-full" viewbox="0 0 64 64"><rect fill="#0A0A0A" height="64" rx="14" width="64"></rect><path d="M45 0H52V22L48.5 18L45 22Z" fill="#B15F2C"></path><path d="M14 14H40V23H24V28.5H36V37.5H24V50H14Z" fill="#fff"></path></svg></div><span class="font-body-md text-body-md text-on-surface-variant">© 2026 The Founder's Carnet. All rights reserved.</span></div><div class="flex items-center gap-space-lg"><a class="font-caption text-caption text-on-surface-variant hover:text-primary transition-colors" data-path="privacy-policy" href="#">Privacy</a><a class="font-caption text-caption text-on-surface-variant hover:text-primary transition-colors" data-path="terms-of-service" href="#">Terms</a><a class="font-caption text-caption text-on-surface-variant hover:text-primary transition-colors" data-path="contact-support" href="#">Contact</a></div></div></footer><div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md hidden" id="founder-modal-overlay" style="display: none;"><div class="relative w-full max-w-xl bg-surface-container-lowest/95 backdrop-blur-2xl rounded-2xl shadow-2xl p-space-lg border border-white/20 text-on-surface flex flex-col space-y-space-md" id="founder-modal-panel"><div class="flex items-center justify-between pb-space-xs border-b border-outline-variant/30"><div class="flex items-center gap-space-xs bg-surface-container-low p-1 rounded-full border border-outline-variant/30"><button class="px-space-md py-1.5 rounded-full font-label-md text-caption uppercase tracking-[0.08em] [font-family:'JetBrains_Mono',monospace] text-on-surface-variant hover:text-on-surface transition-colors cursor-pointer" onclick="openFounderModal('NovaPay')" type="button">NovaPay</button><button class="px-space-md py-1.5 rounded-full font-label-md text-caption uppercase tracking-[0.08em] [font-family:'JetBrains_Mono',monospace] bg-on-background text-on-primary font-bold shadow-sm cursor-pointer" onclick="openFounderModal('LedgerLite')" type="button">LedgerLite</button><button class="px-space-md py-1.5 rounded-full font-label-md text-caption uppercase tracking-[0.08em] [font-family:'JetBrains_Mono',monospace] text-on-surface-variant hover:text-on-surface transition-colors cursor-pointer" onclick="openFounderModal('SaaSFlow')" type="button">SaaSFlow</button></div><button class="w-9 h-9 rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface flex items-center justify-center interactive-press transition-colors cursor-pointer" id="modal-close-btn" onclick="document.getElementById('founder-modal-overlay').style.display='none'" type="button"><span class="material-symbols-outlined text-[20px]">close</span></button></div><div class="flex items-start justify-between"><div class="flex items-center gap-space-md"><div class="w-14 h-14 rounded-xl bg-primary text-white font-bold flex items-center justify-center text-[22px] shadow-sm" id="modal-avatar" style="font-family: 'Plus Jakarta Sans', sans-serif;">LL</div><div><div class="flex items-center gap-space-xs"><h3 class="text-[24px] font-bold tracking-tight text-on-surface" id="modal-title" style="font-family: 'Plus Jakarta Sans', sans-serif;">LedgerLite</h3><span class="text-[13px] bg-primary-fixed text-on-primary-fixed px-2.5 py-0.5 rounded-full font-bold uppercase tracking-[0.08em] [font-family:'JetBrains_Mono',monospace]" id="modal-badge">Fintech</span><span class="text-[13px] bg-surface-container text-on-surface-variant px-2.5 py-0.5 rounded-full font-semibold uppercase tracking-[0.08em] [font-family:'JetBrains_Mono',monospace]">Seed</span></div><p class="text-on-surface-variant text-[14px] mt-0.5" id="modal-subtitle">Islamabad &amp; Lahore, PK • Q4 2026 Dealflow Cohort</p></div></div><span class="px-2.5 py-1 rounded-full bg-primary-fixed/40 text-primary text-[12px] font-bold uppercase tracking-wider [font-family:'JetBrains_Mono',monospace]">Verified Startup</span></div><div class="bg-surface-container-low rounded-xl p-space-md space-y-1.5 border border-outline-variant/40"><span class="text-[12px] uppercase font-bold tracking-wider text-primary [font-family:'JetBrains_Mono',monospace]">Founding Team &amp; Pedigree</span><div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-on-surface font-semibold text-[15px]"><span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px] text-primary">person</span>Usman Tariq <span class="text-on-surface-variant font-normal text-[13px]">(CEO, ex-Daraz Head of Logistics Tech)</span></span><span class="text-outline-variant/60">•</span><span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px] text-primary">code</span>Hamza Tariq <span class="text-on-surface-variant font-normal text-[13px]">(Tech Lead, GIKI)</span></span></div><p class="text-[14px] text-on-surface-variant leading-relaxed pt-1">Bookkeeping automation, micro-invoicing, and inventory tracking engineered for tier-2 bazaar wholesalers and MSMEs.</p></div><div class="grid grid-cols-2 gap-space-sm"><div class="bg-surface-container-low p-space-sm rounded-lg border border-outline-variant/30"><span class="text-[12px] text-on-surface-variant block uppercase tracking-wider [font-family:'JetBrains_Mono',monospace]">Readiness Score</span><span class="text-[20px] font-bold text-primary block" id="modal-score" style="font-family: 'Plus Jakarta Sans', sans-serif;">3.6 / 5.0</span><span class="text-[12px] text-on-surface-variant">Tier-2 merchant distribution network validated</span></div><div class="bg-surface-container-low p-space-sm rounded-lg border border-outline-variant/30"><span class="text-[12px] text-on-surface-variant block uppercase tracking-wider [font-family:'JetBrains_Mono',monospace]">Thesis Alignment</span><span class="text-[20px] font-bold text-on-surface block" id="modal-similarity" style="font-family: 'Plus Jakarta Sans', sans-serif;">82% Match</span><span class="text-[12px] text-on-surface-variant">Fintech Seed • PKR 15M–25M allocation fit</span></div></div><div class="bg-surface-container-lowest border border-outline-variant/60 rounded-xl p-space-md space-y-1.5 shadow-sm"><span class="text-[12px] font-bold text-on-surface-variant uppercase tracking-wider [font-family:'JetBrains_Mono',monospace]">Verified Traction &amp; Operational Metrics</span><p class="text-[14px] text-on-surface font-semibold" id="modal-traction">$11k MRR • 28% MoM growth • 85+ active retail merchants in Lahore &amp; Faisalabad bazaars</p></div><div class="flex items-center gap-2 p-space-sm bg-surface-container rounded-lg text-[13px] text-on-surface-variant"><span class="material-symbols-outlined text-[18px] text-primary shrink-0">lock</span><span>Contact details remain strictly hidden until <strong>both parties accept</strong> an introduction request. Zero cold outreach, zero spam.</span></div><div class="flex items-center justify-end gap-space-sm pt-space-xs"><button class="px-space-md py-2.5 rounded-full text-on-surface-variant hover:text-on-surface hover:bg-surface-container text-[14px] font-medium interactive-press transition-colors cursor-pointer" id="modal-cancel-btn" onclick="document.getElementById('founder-modal-overlay').style.display='none'" type="button">Dismiss</button><button class="px-space-lg py-2.5 rounded-full bg-primary hover:bg-primary-container text-on-primary font-bold text-[14px] uppercase tracking-[0.08em] shadow-md interactive-press transition-all flex items-center gap-1.5 cursor-pointer [font-family:'JetBrains_Mono',monospace]" id="modal-confirm-btn" onclick="document.getElementById('founder-modal-overlay').style.display='none'" type="button"><span class="material-symbols-outlined text-[18px]">outgoing_mail</span><span>Request Introduction</span></button></div></div></div><div class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm" id="match-drawer-overlay" style="display:none;"><div class="fixed right-0 top-0 bottom-0 w-full max-w-md bg-surface-container-lowest/95 backdrop-blur-2xl shadow-2xl p-space-lg border-l border-white/20 flex flex-col justify-between overflow-y-auto" id="match-drawer-panel"><div class="space-y-space-md"><div class="flex items-center justify-between pb-space-xs border-b border-outline-variant/40"><div><span class="text-[12px] uppercase font-bold text-primary tracking-widest [font-family:'JetBrains_Mono',monospace]">Protocol Activity</span><h3 class="text-[22px] font-bold tracking-tight text-on-surface" id="drawer-title" style="font-family: 'Plus Jakarta Sans', sans-serif;">Aasan Payroll</h3></div><button class="w-9 h-9 rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface flex items-center justify-center interactive-press transition-colors" id="drawer-close-btn" type="button"><span class="material-symbols-outlined text-[20px]">close</span></button></div><div class="space-y-space-sm"><div class="flex items-center justify-between p-space-sm bg-surface-container-low rounded-lg"><span class="text-[13px] text-on-surface-variant">Status</span><span class="text-[12px] px-2.5 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-bold uppercase tracking-[0.08em] [font-family:'JetBrains_Mono',monospace]" id="drawer-status-pill">Pending Review</span></div><div class="p-space-md bg-surface-container-low rounded-lg space-y-1.5"><span class="text-[12px] uppercase font-bold text-on-surface-variant [font-family:'JetBrains_Mono',monospace]">Mutual Protocol Timeline</span><ul class="space-y-2 text-[13px] text-on-surface-variant pt-1"><li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[16px]">check_circle</span>Thesis match identified (Nov 2026)</li><li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[16px]">mark_email_read</span>Request dispatched to founder inbox</li><li class="flex items-center gap-2 text-on-surface font-medium"><span class="material-symbols-outlined text-outline text-[16px]">pending</span>Awaiting founder mutual authorization</li></ul></div><div class="p-space-md bg-surface-container rounded-lg space-y-1"><span class="text-[12px] uppercase font-bold text-primary [font-family:'JetBrains_Mono',monospace]">Investment <span style='font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-weight: 400; text-transform: none; color: rgb(177, 95, 44);'>Profile</span></span><p class="text-[13px] text-on-surface-variant leading-relaxed">Phone numbers, WhatsApp handles, and cap table models remain encrypted until mutual agreement.</p></div></div></div><div class="pt-space-md border-t border-outline-variant/40 flex items-center justify-between gap-space-sm"><button class="w-full py-2.5 rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface text-[14px] font-semibold interactive-press transition-colors [font-family:'JetBrains_Mono',monospace] uppercase tracking-[0.08em]" id="drawer-dismiss-btn" type="button">Dismiss</button></div></div></div>
+<script>const STARTUP_DATA = { 'NovaPay': { avatar: 'NP', title: 'NovaPay', badge: 'Fintech', stage: 'Seed', subtitle: 'Karachi, PK • Active Dealflow Cohort', team: '<span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px] text-primary">person</span>Khurram Tariq <span class="text-on-surface-variant font-normal text-[13px]">(CEO, ex-Habib Bank)</span></span><span class="text-outline-variant/60">•</span><span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px] text-primary">code</span>Zehra Fatima <span class="text-on-surface-variant font-normal text-[13px]">(CTO, LUMS)</span></span>', desc: 'Digital wallet for unbanked communities with offline SMS micro-reconciliations.', score: '4.2 / 5.0', scoreSub: 'Validated traction and banking partner API in place', match: '95% Match', matchSub: 'Pre-Seed to Seed • PKR 15M–50M fit', traction: '$140k ARR, 38k active MSME wallets, 42% MoM transacting volume' }, 'LedgerLite': { avatar: 'LL', title: 'LedgerLite', badge: 'Fintech', stage: 'Seed', subtitle: 'Islamabad, PK • Active Dealflow Cohort', team: '<span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px] text-primary">person</span>Usman Qureshi <span class="text-on-surface-variant font-normal text-[13px]">(CEO, ex-Daraz)</span></span><span class="text-outline-variant/60">•</span><span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px] text-primary">code</span>Hamza Tariq <span class="text-on-surface-variant font-normal text-[13px]">(Tech Lead, GIKI)</span></span>', desc: 'Bookkeeping automation and micro-invoicing tailored for tier-2 bazaar wholesalers.', score: '3.6 / 5.0', scoreSub: 'Tier-2 merchant distribution network validated', match: '82% Match', matchSub: 'Seed ticket • PKR 15M–30M fit', traction: '$75k ARR, 1,400 bazaar vendors onboarded across Rawalpindi & Lahore' }, 'SaaSFlow': { avatar: 'SF', title: 'SaaSFlow', badge: 'B2B SaaS', stage: 'Seed', subtitle: 'Karachi & Lahore, PK • Active Dealflow Cohort', team: '<span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px] text-primary">person</span>Bilal Ahmed <span class="text-on-surface-variant font-normal text-[13px]">(CEO, ex-Careem)</span></span><span class="text-outline-variant/60">•</span><span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px] text-primary">code</span>Ayesha Khan <span class="text-on-surface-variant font-normal text-[13px]">(CTO, FAST-NUCES)</span></span>', desc: 'Automated accounting workflows & reconciliation for Pakistan\'s e-commerce founders.', score: '3.9 / 5.0', scoreSub: 'Strong unit economics & product clarity', match: '88% Match', matchSub: 'Pre-Seed to Seed • PKR 15M–30M fit', traction: '$18k MRR ($216k run-rate) • 34% MoM growth • 114 paying SMB merchants in Karachi/Lahore' } }; function openFounderModal(startupName) { const data = STARTUP_DATA[startupName]; if (!data) return; document.getElementById('modal-avatar').textContent = data.avatar; document.getElementById('modal-title').textContent = data.title; document.getElementById('modal-badge').textContent = data.badge; document.getElementById('modal-subtitle').textContent = data.subtitle; document.getElementById('modal-score').textContent = data.score; document.getElementById('modal-similarity').textContent = data.match; document.getElementById('modal-traction').textContent = data.traction; document.getElementById('founder-modal-overlay').style.display = 'flex'; } function closeFounderModal() { document.getElementById('founder-modal-overlay').style.display = 'none'; }</script>
+</body></html>

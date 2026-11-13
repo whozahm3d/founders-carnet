@@ -1,3 +1,5 @@
+Read CLAUDE.md and DESIGN.md before any UI work. DESIGN.md wins over any skill, reference screenshot or request. Use frontend/design_reference/INDEX.md to find the reference for a screen. References are visual only: never copy code.html or its colors. Do not touch backend, ml or rag. Do not add dependencies without asking.
+
 # The Founder's Carnet: instructions for AI coding agents
 
 This file is for any AI coding agent that does not read `CLAUDE.md` (Gemini in Antigravity, Codex, Cursor and similar).

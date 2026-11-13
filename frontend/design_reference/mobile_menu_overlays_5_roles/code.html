@@ -1,0 +1,601 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mobile Menu Overlays — The Founder's Carnet</title>
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,300..700;1,300..700&amp;family=Instrument+Serif:ital@0;1&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            carnet: {
+              ink: '#0A0A0A',
+              inkRaised: '#171717',
+              inkBorder: '#262626',
+              accent: '#B15F2C',
+              accentDeep: '#964E22',
+              accentWash: '#F8EDE5',
+              surface: '#FFFFFF',
+              canvas: '#FAF9F7',
+              fill: '#F1F0EE',
+              trough: '#E8E6E1',
+              muted: '#71717A',
+              subtle: '#52525B',
+              hairline: '#E6E5E2'
+            }
+          },
+          fontFamily: {
+            sans: ['"Hanken Grotesk"', 'sans-serif'],
+            serif: ['"Instrument Serif"', 'Georgia', 'serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #050505;
+      color: #FFFFFF;
+      font-family: 'Hanken Grotesk', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .nav-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-feature-settings: "tnum";
+    }
+
+    .overlay-frame {
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(255, 255, 255, 0.08);
+    }
+
+    .hover-glow:hover {
+      color: #B15F2C;
+      transform: translateX(8px);
+    }
+    
+    .role-tab-btn.active {
+      background-color: #B15F2C;
+      color: #FFFFFF;
+      border-color: #B15F2C;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-[#070707] text-[#FAF9F7] py-10 px-4 sm:px-8">
+
+  <!-- Overview Header -->
+  <div class="max-w-7xl mx-auto mb-10 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-6 pb-8 border-b border-white/10">
+    <div class="flex items-center gap-4">
+      <div class="w-12 h-12 rounded-xl bg-[#0A0A0A] border border-white/15 flex items-center justify-center shadow-lg shadow-black/60 relative overflow-hidden">
+        <svg viewBox="0 0 64 64" class="w-8 h-8">
+          <rect width="64" height="64" rx="14" fill="#0A0A0A"></rect>
+          <path d="M45 0H52V22L48.5 18L45 22Z" fill="#B15F2C"></path>
+          <path d="M14 14H40V23H24V28.5H36V37.5H24V50H14Z" fill="#FFFFFF"></path>
+        </svg>
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="inline-block w-2 h-2 rounded-full bg-[#B15F2C]"></span>
+          <span class="font-mono text-xs tracking-widest uppercase text-white/50">Mobile Architecture // Spec 12</span>
+        </div>
+        <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-white mt-1">
+          Role-Specific Mobile <span class="font-serif italic font-normal text-[#F5C842]">Navigation Overlays</span>
+        </h1>
+      </div>
+    </div>
+
+    <!-- Quick Role Filter Controller -->
+    <div class="flex flex-wrap items-center justify-center gap-2 bg-white/5 p-1.5 rounded-full border border-white/10">
+      <button onclick="switchRoleView('all')" id="tab-all" class="role-tab-btn hover:text-white px-4 py-2 rounded-full font-mono text-xs uppercase tracking-wider transition-all duration-200 active">All (5 Roles)</button>
+      <button onclick="switchRoleView('founder')" id="tab-founder" class="role-tab-btn px-4 py-2 rounded-full font-mono text-xs uppercase tracking-wider transition-all duration-200 text-white/70">Founder</button>
+      <button onclick="switchRoleView('talent')" id="tab-talent" class="role-tab-btn text-white/70 hover:text-white px-4 py-2 rounded-full font-mono text-xs uppercase tracking-wider transition-all duration-200">
+        Talent
+      </button>
+      <button onclick="switchRoleView('mentor')" id="tab-mentor" class="role-tab-btn text-white/70 hover:text-white px-4 py-2 rounded-full font-mono text-xs uppercase tracking-wider transition-all duration-200">
+        Mentor
+      </button>
+      <button onclick="switchRoleView('investor')" id="tab-investor" class="role-tab-btn text-white/70 hover:text-white px-4 py-2 rounded-full font-mono text-xs uppercase tracking-wider transition-all duration-200">
+        Investor
+      </button>
+      <button onclick="switchRoleView('admin')" id="tab-admin" class="role-tab-btn text-white/70 hover:text-white px-4 py-2 rounded-full font-mono text-xs uppercase tracking-wider transition-all duration-200">
+        Admin
+      </button>
+    </div>
+  </div>
+
+  <!-- Role Overlays Container (390px Mobile Viewports side-by-side or individually) -->
+  <div id="overlays-grid" class="max-w-7xl mx-auto flex flex-wrap justify-center items-start gap-10">
+
+    <!-- 01. FOUNDER OVERLAY -->
+    <div class="role-overlay-card w-full max-w-[390px] shrink-0" data-role="founder">
+      <div class="text-center mb-3">
+        <span class="font-mono text-xs uppercase tracking-widest text-[#B15F2C] bg-[#B15F2C]/10 px-3 py-1 rounded-full border border-[#B15F2C]/30">Role 01 · Founder Workspace</span>
+      </div>
+      
+      <!-- Screen Mockup 390px x 844px -->
+      <div class="overlay-frame h-[780px] w-full bg-[#0A0A0A] rounded-[36px] p-6 flex flex-col justify-between border border-white/15 relative overflow-hidden">
+        <!-- Ambient subtle warm orange glow at corner -->
+        <div class="absolute -top-24 -right-24 w-64 h-64 bg-[#B15F2C]/15 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-24 -left-24 w-64 h-64 bg-[#F5C842]/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <!-- Top Header: Logo + Brand + Close Button -->
+        <div class="flex items-center justify-between pb-6 border-b border-white/10 relative z-10">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-[#171717] border border-white/15 flex items-center justify-center">
+              <svg viewBox="0 0 64 64" class="w-5 h-5">
+                <rect width="64" height="64" rx="14" fill="#0A0A0A"></rect>
+                <path d="M45 0H52V22L48.5 18L45 22Z" fill="#B15F2C"></path>
+                <path d="M14 14H40V23H24V28.5H36V37.5H24V50H14Z" fill="#FFFFFF"></path>
+              </svg>
+            </div>
+            <div>
+              <p class="font-semibold text-sm tracking-tight text-white">The Founder's Carnet</p>
+              <div class="flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-[#047857]"></span>
+                <p class="font-mono text-[10px] text-white/50 uppercase tracking-widest">Founder // Karachi</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Close Button Top Right -->
+          <button aria-label="Close mobile menu" class="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 active:scale-95 text-white flex items-center justify-center border border-white/10 transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Role Nav Items: Large Numbered Links -->
+        <!-- Founder Nav: Dashboard, Profile, Readiness score, Pitch practice, Session feedback, Matches -->
+        <nav class="my-auto py-4 flex flex-col space-y-4 relative z-10">
+          <a href="#" class="group flex items-baseline gap-4 text-white hover:text-[#B15F2C] transition-all duration-300">
+            <span class="nav-num text-xs font-mono text-white/35 group-hover:text-[#B15F2C] transition-colors">01</span>
+            <span class="text-2xl font-bold tracking-tight">Dashboard</span>
+            <span class="ml-auto font-mono text-[10px] text-white/30 uppercase tracking-wider group-hover:text-white/60">Overview</span>
+          </a>
+
+          <a href="#" class="group flex items-baseline gap-4 text-white/80 hover:text-white transition-all duration-300">
+            <span class="nav-num text-xs font-mono text-white/35 group-hover:text-[#B15F2C] transition-colors">02</span>
+            <span class="text-2xl font-bold tracking-tight">Profile</span>
+          </a>
+
+          <a href="#" class="group flex items-baseline gap-4 text-white/80 hover:text-white transition-all duration-300">
+            <span class="nav-num text-xs font-mono text-white/35 group-hover:text-[#B15F2C] transition-colors">03</span>
+            <div class="flex items-center gap-2">
+              <span class="text-2xl font-bold tracking-tight">Readiness score</span>
+              <span class="font-mono text-[10px] bg-[#B15F2C]/20 text-[#F5C842] px-2 py-0.5 rounded-full border border-[#B15F2C]/30">3.1/5</span>
+            </div>
+          </a>
+
+          <a href="#" class="group flex items-baseline gap-4 text-white/80 hover:text-white transition-all duration-300">
+            <span class="nav-num text-xs font-mono text-white/35 group-hover:text-[#B15F2C] transition-colors">04</span>
+            <span class="text-2xl font-bold tracking-tight">Pitch practice</span>
+          </a>
+
+          <a href="#" class="group flex items-baseline gap-4 text-white/80 hover:text-white transition-all duration-300">
+            <span class="nav-num text-xs font-mono text-white/35 group-hover:text-[#B15F2C] transition-colors">05</span>
+            <span class="text-2xl font-bold tracking-tight">Session feedback</span>
+          </a>
+
+          <a href="#" class="group flex items-baseline gap-4 text-white/80 hover:text-white transition-all duration-300">
+            <span class="nav-num text-xs font-mono text-white/35 group-hover:text-[#B15F2C] transition-colors">06</span>
+            <span class="text-2xl font-bold tracking-tight">Matches</span>
+            <span class="ml-auto font-mono text-[10px] bg-white/10 text-white/70 px-2 py-0.5 rounded-full">18</span>
+          </a>
+        </nav>
+
+        <!-- Bottom User Card & Sign Out Button -->
+        <div class="pt-5 border-t border-white/10 flex flex-col gap-3 relative z-10">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-full bg-[#171717] border border-white/20 flex items-center justify-center font-mono text-xs font-semibold text-white">
+                BA
+              </div>
+              <div>
+                <p class="text-sm font-semibold text-white">Bilal Ahmed</p>
+                <p class="font-mono text-[11px] text-white/50">Munshi Books · Seed</p>
+              </div>
+            </div>
+            <span class="font-mono text-[11px] text-white/40">PKT 18:42</span>
+          </div>
+
+          <button class="w-full py-3 px-4 rounded-full bg-white/5 hover:bg-white/10 border border-white/15 text-white/80 hover:text-white flex items-center justify-center gap-2 font-mono text-xs uppercase tracking-wider transition-all duration-200">
+            <svg class="w-4 h-4 text-white/60" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+            </svg>
+            Sign out
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 02. TALENT OVERLAY -->
+    <div class="role-overlay-card w-full max-w-[390px] shrink-0" data-role="talent">
+      <div class="text-center mb-3">
+        <span class="font-mono text-xs uppercase tracking-widest text-[#B15F2C] bg-[#B15F2C]/10 px-3 py-1 rounded-full border border-[#B15F2C]/30">Role 02 · Talent Workspace</span>
+      </div>
+      
+      <!-- Screen Mockup 390px x 844px -->
+      <div class="overlay-frame h-[780px] w-full bg-[#0A0A0A] rounded-[36px] p-6 flex flex-col justify-between border border-white/15 relative overflow-hidden">
+        <div class="absolute -top-24 -right-24 w-64 h-64 bg-[#B15F2C]/15 rounded-full blur-3xl pointer-events-none"></div>
+
+        <!-- Top Header: Logo + Close -->
+        <div class="flex items-center justify-between pb-6 border-b border-white/10 relative z-10">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-[#171717] border border-white/15 flex items-center justify-center">
+              <svg viewBox="0 0 64 64" class="w-5 h-5">
+                <rect width="64" height="64" rx="14" fill="#0A0A0A"></rect>
+                <path d="M45 0H52V22L48.5 18L45 22Z" fill="#B15F2C"></path>
+                <path d="M14 14H40V23H24V28.5H36V37.5H24V50H14Z" fill="#FFFFFF"></path>
+              </svg>
+            </div>
+            <div>
+              <p class="font-semibold text-sm tracking-tight text-white">The Founder's Carnet</p>
+              <div class="flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-[#047857]"></span>
+                <p class="font-mono text-[10px] text-white/50 uppercase tracking-widest">Talent // Lahore</p>
+              </div>
+            </div>
+          </div>
+
+          <button aria-label="Close mobile menu" class="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 active:scale-95 text-white flex items-center justify-center border border-white/10 transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Talent Nav: Dashboard, Profile, Resume, Jobs, Matches -->
+        <nav class="my-auto py-6 flex flex-col space-y-5 relative z-10">
+          <a href="#" class="group flex items-baseline gap-4 text-white hover:text-[#B15F2C] transition-all duration-300">
+            <span class="nav-num text-xs font-mono text-white/35 group-hover:text-[#B15F2C] transition-colors">01</span>
+            <span class="text-2xl font-bold tracking-tight">Dashboard</span>
+            <span class="ml-auto font-mono text-[10px] text-white/30 uppercase tracking-wider group-hover:text-white/60">Home</span>
+          </a>
+
+          <a href="#" class="group flex items-baseline gap-4 text-white/80 hover:text-white transition-all duration-300">
+            <span class="nav-num text-xs font-mono text-white/35 group-hover:text-[#B15F2C] transition-colors">02</span>
+            <span class="text-2xl font-bold tracking-tight">Profile</span>
+          </a>
+
+          <a href="#" class="group flex items-baseline gap-4 text-white/80 hover:text-white transition-all duration-300">
+            <span class="nav-num text-xs font-mono text-white/35 group-hover:text-[#B15F2C] transition-colors">03</span>
+            <div class="flex items-center gap-2">
+              <span class="text-2xl font-bold tracking-tight">Resume</span>
+              <span class="font-mono text-[10px] bg-[#047857]/20 text-[#34D399] px-2 py-0.5 rounded-full border border-[#047857]/30">PDF Active</span>
+            </div>
+          </a>
+
+          <a href="#" class="group flex items-baseline gap-4 text-white/80 hover:text-white transition-all duration-300">
+            <span class="nav-num text-xs font-mono text-white/35 group-hover:text-[#B15F2C] transition-colors">04</span>
+            <span class="text-2xl font-bold tracking-tight">Jobs</span>
+            <span class="ml-auto font-mono text-[10px] bg-white/10 text-white/70 px-2 py-0.5 rounded-full">24 roles</span>
+          </a>
+
+          <a href="#" class="group flex items-baseline gap-4 text-white/80 hover:text-white transition-all duration-300">
+            <span class="nav-num text-xs font-mono text-white/35 group-hover:text-[#B15F2C] transition-colors">05</span>
+            <span class="text-2xl font-bold tracking-tight">Matches</span>
+          </a>
+        </nav>
+
+        <!-- Bottom User Info & Sign Out -->
+        <div class="pt-5 border-t border-white/10 flex flex-col gap-3 relative z-10">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-full bg-[#171717] border border-white/20 flex items-center justify-center font-mono text-xs font-semibold text-white">
+                HI
+              </div>
+              <div>
+                <p class="text-sm font-semibold text-white">Hamza Iqbal</p>
+                <p class="font-mono text-[11px] text-white/50">Backend Dev · Verified</p>
+              </div>
+            </div>
+            <span class="font-mono text-[11px] text-white/40">PKT 18:42</span>
+          </div>
+
+          <button class="w-full py-3 px-4 rounded-full bg-white/5 hover:bg-white/10 border border-white/15 text-white/80 hover:text-white flex items-center justify-center gap-2 font-mono text-xs uppercase tracking-wider transition-all duration-200">
+            <svg class="w-4 h-4 text-white/60" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+            </svg>
+            Sign out
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 03. MENTOR OVERLAY -->
+    <div class="role-overlay-card w-full max-w-[390px] shrink-0" data-role="mentor">
+      <div class="text-center mb-3">
+        <span class="font-mono text-xs uppercase tracking-widest text-[#B15F2C] bg-[#B15F2C]/10 px-3 py-1 rounded-full border border-[#B15F2C]/30">Role 03 · Mentor Atelier</span>
+      </div>
+      
+      <!-- Screen Mockup 390px x 844px -->
+      <div class="overlay-frame h-[780px] w-full bg-[#0A0A0A] rounded-[36px] p-6 flex flex-col justify-between border border-white/15 relative overflow-hidden">
+        <div class="absolute -top-24 -right-24 w-64 h-64 bg-[#B15F2C]/15 rounded-full blur-3xl pointer-events-none"></div>
+
+        <!-- Top Header: Logo + Close -->
+        <div class="flex items-center justify-between pb-6 border-b border-white/10 relative z-10">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-[#171717] border border-white/15 flex items-center justify-center">
+              <svg viewBox="0 0 64 64" class="w-5 h-5">
+                <rect width="64" height="64" rx="14" fill="#0A0A0A"></rect>
+                <path d="M45 0H52V22L48.5 18L45 22Z" fill="#B15F2C"></path>
+                <path d="M14 14H40V23H24V28.5H36V37.5H24V50H14Z" fill="#FFFFFF"></path>
+              </svg>
+            </div>
+            <div>
+              <p class="font-semibold text-sm tracking-tight text-white">The Founder's Carnet</p>
+              <div class="flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-[#047857]"></span>
+                <p class="font-mono text-[10px] text-white/50 uppercase tracking-widest">Mentor // Islamabad</p>
+              </div>
+            </div>
+          </div>
+
+          <button aria-label="Close mobile menu" class="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 active:scale-95 text-white flex items-center justify-center border border-white/10 transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Mentor Nav: Dashboard, Profile, Requests -->
+        <nav class="my-auto py-8 flex flex-col space-y-7 relative z-10">
+          <a href="#" class="group flex items-baseline gap-4 text-white hover:text-[#B15F2C] transition-all duration-300">
+            <span class="nav-num text-xs font-mono text-white/35 group-hover:text-[#B15F2C] transition-colors">01</span>
+            <span class="text-3xl font-bold tracking-tight">Dashboard</span>
+            <span class="ml-auto font-mono text-[10px] text-white/30 uppercase tracking-wider group-hover:text-white/60">Overview</span>
+          </a>
+
+          <a href="#" class="group flex items-baseline gap-4 text-white/80 hover:text-white transition-all duration-300">
+            <span class="nav-num text-xs font-mono text-white/35 group-hover:text-[#B15F2C] transition-colors">02</span>
+            <span class="text-3xl font-bold tracking-tight">Profile</span>
+          </a>
+
+          <a href="#" class="group flex items-baseline gap-4 text-white/80 hover:text-white transition-all duration-300">
+            <span class="nav-num text-xs font-mono text-white/35 group-hover:text-[#B15F2C] transition-colors">03</span>
+            <div class="flex items-center gap-2">
+              <span class="text-3xl font-bold tracking-tight">Requests</span>
+              <span class="font-mono text-xs bg-[#B15F2C] text-white px-2 py-0.5 rounded-full font-semibold">3 new</span>
+            </div>
+          </a>
+        </nav>
+
+        <!-- Bottom User Info & Sign Out -->
+        <div class="pt-5 border-t border-white/10 flex flex-col gap-3 relative z-10">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-full bg-[#171717] border border-white/20 flex items-center justify-center font-mono text-xs font-semibold text-white">
+                AK
+              </div>
+              <div>
+                <p class="text-sm font-semibold text-white">Asad Khan</p>
+                <p class="font-mono text-[11px] text-white/50">Ex-VP Product · 4h/mo</p>
+              </div>
+            </div>
+            <span class="font-mono text-[11px] text-white/40">PKT 18:42</span>
+          </div>
+
+          <button class="w-full py-3 px-4 rounded-full bg-white/5 hover:bg-white/10 border border-white/15 text-white/80 hover:text-white flex items-center justify-center gap-2 font-mono text-xs uppercase tracking-wider transition-all duration-200">
+            <svg class="w-4 h-4 text-white/60" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+            </svg>
+            Sign out
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 04. INVESTOR OVERLAY -->
+    <div class="role-overlay-card w-full max-w-[390px] shrink-0" data-role="investor">
+      <div class="text-center mb-3">
+        <span class="font-mono text-xs uppercase tracking-widest text-[#B15F2C] bg-[#B15F2C]/10 px-3 py-1 rounded-full border border-[#B15F2C]/30">Role 04 · Investor Dealflow</span>
+      </div>
+      
+      <!-- Screen Mockup 390px x 844px -->
+      <div class="overlay-frame h-[780px] w-full bg-[#0A0A0A] rounded-[36px] p-6 flex flex-col justify-between border border-white/15 relative overflow-hidden">
+        <div class="absolute -top-24 -right-24 w-64 h-64 bg-[#B15F2C]/15 rounded-full blur-3xl pointer-events-none"></div>
+
+        <!-- Top Header: Logo + Close -->
+        <div class="flex items-center justify-between pb-6 border-b border-white/10 relative z-10">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-[#171717] border border-white/15 flex items-center justify-center">
+              <svg viewBox="0 0 64 64" class="w-5 h-5">
+                <rect width="64" height="64" rx="14" fill="#0A0A0A"></rect>
+                <path d="M45 0H52V22L48.5 18L45 22Z" fill="#B15F2C"></path>
+                <path d="M14 14H40V23H24V28.5H36V37.5H24V50H14Z" fill="#FFFFFF"></path>
+              </svg>
+            </div>
+            <div>
+              <p class="font-semibold text-sm tracking-tight text-white">The Founder's Carnet</p>
+              <div class="flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-[#047857]"></span>
+                <p class="font-mono text-[10px] text-white/50 uppercase tracking-widest">Investor // Karachi</p>
+              </div>
+            </div>
+          </div>
+
+          <button aria-label="Close mobile menu" class="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 active:scale-95 text-white flex items-center justify-center border border-white/10 transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Investor Nav: Dashboard, Profile, Founders, Requests -->
+        <nav class="my-auto py-6 flex flex-col space-y-6 relative z-10">
+          <a href="#" class="group flex items-baseline gap-4 text-white hover:text-[#B15F2C] transition-all duration-300">
+            <span class="nav-num text-xs font-mono text-white/35 group-hover:text-[#B15F2C] transition-colors">01</span>
+            <span class="text-2xl font-bold tracking-tight">Dashboard</span>
+            <span class="ml-auto font-mono text-[10px] text-white/30 uppercase tracking-wider group-hover:text-white/60">Dealflow</span>
+          </a>
+
+          <a href="#" class="group flex items-baseline gap-4 text-white/80 hover:text-white transition-all duration-300">
+            <span class="nav-num text-xs font-mono text-white/35 group-hover:text-[#B15F2C] transition-colors">02</span>
+            <span class="text-2xl font-bold tracking-tight">Profile</span>
+          </a>
+
+          <a href="#" class="group flex items-baseline gap-4 text-white/80 hover:text-white transition-all duration-300">
+            <span class="nav-num text-xs font-mono text-white/35 group-hover:text-[#B15F2C] transition-colors">03</span>
+            <div class="flex items-center gap-2">
+              <span class="text-2xl font-bold tracking-tight">Founders</span>
+              <span class="font-mono text-[10px] bg-white/10 text-white/70 px-2 py-0.5 rounded-full">18 Vetted</span>
+            </div>
+          </a>
+
+          <a href="#" class="group flex items-baseline gap-4 text-white/80 hover:text-white transition-all duration-300">
+            <span class="nav-num text-xs font-mono text-white/35 group-hover:text-[#B15F2C] transition-colors">04</span>
+            <span class="text-2xl font-bold tracking-tight">Requests</span>
+            <span class="ml-auto font-mono text-[10px] bg-[#B15F2C]/30 text-[#F5C842] px-2 py-0.5 rounded-full">2 pending</span>
+          </a>
+        </nav>
+
+        <!-- Bottom User Info & Sign Out -->
+        <div class="pt-5 border-t border-white/10 flex flex-col gap-3 relative z-10">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-full bg-[#171717] border border-white/20 flex items-center justify-center font-mono text-xs font-semibold text-white">
+                SR
+              </div>
+              <div>
+                <p class="text-sm font-semibold text-white">Sana Rauf</p>
+                <p class="font-mono text-[11px] text-white/50">Margalla Ventures · Pre-Seed</p>
+              </div>
+            </div>
+            <span class="font-mono text-[11px] text-white/40">PKT 18:42</span>
+          </div>
+
+          <button class="w-full py-3 px-4 rounded-full bg-white/5 hover:bg-white/10 border border-white/15 text-white/80 hover:text-white flex items-center justify-center gap-2 font-mono text-xs uppercase tracking-wider transition-all duration-200">
+            <svg class="w-4 h-4 text-white/60" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+            </svg>
+            Sign out
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 05. ADMIN OVERLAY -->
+    <div class="role-overlay-card w-full max-w-[390px] shrink-0" data-role="admin">
+      <div class="text-center mb-3">
+        <span class="font-mono text-xs uppercase tracking-widest text-[#B15F2C] bg-[#B15F2C]/10 px-3 py-1 rounded-full border border-[#B15F2C]/30">Role 05 · Admin Console</span>
+      </div>
+      
+      <!-- Screen Mockup 390px x 844px -->
+      <div class="overlay-frame h-[780px] w-full bg-[#0A0A0A] rounded-[36px] p-6 flex flex-col justify-between border border-white/15 relative overflow-hidden">
+        <div class="absolute -top-24 -right-24 w-64 h-64 bg-[#B15F2C]/15 rounded-full blur-3xl pointer-events-none"></div>
+
+        <!-- Top Header: Logo + Close -->
+        <div class="flex items-center justify-between pb-6 border-b border-white/10 relative z-10">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-[#171717] border border-white/15 flex items-center justify-center">
+              <svg viewBox="0 0 64 64" class="w-5 h-5">
+                <rect width="64" height="64" rx="14" fill="#0A0A0A"></rect>
+                <path d="M45 0H52V22L48.5 18L45 22Z" fill="#B15F2C"></path>
+                <path d="M14 14H40V23H24V28.5H36V37.5H24V50H14Z" fill="#FFFFFF"></path>
+              </svg>
+            </div>
+            <div>
+              <p class="font-semibold text-sm tracking-tight text-white">The Founder's Carnet</p>
+              <div class="flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-[#B15F2C]"></span>
+                <p class="font-mono text-[10px] text-white/50 uppercase tracking-widest">Admin // Trust &amp; Ops</p>
+              </div>
+            </div>
+          </div>
+
+          <button aria-label="Close mobile menu" class="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 active:scale-95 text-white flex items-center justify-center border border-white/10 transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Admin Nav: Console (Sole primary nav item as specified in DESIGN.md) -->
+        <nav class="my-auto py-8 flex flex-col space-y-6 relative z-10">
+          <a href="#" class="group flex items-baseline gap-4 text-white hover:text-[#B15F2C] transition-all duration-300">
+            <span class="nav-num text-xs font-mono text-white/35 group-hover:text-[#B15F2C] transition-colors">01</span>
+            <span class="text-3xl font-bold tracking-tight">Console</span>
+            <span class="ml-auto font-mono text-[10px] text-white/30 uppercase tracking-wider group-hover:text-white/60">Active</span>
+          </a>
+
+          <!-- Secondary queue bookmarks for fast admin audit -->
+          <div class="pt-6 border-t border-white/10 space-y-4">
+            <p class="font-mono text-[10px] uppercase tracking-widest text-white/40">Moderation Desks</p>
+            <div class="flex items-center justify-between text-white/70 hover:text-white text-base font-medium py-1 transition">
+              <span>Profiles awaiting review</span>
+              <span class="font-mono text-xs bg-white/10 px-2 py-0.5 rounded-full text-white">2</span>
+            </div>
+            <div class="flex items-center justify-between text-white/70 hover:text-white text-base font-medium py-1 transition">
+              <span>Appeals pending</span>
+              <span class="font-mono text-xs bg-[#B15F2C]/30 text-[#F5C842] px-2 py-0.5 rounded-full">1</span>
+            </div>
+            <div class="flex items-center justify-between text-white/70 hover:text-white text-base font-medium py-1 transition">
+              <span>Decided today</span>
+              <span class="font-mono text-xs bg-white/10 px-2 py-0.5 rounded-full text-white/60">2</span>
+            </div>
+          </div>
+        </nav>
+
+        <!-- Bottom User Info & Sign Out -->
+        <div class="pt-5 border-t border-white/10 flex flex-col gap-3 relative z-10">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-full bg-[#171717] border border-white/20 flex items-center justify-center font-mono text-xs font-semibold text-white">
+                AD
+              </div>
+              <div>
+                <p class="text-sm font-semibold text-white">Platform Moderator</p>
+                <p class="font-mono text-[11px] text-white/50">Lead Council #01</p>
+              </div>
+            </div>
+            <span class="font-mono text-[11px] text-white/40">PKT 18:42</span>
+          </div>
+
+          <button class="w-full py-3 px-4 rounded-full bg-white/5 hover:bg-white/10 border border-white/15 text-white/80 hover:text-white flex items-center justify-center gap-2 font-mono text-xs uppercase tracking-wider transition-all duration-200">
+            <svg class="w-4 h-4 text-white/60" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+            </svg>
+            Sign out
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Interactive Filtering Logic -->
+  <script>
+    function switchRoleView(role) {
+      // Toggle button styles
+      document.querySelectorAll('.role-tab-btn').forEach(btn => {
+        btn.classList.remove('active', 'bg-[#B15F2C]', 'text-white');
+        btn.classList.add('text-white/70');
+      });
+      
+      const activeBtn = document.getElementById('tab-' + role);
+      if (activeBtn) {
+        activeBtn.classList.add('active', 'bg-[#B15F2C]', 'text-white');
+        activeBtn.classList.remove('text-white/70');
+      }
+
+      // Filter cards
+      const cards = document.querySelectorAll('.role-overlay-card');
+      cards.forEach(card => {
+        if (role === 'all' || card.getAttribute('data-role') === role) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+  </script>
+
+
+
+</body></html>

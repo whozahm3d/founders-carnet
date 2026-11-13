@@ -1,0 +1,462 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile Verification States — The Founder's Carnet</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&amp;family=Instrument+Serif:ital@0;1&amp;family=JetBrains+Mono:wght@400;500&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Hanken Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #FAF9F7;
+      color: #0A0A0A;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+    .font-serif-italic {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-style: italic;
+    }
+    .font-mono-code {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .bg-warm-hero {
+      background: radial-gradient(circle at 85% 15%, #F5C842 0%, #FF8A2B 22%, #C4451A 50%, #3A1206 100%);
+    }
+    .frame-shadow {
+      box-shadow: 0 16px 40px -8px rgba(10, 10, 10, 0.08), 0 2px 6px rgba(10, 10, 10, 0.02);
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-[#FAF9F7] text-[#0A0A0A] py-12 px-6 lg:px-12">
+
+  <!-- Header Section -->
+  <header class="max-w-7xl mx-auto mb-12">
+    <div class="flex items-center justify-between border-b border-[#E2DFD9] pb-6">
+      <div class="flex items-center gap-3">
+        <svg class="w-10 h-10 flex-shrink-0" viewBox="0 0 64 64">
+          <rect width="64" height="64" rx="14" fill="#0A0A0A"></rect>
+          <path d="M45 0H52V22L48.5 18L45 22Z" fill="#B15F2C"></path>
+          <path d="M14 14H40V23H24V28.5H36V37.5H24V50H14Z" fill="#fff"></path>
+        </svg>
+        <div>
+          <span class="text-xl font-bold tracking-tight text-[#0A0A0A] block">The Founder's Carnet</span>
+          <span class="text-xs text-[#71717A] tracking-wider uppercase font-mono-code">Verification Flow &amp; State Specifications</span>
+        </div>
+      </div>
+      <div class="text-right">
+        <span class="inline-block px-3 py-1 bg-white border border-[#E2DFD9] rounded-full text-xs font-medium text-[#52525B]">
+          Three distinct operational states
+        </span>
+      </div>
+    </div>
+    
+    <div class="mt-8 max-w-3xl">
+      <h1 class="text-3xl lg:text-4xl font-bold tracking-tight text-[#0A0A0A]">
+        Profile verification <span class="font-serif-italic font-normal text-[#B15F2C] text-4xl lg:text-5xl">states</span>
+      </h1>
+      <p class="mt-3 text-base text-[#52525B] leading-relaxed">
+        Profiles submitted across Karachi, Lahore, and Islamabad undergo automated data checks followed by an objective peer reviewer. Below are the three post-submission screens shown as standalone frames.
+      </p>
+    </div>
+  </header>
+
+  <!-- Main 3 Frames Grid -->
+  <main class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
+    <!-- ==================== STATE 1: UNDER REVIEW ==================== -->
+    <section class="flex flex-col bg-white rounded-[24px] border border-[#E2DFD9] frame-shadow overflow-hidden w-full">
+      <!-- Frame Label -->
+      <div class="bg-[#F1F0EE] px-6 py-3.5 border-b border-[#E2DFD9] flex items-center justify-between">
+        <span class="text-xs font-semibold text-[#52525B] uppercase tracking-wider font-mono-code">Frame 01</span>
+        <span class="text-xs font-medium text-[#0A0A0A]">State: Under review</span>
+      </div>
+
+      <!-- State Card Body -->
+      <div class="p-6 lg:p-8 flex flex-col justify-between min-h-[580px]">
+        <div>
+          <!-- Plain Text Status (No badge) -->
+          <div class="mb-4">
+            <span class="text-sm font-semibold text-[#B15F2C] uppercase tracking-wider font-mono-code">Current status</span>
+            <p class="text-xl font-semibold text-[#0A0A0A] mt-1">Under review</p>
+          </div>
+
+          <h2 class="text-2xl font-bold tracking-tight text-[#0A0A0A] leading-tight mb-3">
+            Your profile is currently with a reviewer
+          </h2>
+
+          <p class="text-base text-[#52525B] leading-relaxed mb-6">
+            Automated checks on your details are complete. A member of the network team is now conducting a human review to verify ecosystem fit.
+          </p>
+
+          <!-- Divider -->
+          <div class="h-px bg-[#E6E5E2] w-full my-6"></div>
+
+          <!-- What Happens Next Section -->
+          <div>
+            <h3 class="text-sm font-bold text-[#0A0A0A] uppercase tracking-wider font-mono-code mb-4">
+              What happens next
+            </h3>
+            
+            <ul class="space-y-4">
+              <li class="flex items-start gap-3">
+                <span class="text-xs font-mono font-bold text-[#71717A] mt-0.5">01</span>
+                <div>
+                  <p class="text-sm font-semibold text-[#0A0A0A]">Human review</p>
+                  <p class="text-sm text-[#71717A] mt-0.5 leading-normal">
+                    We evaluate startup links, sector experience, and track record. Most reviews finish within 24 hours.
+                  </p>
+                </div>
+              </li>
+
+              <li class="flex items-start gap-3">
+                <span class="text-xs font-mono font-bold text-[#71717A] mt-0.5">02</span>
+                <div>
+                  <p class="text-sm font-semibold text-[#0A0A0A]">Email notification</p>
+                  <p class="text-sm text-[#71717A] mt-0.5 leading-normal">
+                    You will receive an email as soon as a determination is recorded on your profile.
+                  </p>
+                </div>
+              </li>
+
+              <li class="flex items-start gap-3">
+                <span class="text-xs font-mono font-bold text-[#71717A] mt-0.5">03</span>
+                <div>
+                  <p class="text-sm font-semibold text-[#0A0A0A]">Mutual-consent introductions</p>
+                  <p class="text-sm text-[#71717A] mt-0.5 leading-normal">
+                    Once approved, your profile becomes visible and you may request introductions. Contact details remain hidden until both parties accept.
+                  </p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Frame Action Footer -->
+        <div class="mt-8 pt-6 border-t border-[#E6E5E2]">
+          <p class="text-xs text-[#71717A] leading-relaxed">
+            Need to update information before review finishes? Contact the review desk directly.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== STATE 2: APPROVED ==================== -->
+    <section class="flex flex-col bg-white rounded-[24px] border border-[#E2DFD9] frame-shadow overflow-hidden w-full">
+      <!-- Frame Label -->
+      <div class="bg-[#F1F0EE] px-6 py-3.5 border-b border-[#E2DFD9] flex items-center justify-between">
+        <span class="text-xs font-semibold text-[#52525B] uppercase tracking-wider font-mono-code">Frame 02</span>
+        <span class="text-xs font-medium text-[#047857]">State: Approved</span>
+      </div>
+
+      <!-- State Card Body -->
+      <div class="p-6 lg:p-8 flex flex-col justify-between min-h-[580px]">
+        <div>
+          <!-- Plain Text Status (No badge) -->
+          <div class="mb-4">
+            <span class="text-sm font-semibold text-[#047857] uppercase tracking-wider font-mono-code">Current status</span>
+            <p class="text-xl font-semibold text-[#0A0A0A] mt-1">Approved</p>
+          </div>
+
+          <h2 class="text-2xl font-bold tracking-tight text-[#0A0A0A] leading-tight mb-3">
+            Your profile is now live on the network
+          </h2>
+
+          <p class="text-base text-[#52525B] leading-relaxed mb-6">
+            Verification is complete. Your profile is active and visible to verified founders, talent, mentors, and vetted capital across Pakistan.
+          </p>
+
+          <!-- Divider -->
+          <div class="h-px bg-[#E6E5E2] w-full my-6"></div>
+
+          <!-- Feature Recap List -->
+          <div class="space-y-4 mb-8">
+            <div class="p-4 rounded-xl bg-[#F4F2FD]/50 border border-[#E2DFD9]/60">
+              <p class="text-sm font-semibold text-[#0A0A0A]">Readiness rubric enabled</p>
+              <p class="text-xs text-[#52525B] mt-1 leading-normal">
+                Review your 7-dimension rubric guide and practice pitch simulations with AI feedback.
+              </p>
+            </div>
+
+            <div class="p-4 rounded-xl bg-[#FAF9F7] border border-[#E2DFD9]/60">
+              <p class="text-sm font-semibold text-[#0A0A0A]">Profile similarity matching active</p>
+              <p class="text-xs text-[#52525B] mt-1 leading-normal">
+                Send introduction requests. Remember: contact details are revealed only after both parties accept.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Dashboard Action with Destination Menu / Transition -->
+        <div class="pt-6 border-t border-[#E6E5E2] relative">
+          <button id="open-dashboard-menu-btn" type="button" onclick="document.getElementById('dashboard-menu-modal').classList.remove('hidden')" class="w-full inline-flex items-center justify-center h-12 px-6 rounded-full bg-[#0A0A0A] text-white font-semibold text-sm hover:bg-[#171717] focus:outline-none focus:ring-2 focus:ring-[#B15F2C] focus:ring-offset-2 transition-all group">
+            <span>Go to dashboard</span>
+            <span class="ml-3 w-7 h-7 rounded-full bg-white/20 flex items-center justify-center group-hover:bg-[#B15F2C] transition-colors">
+              <svg class="w-3.5 h-3.5 text-white transform group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+              </svg>
+            </span>
+          </button>
+          <div class="text-center mt-2.5">
+            <span class="text-[11px] text-[#71717A]">Founder &amp; Mentor portals ready</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== STATE 3: REJECTED ==================== -->
+    <section class="flex flex-col bg-white rounded-[24px] border border-[#E2DFD9] frame-shadow overflow-hidden w-full md:col-span-2 lg:col-span-1">
+      <!-- Frame Label -->
+      <div class="bg-[#F1F0EE] px-6 py-3.5 border-b border-[#E2DFD9] flex items-center justify-between">
+        <span class="text-xs font-semibold text-[#52525B] uppercase tracking-wider font-mono-code">Frame 03</span>
+        <span class="text-xs font-medium text-[#B91C1C]">State: Rejected</span>
+      </div>
+
+      <!-- State Card Body -->
+      <div class="p-6 lg:p-8 flex flex-col justify-between min-h-[580px]">
+        <div>
+          <!-- Plain Text Status (No badge) -->
+          <div class="mb-4">
+            <span class="text-sm font-semibold text-[#B91C1C] uppercase tracking-wider font-mono-code">Current status</span>
+            <p class="text-xl font-semibold text-[#0A0A0A] mt-1">Not approved</p>
+          </div>
+
+          <h2 class="text-2xl font-bold tracking-tight text-[#0A0A0A] leading-tight mb-3">
+            Profile review was unsuccessful
+          </h2>
+
+          <!-- Short Reason (As requested) -->
+          <div class="p-4 rounded-xl bg-[#FEF2F2] border border-[#FCA5A5]/40 mb-6">
+            <p class="text-xs font-bold uppercase tracking-wider text-[#991B1B] font-mono-code mb-1">Reason provided</p>
+            <p class="text-sm text-[#7F1D1D] leading-relaxed">
+              Insufficient external venture signals. The provided startup URL could not be confirmed, or the LinkedIn profile lacks sufficient operating history in the selected sector.
+            </p>
+          </div>
+
+          <!-- Divider -->
+          <div class="h-px bg-[#E6E5E2] w-full my-6"></div>
+
+          <!-- Strict Policy Disclosure (Verbatim requirement) -->
+          <div class="mb-6">
+            <h3 class="text-sm font-bold text-[#0A0A0A] uppercase tracking-wider font-mono-code mb-2">
+              Appeal policy
+            </h3>
+            <p class="text-sm font-medium text-[#0A0A0A] leading-relaxed bg-[#F1F0EE] p-4 rounded-xl border border-[#E2DFD9]">
+              You can appeal once. A rejection after the appeal is final.
+            </p>
+            <p class="text-xs text-[#52525B] mt-2.5 leading-normal">
+              Before submitting an appeal, please have direct links to verifiable artifacts ready (such as an active company demo, public GitHub repo, or verifiable press feature).
+            </p>
+          </div>
+        </div>
+
+        <!-- Appeal Action Button -->
+        <div class="pt-6 border-t border-[#E6E5E2]">
+          <button id="open-appeal-modal-btn" type="button" onclick="document.getElementById('appeal-modal').classList.remove('hidden')" class="w-full inline-flex items-center justify-center h-12 px-6 rounded-full bg-[#B15F2C] text-white font-semibold text-sm hover:bg-[#964E22] focus:outline-none focus:ring-2 focus:ring-[#B15F2C] focus:ring-offset-2 transition-all group">
+            <span>Appeal decision</span>
+            <span class="ml-3 w-7 h-7 rounded-full bg-white/20 flex items-center justify-center group-hover:bg-white/30 transition-colors">
+              <svg class="w-3.5 h-3.5 text-white transform group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+              </svg>
+            </span>
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Grounding Footer -->
+  <footer class="max-w-7xl mx-auto mt-16 pt-8 border-t border-[#E2DFD9] flex flex-col md:flex-row items-center justify-between text-xs text-[#71717A] gap-4">
+    <div class="flex items-center gap-2">
+      <span class="w-2 h-2 rounded-full bg-[#B15F2C]"></span>
+      <span>The Founder's Carnet © 2026. All rights reserved.</span>
+    </div>
+    <div class="flex items-center gap-6">
+      <span class="text-[#52525B]">Honesty standard: No compliance claims, no artificial badges, plain text status.</span>
+    </div>
+  </footer>
+
+
+
+
+
+<!-- Appeal Submission Modal -->
+<div id="appeal-modal" class="fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+  <!-- Ink 30% Backdrop with subtle blur -->
+  <div class="fixed inset-0 bg-[#0A0A0A]/30 backdrop-blur-sm transition-opacity" onclick="closeAppealModal()"></div>
+
+  <div class="flex min-h-full items-center justify-center p-4 text-center sm:p-0">
+    <div class="relative transform overflow-hidden rounded-[24px] bg-white text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-lg border border-[#E2DFD9]">
+      <!-- Modal Header -->
+      <div class="bg-white px-6 pt-6 pb-4 sm:px-8 sm:pt-8 border-b border-[#E2DFD9]/60">
+        <div class="flex items-start justify-between">
+          <div>
+            <span class="text-xs font-semibold text-[#B15F2C] uppercase tracking-wider font-mono-code block mb-1">Single Appeal Submission</span>
+            <h3 id="modal-title" class="text-2xl font-bold tracking-tight text-[#0A0A0A]">Submit Profile Appeal</h3>
+            <p class="mt-1 text-sm text-[#71717A] leading-relaxed">
+              You can appeal once. A rejection after this appeal is final.
+            </p>
+          </div>
+          <!-- Close Button: 36px circle in #F1F0EE -->
+          <button type="button" onclick="closeAppealModal()" aria-label="Close modal" class="w-9 h-9 flex-shrink-0 rounded-full bg-[#F1F0EE] hover:bg-[#E2DFD9] flex items-center justify-center text-[#52525B] transition-colors focus:outline-none focus:ring-2 focus:ring-[#B15F2C]">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Modal Form Body -->
+      <form id="appeal-form" onsubmit="handleAppealSubmit(event)" class="px-6 py-6 sm:px-8 space-y-5">
+        <!-- Evidence Textarea -->
+        <div>
+          <label for="appeal-evidence" class="block text-xs font-semibold uppercase tracking-wider text-[#0A0A0A] font-mono-code mb-1.5">
+            Additional Context &amp; Verification Evidence <span class="text-[#B91C1C]">*</span>
+          </label>
+          <textarea id="appeal-evidence" rows="3" required="" placeholder="Provide verifiable details: active startup demo, company incorporation status, public GitHub repo, or verifiable press feature..." class="w-full rounded-xl border border-[#E2DFD9] bg-[#FAF9F7] px-3.5 py-2.5 text-sm text-[#0A0A0A] placeholder-[#71717A] focus:bg-white focus:border-[#B15F2C] focus:outline-none focus:ring-1 focus:ring-[#B15F2C] transition-colors">Our MVP is live with 1,200 active users across Lahore and Karachi. We have secured seed LOIs and our team has 5+ years building fintech infra in Pakistan.</textarea>
+        </div>
+
+        <!-- Supporting Link Input -->
+        <div>
+          <label for="appeal-link" class="block text-xs font-semibold uppercase tracking-wider text-[#0A0A0A] font-mono-code mb-1.5">
+            Supporting Link (URL) <span class="text-[#B91C1C]">*</span>
+          </label>
+          <input type="url" id="appeal-link" required="" placeholder="https://demo.yourcompany.com or https://github.com/..." class="w-full h-11 rounded-xl border border-[#E2DFD9] bg-[#FAF9F7] px-3.5 text-sm text-[#0A0A0A] placeholder-[#71717A] focus:bg-white focus:border-[#B15F2C] focus:outline-none focus:ring-1 focus:ring-[#B15F2C] transition-colors" value="https://github.com/chenabpay/core-pilot">
+        </div><div><label for="appeal-demo-link" class="block text-xs font-semibold uppercase tracking-wider text-[#0A0A0A] font-mono-code mb-1.5">Additional Verification Link (Demo / Product)</label><input type="url" id="appeal-demo-link" value="https://demo.chenabpay.pk" placeholder="https://demo.yourcompany.pk" class="w-full h-11 rounded-xl border border-[#E2DFD9] bg-[#FAF9F7] px-3.5 text-sm text-[#0A0A0A] placeholder-[#71717A] focus:bg-white focus:border-[#B15F2C] focus:outline-none focus:ring-1 focus:ring-[#B15F2C] transition-colors"></div>
+
+        <!-- Attachment Dropzone / Notice -->
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-[#0A0A0A] font-mono-code mb-1.5">
+            Upload Pitch Deck or Verification Doc (Optional)
+          </label>
+          <label class="border border-dashed border-[#E2DFD9] hover:border-[#B15F2C] bg-[#FAF9F7] rounded-xl p-4 flex flex-col items-center justify-center cursor-pointer transition-colors group block">
+            <svg class="w-6 h-6 text-[#71717A] group-hover:text-[#B15F2C] mb-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+            </svg>
+            <span id="file-label-text" class="text-xs text-[#52525B] font-medium">Click to attach PDF (max 10MB)</span>
+            <input type="file" id="appeal-file" accept=".pdf" class="hidden" onchange="updateFileName(this)">
+          </label>
+        </div>
+
+        <!-- Strict Plain Checkbox Acknowledgment -->
+        <div class="p-4 rounded-xl bg-[#F1F0EE] border border-[#E2DFD9]">
+          <label class="flex items-start gap-3 cursor-pointer">
+            <input type="checkbox" id="appeal-ack" onchange="toggleAppealSubmit(this.checked)" class="mt-1 h-4 w-4 rounded border-[#E2DFD9] text-[#B15F2C] focus:ring-[#B15F2C] cursor-pointer" checked="checked">
+            <span class="text-xs font-medium text-[#0A0A0A] leading-relaxed">
+              I understand that this appeal is final and cannot be submitted again.
+            </span>
+          </label>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="pt-2 flex items-center justify-end gap-3">
+          <button type="button" onclick="closeAppealModal()" class="h-11 px-5 rounded-full border border-[#E2DFD9] text-xs font-semibold text-[#52525B] hover:bg-[#F1F0EE] transition-colors">
+            Cancel
+          </button>
+          <button type="submit" id="appeal-submit-btn" class="inline-flex items-center justify-center h-11 px-6 rounded-full bg-[#B15F2C] text-white font-semibold text-xs hover:bg-[#964E22] focus:outline-none focus:ring-2 focus:ring-[#B15F2C] focus:ring-offset-2 transition-all">
+            <span>Submit single appeal</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Dashboard Jump Modal -->
+<div id="dashboard-menu-modal" class="hidden fixed inset-0 z-50 overflow-y-auto" aria-labelledby="dashboard-modal-title" role="dialog" aria-modal="true">
+  <div class="fixed inset-0 bg-[#0A0A0A]/30 backdrop-blur-sm transition-opacity" onclick="closeDashboardModal()"></div>
+  <div class="flex min-h-full items-center justify-center p-4 text-center sm:p-0">
+    <div class="relative transform overflow-hidden rounded-[24px] bg-white text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-md border border-[#E2DFD9]">
+      <div class="bg-white px-6 pt-6 pb-4 border-b border-[#E2DFD9]/60 flex items-start justify-between">
+        <div>
+          <span class="text-xs font-semibold text-[#047857] uppercase tracking-wider font-mono-code block mb-1">Verified Portal Access</span>
+          <h3 id="dashboard-modal-title" class="text-xl font-bold tracking-tight text-[#0A0A0A]">Access Your Dashboard</h3>
+        </div>
+        <button type="button" onclick="closeDashboardModal()" aria-label="Close" class="w-9 h-9 rounded-full bg-[#F1F0EE] hover:bg-[#E2DFD9] flex items-center justify-center text-[#52525B] transition-colors">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+      <div class="p-6 space-y-3">
+        <button type="button" onclick="simulateDashboardNav('Founder Dashboard')" class="w-full text-left p-4 rounded-xl border border-[#E2DFD9] hover:border-[#B15F2C] bg-[#FAF9F7] hover:bg-white transition-all group flex items-center justify-between">
+          <div>
+            <p class="text-sm font-bold text-[#0A0A0A]">Founder Dashboard</p>
+            <p class="text-xs text-[#52525B] mt-0.5">Access rubric tools, syndicate introductions &amp; founder directory</p>
+          </div>
+          <svg class="w-4 h-4 text-[#71717A] group-hover:text-[#B15F2C] transform group-hover:translate-x-1 transition-all flex-shrink-0 ml-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </button>
+        <button type="button" onclick="simulateDashboardNav('Talent &amp; Mentor Portal')" class="w-full text-left p-4 rounded-xl border border-[#E2DFD9] hover:border-[#B15F2C] bg-[#FAF9F7] hover:bg-white transition-all group flex items-center justify-between">
+          <div>
+            <p class="text-sm font-bold text-[#0A0A0A]">Talent &amp; Mentor Portal</p>
+            <p class="text-xs text-[#52525B] mt-0.5">Review open roles, mentorship requests &amp; office hours</p>
+          </div>
+          <svg class="w-4 h-4 text-[#71717A] group-hover:text-[#B15F2C] transform group-hover:translate-x-1 transition-all flex-shrink-0 ml-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Floating Notification Toast -->
+<div id="toast-notification" class="hidden fixed bottom-6 right-6 z-50 bg-[#0A0A0A] text-white px-5 py-3.5 rounded-xl frame-shadow flex items-center gap-3 text-sm font-medium border border-[#E2DFD9]/20 transition-all">
+  <span class="w-2 h-2 rounded-full bg-[#B15F2C]"></span>
+  <span id="toast-message">Appeal submitted. Review turnaround is 24 hours.</span>
+</div>
+
+<!-- Interactive Handlers -->
+<script>
+  function closeAppealModal() {
+    document.getElementById('appeal-modal').classList.add('hidden');
+  }
+  function closeDashboardModal() {
+    document.getElementById('dashboard-menu-modal').classList.add('hidden');
+  }
+  function toggleAppealSubmit(checked) {
+    const btn = document.getElementById('appeal-submit-btn');
+    if (checked) {
+      btn.disabled = false;
+      btn.classList.remove('opacity-40', 'cursor-not-allowed');
+    } else {
+      btn.disabled = true;
+      btn.classList.add('opacity-40', 'cursor-not-allowed');
+    }
+  }
+  function updateFileName(input) {
+    if (input.files && input.files[0]) {
+      document.getElementById('file-label-text').textContent = 'Attached: ' + input.files[0].name;
+    }
+  }
+  function showToast(msg) {
+    const toast = document.getElementById('toast-notification');
+    document.getElementById('toast-message').textContent = msg;
+    toast.classList.remove('hidden');
+    setTimeout(() => toast.classList.add('hidden'), 4000);
+  }
+  function handleAppealSubmit(e) {
+    e.preventDefault();
+    closeAppealModal();
+    showToast('Single appeal submitted with evidence. Final determination within 24 hours.');
+    const btn = document.getElementById('open-appeal-modal-btn');
+    if (btn) {
+      btn.disabled = true;
+      btn.classList.add('opacity-50', 'cursor-not-allowed');
+      btn.querySelector('span').textContent = 'Appeal submitted (Under review)';
+    }
+  }
+  function simulateDashboardNav(dest) {
+    closeDashboardModal();
+    showToast('Redirecting to ' + dest + '...');
+  }
+  window.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      closeAppealModal();
+      closeDashboardModal();
+    }
+  });
+</script></body></html>

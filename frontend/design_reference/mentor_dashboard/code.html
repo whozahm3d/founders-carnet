@@ -1,0 +1,565 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta content="web_standard" name="shell-type">
+<title>Mentor Atelier • Dr. Tariq | The Founder's Carnet</title>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style>
+    @layer base {
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      }
+    }
+    .font-serif-italic {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-style: italic;
+    }
+    .font-mono-tag {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .font-display {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    /* Hide scrollbar */
+    ::-webkit-scrollbar {
+      display: none;
+    }
+  </style>
+</head>
+<body class="min-h-screen text-zinc-900 antialiased relative selection:bg-orange-500 selection:text-white" style="background: radial-gradient(120% 120% at 85% 15%, rgb(245, 200, 66) 0%, rgb(255, 138, 43) 30%, rgb(196, 69, 26) 60%, rgb(58, 18, 6) 100%) fixed;">
+<!-- 1. TOP NAVIGATION -->
+<header class="fixed top-0 left-0 right-0 z-50 pt-5 sm:px-6 px-3">
+<div class="bg-white/95 backdrop-blur-md rounded-full border border-black/10 shadow-[0_8px_30px_rgb(0,0,0,0.12)] py-3.5 mx-auto max-w-7xl flex items-center justify-between transition-all px-4">
+<!-- Left: Brand Logo + Identity -->
+<div class="flex items-center gap-3">
+<a class="flex items-center gap-3 group focus:outline-none" href="#">
+<div class="w-8 h-8 shrink-0 shadow-sm transition-transform group-hover:scale-105">
+<svg class="w-full h-full" viewBox="0 0 64 64">
+<rect fill="#0A0A0A" height="64" rx="14" width="64"></rect>
+<path d="M45 0H52V22L48.5 18L45 22Z" fill="#B15F2C"></path>
+<path d="M14 14H40V23H24V28.5H36V37.5H24V50H14Z" fill="#fff"></path>
+</svg>
+</div>
+<span class="font-display font-semibold text-[17px] text-zinc-900 tracking-tight">The Founder's Carnet</span>
+</a>
+<span class="hidden sm:inline-block text-zinc-300">/</span>
+<span class="hidden sm:inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-mono-tag font-medium bg-zinc-100 text-zinc-700 tracking-wider uppercase border border-zinc-200" style="background-color: rgb(248, 237, 229); color: rgb(150, 78, 34); border: 1px solid rgb(218, 194, 182);">
+          Mentor Workspace
+        </span>
+</div>
+<!-- Center: Role Navigation Links -->
+<nav class="hidden md:flex items-center gap-1.5 bg-zinc-100/80 p-1 rounded-full border border-zinc-200/60">
+<a class="bg-[#0A0A0A] text-white px-4 py-1.5 rounded-full font-mono-tag text-[12px] font-semibold shadow-sm transition-all" href="#">
+          Dashboard
+        </a>
+<a class="text-zinc-600 hover:text-zinc-900 px-4 py-1.5 rounded-full font-mono-tag text-[12px] font-medium transition-colors hover:bg-zinc-200/50" href="#">
+          Profile
+        </a>
+<a class="text-zinc-600 hover:text-zinc-900 px-4 py-1.5 rounded-full font-mono-tag text-[12px] font-medium transition-colors hover:bg-zinc-200/50" href="#">
+          Requests
+        </a>
+</nav>
+<!-- Right: Karachi Time Chip + Dr. Tariq Initials Badge -->
+<div class="flex items-center gap-3">
+<div class="hidden lg:flex items-center gap-2 bg-zinc-100/90 border border-zinc-200/80 px-3.5 py-1.5 rounded-full">
+<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+<span class="font-mono-tag text-[12px] text-zinc-700 font-medium">Karachi 3:55pm, 9 Nov 2026</span>
+</div>
+<div class="w-9 h-9 rounded-full bg-[#0A0A0A] text-white flex items-center justify-center font-mono-tag font-bold text-[13px] tracking-tight shadow-sm border border-zinc-800">
+          DT
+        </div>
+</div>
+</div>
+</header>
+<!-- MAIN BODY WRAPPER -->
+<main class="w-full pt-28 pb-16 sm:px-6 px-3">
+<div class="max-w-7xl mx-auto flex flex-col gap-8">
+<!-- 2. HERO GREETING & VERIFIED BANNER -->
+<div class="flex flex-col gap-5 pt-2">
+<!-- Eyebrow & Headline -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<div class="inline-flex items-center gap-2 bg-black/25 backdrop-blur-md border border-white/20 px-3 py-1 rounded-full mb-3 text-white">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+<span class="font-mono-tag text-[12px] tracking-wider uppercase font-medium text-white/90">• MENTOR ATELIER • AUTUMN 2026</span>
+</div>
+<h1 class="font-display font-bold sm:text-5xl text-white tracking-tight leading-tight drop-shadow-sm text-3xl">
+              Welcome back, <span class="font-serif-italic font-normal text-[1.12em] tracking-normal text-amber-200">Dr. Tariq</span>
+</h1>
+<p class="text-[17px] text-zinc-200 mt-2 font-normal max-w-2xl leading-relaxed">
+              Manage founder advisory requests, active mentoring sessions, and office hours across Pakistan’s tech hubs.
+            </p>
+</div>
+<div class="hidden lg:flex flex-col items-end text-right font-mono-tag text-xs text-white/70"><span class="text-white font-medium text-[13px]">National Incubation Network</span><span class="text-white/60 text-xs mt-0.5">Karachi • Lahore • Islamabad</span></div>
+</div>
+<!-- Verified Status Pill Banner -->
+<div class="w-full bg-white rounded-2xl p-4 sm:px-6 sm:py-3.5 border border-zinc-200 shadow-lg flex flex-col sm:flex-row items-center justify-between gap-4">
+<div class="flex items-center gap-3 w-full sm:w-auto">
+<div class="w-9 h-9 rounded-full bg-emerald-50 border border-emerald-200 flex items-center justify-center shrink-0">
+<span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+</div>
+<div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
+<span class="font-display font-bold text-[15px] text-zinc-900">Verified Mentor</span>
+<span class="hidden sm:inline text-zinc-400">—</span>
+<span class="text-[14px] text-zinc-600 font-medium">Visible to active founders seeking advisory in Karachi, Lahore &amp; Islamabad</span>
+</div>
+</div>
+<!-- Availability Switch -->
+<div class="flex items-center justify-between sm:justify-end gap-3 w-full sm:w-auto bg-zinc-50 sm:bg-transparent px-3 py-2 sm:p-0 rounded-xl">
+<span class="font-mono-tag text-[13px] font-semibold text-zinc-800 select-none" id="status-label">Accepting new requests</span>
+<button aria-checked="true" class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full bg-[#0A0A0A] transition-colors duration-200 ease-in-out focus:outline-none shadow-inner" id="global-switch-btn" onclick="const st = this.getAttribute('aria-checked') === 'true'; this.setAttribute('aria-checked', !st); document.getElementById('switch-thumb').classList.toggle('translate-x-5'); document.getElementById('switch-thumb').classList.toggle('translate-x-0.5'); this.classList.toggle('bg-[#0A0A0A]'); this.classList.toggle('bg-zinc-300');" role="switch" type="button">
+<span class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow-md transition duration-200 ease-in-out translate-x-5 mt-0.5 ml-0.5" id="switch-thumb"></span>
+</button>
+</div>
+</div>
+</div>
+<!-- 3. STATS & METRICS ROW (3 Aligned Cards) -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Card 1 (Ink monolith) -->
+<div class="bg-[#0A0A0A] text-white rounded-[24px] p-7 border border-zinc-800 shadow-xl flex flex-col justify-between relative overflow-hidden">
+<div class="absolute -right-8 -top-8 w-32 h-32 bg-amber-600/10 rounded-full blur-2xl pointer-events-none"></div>
+<div>
+<div class="flex items-center justify-between mb-4">
+<span class="font-mono-tag text-[12px] font-semibold text-amber-400 uppercase tracking-wider">New Requests</span>
+<span class="material-symbols-outlined text-zinc-500 text-[20px]">inbox</span>
+</div>
+<div class="font-display font-bold text-5xl leading-none text-white tracking-tight" id="metric-new-requests">3</div>
+<p class="text-[14px] text-zinc-400 font-normal mt-2.5">Requires review this week</p>
+</div>
+<div class="mt-6 pt-4 border-t border-zinc-800/80 flex items-center justify-between text-xs font-mono-tag text-zinc-400">
+<span>Avg. response time: &lt; 24h</span>
+<span class="text-amber-400 font-semibold">• High Priority</span>
+</div>
+</div>
+<!-- Card 2 (White card) -->
+<div class="bg-white rounded-[24px] p-7 border border-zinc-200 shadow-xl flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-4">
+<span class="font-mono-tag text-[12px] font-semibold text-zinc-500 uppercase tracking-wider">Active Matches</span>
+<span class="material-symbols-outlined text-zinc-400 text-[20px]">diversity_3</span>
+</div>
+<div class="font-display font-bold text-5xl leading-none text-zinc-900 tracking-tight" id="metric-active-matches">6</div>
+<p class="text-[14px] text-zinc-500 font-normal mt-2.5">Ongoing founder dialogues</p>
+</div>
+<div class="mt-6 pt-4 border-t border-zinc-100 flex items-center justify-between text-xs font-mono-tag text-zinc-500">
+<span>Next session: Tomorrow 4pm</span>
+<span class="text-emerald-600 font-semibold">• Active cohorts</span>
+</div>
+</div>
+<!-- Card 3 (White card) -->
+<div class="bg-white rounded-[24px] p-7 border border-zinc-200 shadow-xl flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-4">
+<span class="font-mono-tag text-[12px] font-semibold text-zinc-500 uppercase tracking-wider">Advisory Capacity</span>
+<span class="material-symbols-outlined text-zinc-400 text-[20px]">schedule</span>
+</div>
+<div class="flex items-baseline gap-2">
+<div class="font-display font-bold text-4xl text-zinc-900 tracking-tight">4 hrs</div>
+<span class="font-mono-tag text-zinc-500 text-sm">/ month</span>
+</div>
+<p class="text-[14px] text-emerald-700 font-medium mt-2.5 flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span> Open to new mentees
+            </p>
+</div>
+<div class="mt-6 pt-4 border-t border-zinc-100 flex items-center justify-between">
+<span class="text-[13px] font-mono-tag text-zinc-500">Pro bono • PKR 0 fee</span>
+<a class="text-[13px] font-mono-tag text-amber-700 hover:text-amber-800 font-bold underline" href="#">Edit hours</a>
+</div>
+</div>
+</div>
+<!-- 4. MAIN CONTENT ASYMMETRIC GRID (2 Columns with Perfect Alignment) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<!-- LEFT COLUMN (approx 7.5/12 width) -->
+<div class="lg:col-span-8 flex flex-col gap-8">
+<!-- MODULE A: Recommended Founders Card -->
+<div class="bg-white rounded-[24px] p-7 sm:p-8 border border-zinc-200 shadow-xl">
+<!-- Header -->
+<div class="flex items-center justify-between pb-5 border-b border-zinc-100 mb-6">
+<div class="flex items-center gap-3">
+<h2 class="font-display font-bold text-2xl text-zinc-900 tracking-tight">
+                  Recommended <span class="font-serif-italic font-normal text-[1.15em]" style="color: #B15F2C;">founders</span>
+</h2>
+<span class="px-2.5 py-0.5 rounded-full font-mono-tag text-[11px] font-bold uppercase tracking-wider bg-amber-50 text-amber-900 border border-amber-200" style="background-color: rgb(248, 237, 229); color: rgb(150, 78, 34); border: 1px solid rgb(218, 194, 182);">
+                  Curated
+                </span>
+</div>
+<a class="font-mono-tag text-[13px] font-bold text-amber-800 hover:text-amber-900 hover:underline" href="#">
+                View all →
+              </a>
+</div>
+<!-- Hairline-separated rows -->
+<div class="divide-y divide-zinc-100">
+<!-- Row 1: Munshi Books -->
+<div class="py-5 first:pt-0 last:pb-0 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center gap-3">
+<span class="font-display font-bold text-[18px] text-zinc-900">Munshi Books</span>
+<span class="px-2.5 py-0.5 rounded-full text-xs font-mono-tag font-semibold bg-zinc-100 text-zinc-700">Active founder</span>
+</div>
+<div class="flex items-center gap-2 text-zinc-500 text-[14px]">
+<span class="font-medium text-zinc-700">Founder: Bilal</span>
+<span>•</span>
+<span>SaaS</span>
+<span>•</span>
+<span>Seed Stage</span>
+<span>•</span>
+<span>Karachi</span>
+</div>
+</div>
+<div class="flex items-center gap-3 shrink-0">
+<span class="px-3 py-1 rounded-md bg-amber-100/70 text-amber-900 font-mono-tag text-[11px] font-bold uppercase tracking-wider" style="background-color: #F8EDE5; color: #964E22;">
+                    Strong sector fit
+                  </span>
+<a class="px-4 py-2 rounded-full border border-zinc-200 hover:border-zinc-900 font-mono-tag text-[12px] font-bold text-zinc-800 hover:text-zinc-950 transition-colors inline-flex items-center gap-1" href="#">
+                    View profile →
+                  </a>
+</div>
+</div>
+<!-- Row 2: Fasal Labs -->
+<div class="py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center gap-3">
+<span class="font-display font-bold text-[18px] text-zinc-900">Fasal Labs</span>
+<span class="px-2.5 py-0.5 rounded-full text-xs font-mono-tag font-semibold bg-zinc-100 text-zinc-700">Stage fit</span>
+</div>
+<div class="flex items-center gap-2 text-zinc-500 text-[14px]">
+<span class="font-medium text-zinc-700">Founder: Asad</span>
+<span>•</span>
+<span>Agritech</span>
+<span>•</span>
+<span>Pre-seed</span>
+<span>•</span>
+<span>Lahore</span>
+</div>
+</div>
+<div class="flex items-center gap-3 shrink-0">
+<span class="px-3 py-1 rounded-md bg-zinc-100 text-zinc-700 font-mono-tag text-[11px] font-bold uppercase tracking-wider" style="background-color: #F1F0EE; color: #52525B;">
+                    Strong stage fit
+                  </span>
+<a class="px-4 py-2 rounded-full border border-zinc-200 hover:border-zinc-900 font-mono-tag text-[12px] font-bold text-zinc-800 hover:text-zinc-950 transition-colors inline-flex items-center gap-1" href="#">
+                    View profile →
+                  </a>
+</div>
+</div>
+<!-- Row 3: Nida Farooq -->
+<div class="py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center gap-3">
+<span class="font-display font-bold text-[18px] text-zinc-900">Nida Farooq</span>
+<span class="px-2.5 py-0.5 rounded-full text-xs font-mono-tag font-semibold bg-zinc-100 text-zinc-700">Healthtech</span>
+</div>
+<div class="flex items-center gap-2 text-zinc-500 text-[14px]">
+<span class="font-medium text-zinc-700">CuraHealth</span>
+<span>•</span>
+<span>Healthtech</span>
+<span>•</span>
+<span>Series A</span>
+<span>•</span>
+<span>Islamabad</span>
+</div>
+</div>
+<div class="flex items-center gap-3 shrink-0">
+<span class="px-3 py-1 rounded-md bg-zinc-100 text-zinc-700 font-mono-tag text-[11px] font-bold uppercase tracking-wider" style="background-color: #F1F0EE; color: #52525B;">
+                    Needs hiring guidance
+                  </span>
+<a class="px-4 py-2 rounded-full border border-zinc-200 hover:border-zinc-900 font-mono-tag text-[12px] font-bold text-zinc-800 hover:text-zinc-950 transition-colors inline-flex items-center gap-1" href="#">
+                    View profile →
+                  </a>
+</div>
+</div>
+</div>
+<!-- Honesty Caption at Bottom -->
+<div class="mt-6 pt-4 border-t border-zinc-100 flex items-center gap-2 text-zinc-500 text-[13px]"><span class="material-symbols-outlined text-[17px] text-zinc-400">lock</span><span>Contact details are revealed only after both parties accept.</span></div>
+</div>
+<!-- MODULE B: Pending Advisory Requests -->
+<div class="bg-white rounded-[24px] p-7 sm:p-8 border border-zinc-200 shadow-xl">
+<!-- Header with Filters & Accept All -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-zinc-100 mb-6"><div>
+<h2 class="font-display font-bold text-2xl text-zinc-900 tracking-tight">
+                  Pending <span class="font-serif-italic font-normal text-[1.15em]" style="color: #B15F2C;">advisory requests</span>
+</h2>
+<p class="text-[16px] text-zinc-500 mt-0.5">Founders awaiting your mentorship confirmation.</p>
+</div>
+<div class="flex flex-wrap items-center gap-2.5 pt-1 sm:pt-0">
+<span class="px-3 py-1.5 rounded-full font-mono-tag text-[12px] font-bold uppercase bg-amber-100 text-amber-900 border border-amber-200" id="requests-badge" style="background-color: rgb(248, 237, 229); color: rgb(150, 78, 34); border: 1px solid rgb(218, 194, 182);">3 PENDING</span>
+<button onclick="acceptAllRequests()" class="min-h-[44px] px-4 py-2 rounded-full bg-[#0A0A0A] hover:bg-zinc-800 text-white font-mono-tag text-[13px] font-bold flex items-center justify-center gap-1.5 shadow-sm transition-all cursor-pointer" id="accept-all-btn"><span class="material-symbols-outlined text-[18px]">done_all</span>Accept All</button>
+</div></div>
+<!-- Requests List -->
+<div class="flex flex-col gap-4" id="requests-container">
+<!-- Request Item 1: NovaPay -->
+<div class="p-5 rounded-2xl bg-zinc-50/80 border border-zinc-200/80 hover:border-zinc-300 transition-all flex flex-col md:flex-row md:items-center justify-between gap-4 w-full" id="req-novapay">
+<div class="flex items-start gap-3.5 max-w-xl">
+<div class="w-11 h-11 rounded-xl bg-[#0A0A0A] text-white flex items-center justify-center font-display font-bold text-[15px] shrink-0">
+                    NP
+                  </div>
+<div>
+<div class="flex flex-wrap items-center gap-2"><span class="px-3.5 py-1.5 rounded-full text-white font-mono-tag text-[12px] font-medium shadow-sm" style="background-color: rgb(10, 10, 10);">Fundraising</span><span class="px-3.5 py-1.5 rounded-full font-mono-tag text-[12px] font-medium border border-zinc-200" style="background-color: rgb(241, 240, 238); color: rgb(82, 82, 91);">Product</span><span class="px-3.5 py-1.5 rounded-full font-mono-tag text-[12px] font-medium border border-zinc-200" style="background-color: rgb(241, 240, 238); color: rgb(82, 82, 91);">Operations</span><span class="px-3.5 py-1.5 rounded-full font-mono-tag text-[12px] font-medium border border-zinc-200" style="background-color: rgb(241, 240, 238); color: rgb(82, 82, 91);">Governance</span><span class="px-3.5 py-1.5 rounded-full font-mono-tag text-[12px] font-medium border border-zinc-200" style="background-color: rgb(241, 240, 238); color: rgb(82, 82, 91);">HR &amp; Team-building</span></div>
+<p class="text-[14px] text-zinc-700 mt-1.5 leading-relaxed font-normal">
+                      “Needs fundraising guidance and pitch feedback for an upcoming $1.2M seed round.”
+                    </p>
+<div class="flex items-center gap-3 mt-2 text-xs text-zinc-500 font-mono-tag">
+<span>Received 2h ago</span>
+<span>•</span>
+<a class="text-amber-800 font-semibold hover:underline" href="#">Deck attached (12 slides)</a>
+</div>
+<!-- Contact Box (Revealed on accept) -->
+<div class="mt-3 p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-900 text-xs font-mono-tag hidden" id="contact-novapay">
+<span class="font-bold">Contact Unmasked:</span> tariq.advisor@novapay.pk • Calendly transmitted
+                    </div>
+</div>
+</div>
+<!-- Actions -->
+<div class="flex items-center gap-2 shrink-0 self-end md:self-center w-full" id="actions-novapay"><button onclick="handleAccept('novapay')" class="px-4 py-2 rounded-full bg-[#0A0A0A] text-white hover:bg-zinc-800 font-mono-tag text-[12px] font-bold transition-all shadow-sm inline-flex items-center gap-1 cursor-pointer"><span class="material-symbols-outlined text-[16px]">check</span> Accept</button><button onclick="handleDecline('novapay')" class="px-4 py-2 rounded-full bg-white text-zinc-700 border border-zinc-300 hover:border-zinc-400 font-mono-tag text-[12px] font-bold transition-all inline-flex items-center gap-1 cursor-pointer"><span class="material-symbols-outlined text-[16px]">close</span> Decline</button></div>
+</div>
+<!-- Request Item 2: Hira Tariq -->
+<div class="p-5 rounded-2xl bg-zinc-50/80 border border-zinc-200/80 hover:border-zinc-300 transition-all flex flex-col md:flex-row md:items-center justify-between gap-4 w-full" id="req-hira">
+<div class="flex items-start gap-3.5 max-w-xl">
+<div class="w-11 h-11 rounded-xl bg-amber-700 text-white flex items-center justify-center font-display font-bold text-[15px] shrink-0">
+                    HT
+                  </div>
+<div>
+<div class="flex flex-wrap items-center gap-2"><span class="px-3.5 py-1.5 rounded-full text-white font-mono-tag text-[12px] font-medium shadow-sm" style="background-color: rgb(10, 10, 10);">Fundraising</span><span class="px-3.5 py-1.5 rounded-full font-mono-tag text-[12px] font-medium border border-zinc-200" style="background-color: rgb(241, 240, 238); color: rgb(82, 82, 91);">Product</span><span class="px-3.5 py-1.5 rounded-full font-mono-tag text-[12px] font-medium border border-zinc-200" style="background-color: rgb(241, 240, 238); color: rgb(82, 82, 91);">Operations</span><span class="px-3.5 py-1.5 rounded-full font-mono-tag text-[12px] font-medium border border-zinc-200" style="background-color: rgb(241, 240, 238); color: rgb(82, 82, 91);">Governance</span><span class="px-3.5 py-1.5 rounded-full font-mono-tag text-[12px] font-medium border border-zinc-200" style="background-color: rgb(241, 240, 238); color: rgb(82, 82, 91);">HR &amp; Team-building</span></div>
+<p class="text-[14px] text-zinc-700 mt-1.5 leading-relaxed font-normal">
+                      “Looking for career transition advice into startup engineering leadership &amp; equity structures.”
+                    </p>
+<div class="flex items-center gap-3 mt-2 text-xs text-zinc-500 font-mono-tag">
+<span>Received yesterday</span>
+<span>•</span>
+<a class="text-amber-800 font-semibold hover:underline" href="#">Portfolio attached</a>
+</div>
+<!-- Contact Box -->
+<div class="mt-3 p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-900 text-xs font-mono-tag hidden" id="contact-hira">
+<span class="font-bold">Contact Unmasked:</span> hira.tariq@leadengineers.io • LinkedIn sync issued
+                    </div>
+</div>
+</div>
+<!-- Actions -->
+<div class="flex items-center gap-2 shrink-0 self-end md:self-center w-full" id="actions-hira"><button onclick="handleAccept('hira')" class="px-4 py-2 rounded-full bg-[#0A0A0A] text-white hover:bg-zinc-800 font-mono-tag text-[12px] font-bold transition-all shadow-sm inline-flex items-center gap-1 cursor-pointer"><span class="material-symbols-outlined text-[16px]">check</span> Accept</button><button onclick="handleDecline('hira')" class="px-4 py-2 rounded-full bg-white text-zinc-700 border border-zinc-300 hover:border-zinc-400 font-mono-tag text-[12px] font-bold transition-all inline-flex items-center gap-1 cursor-pointer"><span class="material-symbols-outlined text-[16px]">close</span> Decline</button></div>
+</div>
+<!-- Request Item 3: LedgerLite -->
+<div class="p-5 rounded-2xl bg-zinc-50/80 border border-zinc-200/80 hover:border-zinc-300 transition-all flex flex-col md:flex-row md:items-center justify-between gap-4 w-full" id="req-ledger">
+<div class="flex items-start gap-3.5 max-w-xl">
+<div class="w-11 h-11 rounded-xl bg-zinc-800 text-white flex items-center justify-center font-display font-bold text-[15px] shrink-0">
+                    LL
+                  </div>
+<div>
+<div class="flex flex-wrap items-center gap-2"><span class="px-3.5 py-1.5 rounded-full text-white font-mono-tag text-[12px] font-medium shadow-sm" style="background-color: rgb(10, 10, 10);">Fundraising</span><span class="px-3.5 py-1.5 rounded-full font-mono-tag text-[12px] font-medium border border-zinc-200" style="background-color: rgb(241, 240, 238); color: rgb(82, 82, 91);">Product</span><span class="px-3.5 py-1.5 rounded-full font-mono-tag text-[12px] font-medium border border-zinc-200" style="background-color: rgb(241, 240, 238); color: rgb(82, 82, 91);">Operations</span><span class="px-3.5 py-1.5 rounded-full font-mono-tag text-[12px] font-medium border border-zinc-200" style="background-color: rgb(241, 240, 238); color: rgb(82, 82, 91);">Governance</span><span class="px-3.5 py-1.5 rounded-full font-mono-tag text-[12px] font-medium border border-zinc-200" style="background-color: rgb(241, 240, 238); color: rgb(82, 82, 91);">HR &amp; Team-building</span></div>
+<p class="text-[14px] text-zinc-700 mt-1.5 leading-relaxed font-normal">
+                      “Seeking product pricing strategy validation and cross-border SaaS tax compliance guidance.”
+                    </p>
+<div class="flex items-center gap-3 mt-2 text-xs text-zinc-500 font-mono-tag">
+<span>Received 2 days ago</span>
+<span>•</span>
+<a class="text-amber-800 font-semibold hover:underline" href="#">Metrics memo preview</a>
+</div>
+<!-- Contact Box -->
+<div class="mt-3 p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-900 text-xs font-mono-tag hidden" id="contact-ledger">
+<span class="font-bold">Contact Unmasked:</span> omar@ledgerlite.com • Slack invite transmitted
+                    </div>
+</div>
+</div>
+<!-- Actions -->
+<div class="flex items-center gap-2 shrink-0 self-end md:self-center w-full" id="actions-ledger"><button onclick="handleAccept('ledger')" class="px-4 py-2 rounded-full bg-[#0A0A0A] text-white hover:bg-zinc-800 font-mono-tag text-[12px] font-bold transition-all shadow-sm inline-flex items-center gap-1 cursor-pointer"><span class="material-symbols-outlined text-[16px]">check</span> Accept</button><button onclick="handleDecline('ledger')" class="px-4 py-2 rounded-full bg-white text-zinc-700 border border-zinc-300 hover:border-zinc-400 font-mono-tag text-[12px] font-bold transition-all inline-flex items-center gap-1 cursor-pointer"><span class="material-symbols-outlined text-[16px]">close</span> Decline</button></div>
+</div>
+</div><div class="mt-5 pt-4 border-t border-zinc-100 flex items-center gap-2 text-zinc-500 text-[13px]"><span class="material-symbols-outlined text-[17px] text-zinc-400">shield</span><span>Contact details are revealed only after both parties accept.</span></div>
+</div>
+</div>
+<!-- RIGHT COLUMN (approx 4.5/12 width) -->
+<div class="lg:col-span-4 flex flex-col gap-8">
+<!-- MODULE A: Mentoring Code & Guidelines Card -->
+<div class="bg-white rounded-[24px] p-6 sm:p-7 border border-zinc-200 shadow-xl flex flex-col gap-4">
+<div class="flex items-center gap-3 pb-3 border-b border-zinc-100">
+<div class="w-8 h-8 rounded-full bg-amber-100 text-amber-900 flex items-center justify-center shrink-0" style="background-color: rgb(248, 237, 229); color: rgb(150, 78, 34);">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+</div>
+<h3 class="font-display font-bold text-[17px] text-zinc-900">
+                Mentoring Code &amp; Guidelines
+              </h3>
+</div>
+<p class="text-[14px] text-zinc-600 leading-relaxed">
+              Advisory sessions are intended for candid bottleneck-solving and governance guidance. Direct funding solicitation during initial calls is strictly restricted.
+            </p>
+<div class="bg-zinc-50 rounded-xl p-3.5 border border-zinc-100 text-[13px] text-zinc-700 flex flex-col gap-1.5">
+<span class="font-mono-tag text-[11px] font-bold uppercase text-zinc-500 tracking-wider">Protocol Standards</span>
+<p class="text-zinc-600 text-xs leading-normal">
+                • 100% confidential under Founder Carnet bilateral pact.<br>
+                • Mutual consent required before contact transmission.<br>
+                • Zero-spam carnets protocol actively enforced.
+              </p>
+</div>
+</div>
+<!-- MODULE B: Your Advisory Expertise Card -->
+<div class="bg-white rounded-[24px] p-6 sm:p-7 border border-zinc-200 shadow-xl flex flex-col gap-5">
+<div class="flex items-center justify-between pb-3 border-b border-zinc-100">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-zinc-500">psychology</span>
+<h3 class="font-display font-bold text-[17px] text-zinc-900">
+                  Your advisory expertise
+                </h3>
+</div>
+<span class="font-mono-tag text-xs font-semibold text-zinc-400">5 Active</span>
+</div>
+<!-- Expertise Pills -->
+<div class="flex flex-wrap gap-2"><span class="px-3.5 py-1.5 rounded-full text-white font-mono-tag text-[12px] font-medium shadow-sm" style="background-color: rgb(10, 10, 10);">Fundraising</span><span class="px-3.5 py-1.5 rounded-full font-mono-tag text-[12px] font-medium border border-zinc-200" style="background-color: rgb(241, 240, 238); color: rgb(82, 82, 91);">Product</span><span class="px-3.5 py-1.5 rounded-full font-mono-tag text-[12px] font-medium border border-zinc-200" style="background-color: rgb(241, 240, 238); color: rgb(82, 82, 91);">Operations</span><span class="px-3.5 py-1.5 rounded-full font-mono-tag text-[12px] font-medium border border-zinc-200" style="background-color: rgb(241, 240, 238); color: rgb(82, 82, 91);">Governance</span><span class="px-3.5 py-1.5 rounded-full font-mono-tag text-[12px] font-medium border border-zinc-200" style="background-color: rgb(241, 240, 238); color: rgb(82, 82, 91);">HR &amp; Team-building</span></div>
+<div class="pt-3 border-t border-zinc-100 flex items-center justify-between">
+<span class="text-xs text-zinc-400 font-mono-tag">Updated 14 Oct 2026</span>
+<a class="font-mono-tag text-[13px] font-bold text-amber-800 hover:text-amber-900 hover:underline inline-flex items-center gap-1" href="#">
+                Edit expertise <span class="material-symbols-outlined text-[16px]">edit</span>
+</a>
+</div>
+</div>
+<!-- MODULE C: Quick Next Session Preview -->
+<div class="bg-white rounded-[24px] p-6 border border-zinc-200 shadow-xl flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<span class="font-mono-tag text-[11px] font-bold uppercase tracking-wider text-zinc-500">Next Scheduled Session</span>
+<span class="px-2 py-0.5 rounded-full text-[11px] font-mono-tag font-bold bg-emerald-100 text-emerald-800">Confirmed</span>
+</div>
+<div class="font-display font-bold text-[16px] text-zinc-900 mt-1">
+              Tomorrow at 4:00pm PKT
+            </div>
+<p class="text-xs text-zinc-500">
+              Munshi Books • Topic: TAM Sizing &amp; Defensibility
+            </p>
+<div class="pt-3 border-t border-zinc-100 flex items-center justify-between text-xs font-mono-tag">
+<a class="text-amber-800 font-bold hover:underline" href="#">Launch Meet link</a>
+<button class="text-zinc-500 hover:text-zinc-800">Reschedule</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- 6. CLEAN MINIMAL FOOTER -->
+<footer class="w-full py-8 px-4 sm:px-6 mt-12 border-t border-white/10 bg-black/30 backdrop-blur-md">
+<div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono-tag text-zinc-400">
+<!-- Brand & Copy -->
+<div class="flex items-center gap-3">
+<div class="w-6 h-6 shrink-0">
+<svg class="w-full h-full" viewBox="0 0 64 64">
+<rect fill="#0A0A0A" height="64" rx="14" width="64"></rect>
+<path d="M45 0H52V22L48.5 18L45 22Z" fill="#B15F2C"></path>
+<path d="M14 14H40V23H24V28.5H36V37.5H24V50H14Z" fill="#fff"></path>
+</svg>
+</div>
+<span class="text-white/90 font-medium">The Founder's Carnet © 2026</span>
+<span class="hidden sm:inline text-zinc-600">•</span>
+<span class="hidden sm:inline text-zinc-400">Ecosystem Advisory Syndicate</span>
+</div>
+<!-- Links -->
+<div class="flex items-center gap-6">
+<a class="hover:text-white transition-colors" href="#">Privacy</a>
+<a class="hover:text-white transition-colors" href="#">Terms</a>
+<a class="hover:text-white transition-colors" href="#">Contact</a>
+</div>
+</div>
+</footer>
+<!-- Interactive Logic for Accept / Decline State Simulation -->
+<script>
+    let pendingCount = 3;
+    let activeMatches = 6;
+
+    function updateCounters() {
+      const pendingEl = document.getElementById('metric-new-requests');
+      const activeEl = document.getElementById('metric-active-matches');
+      const badgeEl = document.getElementById('requests-badge');
+      const acceptAllBtn = document.getElementById('accept-all-btn');
+
+      if (pendingEl) pendingEl.innerText = pendingCount;
+      if (activeEl) activeEl.innerText = activeMatches;
+      if (badgeEl) badgeEl.innerText = `${pendingCount} PENDING`;
+
+      if (pendingCount === 0 && acceptAllBtn) {
+        acceptAllBtn.disabled = true;
+        acceptAllBtn.classList.add('opacity-40', 'cursor-not-allowed');
+      }
+    }
+
+    function handleAccept(id) {
+      const contactEl = document.getElementById('contact-' + id);
+      const actionsEl = document.getElementById('actions-' + id);
+      const reqCard = document.getElementById('req-' + id);
+
+      if (contactEl) contactEl.classList.remove('hidden');
+      if (actionsEl) {
+        actionsEl.innerHTML = `
+          <div class="flex items-center gap-2">
+            <span class="px-3.5 py-1.5 rounded-full bg-emerald-100 text-emerald-800 font-mono-tag text-[12px] font-bold">
+              ✓ ACCEPTED
+            </span>
+            <button onclick="handleUndo('${id}')" class="text-xs font-mono-tag text-zinc-500 underline hover:text-zinc-800">
+              Undo
+            </button>
+          </div>
+        `;
+      }
+      if (pendingCount > 0) pendingCount--;
+      activeMatches++;
+      updateCounters();
+    }
+
+    function handleDecline(id) {
+      const reqCard = document.getElementById('req-' + id);
+      const actionsEl = document.getElementById('actions-' + id);
+
+      if (reqCard) reqCard.classList.add('opacity-50');
+      if (actionsEl) {
+        actionsEl.innerHTML = `
+          <div class="flex items-center gap-2">
+            <span class="px-3.5 py-1.5 rounded-full bg-zinc-200 text-zinc-600 font-mono-tag text-[12px] font-medium">
+              DECLINED
+            </span>
+            <button onclick="handleUndo('${id}')" class="text-xs font-mono-tag text-zinc-500 underline hover:text-zinc-800">
+              Undo
+            </button>
+          </div>
+        `;
+      }
+      if (pendingCount > 0) pendingCount--;
+      updateCounters();
+    }
+
+    function handleUndo(id) {
+      const reqCard = document.getElementById('req-' + id);
+      const contactEl = document.getElementById('contact-' + id);
+      const actionsEl = document.getElementById('actions-' + id);
+
+      if (reqCard) reqCard.classList.remove('opacity-50');
+      if (contactEl) contactEl.classList.add('hidden');
+      if (actionsEl) {
+        actionsEl.innerHTML = `
+          <button 
+            onclick="handleAccept('${id}')" 
+            class="px-4 py-2 rounded-full bg-[#0A0A0A] text-white hover:bg-zinc-800 font-mono-tag text-[12px] font-bold transition-all shadow-sm inline-flex items-center gap-1 cursor-pointer">
+            <span class="material-symbols-outlined text-[16px]">check</span> Accept
+          </button>
+          <button 
+            onclick="handleDecline('${id}')" 
+            class="px-4 py-2 rounded-full bg-white text-zinc-700 border border-zinc-300 hover:border-zinc-400 font-mono-tag text-[12px] font-bold transition-all inline-flex items-center gap-1 cursor-pointer">
+            <span class="material-symbols-outlined text-[16px]">close</span> Decline
+          </button>
+        `;
+      }
+      pendingCount++;
+      activeMatches--;
+      updateCounters();
+    }
+
+    function acceptAllRequests() {
+      ['novapay', 'hira', 'ledger'].forEach((id, index) => {
+        setTimeout(() => {
+          handleAccept(id);
+        }, index * 100);
+      });
+    }
+  </script>
+
+
+</body></html>

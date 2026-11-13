@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><title>The Founder's Carnet — Admin Workspace</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=Instrument+Serif:ital@0;1&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;background:radial-gradient(circle at 85% 15%, #F5C842 0%, #FF8A2B 30%, #C4451A 55%, #3A1206 100%) fixed;min-height:100vh;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {"darkMode":"class","theme":{"extend":{"colors":{"background":"#fbf8ff","on-secondary-fixed-variant":"#46464f","tertiary":"#90491e","outline-variant":"#dac2b6","secondary":"#5e5e67","primary-container":"#b15f2c","on-tertiary":"#ffffff","surface-container-low":"#f4f2fd","primary-fixed":"#ffdbca","surface-bright":"#fbf8ff","surface-container":"#eeedf7","tertiary-container":"#ae6133","on-primary-fixed-variant":"#773300","primary":"#924715","surface":"#fbf8ff","outline":"#877369","surface-tint":"#954917","on-secondary":"#ffffff","on-surface":"#1a1b22","on-secondary-container":"#62626b","secondary-container":"#e0dee9","secondary-fixed":"#e3e1ec","surface-container-lowest":"#ffffff","on-background":"#1a1b22","on-primary":"#ffffff","primary-fixed-dim":"#ffb68e","on-secondary-fixed":"#1a1b23","on-primary-fixed":"#331200","error":"#ba1a1a","error-container":"#ffdad6","on-tertiary-fixed-variant":"#743408","on-tertiary-fixed":"#331100","secondary-fixed-dim":"#c7c5d0","tertiary-fixed-dim":"#ffb68f","on-surface-variant":"#54433a","inverse-surface":"#2f3038","on-error":"#ffffff","on-error-container":"#93000a","on-primary-container":"#fffcff","surface-container-highest":"#e3e1ec","surface-container-high":"#e8e7f1","inverse-on-surface":"#f1effa","tertiary-fixed":"#ffdbca","surface-variant":"#e3e1ec","surface-dim":"#dad9e3","inverse-primary":"#ffb68e","on-tertiary-container":"#fffdff"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"space-xs":"0.25rem","space-lg":"1.5rem","margin-desktop":"4rem","space-sm":"0.5rem","gutter-desktop":"2rem","space-xl":"2.5rem","space-md":"1rem","margin":"1.25rem","gutter":"1.5rem","margin-tablet":"2.5rem"},"fontFamily":{"body-sm":["Hanken Grotesk"],"label-caps":["JetBrains Mono"],"body-lg":["Hanken Grotesk"],"body-md":["Hanken Grotesk"],"headline-lg":["Hanken Grotesk"],"display-mobile":["Hanken Grotesk"],"code-metric-lg":["JetBrains Mono"],"headline-sm":["Hanken Grotesk"],"display":["Hanken Grotesk"],"headline-md":["Hanken Grotesk"],"code-metric":["JetBrains Mono"],"headline-lg-mobile":["Hanken Grotesk"],"accent-italic":["Instrument Serif"]},"fontSize":{"body-sm":["13px",{"lineHeight":"20px","letterSpacing":"0.005em","fontWeight":"400"}],"label-caps":["11px",{"lineHeight":"16px","letterSpacing":"0.08em","fontWeight":"500"}],"body-lg":["18px",{"lineHeight":"28px","letterSpacing":"0em","fontWeight":"400"}],"body-md":["15px",{"lineHeight":"24px","letterSpacing":"0em","fontWeight":"400"}],"headline-lg":["40px",{"lineHeight":"48px","letterSpacing":"-0.02em","fontWeight":"600"}],"display-mobile":["36px",{"lineHeight":"44px","letterSpacing":"-0.025em","fontWeight":"700"}],"code-metric-lg":["22px",{"lineHeight":"28px","letterSpacing":"-0.02em","fontWeight":"600"}],"headline-sm":["20px",{"lineHeight":"28px","letterSpacing":"-0.01em","fontWeight":"600"}],"display":["56px",{"lineHeight":"64px","letterSpacing":"-0.03em","fontWeight":"700"}],"headline-md":["28px",{"lineHeight":"36px","letterSpacing":"-0.015em","fontWeight":"600"}],"code-metric":["14px",{"lineHeight":"20px","letterSpacing":"-0.01em","fontWeight":"500"}],"headline-lg-mobile":["28px",{"lineHeight":"36px","letterSpacing":"-0.015em","fontWeight":"600"}],"accent-italic":["inherit",{"lineHeight":"inherit","fontWeight":"400"}]}}}};</script></head><body class="min-h-screen text-on-surface flex flex-col font-body-md text-body-md"><header class="fixed top-0 left-0 right-0 z-50 pt-4 px-margin sm:px-margin-tablet lg:px-margin-desktop"><div class="h-20 max-w-7xl mx-auto flex items-center justify-between px-space-lg bg-surface/75 backdrop-blur-xl rounded-full shadow-[0_4px_24px_-2px_rgba(10,10,10,0.12)] border border-white/20"><div class="flex items-center gap-space-md"><a class="flex items-center gap-space-sm group" data-path="console" href="#"><svg class="w-8 h-8 rounded-[10px] shadow-sm flex-shrink-0" viewbox="0 0 64 64"><rect fill="#0A0A0A" height="64" rx="14" width="64"></rect><path d="M45 0H52V22L48.5 18L45 22Z" fill="#B15F2C"></path><path d="M14 14H40V23H24V28.5H36V37.5H24V50H14Z" fill="#FFFFFF"></path></svg><span class="font-headline-sm text-headline-sm font-semibold tracking-tight text-on-surface">The Founder's Carnet</span></a><span class="px-space-sm py-0.5 rounded-full bg-surface-container-high/80 text-on-surface-variant font-label-caps text-label-caps uppercase tracking-wider">ROLE: ADMIN</span></div><nav class="flex items-center p-1 bg-surface-container-highest/50 backdrop-blur-md rounded-full" data-active-classes="bg-on-surface text-surface-container-lowest font-medium rounded-full shadow-sm"><a aria-current="page" class="px-space-lg py-1.5 transition-colors bg-on-surface text-surface-container-lowest font-medium rounded-full shadow-sm" data-path="console" href="#">Console</a></nav><div class="flex items-center gap-space-md"><div class="hidden md:flex items-center gap-space-xs px-space-md py-1.5 rounded-full bg-surface-container-lowest/60 backdrop-blur-md text-on-surface-variant font-code-metric text-code-metric shadow-sm"><span class="material-symbols-outlined text-primary text-[16px]">schedule</span><span>Karachi 3:55pm, 9 Nov 2026</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center font-label-caps text-label-caps text-on-primary font-semibold shadow-sm">AD</div></div></div></header><main class="flex-1 w-full max-w-7xl mx-auto pt-24 px-margin sm:px-margin-tablet lg:px-margin-desktop pb-space-xl"><div class="flex flex-col w-full">
+<!-- Subtle Ambient Glow Plate -->
+<div class="relative w-full mb-space-xl">
+<!-- Top Bar: Eyebrow + Master Title + Tonal Counter Strip -->
+<div class="flex flex-col lg:flex-row lg:items-end justify-between gap-space-lg mb-space-lg">
+<div class="flex flex-col max-w-3xl">
+<div class="flex items-center gap-space-xs mb-space-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container inline-block animate-pulse"></span>
+<span class="font-label-caps text-label-caps text-surface-container-lowest/80 tracking-widest uppercase">OPERATIONS // REVIEW DESK</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-surface-container-lowest font-semibold tracking-tight">
+          Admin <span class="font-accent-italic italic text-[#F5C842] font-normal">console</span>
+</h1>
+<p class="font-body-md text-body-md text-surface-container-lowest/90 mt-space-xs max-w-2xl leading-relaxed">
+          Review and evaluate submitted ecosystem profiles and active single appeals across Karachi, Lahore, and Islamabad.
+        </p>
+</div>
+<!-- Plain Counts Ribbon -->
+<div class="bg-surface-container-lowest/95 backdrop-blur-md rounded-2xl shadow-xl px-space-lg py-space-md flex flex-wrap items-center gap-y-2 gap-x-space-md border border-white/40">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span class="font-code-metric text-code-metric font-semibold text-on-surface">14</span>
+<span class="font-body-sm text-body-sm text-secondary">profiles awaiting review</span>
+</div>
+<span class="text-outline-variant font-code-metric text-code-metric hidden sm:inline">·</span>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-[#B91C1C]"></span>
+<span class="font-code-metric text-code-metric font-semibold text-on-surface">2</span>
+<span class="font-body-sm text-body-sm text-secondary">active appeals</span>
+</div>
+<span class="text-outline-variant font-code-metric text-code-metric hidden sm:inline">·</span>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="font-code-metric text-code-metric font-semibold text-on-surface">5</span>
+<span class="font-body-sm text-body-sm text-secondary">decided today</span>
+</div>
+</div>
+</div>
+<!-- Main Deck Container Card -->
+<div class="bg-surface-container-lowest rounded-[24px] shadow-2xl p-space-md sm:p-space-lg lg:p-space-xl flex flex-col gap-space-lg">
+<!-- Filter Bar: Search + Category Chips + Status Chips -->
+<div class="flex flex-col gap-space-md pb-space-md bg-surface-container-lowest">
+<!-- Search Input -->
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-secondary text-[20px]">search</span>
+<input class="w-full pl-11 pr-4 py-2.5 rounded-xl bg-surface-container-low/70 focus:bg-surface-container-lowest text-on-surface placeholder:text-secondary font-body-md text-body-md transition-colors outline-none focus:ring-1 focus:ring-primary-container" placeholder="Search applicant name, organization, or city..." type="text"/>
+</div>
+<!-- Filter Clusters -->
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+<!-- Role Filters -->
+<div class="flex items-center flex-wrap gap-1.5">
+<span class="font-label-caps text-label-caps text-secondary uppercase tracking-wider mr-1">Role:</span>
+<button class="px-3 py-1 rounded-full font-label-caps text-label-caps bg-on-surface text-surface-container-lowest font-medium transition-transform active:scale-95">All Roles</button>
+<button class="px-3 py-1 rounded-full font-label-caps text-label-caps bg-surface-container-high/60 text-secondary hover:text-on-surface transition-colors">Founders (8)</button>
+<button class="px-3 py-1 rounded-full font-label-caps text-label-caps bg-surface-container-high/60 text-secondary hover:text-on-surface transition-colors">Talent (4)</button>
+<button class="px-3 py-1 rounded-full font-label-caps text-label-caps bg-surface-container-high/60 text-secondary hover:text-on-surface transition-colors">Mentors (3)</button>
+<button class="px-3 py-1 rounded-full font-label-caps text-label-caps bg-surface-container-high/60 text-secondary hover:text-on-surface transition-colors">Investors (1)</button>
+</div>
+<!-- Status Filters -->
+<div class="flex items-center flex-wrap gap-1.5">
+<span class="font-label-caps text-label-caps text-secondary uppercase tracking-wider mr-1">Status:</span>
+<button class="px-3 py-1 rounded-full font-label-caps text-label-caps bg-on-surface text-surface-container-lowest font-medium transition-transform active:scale-95">All Status</button>
+<button class="px-3 py-1 rounded-full font-label-caps text-label-caps bg-[#F8EDE5] text-[#964E22] font-medium hover:opacity-90 transition-opacity">Awaiting Review (14)</button>
+<button class="px-3 py-1 rounded-full font-label-caps text-label-caps bg-[#FEF2F2] text-[#B91C1C] font-medium hover:opacity-90 transition-opacity">Appeal Submitted (2)</button>
+<button class="px-3 py-1 rounded-full font-label-caps text-label-caps bg-surface-container-high/60 text-secondary hover:text-on-surface transition-colors">Under Peer Review (3)</button>
+</div>
+</div>
+</div>
+<!-- Queue Table -->
+<div class="overflow-x-auto -mx-space-md sm:-mx-space-lg lg:-mx-space-xl px-space-md sm:px-space-lg lg:px-space-xl">
+<table class="w-full text-left border-collapse min-w-[940px]">
+<thead>
+<tr class="bg-surface-container-low/60 rounded-xl">
+<th class="py-3 px-4 font-label-caps text-label-caps text-secondary uppercase tracking-wider rounded-l-xl">Name &amp; Organization</th>
+<th class="py-3 px-4 font-label-caps text-label-caps text-secondary uppercase tracking-wider">Role</th>
+<th class="py-3 px-4 font-label-caps text-label-caps text-secondary uppercase tracking-wider">Submitted</th>
+<th class="py-3 px-4 font-label-caps text-label-caps text-secondary uppercase tracking-wider">Automated Check Result</th>
+<th class="py-3 px-4 font-label-caps text-label-caps text-secondary uppercase tracking-wider">Status</th>
+<th class="py-3 px-4 font-label-caps text-label-caps text-secondary uppercase tracking-wider text-right rounded-r-xl">Action</th>
+</tr>
+</thead>
+<tbody class="font-body-md text-body-md text-on-surface">
+<!-- Row 1: Bilal Ahmed -->
+<tr class="hover:bg-surface-container-low/40 transition-colors">
+<td class="py-4 px-4 align-top">
+<div class="font-semibold text-on-surface">Bilal Ahmed</div>
+<div class="font-body-sm text-body-sm text-secondary">Munshi Books · Karachi</div>
+</td>
+<td class="py-4 px-4 align-top">
+<span class="inline-flex items-center px-2 py-0.5 rounded font-label-caps text-label-caps bg-surface-container-high text-on-surface-variant">Founder</span>
+</td>
+<td class="py-4 px-4 align-top whitespace-nowrap">
+<span class="font-code-metric text-code-metric text-secondary">9 Nov 2026, 11:20 am</span>
+</td>
+<td class="py-4 px-4 align-top max-w-xs">
+<div class="flex items-start gap-1.5 text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-primary-container text-[18px] flex-shrink-0 mt-0.5" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span>Clear — identity confirmed, pitch deck attached, completeness 95%</span>
+</div>
+</td>
+<td class="py-4 px-4 align-top whitespace-nowrap">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full font-label-caps text-label-caps bg-[#F8EDE5] text-[#964E22] font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-[#964E22]"></span>
+                  Awaiting Review
+                </span>
+</td>
+<td class="py-4 px-4 align-top text-right whitespace-nowrap">
+<button class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-on-surface text-surface-container-lowest font-body-sm text-body-sm font-medium hover:bg-black transition-transform active:scale-95 shadow-sm" onclick="openDrawer('Bilal Ahmed', 'Founder', 'Clear — identity confirmed, pitch deck attached, completeness 95%', 'Initial submission with comprehensive metrics and customer validation data.')">
+<span>Review profile</span>
+<span class="font-label-caps">→</span>
+</button>
+</td>
+</tr>
+<!-- Row 2: Nida Farooq (Flagged/Appeal) -->
+<tr class="bg-surface-container-low/25 hover:bg-surface-container-low/60 transition-colors">
+<td class="py-4 px-4 align-top">
+<div class="font-semibold text-on-surface flex items-center gap-1.5">
+<span>Nida Farooq</span>
+<span class="w-1.5 h-1.5 rounded-full bg-[#B91C1C]"></span>
+</div>
+<div class="font-body-sm text-body-sm text-secondary">Senior Flutter Developer · Karachi</div>
+</td>
+<td class="py-4 px-4 align-top">
+<span class="inline-flex items-center px-2 py-0.5 rounded font-label-caps text-label-caps bg-surface-container-high text-on-surface-variant">Talent</span>
+</td>
+<td class="py-4 px-4 align-top whitespace-nowrap">
+<span class="font-code-metric text-code-metric text-secondary">9 Nov 2026, 10:45 am</span>
+</td>
+<td class="py-4 px-4 align-top max-w-xs">
+<div class="flex items-start gap-1.5 text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[#B91C1C] text-[18px] flex-shrink-0 mt-0.5" style="font-variation-settings: 'FILL' 1;">error</span>
+<span>Flagged — external venture signals inconclusive, portfolio link valid</span>
+</div>
+</td>
+<td class="py-4 px-4 align-top whitespace-nowrap">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full font-label-caps text-label-caps bg-[#FEF2F2] text-[#B91C1C] font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-[#B91C1C]"></span>
+                  Appeal Submitted
+                </span>
+</td>
+<td class="py-4 px-4 align-top text-right whitespace-nowrap">
+<button class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-[#0A0A0A] text-surface-container-lowest font-body-sm text-body-sm font-medium hover:bg-black transition-transform active:scale-95 shadow-sm" onclick="openDrawer('Nida Farooq', 'Talent', 'Flagged — external venture signals inconclusive, portfolio link valid', 'Automated scoring flagged low external signals. Single-appeal submission received with verified employment cert and active GitHub repository.')">
+<span>Review appeal</span>
+<span class="font-label-caps">→</span>
+</button>
+</td>
+</tr>
+<!-- Row 3: Asad Ullah -->
+<tr class="hover:bg-surface-container-low/40 transition-colors">
+<td class="py-4 px-4 align-top">
+<div class="font-semibold text-on-surface">Asad Ullah</div>
+<div class="font-body-sm text-body-sm text-secondary">Fasal Labs · Lahore</div>
+</td>
+<td class="py-4 px-4 align-top">
+<span class="inline-flex items-center px-2 py-0.5 rounded font-label-caps text-label-caps bg-surface-container-high text-on-surface-variant">Founder</span>
+</td>
+<td class="py-4 px-4 align-top whitespace-nowrap">
+<span class="font-code-metric text-code-metric text-secondary">8 Nov 2026, 4:15 pm</span>
+</td>
+<td class="py-4 px-4 align-top max-w-xs">
+<div class="flex items-start gap-1.5 text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-primary-container text-[18px] flex-shrink-0 mt-0.5" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span>Clear — agritech pilot LOIs verified, 4 farmer co-ops listed</span>
+</div>
+</td>
+<td class="py-4 px-4 align-top whitespace-nowrap">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full font-label-caps text-label-caps bg-[#F8EDE5] text-[#964E22] font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-[#964E22]"></span>
+                  Awaiting Review
+                </span>
+</td>
+<td class="py-4 px-4 align-top text-right whitespace-nowrap">
+<button class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-on-surface text-surface-container-lowest font-body-sm text-body-sm font-medium hover:bg-black transition-transform active:scale-95 shadow-sm" onclick="openDrawer('Asad Ullah', 'Founder', 'Clear — agritech pilot LOIs verified, 4 farmer co-ops listed', 'Co-op partnerships verified via written correspondence and direct pilot milestone proof.')">
+<span>Review profile</span>
+<span class="font-label-caps">→</span>
+</button>
+</td>
+</tr>
+<!-- Row 4: Dr. Tariq Hassan -->
+<tr class="hover:bg-surface-container-low/40 transition-colors">
+<td class="py-4 px-4 align-top">
+<div class="font-semibold text-on-surface">Dr. Tariq Hassan</div>
+<div class="font-body-sm text-body-sm text-secondary">Senior Advisor · Islamabad</div>
+</td>
+<td class="py-4 px-4 align-top">
+<span class="inline-flex items-center px-2 py-0.5 rounded font-label-caps text-label-caps bg-surface-container-high text-on-surface-variant">Mentor</span>
+</td>
+<td class="py-4 px-4 align-top whitespace-nowrap">
+<span class="font-code-metric text-code-metric text-secondary">8 Nov 2026, 2:30 pm</span>
+</td>
+<td class="py-4 px-4 align-top max-w-xs">
+<div class="flex items-start gap-1.5 text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-primary-container text-[18px] flex-shrink-0 mt-0.5" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span>Clear — advisory capacity confirmed, 5 sectors specified</span>
+</div>
+</td>
+<td class="py-4 px-4 align-top whitespace-nowrap">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full font-label-caps text-label-caps bg-[#F8EDE5] text-[#964E22] font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-[#964E22]"></span>
+                  Awaiting Review
+                </span>
+</td>
+<td class="py-4 px-4 align-top text-right whitespace-nowrap">
+<button class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-on-surface text-surface-container-lowest font-body-sm text-body-sm font-medium hover:bg-black transition-transform active:scale-95 shadow-sm" onclick="openDrawer('Dr. Tariq Hassan', 'Mentor', 'Clear — advisory capacity confirmed, 5 sectors specified', 'Longstanding institutional advisory track record verified in Islamabad seed stage circle.')">
+<span>Review profile</span>
+<span class="font-label-caps">→</span>
+</button>
+</td>
+</tr>
+<!-- Row 5: Farooq Khan -->
+<tr class="hover:bg-surface-container-low/40 transition-colors">
+<td class="py-4 px-4 align-top">
+<div class="font-semibold text-on-surface">Farooq Khan</div>
+<div class="font-body-sm text-body-sm text-secondary">NovaPay · Karachi</div>
+</td>
+<td class="py-4 px-4 align-top">
+<span class="inline-flex items-center px-2 py-0.5 rounded font-label-caps text-label-caps bg-surface-container-high text-on-surface-variant">Founder</span>
+</td>
+<td class="py-4 px-4 align-top whitespace-nowrap">
+<span class="font-code-metric text-code-metric text-secondary">7 Nov 2026, 6:00 pm</span>
+</td>
+<td class="py-4 px-4 align-top max-w-xs">
+<div class="flex items-start gap-1.5 text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-primary-container text-[18px] flex-shrink-0 mt-0.5" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span>Clear — regulatory sandbox applicant credentials confirmed</span>
+</div>
+</td>
+<td class="py-4 px-4 align-top whitespace-nowrap">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full font-label-caps text-label-caps bg-[#F8EDE5] text-[#964E22] font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-[#964E22]"></span>
+                  Awaiting Review
+                </span>
+</td>
+<td class="py-4 px-4 align-top text-right whitespace-nowrap">
+<button class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-on-surface text-surface-container-lowest font-body-sm text-body-sm font-medium hover:bg-black transition-transform active:scale-95 shadow-sm" onclick="openDrawer('Farooq Khan', 'Founder', 'Clear — regulatory sandbox applicant credentials confirmed', 'Verified participation in contemporary venture cohort; technical deck provided.')">
+<span>Review profile</span>
+<span class="font-label-caps">→</span>
+</button>
+</td>
+</tr>
+<!-- Row 6: Hira Tariq -->
+<tr class="hover:bg-surface-container-low/40 transition-colors">
+<td class="py-4 px-4 align-top">
+<div class="font-semibold text-on-surface">Hira Tariq</div>
+<div class="font-body-sm text-body-sm text-secondary">VP Engineering · Lahore</div>
+</td>
+<td class="py-4 px-4 align-top">
+<span class="inline-flex items-center px-2 py-0.5 rounded font-label-caps text-label-caps bg-surface-container-high text-on-surface-variant">Talent</span>
+</td>
+<td class="py-4 px-4 align-top whitespace-nowrap">
+<span class="font-code-metric text-code-metric text-secondary">7 Nov 2026, 1:15 pm</span>
+</td>
+<td class="py-4 px-4 align-top max-w-xs">
+<div class="flex items-start gap-1.5 text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-primary-container text-[18px] flex-shrink-0 mt-0.5" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span>Clear — GitHub and LinkedIn profiles verified, 8 years exp</span>
+</div>
+</td>
+<td class="py-4 px-4 align-top whitespace-nowrap">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full font-label-caps text-label-caps bg-[#F8EDE5] text-[#964E22] font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-[#964E22]"></span>
+                  Awaiting Review
+                </span>
+</td>
+<td class="py-4 px-4 align-top text-right whitespace-nowrap">
+<button class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-on-surface text-surface-container-lowest font-body-sm text-body-sm font-medium hover:bg-black transition-transform active:scale-95 shadow-sm" onclick="openDrawer('Hira Tariq', 'Talent', 'Clear — GitHub and LinkedIn profiles verified, 8 years exp', 'Peer verified by two resident CTOs in Lahore; technical contributions confirmed.')">
+<span>Review profile</span>
+<span class="font-label-caps">→</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Footnote Ledger Notice -->
+<div class="pt-space-md flex items-center justify-between flex-wrap gap-space-sm bg-surface-container-low/40 px-space-md py-space-sm rounded-xl">
+<div class="flex items-center gap-2 text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-primary-container text-[18px]">verified_user</span>
+<span><strong class="font-semibold text-on-surface">Honesty Standard:</strong> Automated heuristics pre-screen submissions; a human reviewer independently evaluates credentials. Rejection is final after one appeal.</span>
+</div>
+<span class="font-label-caps text-label-caps text-secondary uppercase">CARNET OPERATIONAL PROTOCOL</span>
+</div>
+</div>
+</div>
+<!-- Slide-Over Review Detail Drawer (Persistent Backdrop & Canvas Plate) -->
+<div class="fixed inset-0 z-50 pointer-events-none transition-all duration-300 opacity-0" id="reviewDrawer">
+<!-- Backdrop scrim -->
+<div class="absolute inset-0 bg-on-surface/40 backdrop-blur-sm transition-opacity" onclick="closeDrawer()"></div>
+<!-- Drawer panel -->
+<div class="absolute right-0 top-0 bottom-0 w-full max-w-xl bg-surface-container-lowest shadow-2xl flex flex-col justify-between transform translate-x-full transition-transform duration-300 pointer-events-auto p-space-lg sm:p-space-xl overflow-y-auto">
+<!-- Drawer Top -->
+<div class="flex flex-col gap-space-lg">
+<!-- Close Bar & Status Meta -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-[#B91C1C]"></span>
+<span class="font-label-caps text-label-caps text-secondary uppercase tracking-wider">APPEAL ADJUDICATION</span>
+</div>
+<button class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-secondary hover:text-on-surface transition-colors" onclick="closeDrawer()">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+<!-- Applicant Title -->
+<div>
+<span class="font-label-caps text-label-caps text-primary-container uppercase">DOSSIER REVIEW</span>
+<h2 class="font-headline-md text-headline-md font-semibold text-on-surface mt-1" id="drawerTitle">
+            Profile Review: Nida Farooq (Talent)
+          </h2>
+<p class="font-body-sm text-body-sm text-secondary mt-1">Submitted from Karachi · Single appeal under evaluation</p>
+</div>
+<!-- Evaluation Split Plate -->
+<div class="flex flex-col gap-space-md">
+<!-- Automated Checks Block -->
+<div class="p-space-md rounded-xl bg-surface-container-low/80 flex flex-col gap-1.5">
+<span class="font-label-caps text-label-caps text-secondary uppercase tracking-wider">Automated Pre-Screen Result</span>
+<div class="font-body-md text-body-md text-on-surface flex items-start gap-2" id="drawerAutomated">
+<span class="material-symbols-outlined text-[#B91C1C] text-[20px] flex-shrink-0 mt-0.5">flag</span>
+<span>Flagged — external venture signals inconclusive, portfolio link valid</span>
+</div>
+</div>
+<!-- Human Review Note Block -->
+<div class="p-space-md rounded-xl bg-[#F8EDE5]/60 flex flex-col gap-1.5">
+<span class="font-label-caps text-label-caps text-[#964E22] uppercase tracking-wider">Human Review &amp; Appeal Context</span>
+<p class="font-body-md text-body-md text-on-surface" id="drawerNotes">
+              Automated scoring flagged low external signals. Single-appeal submission received with verified employment cert and active GitHub repository.
+            </p>
+</div>
+<!-- Strict Policy Callout -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex items-start gap-2.5">
+<span class="material-symbols-outlined text-secondary text-[20px] flex-shrink-0 mt-0.5">info</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+<strong class="font-semibold text-on-surface">Policy Reminder:</strong> Rejection is final after one appeal. Once a decision is committed, the carnet entry locks immediately across the entire ecosystem.
+            </p>
+</div>
+</div>
+</div>
+<!-- Action Footer -->
+<div class="pt-space-xl mt-space-lg flex flex-col sm:flex-row items-center justify-between gap-space-md">
+<button class="w-full sm:w-auto px-space-md py-2.5 rounded-full font-body-md text-body-md text-secondary hover:text-on-surface transition-colors" onclick="closeDrawer()">
+          Close
+        </button>
+<div class="flex items-center gap-space-sm w-full sm:w-auto">
+<button class="flex-1 sm:flex-initial px- space-md py-2.5 rounded-full font-body-md text-body-md font-medium text-primary-container bg-surface-container-lowest hover:bg-surface-container-low transition-colors shadow-sm" onclick="commitDecision('Denied')">
+            Deny Appeal (Final)
+          </button>
+<button class="flex-1 sm:flex-initial px-space-lg py-2.5 rounded-full font-body-md text-body-md font-medium text-surface-container-lowest bg-[#0A0A0A] hover:bg-black transition-transform active:scale-95 shadow-md" onclick="commitDecision('Approved')">
+            Uphold &amp; Approve
+          </button>
+</div>
+</div>
+</div>
+</div>
+<script>
+    function openDrawer(name, role, automatedCheck, notes) {
+      const drawer = document.getElementById('reviewDrawer');
+      const drawerTitle = document.getElementById('drawerTitle');
+      const drawerAutomated = document.getElementById('drawerAutomated');
+      const drawerNotes = document.getElementById('drawerNotes');
+
+      drawerTitle.textContent = 'Profile Review: ' + name + ' (' + role + ')';
+      drawerAutomated.innerHTML = '<span class="material-symbols-outlined text-[#B91C1C] text-[20px] flex-shrink-0 mt-0.5">rule</span><span>' + automatedCheck + '</span>';
+      drawerNotes.textContent = notes;
+
+      drawer.classList.remove('opacity-0', 'pointer-events-none');
+      drawer.classList.add('opacity-100');
+      drawer.querySelector('.translate-x-full').classList.remove('translate-x-full');
+    }
+
+    function closeDrawer() {
+      const drawer = document.getElementById('reviewDrawer');
+      const panel = drawer.querySelector('> div:nth-child(2)');
+      
+      panel.classList.add('translate-x-full');
+      drawer.classList.remove('opacity-100');
+      drawer.classList.add('opacity-0', 'pointer-events-none');
+    }
+
+    function commitDecision(action) {
+      alert('Decision recorded: ' + action + '. Policy protocol applied.');
+      closeDrawer();
+    }
+  </script>
+</div></main><footer class="w-full mt-auto py-space-xl px-margin sm:px-margin-tablet lg:px-margin-desktop"><div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-space-md pt-space-lg border-t border-white/10"><div class="flex items-center gap-space-sm"><svg class="w-6 h-6 rounded-[8px] flex-shrink-0" viewbox="0 0 64 64"><rect fill="#0A0A0A" height="64" rx="14" width="64"></rect><path d="M45 0H52V22L48.5 18L45 22Z" fill="#B15F2C"></path><path d="M14 14H40V23H24V28.5H36V37.5H24V50H14Z" fill="#FFFFFF"></path></svg><span class="font-body-sm text-body-sm text-surface-container-lowest/90">© 2026 The Founder's Carnet. All rights reserved.</span></div><nav class="flex items-center gap-space-lg font-body-sm text-body-sm"><a class="text-surface-container-lowest/80 hover:text-surface-container-lowest transition-colors" data-path="privacy" href="#">Privacy</a><a class="text-surface-container-lowest/80 hover:text-surface-container-lowest transition-colors" data-path="terms" href="#">Terms</a><a class="text-surface-container-lowest/80 hover:text-surface-container-lowest transition-colors" data-path="contact" href="#">Contact</a></nav></div></footer></body></html>

@@ -191,3 +191,16 @@ The same holds for GSD Core if it is installed (`SETUP.md` section 10). Its comm
 | `ponytail`, `ponytail-review`, `ponytail-audit`, `ponytail-debt` | Only when the user asks. Smallest-change style, review of a change or the whole repo, and a list of deferred `shortcut:` comments. Replies must still explain each change in plain words |
 
 Other items (spec-kit and the per-person installs) are listed in `THIRD_PARTY.md`. They are not skills in `.claude/skills/`. spec-kit is a per-person tool, installed on Ali's machine, and `specify init` has not been run. Add a row here for each skill once it is in `.claude/skills/`.
+
+## Design source of truth (latest, overrides any earlier design rule above)
+
+- `DESIGN.md` at the repo root is the only design source. Read it before any UI work.
+- References live in `frontend/design_reference/<folder>/` (`screen.png` plus `code.html`). `frontend/design_reference/INDEX.md` maps each route to its folder.
+- References are visual only. Never copy `code.html` or its Tailwind config colors.
+- Strip anything that breaks rule 13 from references (invented stats, fake IDs, compliance claims, "AI-generated" badges).
+- Page background is one token in `globals.css`: `radial-gradient(circle at 85% 15%, #F5C842 0%, #FF8A2B 30%, #C4451A 55%, #3A1206 100%) fixed`. Same on every screen.
+- Fonts via `next/font/google`: Hanken Grotesk (text), Instrument Serif italic (last one or two words of page and card titles only), JetBrains Mono (uppercase small labels, nav, dates, status chips).
+- Icons are inline SVG components in `src/components/ui/icons`.
+- Overrides: rule 2 also allows numerals at 72 and 96 and mono at 12 to 13. Rule 3 is replaced by the font list above. Rule 4 is replaced by the page background token, the only gradient allowed. Rule 11 is amended: no SECP, PSEB, FBR or PECA mentions in the UI.
+- `ROLE_NAVIGATION` is the only nav source. Admin has Console only; appeals are tabs inside it.
+- Ignore the old `docs/design/stitch/` path.

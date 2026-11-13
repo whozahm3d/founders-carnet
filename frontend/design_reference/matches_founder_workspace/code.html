@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Founder Workspace // Matches - The Founder's Carnet</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&amp;family=Instrument+Serif:ital@0;1&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "on-secondary": "#ffffff",
+            "on-primary-fixed-variant": "#773300",
+            "error": "#ba1a1a",
+            "primary-container": "#b15f2c",
+            "on-surface": "#1a1b22",
+            "on-secondary-fixed": "#1a1b23",
+            "outline-variant": "#dac2b6",
+            "inverse-primary": "#ffb68e",
+            "on-error": "#ffffff",
+            "surface": "#fbf8ff",
+            "on-secondary-fixed-variant": "#46464f",
+            "tertiary": "#90491e",
+            "on-error-container": "#93000a",
+            "secondary-container": "#e0dee9",
+            "background": "#fbf8ff",
+            "primary-fixed": "#ffdbca",
+            "inverse-on-surface": "#f1effa",
+            "on-primary-fixed": "#331200",
+            "surface-bright": "#fbf8ff",
+            "secondary": "#5e5e67",
+            "tertiary-fixed-dim": "#ffb68f",
+            "inverse-surface": "#2f3038",
+            "surface-dim": "#dad9e3",
+            "tertiary-fixed": "#ffdbca",
+            "surface-container": "#eeedf7",
+            "secondary-fixed": "#e3e1ec",
+            "surface-container-highest": "#e3e1ec",
+            "on-primary": "#ffffff",
+            "surface-container-high": "#e8e7f1",
+            "tertiary-container": "#ae6133",
+            "secondary-fixed-dim": "#c7c5d0",
+            "primary": "#924715",
+            "on-surface-variant": "#54433a",
+            "surface-variant": "#e3e1ec",
+            "on-tertiary": "#ffffff",
+            "primary-fixed-dim": "#ffb68e",
+            "surface-container-lowest": "#ffffff",
+            "on-secondary-container": "#62626b",
+            "on-primary-container": "#fffcff",
+            "error-container": "#ffdad6",
+            "surface-tint": "#954917",
+            "outline": "#877369",
+            "on-tertiary-fixed-variant": "#743408",
+            "on-tertiary-container": "#fffdff",
+            "on-tertiary-fixed": "#331100",
+            "on-background": "#1a1b22",
+            "surface-container-low": "#f4f2fd"
+          },
+          borderRadius: {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          fontFamily: {
+            "label-caps": ["JetBrains Mono", "monospace"],
+            "display": ["Hanken Grotesk", "sans-serif"],
+            "headline-lg": ["Hanken Grotesk", "sans-serif"],
+            "headline-md": ["Hanken Grotesk", "sans-serif"],
+            "body-md": ["Hanken Grotesk", "sans-serif"],
+            "body-lg": ["Hanken Grotesk", "sans-serif"],
+            "body-sm": ["Hanken Grotesk", "sans-serif"],
+            "code-metric": ["JetBrains Mono", "monospace"],
+            "code-metric-lg": ["JetBrains Mono", "monospace"],
+            "accent-italic": ["Instrument Serif", "serif"]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+    }
+  </style>
+</head>
+<body class="bg-[#FAF9F7] text-[#0A0A0A] font-body-md antialiased min-h-screen">
+<!-- Top Global Founder Banner / Context Bar -->
+<header class="bg-[#0A0A0A] text-white border-b border-[#262626] sticky top-0 z-40">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-3">
+<div class="h-8 w-8 rounded bg-[#B15F2C] flex items-center justify-center font-serif text-white text-lg font-bold">C</div>
+<span class="font-display font-semibold tracking-tight text-white text-base">The Founder's Carnet</span>
+</div>
+<div class="hidden md:flex items-center gap-2 border-l border-[#262626] pl-6">
+<span class="inline-block w-2 h-2 rounded-full bg-[#B15F2C]"></span>
+<span class="font-label-caps text-xs text-[#A1A1AA] uppercase tracking-wider">Bilal Ahmed</span>
+<span class="text-[#52525B] text-xs">/</span>
+<span class="text-xs text-[#E4E4E7] font-medium">Munshi Books</span>
+<span class="bg-[#27272A] text-[#D4D4D8] font-label-caps text-[10px] px-2 py-0.5 rounded ml-1">Seed Fintech · Karachi</span>
+</div>
+</div>
+<nav class="flex items-center gap-4">
+<a class="text-xs font-label-caps text-[#A1A1AA] hover:text-white uppercase transition-colors" href="#browse">Directory</a>
+<a class="text-xs font-label-caps text-white bg-[#27272A] px-3 py-1.5 rounded uppercase" href="#matches">Matches (18)</a>
+<a class="text-xs font-label-caps text-[#A1A1AA] hover:text-white uppercase transition-colors" href="#intros">Introductions</a>
+<div class="w-8 h-8 rounded-full bg-[#3F3F46] flex items-center justify-center text-xs font-medium text-white border border-[#52525B]">BA</div>
+</nav>
+</div>
+</header>
+<!-- Hero Header Section (Deep Ink Atmosphere) -->
+<section class="bg-[#0A0A0A] text-white pt-10 pb-12 px-4 sm:px-6 lg:px-8 border-b border-[#262626]">
+<div class="max-w-6xl mx-auto">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-2">
+<div class="space-y-3 max-w-3xl">
+<div class="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-[#1C1917] border border-[#292524]">
+<span class="w-1.5 h-1.5 rounded-full bg-[#B15F2C] animate-pulse"></span>
+<span class="font-label-caps text-[11px] text-[#D6D3D1] tracking-wider uppercase">FOUNDER WORKSPACE // DISCOVERY &amp; MUTUAL INTRODUCTIONS</span>
+</div>
+<h1 class="text-3xl sm:text-4xl lg:text-[42px] font-display font-bold leading-tight tracking-tight text-white">
+            Investor &amp; Mentor <span class="font-accent-italic italic font-normal text-[#F5C842]">matches</span>
+</h1>
+<p class="text-[#E6E5E2]/80 text-[15px] leading-relaxed max-w-2xl font-body-md">
+            Ranked by thesis alignment and operational fit. Mutual-consent introductions keep your contact details private until both parties accept.
+          </p>
+</div>
+<!-- Metric Capsule -->
+<div class="flex items-center gap-4 bg-[#18181B] p-3 rounded-lg border border-[#27272A] self-start md:self-auto">
+<div class="pr-3 border-r border-[#27272A]">
+<p class="font-label-caps text-[10px] text-[#A1A1AA] uppercase">Active Intake</p>
+<p class="font-code-metric text-lg text-white font-semibold">18 Targets</p>
+</div>
+<div>
+<p class="font-label-caps text-[10px] text-[#A1A1AA] uppercase">Avg Alignment</p>
+<p class="font-code-metric text-lg text-[#F5C842] font-semibold">86.2%</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Main Content Stage -->
+<main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8" id="matches">
+<!-- Controls & Filter Bar -->
+<div class="bg-white rounded-xl border border-[#E6E5E2] p-4 shadow-sm mb-6 flex flex-col gap-4">
+<!-- Top Row: Role Toggles & Preview States -->
+<div class="flex flex-wrap items-center justify-between gap-3 border-b border-[#F4F4F5] pb-3.5">
+<!-- Role Filter Buttons -->
+<div class="flex flex-wrap items-center gap-2">
+<button class="px-4 py-1.5 rounded-full text-xs font-semibold bg-[#0A0A0A] text-white transition-all shadow-sm" id="role-all" onclick="filterRole('all')">
+            All (18)
+          </button>
+<button class="px-4 py-1.5 rounded-full text-xs font-semibold bg-white border border-[#E6E5E2] text-[#52525B] hover:text-[#0A0A0A] hover:border-[#71717A] transition-all" id="role-investor" onclick="filterRole('investor')">
+            Investors (11)
+          </button>
+<button class="px-4 py-1.5 rounded-full text-xs font-semibold bg-white border border-[#E6E5E2] text-[#52525B] hover:text-[#0A0A0A] hover:border-[#71717A] transition-all" id="role-mentor" onclick="filterRole('mentor')">
+            Mentors (7)
+          </button>
+</div>
+<!-- Interactive Preview Switcher Pill -->
+<div class="flex items-center bg-[#FAF9F7] p-1 rounded-lg border border-[#E6E5E2] text-xs">
+<span class="text-[10px] font-label-caps text-[#71717A] px-2 uppercase tracking-wide">Preview State:</span>
+<button class="px-2.5 py-1 rounded font-medium text-[#0A0A0A] bg-white shadow-xs border border-[#E6E5E2]" id="btn-mode-default" onclick="setMode('default')">Default List</button>
+<button class="px-2.5 py-1 rounded font-medium text-[#71717A] hover:text-[#0A0A0A]" id="btn-mode-modal" onclick="openModal()">Modal Open Preview</button>
+<button class="px-2.5 py-1 rounded font-medium text-[#71717A] hover:text-[#0A0A0A]" id="btn-mode-pending" onclick="setMode('pending')">Request Sent State</button>
+</div>
+</div>
+<!-- Bottom Row: Filter Dropdowns & Sorter -->
+<div class="flex flex-wrap items-center justify-between gap-3">
+<div class="flex flex-wrap items-center gap-2 text-xs">
+<div class="relative inline-block">
+<button class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded border border-[#E6E5E2] bg-[#FAF9F7] text-[#0A0A0A] font-medium hover:bg-white transition-colors">
+<span>Sector: <span class="font-semibold">All Sectors</span></span>
+<span class="material-symbols-outlined text-sm leading-none" data-icon="expand_more">expand_more</span>
+</button>
+</div>
+<div class="relative inline-block">
+<button class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded border border-[#E6E5E2] bg-[#FAF9F7] text-[#0A0A0A] font-medium hover:bg-white transition-colors">
+<span>Stage: <span class="font-semibold">Seed</span></span>
+<span class="material-symbols-outlined text-sm leading-none" data-icon="expand_more">expand_more</span>
+</button>
+</div>
+<div class="relative inline-block">
+<button class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded border border-[#E6E5E2] bg-[#FAF9F7] text-[#0A0A0A] font-medium hover:bg-white transition-colors">
+<span>City: <span class="font-semibold">Karachi &amp; Lahore</span></span>
+<span class="material-symbols-outlined text-sm leading-none" data-icon="expand_more">expand_more</span>
+</button>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-xs text-[#71717A]">Sort by:</span>
+<button class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded border border-[#E6E5E2] bg-white text-xs text-[#0A0A0A] font-semibold hover:border-[#71717A] transition-colors">
+<span>Profile similarity</span>
+<span class="material-symbols-outlined text-sm leading-none" data-icon="expand_more">expand_more</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Ranked Match List Container -->
+<div class="bg-white rounded-[24px] border border-[#E6E5E2] divide-y divide-[#E6E5E2] shadow-sm overflow-hidden">
+<!-- Match Card 1: Ayesha Qureshi (Featured 94%) -->
+<article class="p-6 lg:p-7 hover:bg-[#FAF9F7]/70 transition-colors flex flex-col md:flex-row gap-5 items-start justify-between match-item match-investor">
+<div class="flex items-start gap-4 flex-1">
+<!-- Monogram Avatar -->
+<div class="w-14 h-14 rounded-full bg-[#1C1917] text-[#F8EDE5] flex items-center justify-center font-display font-semibold text-lg shrink-0 border-2 border-[#FAF9F7] shadow-xs">
+            AQ
+          </div>
+<div class="space-y-2.5 flex-1">
+<div class="flex flex-wrap items-center gap-x-3 gap-y-1">
+<h2 class="text-lg font-display font-bold text-[#0A0A0A]">Ayesha Qureshi</h2>
+<span class="text-xs text-[#71717A]">·</span>
+<p class="text-sm font-medium text-[#52525B]">Partner · Indus Valley Capital — <span class="text-[#0A0A0A]">Karachi</span></p>
+<!-- Similarity Badge -->
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#F8EDE5] text-[#B15F2C] border border-[#B15F2C]/20 ml-auto md:ml-0">
+<span class="w-1.5 h-1.5 rounded-full bg-[#B15F2C]"></span>
+                94% Profile similarity
+              </span>
+</div>
+<!-- Tags -->
+<div class="flex flex-wrap items-center gap-2">
+<span class="font-label-caps text-[11px] bg-[#F1F0EE] text-[#52525B] px-2.5 py-1 rounded">Fintech</span>
+<span class="font-label-caps text-[11px] bg-[#F1F0EE] text-[#52525B] px-2.5 py-1 rounded">Seed Stage</span>
+<span class="font-label-caps text-[11px] bg-[#F1F0EE] text-[#0A0A0A] font-semibold px-2.5 py-1 rounded border border-[#E6E5E2]">Check: PKR 15M - 35M</span>
+</div>
+<!-- Why this match rationale -->
+<div class="pt-1">
+<p class="text-sm text-[#0A0A0A] font-medium leading-relaxed">
+<span class="text-[#B15F2C] font-semibold">Why this match:</span> High thesis alignment for SME ledger automation, multi-branch cashflow oversight, and Pakistani B2B invoicing rails.
+              </p>
+</div>
+<!-- Lock Line -->
+<div class="flex items-center gap-1.5 text-xs text-[#71717A] pt-1">
+<span class="material-symbols-outlined text-[15px] leading-none text-[#A1A1AA]" data-icon="lock">lock</span>
+<span>Contact details after mutual acceptance</span>
+</div>
+</div>
+</div>
+<!-- Action Area -->
+<div class="w-full md:w-auto shrink-0 pt-2 md:pt-0 md:self-center flex flex-col items-end gap-1">
+<button class="w-full md:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-[#0A0A0A] text-white hover:bg-[#262626] font-medium text-sm transition-all shadow-sm" onclick="openModal()">
+<span>Request match</span>
+<span class="material-symbols-outlined text-sm leading-none" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<span class="text-[11px] text-[#A1A1AA] hidden md:block">Typically replies in 48h</span>
+</div>
+</article>
+<!-- Match Card 2: Hamza Iqbal (Mentor 88%) -->
+<article class="p-6 lg:p-7 hover:bg-[#FAF9F7]/70 transition-colors flex flex-col md:flex-row gap-5 items-start justify-between match-item match-mentor">
+<div class="flex items-start gap-4 flex-1">
+<!-- Monogram Avatar -->
+<div class="w-14 h-14 rounded-full bg-[#F4F2FD] text-[#52525B] border border-[#E6E5E2] flex items-center justify-center font-display font-semibold text-lg shrink-0">
+            HI
+          </div>
+<div class="space-y-2.5 flex-1">
+<div class="flex flex-wrap items-center gap-x-3 gap-y-1">
+<h2 class="text-lg font-display font-bold text-[#0A0A0A]">Hamza Iqbal</h2>
+<span class="text-xs text-[#71717A]">·</span>
+<p class="text-sm font-medium text-[#52525B]">Mentor · Ex-VP Product, Finja — <span class="text-[#0A0A0A]">Lahore</span></p>
+<!-- Similarity Badge -->
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#F8EDE5] text-[#B15F2C] border border-[#B15F2C]/20 ml-auto md:ml-0">
+<span class="w-1.5 h-1.5 rounded-full bg-[#B15F2C]"></span>
+                88% Profile similarity
+              </span>
+</div>
+<!-- Tags -->
+<div class="flex flex-wrap items-center gap-2">
+<span class="font-label-caps text-[11px] bg-[#F1F0EE] text-[#52525B] px-2.5 py-1 rounded">B2B SaaS</span>
+<span class="font-label-caps text-[11px] bg-[#F1F0EE] text-[#52525B] px-2.5 py-1 rounded">Product Ops</span>
+<span class="font-label-caps text-[11px] bg-[#F1F0EE] text-[#52525B] px-2.5 py-1 rounded">4 hrs/month capacity</span>
+</div>
+<!-- Why this match rationale -->
+<div class="pt-1">
+<p class="text-sm text-[#0A0A0A] font-medium leading-relaxed">
+<span class="text-[#B15F2C] font-semibold">Why this match:</span> Deep operational experience scaling merchant acquisition funnels and low-friction mobile ledger UX in Pakistani trade markets.
+              </p>
+</div>
+<!-- Lock Line -->
+<div class="flex items-center gap-1.5 text-xs text-[#71717A] pt-1">
+<span class="material-symbols-outlined text-[15px] leading-none text-[#A1A1AA]" data-icon="lock">lock</span>
+<span>Contact details after mutual acceptance</span>
+</div>
+</div>
+</div>
+<!-- Action Area -->
+<div class="w-full md:w-auto shrink-0 pt-2 md:pt-0 md:self-center">
+<button class="w-full md:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-[#0A0A0A] text-white hover:bg-[#262626] font-medium text-sm transition-all shadow-sm" onclick="requestIntroCustom('Hamza Iqbal', 'Mentor · Ex-VP Product, Finja')">
+<span>Request match</span>
+<span class="material-symbols-outlined text-sm leading-none" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</article>
+<!-- Match Card 3: Sana Rauf (Request Sent / Pending state) -->
+<article class="p-6 lg:p-7 bg-[#FAF9F7]/40 transition-colors flex flex-col md:flex-row gap-5 items-start justify-between match-item match-investor border-l-4 border-l-[#B15F2C]">
+<div class="flex items-start gap-4 flex-1">
+<!-- Monogram Avatar -->
+<div class="w-14 h-14 rounded-full bg-[#E6E5E2] text-[#27272A] flex items-center justify-center font-display font-semibold text-lg shrink-0">
+            SR
+          </div>
+<div class="space-y-2.5 flex-1">
+<div class="flex flex-wrap items-center gap-x-3 gap-y-1">
+<h2 class="text-lg font-display font-bold text-[#0A0A0A]">Sana Rauf</h2>
+<span class="text-xs text-[#71717A]">·</span>
+<p class="text-sm font-medium text-[#52525B]">Angel Investor · Karachi Angels Network — <span class="text-[#0A0A0A]">Karachi</span></p>
+<!-- Similarity Badge -->
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#F8EDE5] text-[#B15F2C] border border-[#B15F2C]/20 ml-auto md:ml-0">
+<span class="w-1.5 h-1.5 rounded-full bg-[#B15F2C]"></span>
+                84% Profile similarity
+              </span>
+</div>
+<!-- Tags -->
+<div class="flex flex-wrap items-center gap-2">
+<span class="font-label-caps text-[11px] bg-[#F1F0EE] text-[#52525B] px-2.5 py-1 rounded">Fintech</span>
+<span class="font-label-caps text-[11px] bg-[#F1F0EE] text-[#52525B] px-2.5 py-1 rounded">Pre-seed</span>
+<span class="font-label-caps text-[11px] bg-[#F1F0EE] text-[#52525B] px-2.5 py-1 rounded">Early Operator</span>
+</div>
+<!-- Why this match rationale -->
+<div class="pt-1">
+<p class="text-sm text-[#0A0A0A] font-medium leading-relaxed">
+<span class="text-[#B15F2C] font-semibold">Why this match:</span> Active early backer in domestic digital commerce enablement and micro-lending software.
+              </p>
+</div>
+<!-- Lock Line -->
+<div class="flex items-center gap-1.5 text-xs text-[#71717A] pt-1">
+<span class="material-symbols-outlined text-[15px] leading-none text-[#A1A1AA]" data-icon="lock">lock</span>
+<span>Contact details after mutual acceptance</span>
+</div>
+</div>
+</div>
+<!-- Action Area (REQUEST SENT STATE) -->
+<div class="w-full md:w-auto shrink-0 pt-2 md:pt-0 md:self-center">
+<div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#F8EDE5] text-[#964E22] border border-[#B15F2C]/30 text-xs font-semibold">
+<span class="material-symbols-outlined text-sm leading-none animate-spin" data-icon="schedule" style="animation-duration: 4s;">schedule</span>
+<span>Request sent · Pending response</span>
+</div>
+</div>
+</article>
+<!-- Match Card 4: Dr. Tariq Hassan (79%) -->
+<article class="p-6 lg:p-7 hover:bg-[#FAF9F7]/70 transition-colors flex flex-col md:flex-row gap-5 items-start justify-between match-item match-mentor">
+<div class="flex items-start gap-4 flex-1">
+<!-- Monogram Avatar -->
+<div class="w-14 h-14 rounded-full bg-[#F4F2FD] text-[#52525B] border border-[#E6E5E2] flex items-center justify-center font-display font-semibold text-lg shrink-0">
+            DT
+          </div>
+<div class="space-y-2.5 flex-1">
+<div class="flex flex-wrap items-center gap-x-3 gap-y-1">
+<h2 class="text-lg font-display font-bold text-[#0A0A0A]">Dr. Tariq Hassan</h2>
+<span class="text-xs text-[#71717A]">·</span>
+<p class="text-sm font-medium text-[#52525B]">Senior Advisor · National Incubation Center — <span class="text-[#0A0A0A]">Islamabad</span></p>
+<!-- Similarity Badge -->
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#F8EDE5] text-[#B15F2C] border border-[#B15F2C]/20 ml-auto md:ml-0">
+<span class="w-1.5 h-1.5 rounded-full bg-[#B15F2C]"></span>
+                79% Profile similarity
+              </span>
+</div>
+<!-- Tags -->
+<div class="flex flex-wrap items-center gap-2">
+<span class="font-label-caps text-[11px] bg-[#F1F0EE] text-[#52525B] px-2.5 py-1 rounded">Agritech &amp; Supply Chain</span>
+<span class="font-label-caps text-[11px] bg-[#F1F0EE] text-[#52525B] px-2.5 py-1 rounded">Governance</span>
+<span class="font-label-caps text-[11px] bg-[#F1F0EE] text-[#52525B] px-2.5 py-1 rounded">Cross-border Tax</span>
+</div>
+<!-- Why this match rationale -->
+<div class="pt-1">
+<p class="text-sm text-[#0A0A0A] font-medium leading-relaxed">
+<span class="text-[#B15F2C] font-semibold">Why this match:</span> Advises founders on structured inventory finance models and wholesale supply network integration.
+              </p>
+</div>
+<!-- Lock Line -->
+<div class="flex items-center gap-1.5 text-xs text-[#71717A] pt-1">
+<span class="material-symbols-outlined text-[15px] leading-none text-[#A1A1AA]" data-icon="lock">lock</span>
+<span>Contact details after mutual acceptance</span>
+</div>
+</div>
+</div>
+<!-- Action Area -->
+<div class="w-full md:w-auto shrink-0 pt-2 md:pt-0 md:self-center">
+<button class="w-full md:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-[#0A0A0A] text-white hover:bg-[#262626] font-medium text-sm transition-all shadow-sm" onclick="requestIntroCustom('Dr. Tariq Hassan', 'Senior Advisor · NIC')">
+<span>Request match</span>
+<span class="material-symbols-outlined text-sm leading-none" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</article>
+</div>
+<!-- Bottom Ecosystem Explainer / Carnet Trust Stamp -->
+<div class="mt-8 p-5 bg-white rounded-xl border border-[#E6E5E2] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#71717A]">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#B15F2C] text-xl" data-icon="shield">shield</span>
+<p>
+<strong class="text-[#0A0A0A] font-semibold">Carnet Double-Blind Protocol:</strong>
+          Targets view your executive one-pager &amp; verifiable metrics without revealing your phone number or direct email.
+        </p>
+</div>
+<div class="font-label-caps text-[10px] text-[#A1A1AA] uppercase tracking-wider shrink-0">
+        PKR SEED ECOSYSTEM // 2025
+      </div>
+</div>
+</main>
+<!-- Request Match Confirmation Modal (Dismissible) -->
+<div class="fixed inset-0 z-50 bg-[#0A0A0A]/60 backdrop-blur-xs flex items-center justify-center p-4 hidden transition-opacity" id="intro-modal">
+<div class="bg-white rounded-2xl max-w-lg w-full border border-[#E6E5E2] shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+<!-- Modal Header -->
+<div class="px-6 py-5 border-b border-[#E6E5E2] flex items-center justify-between bg-[#FAF9F7]">
+<div>
+<span class="font-label-caps text-[10px] text-[#B15F2C] font-semibold uppercase tracking-wider">Carnet Mutual Handshake</span>
+<h3 class="text-xl font-display font-bold text-[#0A0A0A]">Request Introduction</h3>
+</div>
+<button class="w-8 h-8 rounded-full flex items-center justify-center text-[#71717A] hover:text-[#0A0A0A] hover:bg-[#E6E5E2] transition-colors" onclick="closeModal()">
+<span class="material-symbols-outlined text-lg leading-none" data-icon="close">close</span>
+</button>
+</div>
+<!-- Modal Body -->
+<div class="p-6 space-y-4">
+<!-- Target Info Pill -->
+<div class="flex items-center gap-3 p-3 rounded-lg bg-[#FAF9F7] border border-[#E6E5E2]">
+<div class="w-9 h-9 rounded-full bg-[#0A0A0A] text-white flex items-center justify-center text-xs font-semibold" id="modal-target-avatar">
+            AQ
+          </div>
+<div>
+<p class="text-xs text-[#71717A]">Target Profile</p>
+<p class="text-sm font-bold text-[#0A0A0A]" id="modal-target-name">Ayesha Qureshi · Partner, Indus Valley Capital</p>
+</div>
+</div>
+<!-- Note Textarea -->
+<div class="space-y-1.5">
+<div class="flex items-center justify-between">
+<label class="text-xs font-semibold text-[#0A0A0A]" for="intro-note">Founder's Context Note</label>
+<span class="font-code-metric text-[11px] text-[#71717A]" id="char-counter">163 / 280</span>
+</div>
+<textarea class="w-full text-sm rounded-lg border-[#E6E5E2] focus:border-[#B15F2C] focus:ring-[#B15F2C] bg-white text-[#0A0A0A] placeholder-[#A1A1AA] p-3 leading-relaxed" id="intro-note" maxlength="280" oninput="updateCount(this)" rows="4">Hi Ayesha, we are building Munshi Books to automate SME bookkeeping and merchant credit tracking across Karachi wholesale markets. We'd value your perspective on our Seed round.</textarea>
+</div>
+<!-- Platform Honesty Disclosure -->
+<div class="rounded-lg p-3 bg-[#F8EDE5]/50 border border-[#B15F2C]/30 flex items-start gap-2.5">
+<span class="material-symbols-outlined text-[#B15F2C] text-base mt-0.5" data-icon="verified_user">verified_user</span>
+<p class="text-xs text-[#964E22] leading-snug">
+<strong>Contact details are shared only if they accept.</strong> No cold direct outreach, zero spam. If declined, your match queue refreshes automatically.
+          </p>
+</div>
+</div>
+<!-- Modal Footer -->
+<div class="px-6 py-4 bg-[#FAF9F7] border-t border-[#E6E5E2] flex items-center justify-end gap-3">
+<button class="px-4 py-2 rounded-full border border-[#E6E5E2] bg-white text-xs font-semibold text-[#52525B] hover:text-[#0A0A0A] hover:border-[#71717A] transition-colors" onclick="closeModal()">
+          Cancel
+        </button>
+<button class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-[#0A0A0A] text-white hover:bg-[#262626] text-xs font-semibold transition-all shadow-sm" onclick="confirmRequest()">
+<span>Send request</span>
+<span class="material-symbols-outlined text-sm leading-none" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Notification Toast (for interactive feedback) -->
+<div class="fixed bottom-6 right-6 z-50 bg-[#0A0A0A] text-white px-4 py-3 rounded-xl shadow-lg border border-[#333] flex items-center gap-3 translate-y-20 opacity-0 transition-all duration-300" id="toast">
+<span class="material-symbols-outlined text-[#F5C842]" data-icon="check_circle">check_circle</span>
+<span class="text-xs font-medium" id="toast-text">Introduction requested. Waiting for double-blind approval.</span>
+</div>
+<!-- Interactive State Scripts -->
+<script>
+    function openModal() {
+      const modal = document.getElementById('intro-modal');
+      modal.classList.remove('hidden');
+      document.body.classList.add('overflow-hidden');
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('intro-modal');
+      modal.classList.add('hidden');
+      document.body.classList.remove('overflow-hidden');
+    }
+
+    function requestIntroCustom(name, role) {
+      document.getElementById('modal-target-name').textContent = name + ' · ' + role;
+      document.getElementById('modal-target-avatar').textContent = name.split(' ').map(n => n[0]).join('');
+      openModal();
+    }
+
+    function confirmRequest() {
+      closeModal();
+      showToast('Mutual intro sent to target partner. Profile details securely pending.');
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const toastText = document.getElementById('toast-text');
+      toastText.textContent = msg;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 3500);
+    }
+
+    function updateCount(el) {
+      const counter = document.getElementById('char-counter');
+      counter.textContent = el.value.length + ' / 280';
+    }
+
+    // Role filtering toggle
+    function filterRole(role) {
+      const btnAll = document.getElementById('role-all');
+      const btnInv = document.getElementById('role-investor');
+      const btnMen = document.getElementById('role-mentor');
+
+      const items = document.querySelectorAll('.match-item');
+
+      // reset pill styles
+      [btnAll, btnInv, btnMen].forEach(btn => {
+        btn.className = "px-4 py-1.5 rounded-full text-xs font-semibold bg-white border border-[#E6E5E2] text-[#52525B] hover:text-[#0A0A0A] hover:border-[#71717A] transition-all";
+      });
+
+      if (role === 'all') {
+        btnAll.className = "px-4 py-1.5 rounded-full text-xs font-semibold bg-[#0A0A0A] text-white transition-all shadow-sm";
+        items.forEach(el => el.classList.remove('hidden'));
+      } else if (role === 'investor') {
+        btnInv.className = "px-4 py-1.5 rounded-full text-xs font-semibold bg-[#0A0A0A] text-white transition-all shadow-sm";
+        items.forEach(el => {
+          if (el.classList.contains('match-investor')) el.classList.remove('hidden');
+          else el.classList.add('hidden');
+        });
+      } else if (role === 'mentor') {
+        btnMen.className = "px-4 py-1.5 rounded-full text-xs font-semibold bg-[#0A0A0A] text-white transition-all shadow-sm";
+        items.forEach(el => {
+          if (el.classList.contains('match-mentor')) el.classList.remove('hidden');
+          else el.classList.add('hidden');
+        });
+      }
+    }
+
+    // Interactive Preview switcher helper
+    function setMode(mode) {
+      const btnDef = document.getElementById('btn-mode-default');
+      const btnModal = document.getElementById('btn-mode-modal');
+      const btnPend = document.getElementById('btn-mode-pending');
+
+      [btnDef, btnModal, btnPend].forEach(b => {
+        b.className = "px-2.5 py-1 rounded font-medium text-[#71717A] hover:text-[#0A0A0A]";
+      });
+
+      if (mode === 'default') {
+        btnDef.className = "px-2.5 py-1 rounded font-medium text-[#0A0A0A] bg-white shadow-xs border border-[#E6E5E2]";
+        filterRole('all');
+        closeModal();
+      } else if (mode === 'pending') {
+        btnPend.className = "px-2.5 py-1 rounded font-medium text-[#0A0A0A] bg-white shadow-xs border border-[#E6E5E2]";
+        closeModal();
+        showToast('Viewing active "Request Sent" pending intro states');
+      }
+    }
+  </script>
+</body></html>

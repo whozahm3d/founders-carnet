@@ -1,0 +1,436 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_standard" name="shell-type"><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">tailwind.config={darkMode: "class", theme: {extend: {colors: {"surface-container-high": "#ebe6ee", "on-surface-variant": "#494551", "surface-tint": "#6750a4", "inverse-primary": "#cfbdff", "tertiary-fixed-dim": "#e7c365", "surface-container-highest": "#e6e1e9", "on-surface": "#1c1b20", "outline-variant": "#cac4d2", "on-primary-fixed": "#22005d", "on-primary": "#ffffff", "primary-container": "#7d66bc", "on-secondary-fixed-variant": "#4a4263", "tertiary-fixed": "#ffdf93", "on-primary-fixed-variant": "#4e378a", "on-tertiary-fixed-variant": "#594400", secondary: "#63597c", "on-error": "#ffffff", "primary-fixed-dim": "#cfbdff", outline: "#7a7582", "secondary-fixed-dim": "#cdc0e8", "on-error-container": "#93000a", "inverse-surface": "#312f35", "error-container": "#ffdad6", surface: "#fdf8ff", "secondary-container": "#e0d4fd", "on-tertiary-container": "#080500", "inverse-on-surface": "#f4eff7", "primary-fixed": "#e9ddff", error: "#ba1a1a", "on-secondary-fixed": "#1e1635", "surface-variant": "#e6e1e9", "surface-dim": "#ddd8e0", "surface-container": "#f1ecf4", "tertiary-container": "#91731d", background: "#fdf8ff", tertiary: "#755b00", "surface-bright": "#fdf8ff", "on-background": "#1c1b20", "surface-container-low": "#f7f2fa", "secondary-fixed": "#e8ddff", primary: "#644da1", "on-tertiary-fixed": "#241a00", "on-secondary-container": "#635a7c", "on-primary-container": "#fffbff", "on-tertiary": "#ffffff", "surface-container-lowest": "#ffffff", "on-secondary": "#ffffff"}, borderRadius: {DEFAULT: "0.125rem", lg: "0.25rem", xl: "0.5rem", full: "0.75rem"}, spacing: {margin: "32px", "space-md": "16px", "space-lg": "24px", "space-sm": "8px", "space-xl": "48px", gutter: "24px", "space-xs": "4px"}, fontFamily: {"headline-lg-mobile": ["Hanken Grotesk"], "title-md": ["Hanken Grotesk"], "body-lg": ["Hanken Grotesk"], caption: ["Inter"], "title-lg": ["Hanken Grotesk"], "headline-xl": ["Hanken Grotesk"], "label-md": ["Hanken Grotesk"], "headline-lg": ["Hanken Grotesk"], "headline-xl-mobile": ["Hanken Grotesk"], "title-sm": ["Hanken Grotesk"], "headline-md-mobile": ["Hanken Grotesk"], "headline-md": ["Hanken Grotesk"], "headline-sm": ["Hanken Grotesk"], "body-md": ["Hanken Grotesk"], headline: ["Inter"], display: ["Inter"], body: ["Inter"], label: ["Inter"], "display-2": ["Inter"], "body-small": ["Inter"], "headline-1": ["Inter"], title: ["Inter"], "headline-2": ["Inter"], "display-1": ["Inter"]}, fontSize: {"headline-lg-mobile": ["32px", {lineHeight: "1.2", fontWeight: "700"}], "title-md": ["20px", {lineHeight: "1.35", fontWeight: "500"}], "body-lg": ["16px", {lineHeight: "1.5", fontWeight: "400"}], caption: ["12px", {lineHeight: "16px", fontWeight: "500"}], "title-lg": ["24px", {lineHeight: "1.3", fontWeight: "600"}], "headline-xl": ["60px", {lineHeight: "1.1", fontWeight: "700"}], "label-md": ["14px", {lineHeight: "1.4", fontWeight: "600"}], "headline-lg": ["48px", {lineHeight: "1.15", fontWeight: "700"}], "headline-xl-mobile": ["38px", {lineHeight: "1.15", fontWeight: "700"}], "title-sm": ["18px", {lineHeight: "1.4", fontWeight: "500"}], "headline-md-mobile": ["28px", {lineHeight: "1.2", fontWeight: "600"}], "headline-md": ["36px", {lineHeight: "1.2", fontWeight: "600"}], "headline-sm": ["30px", {lineHeight: "1.25", fontWeight: "600"}], "body-md": ["14px", {lineHeight: "1.5", fontWeight: "400"}], body: ["16px", {lineHeight: "24px", fontWeight: "400"}], "display-2": ["48px", {lineHeight: "48px", fontWeight: "700"}], label: ["14px", {lineHeight: "20px", fontWeight: "600"}], "body-small": ["14px", {lineHeight: "20px", fontWeight: "400"}], "headline-1": ["30px", {lineHeight: "36px", fontWeight: "700"}], title: ["18px", {lineHeight: "28px", fontWeight: "600"}], "headline-2": ["24px", {lineHeight: "32px", fontWeight: "600"}], "display-1": ["60px", {lineHeight: "60px", fontWeight: "700"}]}}}};</script></head><body class="min-h-screen bg-[#FAF9F7] text-[#0A0A0A] font-body-md text-body-md antialiased flex flex-col justify-between" style="background: radial-gradient(circle at 85% 15%, rgb(245, 200, 66) 0%, rgb(255, 138, 43) 30%, rgb(196, 69, 26) 55%, rgb(58, 18, 6) 100%) fixed;"><header class="fixed top-0 left-0 right-0 z-40 pt-5 px-4 sm:px-8"><div class="max-w-[1200px] mx-auto h-16 flex items-center justify-between px-4 sm:px-6 bg-white/90 backdrop-blur-md rounded-full border border-black/[0.08] shadow-[0_2px_16px_rgba(0,0,0,0.04)] gap-2"><div class="flex items-center gap-2 sm:gap-3 shrink-0"><a class="flex items-center gap-2 sm:gap-2.5 group" data-path="founder-dashboard" href="#"><div class="w-8 h-8 shrink-0"><svg class="w-full h-full" viewBox="0 0 64 64"><rect fill="#0A0A0A" height="64" rx="14" width="64"></rect><path d="M45 0H52V22L48.5 18L45 22Z" fill="#B15F2C"></path><path d="M14 14H40V23H24V28.5H36V37.5H24V50H14Z" fill="#fff"></path></svg></div><span class="font-bold text-[15px] sm:text-[16px] text-[#0A0A0A] tracking-tight">The Founder's Carnet</span></a><div class="h-4 w-px bg-zinc-200 hidden sm:block"></div><span class="text-[11px] text-zinc-400 font-semibold uppercase tracking-wider hidden sm:inline-block">FOUNDER WORKSPACE</span></div><nav class="hidden lg:flex items-center gap-1"><a class="bg-[#0A0A0A] text-white px-3.5 py-2 rounded-full transition-colors font-medium text-[14px]" data-path="founder-dashboard" href="#">Dashboard</a><a class="text-zinc-600 hover:text-zinc-950 px-3.5 py-2 rounded-full transition-colors font-medium text-[14px]" data-path="user-profile" href="#">Profile</a><a class="text-zinc-600 hover:text-zinc-950 px-3.5 py-2 rounded-full transition-colors font-medium text-[14px]" data-path="founder-readiness-score" href="#">Readiness score</a><a class="text-zinc-600 hover:text-zinc-950 px-3.5 py-2 rounded-full transition-colors font-medium text-[14px]" data-path="founder-pitch-practice" href="#">Pitch practice</a><a class="text-zinc-600 hover:text-zinc-950 px-3.5 py-2 rounded-full transition-colors font-medium text-[14px]" data-path="founder-session-feedback" href="#">Session feedback</a><a class="text-zinc-600 hover:text-zinc-950 px-3.5 py-2 rounded-full transition-colors font-medium text-[14px]" data-path="matches" href="#">Matches</a></nav><div class="flex items-center gap-2 sm:gap-3 shrink-0"><div class="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-100/80 border border-zinc-200/60 text-zinc-600"><span class="w-2 h-2 rounded-full bg-[#B15F2C]"></span><span class="text-[12px] font-medium whitespace-nowrap">Karachi 3:55pm, 9 Nov 2026</span></div><div class="w-8 h-8 rounded-full bg-[#0A0A0A] text-white flex items-center justify-center shrink-0 font-bold text-[12px] tracking-wider select-none">FK</div></div></div></header><main class="w-full pt-28 pb-16 flex-grow"><div class="flex flex-col w-full max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 space-y-8 antialiased">
+<!-- Demo State Switcher and Sub-Header Bar -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-2">
+<!-- Breadcrumb & Mode Flag -->
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-highest/60 backdrop-blur-md text-on-surface-variant text-caption font-caption tracking-wider uppercase">
+<span class="w-1.5 h-1.5 rounded-full bg-[#B15F2C]"></span>
+<span>Executive Carnet</span>
+</span>
+<span class="text-on-surface-variant/40 text-caption">/</span>
+<span class="text-caption font-caption text-on-surface-variant font-medium">Karachi Hub · Series Seed</span>
+</div>
+<!-- Interactive Workspace State Toggle -->
+<div class="flex items-center gap-2 bg-surface-container-lowest/80 backdrop-blur-md p-1.5 rounded-full shadow-sm"><span class="text-caption font-caption text-zinc-600 pl-2.5 pr-1 font-medium select-none">View mode:</span><button class="px-3.5 py-1.5 rounded-full text-caption font-caption font-semibold transition-all bg-[#0A0A0A] text-white shadow-sm cursor-pointer" id="btn-active-state" onclick="(function(){ document.getElementById('active-view').classList.remove('hidden'); document.getElementById('onboarding-view').classList.add('hidden'); document.getElementById('btn-active-state').className='px-3.5 py-1.5 rounded-full text-caption font-caption font-semibold transition-all bg-[#0A0A0A] text-white shadow-sm cursor-pointer'; document.getElementById('btn-empty-state').className='px-3.5 py-1.5 rounded-full text-caption font-caption font-medium transition-all text-zinc-600 hover:text-zinc-950 cursor-pointer'; })()" type="button">Active dashboard</button><button class="px-3.5 py-1.5 rounded-full text-caption font-caption font-medium transition-all text-zinc-600 hover:text-zinc-950 cursor-pointer" id="btn-empty-state" onclick="(function(){ document.getElementById('active-view').classList.add('hidden'); document.getElementById('onboarding-view').classList.remove('hidden'); document.getElementById('btn-active-state').className='px-3.5 py-1.5 rounded-full text-caption font-caption font-medium transition-all text-zinc-600 hover:text-zinc-950 cursor-pointer'; document.getElementById('btn-empty-state').className='px-3.5 py-1.5 rounded-full text-caption font-caption font-semibold transition-all bg-[#0A0A0A] text-white shadow-sm cursor-pointer'; })()" type="button">First-time onboarding</button></div>
+</div>
+<!-- Hero Greeting Section -->
+<section class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-2">
+<div class="space-y-3 max-w-3xl">
+<div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-surface-container-lowest/90 backdrop-blur shadow-sm"><span class="flex h-2 w-2 relative"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#B15F2C] opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-[#B15F2C]"></span></span><span class="text-caption font-caption font-semibold text-[#B15F2C]">Verified profile</span><span class="text-on-surface-variant/40 text-caption">·</span><span class="text-caption font-caption text-on-surface-variant">Visible to vetted investors</span></div>
+<h1 class="font-headline-lg text-headline-lg tracking-tight text-white font-bold">Welcome back, <span class="italic font-serif text-[#F5C842]" style="font-family: 'Instrument Serif', Georgia, serif; font-weight: 400;">Bilal</span></h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">
+<strong class="font-semibold text-on-surface">Munshi Books</strong> · Seed fintech, Karachi · Track your readiness, next actions, and investor matches.
+      </p>
+</div>
+<!-- Quick Meta Metrics Pill -->
+<div class="flex items-center gap-4 bg-surface-container-lowest/90 backdrop-blur p-3 px-5 rounded-2xl shadow-sm self-start lg:self-auto">
+<div>
+<p class="text-caption font-caption uppercase tracking-wider text-on-surface-variant">Cohort Target</p>
+<p class="font-title-sm text-title-sm text-on-surface font-semibold">Q1 2027 Seed</p>
+</div>
+<div class="w-px h-8 bg-surface-variant"></div>
+<div>
+<p class="text-caption font-caption uppercase tracking-wider text-on-surface-variant">SME Bookings</p>
+<p class="font-title-sm text-title-sm text-[#B15F2C] font-semibold">14 Active Corridors</p>
+</div>
+</div>
+</section>
+<!-- =================================================================== -->
+<!-- VIEW CONTAINER A: ACTIVE DASHBOARD -->
+<!-- =================================================================== -->
+<div class="flex flex-col space-y-8 w-full transition-opacity duration-300" id="active-view">
+<!-- Hero Monolith Card: Ink Readiness Rubric -->
+<section class="relative w-full rounded-[24px] bg-[#0A0A0A] text-[#FAF9F7] p-6 sm:p-8 lg:p-10 shadow-xl overflow-hidden">
+<!-- Ambient decorative gradient sphere -->
+<div class="absolute -right-24 -top-24 w-96 h-96 rounded-full bg-gradient-to-br from-[#B15F2C]/20 to-transparent blur-3xl pointer-events-none"></div>
+<div class="absolute left-1/3 -bottom-20 w-80 h-80 rounded-full bg-[#B15F2C]/10 blur-3xl pointer-events-none"></div>
+<div class="relative z-10 flex flex-col justify-between space-y-8">
+<!-- Top Meta Row -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2">
+<div class="flex items-center gap-2.5">
+<span class="w-2 h-2 rounded-full bg-[#B15F2C]"></span>
+<span class="text-caption font-caption font-semibold tracking-widest text-[#FAF9F7]/70 uppercase">
+              Readiness Rubric · Updated Today
+            </span>
+</div>
+<span class="text-caption font-caption text-[#FAF9F7]/60 tracking-wide bg-white/5 px-3 py-1 rounded-full self-start sm:self-auto">
+            Average across 7 dimensions
+          </span>
+</div>
+<!-- Metric Display & Interactive Visual Ruler -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+<!-- Large Numeral Hero -->
+<div class="lg:col-span-4 space-y-1">
+<div class="flex items-baseline gap-2">
+<span class="font-headline-xl text-headline-xl font-bold tracking-tight text-white leading-none" id="hero-score-val">
+                3.1
+              </span>
+<span class="text-title-lg font-title-lg text-[#FAF9F7]/50 font-normal">
+                / 5
+              </span>
+</div>
+<p class="font-body-md text-body-md text-[#FAF9F7]/70 pt-1">
+              A rubric guide, not a funding probability.
+            </p>
+</div>
+<!-- Dynamic Scale Ruler Container -->
+<div class="lg:col-span-8 flex flex-col space-y-4">
+<div class="relative w-full pt-6 pb-2">
+<!-- Ruler Track Base -->
+<div class="w-full h-3 rounded-full bg-[#262626] relative overflow-hidden">
+<!-- Highlight progress bar (52.5% for 3.1 on a 1-5 scale) -->
+<div class="h-full bg-gradient-to-r from-[#B15F2C] via-[#E5884B] to-[#F5C842] rounded-full transition-all duration-500" id="hero-progress-bar" style="width: 52.5%;"></div>
+</div>
+<!-- Active Thumb Indicator Floating Bubble -->
+<div class="absolute top-0 -ml-5 flex flex-col items-center transition-all duration-500 pointer-events-none" id="hero-thumb-wrapper" style="left: 52.5%;">
+<div class="px-2 py-0.5 rounded bg-white text-[#0A0A0A] font-caption text-caption font-bold shadow-md" id="hero-thumb-badge">
+                  3.1
+                </div>
+<div class="w-3.5 h-3.5 rounded-full bg-[#0A0A0A] border-2 border-white shadow-sm mt-1"></div>
+</div>
+<!-- Ruler Ticks & Phase Landmarks -->
+<div class="relative w-full flex justify-between text-caption font-caption text-[#FAF9F7]/50 pt-3">
+<div class="flex flex-col items-start">
+<span class="font-semibold text-[#FAF9F7]/80">1.0</span>
+<span class="text-[11px] text-[#FAF9F7]/40 mt-0.5">Foundational</span>
+</div>
+<div class="flex flex-col items-center">
+<span class="font-semibold text-[#FAF9F7]/80">2.0</span>
+<span class="text-[11px] text-[#FAF9F7]/40 mt-0.5">Emerging</span>
+</div>
+<div class="flex flex-col items-center">
+<span class="font-semibold text-white">3.1</span>
+<span class="text-[11px] text-[#E5884B] font-semibold mt-0.5">Traction ready</span>
+</div>
+<div class="flex flex-col items-center">
+<span class="font-semibold text-[#FAF9F7]/80">4.0</span>
+<span class="text-[11px] text-[#FAF9F7]/40 mt-0.5">Scale</span>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-semibold text-[#FAF9F7]/80">5.0</span>
+<span class="text-[11px] text-[#FAF9F7]/40 mt-0.5">Institutional</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footnote & Action Button Row -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-4 mt-2">
+<div class="flex items-center gap-2 text-caption font-caption text-[#FAF9F7]/60">
+<span class="material-symbols-outlined text-[18px] text-[#B15F2C]">verified_user</span>
+<span>Last evaluated from: <strong class="text-[#FAF9F7]/90 font-medium">Pitch Deck v2.4 + Financial Model rev3</strong></span>
+</div>
+<!-- Trigger Rubric Recalculation Modal in App Shell -->
+<button class="inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-full bg-white text-[#0A0A0A] hover:bg-[#FAF9F7] font-label-md text-label-md font-semibold transition-transform duration-150 hover:scale-[1.02] shadow-sm self-start sm:self-auto cursor-pointer" id="open-modal-action-btn" type="button">
+<span>Inspect rubric breakdown</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Two-Column Asymmetric Content Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<!-- Next Actions Column (7 cols) -->
+<section class="lg:col-span-7 bg-surface-container-lowest rounded-[24px] p-6 sm:p-8 shadow-sm flex flex-col justify-between space-y-6">
+<div class="flex items-center justify-between">
+<div class="space-y-1">
+<h2 class="font-title-lg text-title-lg text-on-surface">Next actions</h2>
+<p class="font-caption text-caption text-on-surface-variant">Prioritized actions to strengthen investor underwriting</p>
+</div>
+<span class="px-3 py-1 rounded-full bg-[#F8EDE5] text-[#964E22] font-caption text-caption font-semibold">3 pending</span>
+</div>
+<!-- Action Rows List -->
+<div class="space-y-3"><div class="p-4 sm:p-5 rounded-2xl bg-surface-container-low transition-colors hover:bg-surface-container flex items-start justify-between gap-4"><div class="flex items-start gap-3.5"><span class="font-caption text-caption font-mono font-bold text-[#B15F2C] mt-0.5">01</span><div class="space-y-1"><h3 class="font-title-sm text-title-sm text-on-surface font-semibold">Add market sizing evidence</h3><p class="font-body-md text-body-md text-on-surface-variant">Include bottom-up TAM/SAM calculations for GCC &amp; Pakistan corridors.</p></div></div><a class="shrink-0 inline-flex items-center gap-1 px-3.5 py-1.5 rounded-lg bg-surface-container-lowest hover:bg-white text-[#B15F2C] font-label-md text-caption font-semibold shadow-sm transition" href="#"><span>Start</span><span class="material-symbols-outlined text-[14px]">arrow_forward</span></a></div><div class="p-4 sm:p-5 rounded-2xl bg-surface-container-low transition-colors hover:bg-surface-container flex items-start justify-between gap-4"><div class="flex items-start gap-3.5"><span class="font-caption text-caption font-mono font-bold text-[#B15F2C] mt-0.5">02</span><div class="space-y-1"><h3 class="font-title-sm text-title-sm text-on-surface font-semibold">Practice pitch with AI investor</h3><p class="font-body-md text-body-md text-on-surface-variant">Complete a 7-minute simulated Q&amp;A focusing on unit economics defenses.</p></div></div><a class="shrink-0 inline-flex items-center gap-1 px-3.5 py-1.5 rounded-lg bg-surface-container-lowest hover:bg-white text-[#B15F2C] font-label-md text-caption font-semibold shadow-sm transition" href="#"><span>Simulate</span><span class="material-symbols-outlined text-[14px]">arrow_forward</span></a></div><div class="p-4 sm:p-5 rounded-2xl bg-surface-container-low transition-colors hover:bg-surface-container flex items-start justify-between gap-4"><div class="flex items-start gap-3.5"><span class="font-caption text-caption font-mono font-bold text-[#B15F2C] mt-0.5">03</span><div class="space-y-1"><h3 class="font-title-sm text-title-sm text-on-surface font-semibold">Upload pitch deck / product link</h3><p class="font-body-md text-body-md text-on-surface-variant">Connect live interactive prototype or customer demo video.</p></div></div><a class="shrink-0 inline-flex items-center gap-1 px-3.5 py-1.5 rounded-lg bg-surface-container-lowest hover:bg-white text-[#B15F2C] font-label-md text-caption font-semibold shadow-sm transition" href="#"><span>Link</span><span class="material-symbols-outlined text-[14px]">arrow_forward</span></a></div></div>
+<!-- Footer Callout Note -->
+<div class="flex items-center gap-2.5 px-4 py-3 rounded-xl bg-surface-container text-on-surface-variant text-caption font-caption">
+<span class="material-symbols-outlined text-[18px] text-[#B15F2C]">trending_up</span>
+<span>Completing these 3 items can improve your composite score by up to <strong class="text-on-surface font-semibold">+0.4</strong>.</span>
+</div>
+</section>
+<!-- Recent Pitch Feedback Column (5 cols) -->
+<section class="lg:col-span-5 bg-surface-container-lowest rounded-[24px] p-6 sm:p-8 shadow-sm flex flex-col justify-between space-y-6"><div class="flex items-center justify-between"><div class="space-y-1"><h2 class="font-title-lg text-title-lg text-on-surface">Recent pitch feedback</h2><p class="font-caption text-caption text-on-surface-variant">Venture simulation diagnostic logs</p></div><a class="text-caption font-caption text-[#B15F2C] hover:underline font-semibold" href="#">History</a></div><div class="space-y-4"><div class="p-4 rounded-2xl bg-surface-container-low flex items-center justify-between"><div class="space-y-0.5"><span class="text-caption font-caption text-on-surface-variant">12 Mar 2026</span><h4 class="font-title-sm text-title-sm text-on-surface font-semibold">AI Investor Mock #4</h4><p class="text-caption font-caption text-[#B15F2C] font-medium">+0.2 gained on Unit Economics</p></div><div class="text-right"><span class="font-title-lg text-title-lg font-bold text-on-surface">3.0</span><span class="text-caption font-caption text-on-surface-variant">/ 5</span></div></div><div class="p-4 rounded-2xl bg-surface-container-low flex items-center justify-between"><div class="space-y-0.5"><span class="text-caption font-caption text-on-surface-variant">08 Mar 2026</span><h4 class="font-title-sm text-title-sm text-on-surface font-semibold">AI Investor Mock #3</h4><p class="text-caption font-caption text-[#B15F2C] font-medium">+0.3 gained on Market Sizing</p></div><div class="text-right"><span class="font-title-lg text-title-lg font-bold text-on-surface">2.8</span><span class="text-caption font-caption text-on-surface-variant">/ 5</span></div></div><div class="p-4 rounded-2xl bg-surface-container-low flex items-center justify-between"><div class="space-y-0.5"><span class="text-caption font-caption text-on-surface-variant">02 Mar 2026</span><h4 class="font-title-sm text-title-sm text-on-surface font-semibold">Initial Baseline Session</h4><p class="text-caption font-caption text-on-surface-variant font-medium">Diagnostic benchmark recorded</p></div><div class="text-right"><span class="font-title-lg text-title-lg font-bold text-on-surface">2.5</span><span class="text-caption font-caption text-on-surface-variant">/ 5</span></div></div></div><a class="inline-flex items-center justify-between w-full py-2.5 px-4 rounded-xl bg-surface-container hover:bg-surface-container-high transition text-[#B15F2C] font-label-md text-label-md font-semibold" href="#"><span>View latest feedback analysis</span><span class="material-symbols-outlined text-[18px]">arrow_forward</span></a></section>
+</div>
+<!-- Match Preview Section -->
+<section class="space-y-6 pt-4">
+<div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+<div class="space-y-1">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Investor &amp; Mentor Matches</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">
+            Ranked by thesis fit and profile similarity. Contact details remain locked until mutual acceptance.
+          </p>
+</div>
+<a class="inline-flex items-center gap-1.5 text-[#B15F2C] hover:underline font-label-md text-label-md font-semibold shrink-0" href="#">
+<span>View all matches</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</div>
+<!-- Match Cards Grid (1 Featured + 2 Standard) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- Featured Card: Ayesha Qureshi (6 Cols) -->
+<article class="lg:col-span-6 bg-surface-container-lowest rounded-[24px] p-6 sm:p-7 shadow-sm flex flex-col justify-between space-y-6 relative overflow-hidden"><div class="space-y-4"><div class="flex items-start justify-between gap-4"><div class="flex items-center gap-3.5"><div class="w-12 h-12 rounded-full bg-[#F8EDE5] flex items-center justify-center font-bold text-title-sm text-[#964E22]">AQ</div><div><h3 class="font-title-md text-title-md font-semibold text-on-surface">Ayesha Qureshi</h3><p class="font-body-md text-body-md text-on-surface-variant">Partner · Indus Valley Capital, Karachi</p></div></div><div class="px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 text-caption font-caption font-bold">92% similarity</div></div><div class="flex flex-wrap items-center gap-2"><span class="px-3 py-1 rounded-full bg-[#F1F0EE] text-[#0A0A0A] text-caption font-caption font-medium">Fintech</span><span class="px-3 py-1 rounded-full bg-[#F1F0EE] text-[#0A0A0A] text-caption font-caption font-medium">Seed stage</span><span class="px-3 py-1 rounded-full bg-[#F1F0EE] text-[#0A0A0A] text-caption font-caption font-medium">Ticket: PKR 10M–30M</span></div><div class="p-3.5 rounded-xl bg-surface-container-low text-on-surface text-body-md font-body-md space-y-1"><p class="text-caption font-caption uppercase tracking-wider text-[#964E22] font-bold">Why this match</p><p>High thesis alignment for SME ledger automation, multi-branch cashflow oversight, and Pakistani B2B invoicing rails.</p></div></div><div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-2"><span class="text-caption font-caption text-on-surface-variant">Contact revealed upon mutual accept</span><button class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-[#0A0A0A] hover:bg-[#262626] text-white font-label-md text-label-md font-semibold shadow transition duration-150 cursor-pointer" onclick="this.innerText='Match Requested ✓'; this.disabled=true; this.classList.add('opacity-75');" type="button"><span>Request match</span><span class="material-symbols-outlined text-[16px]">send</span></button></div></article>
+<!-- Card 2: Hamza Iqbal (3 Cols) -->
+<article class="lg:col-span-3 bg-surface-container-lowest rounded-[24px] p-6 shadow-sm flex flex-col justify-between space-y-6">
+<div class="space-y-4">
+<div class="flex items-start justify-between gap-2">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center font-bold text-title-sm text-on-surface">
+                HI
+              </div>
+<div class="px-2.5 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant text-caption font-caption font-bold">
+                88% match
+              </div>
+</div>
+<div>
+<h3 class="font-title-sm text-title-sm font-semibold text-on-surface">Hamza Iqbal</h3>
+<p class="text-caption font-caption text-on-surface-variant">Mentor · Ex-VP Product Finja</p>
+</div>
+<div class="flex flex-wrap gap-1.5">
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface-variant text-caption font-caption">B2B SaaS</span>
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface-variant text-caption font-caption">Product ops</span>
+</div>
+<p class="text-body-md font-body-md text-on-surface-variant">
+              Advises founders on merchant acquisition funnels and low-friction mobile ledger UX.
+            </p>
+</div>
+<div class="space-y-2 pt-2">
+<button class="w-full inline-flex items-center justify-center gap-1.5 py-2 px-4 rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md font-semibold transition cursor-pointer" onclick="this.innerText='Requested ✓'; this.disabled=true; this.classList.add('opacity-75');" type="button">
+<span>Request match</span>
+</button>
+<p class="text-[11px] text-center text-on-surface-variant/80">Locked until accepted</p>
+</div>
+</article>
+<!-- Card 3: Sana Rauf (3 Cols) -->
+<article class="lg:col-span-3 bg-surface-container-lowest rounded-[24px] p-6 shadow-sm flex flex-col justify-between space-y-6">
+<div class="space-y-4">
+<div class="flex items-start justify-between gap-2">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center font-bold text-title-sm text-on-surface">
+                SR
+              </div>
+<div class="px-2.5 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant text-caption font-caption font-bold">
+                84% match
+              </div>
+</div>
+<div>
+<h3 class="font-title-sm text-title-sm font-semibold text-on-surface">Sana Rauf</h3>
+<p class="text-caption font-caption text-on-surface-variant">Angel Investor · Karachi</p>
+</div>
+<div class="flex flex-wrap gap-1.5">
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface-variant text-caption font-caption">Fintech</span>
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface-variant text-caption font-caption">Pre-seed</span>
+</div>
+<p class="text-body-md font-body-md text-on-surface-variant">
+              Active early operator in domestic digital commerce enablement and micro-lending software.
+            </p>
+</div>
+<div class="space-y-2 pt-2">
+<button class="w-full inline-flex items-center justify-center gap-1.5 py-2 px-4 rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md font-semibold transition cursor-pointer" onclick="this.innerText='Requested ✓'; this.disabled=true; this.classList.add('opacity-75');" type="button">
+<span>Request match</span>
+</button>
+<p class="text-[11px] text-center text-on-surface-variant/80">Locked until accepted</p>
+</div>
+</article>
+</div>
+</section>
+</div>
+<!-- =================================================================== -->
+<!-- VIEW CONTAINER B: FIRST-TIME EMPTY / ONBOARDING STATE -->
+<!-- =================================================================== -->
+<div class="hidden flex flex-col space-y-8 w-full transition-opacity duration-300" id="onboarding-view"><section class="bg-surface-container-lowest rounded-[28px] p-8 sm:p-12 lg:p-14 shadow-lg space-y-10"><div class="max-w-2xl space-y-3"><div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#F8EDE5] text-[#964E22] text-caption font-caption font-semibold"><span class="material-symbols-outlined text-[16px]">flag</span><span>Founder Onboarding Checklist</span></div><h2 class="font-headline-md text-headline-md text-[#0A0A0A] font-bold tracking-tight">Get your startup ready for <span class="italic font-serif text-[#B15F2C]" style="font-family: 'Instrument Serif', Georgia, serif; font-weight: 400;">introductions</span></h2><p class="font-body-lg text-body-lg text-zinc-600">The Founder's Carnet introduces verified founders to active capital and experienced mentors. Complete these three foundational steps to unlock matched introductions.</p></div><div class="grid grid-cols-1 md:grid-cols-3 gap-6"><div class="bg-surface-container-low rounded-2xl p-6 flex flex-col justify-between space-y-6 border border-zinc-200/60"><div class="space-y-3"><div class="flex items-center justify-between"><span class="text-caption font-caption font-mono font-bold text-[#B15F2C]">STEP 01</span><span class="inline-flex items-center gap-1 text-caption font-caption font-semibold text-emerald-800 bg-emerald-50 px-2.5 py-0.5 rounded-full"><span class="material-symbols-outlined text-[14px]">check_circle</span> In Progress</span></div><h3 class="font-title-sm text-title-sm font-semibold text-[#0A0A0A]">Complete startup profile</h3><p class="font-body-md text-body-md text-zinc-600">Company details, traction KPIs, pitch deck upload &amp; sector classifications.</p></div><button class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#0A0A0A] hover:bg-[#262626] text-white font-label-md text-caption font-semibold transition cursor-pointer" onclick="window.location.href='#profile'" type="button"><span>Edit startup profile</span><span class="material-symbols-outlined text-[15px]">arrow_forward</span></button></div><div class="bg-white rounded-2xl p-6 shadow-sm ring-1 ring-[#B15F2C]/30 flex flex-col justify-between space-y-6"><div class="space-y-3"><div class="flex items-center justify-between"><span class="text-caption font-caption font-mono font-bold text-[#B15F2C]">STEP 02</span><span class="text-caption font-caption font-semibold text-[#964E22] bg-[#F8EDE5] px-2.5 py-0.5 rounded-full">Ready to evaluate</span></div><h3 class="font-title-sm text-title-sm font-semibold text-[#0A0A0A]">Get initial readiness score</h3><p class="font-body-md text-body-md text-zinc-600">Automated evaluation across the 7-dimension rubric to benchmark institutional readiness.</p></div><button class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#B15F2C] hover:bg-[#974d20] text-white font-label-md text-caption font-semibold transition cursor-pointer shadow-sm" onclick="document.getElementById('open-modal-action-btn').click();" type="button"><span>Calculate score</span><span class="material-symbols-outlined text-[15px]">tune</span></button></div><div class="bg-surface-container-low rounded-2xl p-6 flex flex-col justify-between space-y-6 border border-zinc-200/60"><div class="space-y-3"><div class="flex items-center justify-between"><span class="text-caption font-caption font-mono font-bold text-zinc-500">STEP 03</span><span class="text-caption font-caption text-zinc-500 bg-zinc-200 px-2.5 py-0.5 rounded-full">Locked</span></div><h3 class="font-title-sm text-title-sm font-semibold text-[#0A0A0A]">Practice your investor pitch</h3><p class="font-body-md text-body-md text-zinc-600">Interactive simulated Q&amp;A session with venture AI before meeting angels.</p></div><button class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-zinc-200 text-zinc-500 font-label-md text-caption font-semibold cursor-not-allowed" type="button"><span>Start simulation</span><span class="material-symbols-outlined text-[15px]">lock</span></button></div></div><div class="rounded-2xl border border-dashed border-zinc-300 bg-surface-container-low p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6"><div class="flex items-start gap-4"><div class="w-12 h-12 rounded-2xl bg-[#F8EDE5] flex items-center justify-center text-[#B15F2C] shrink-0"><span class="material-symbols-outlined text-[26px]">lock</span></div><div class="space-y-1"><h4 class="font-title-sm text-title-sm font-semibold text-[#0A0A0A]">Curated Investor &amp; Mentor Introductions Locked</h4><p class="font-body-md text-body-md text-zinc-600">Curated investor and mentor introductions unlock after profile verification and initial readiness evaluation.</p></div></div><button class="shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white hover:bg-[#FAF9F7] text-[#0A0A0A] border border-zinc-200 font-label-md text-caption font-semibold shadow-sm transition cursor-pointer" onclick="document.getElementById('btn-active-state').click();" type="button"><span>Preview sample matches</span><span class="material-symbols-outlined text-[16px]">visibility</span></button></div></section></div>
+</div>
+<!-- Vanilla JS Tab / View Controller -->
+<script>
+  function switchDashboardView(state) {
+    const activeView = document.getElementById('view-active-dashboard');
+    const emptyView = document.getElementById('view-empty-dashboard');
+    const btnActive = document.getElementById('btn-active-state');
+    const btnEmpty = document.getElementById('btn-empty-state');
+
+    if (state === 'active') {
+      activeView.classList.remove('hidden');
+      emptyView.classList.add('hidden');
+
+      btnActive.className = 'px-3.5 py-1.5 rounded-full text-caption font-caption font-semibold transition-all bg-primary text-on-primary shadow-sm';
+      btnEmpty.className = 'px-3.5 py-1.5 rounded-full text-caption font-caption font-medium transition-all text-on-surface-variant hover:text-on-surface';
+    } else {
+      activeView.classList.add('hidden');
+      emptyView.classList.remove('hidden');
+
+      btnActive.className = 'px-3.5 py-1.5 rounded-full text-caption font-caption font-medium transition-all text-on-surface-variant hover:text-on-surface';
+      btnEmpty.className = 'px-3.5 py-1.5 rounded-full text-caption font-caption font-semibold transition-all bg-primary text-on-primary shadow-sm';
+    }
+  }
+</script></main><footer class="w-full py-8 px-4 sm:px-8 border-t border-zinc-200/60 bg-transparent"><div class="max-w-[1200px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-zinc-400 text-[13px]"><div class="flex items-center gap-2"><div class="w-5 h-5"><svg class="w-full h-full" viewBox="0 0 64 64"><rect fill="#0A0A0A" height="64" rx="14" width="64"></rect><path d="M45 0H52V22L48.5 18L45 22Z" fill="#B15F2C"></path><path d="M14 14H40V23H24V28.5H36V37.5H24V50H14Z" fill="#fff"></path></svg></div><span>© 2026 The Founder's Carnet. All rights reserved.</span></div><div class="flex items-center gap-6"><a class="hover:text-zinc-700 transition" data-path="privacy-policy" href="#">Privacy</a><a class="hover:text-zinc-700 transition" data-path="terms-of-service" href="#">Terms</a><a class="hover:text-zinc-700 transition" data-path="contact-support" href="#">Contact</a></div></div></footer>
+<!-- Interactive Rubric Breakdown & Recalculation Modal -->
+<div aria-labelledby="modal-title" aria-modal="true" class="fixed inset-0 z-50 hidden items-center justify-center p-4 sm:p-6 overflow-y-auto" id="rubric-modal" role="dialog" style="display: none !important;">
+<!-- Backdrop -->
+<div class="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity" id="modal-backdrop"></div>
+<!-- Modal Content Box -->
+<div class="relative w-full max-w-2xl max-h-[921px] flex flex-col bg-white rounded-2xl shadow-2xl border border-zinc-200/80 overflow-hidden z-10 my-auto transition-all"><div class="px-5 sm:px-6 py-4 sm:py-5 border-b border-zinc-100 flex items-center justify-between bg-zinc-50/50 shrink-0"><div><div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-[#B15F2C]"></span><span class="text-[11px] font-mono uppercase tracking-wider text-zinc-500 font-semibold">Rubric Breakdown &amp; Evaluation Model</span></div><h3 class="text-lg sm:text-xl font-bold text-[#0A0A0A] mt-1" id="modal-title">7 Core Evaluation Dimensions</h3></div><button aria-label="Close dialog" class="w-8 h-8 rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-600 hover:text-zinc-900 flex items-center justify-center transition cursor-pointer" id="close-modal-btn" type="button"><span class="material-symbols-outlined text-[20px]">close</span></button></div><div class="bg-[#0A0A0A] text-white px-5 sm:px-6 py-3.5 sm:py-4 flex items-center justify-between shrink-0"><div><span class="text-xs text-zinc-400 block uppercase font-mono tracking-wider">Modeled Composite Average</span><div class="flex items-baseline gap-2 mt-0.5"><span class="text-3xl font-bold text-white tracking-tight" id="modal-average-display">3.1</span><span class="text-zinc-400 text-sm">/ 5.0</span><span class="ml-2 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-white/10 text-[#F5C842]" id="modal-tier-badge">Traction Ready</span></div></div><div class="text-right max-w-[200px] sm:max-w-[220px]"><p class="text-[12px] text-zinc-400 font-normal leading-tight">A rubric guide, not a funding probability.</p></div></div><div class="p-5 sm:p-6 divide-y divide-zinc-100 overflow-y-auto space-y-3 flex-grow"><div class="pt-3 first:pt-0 flex flex-col sm:flex-row sm:items-center justify-between gap-3" data-dimension="problem"><div><div class="flex items-center gap-2"><h4 class="text-[15px] sm:text-sm font-semibold text-zinc-900">1. Problem clarity</h4><span class="text-xs px-2 py-0.5 rounded bg-zinc-100 text-zinc-600 font-mono font-medium dimension-score-label">4 / 5</span></div><p class="text-[13px] sm:text-xs text-zinc-500 mt-0.5">Well-articulated pain point validated with frontline customers.</p></div><div class="flex items-center gap-1.5 score-button-group shrink-0" data-dim-id="problem"><button class="score-btn w-7 h-7 rounded-lg text-xs font-semibold transition border border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-100" data-val="1" type="button">1</button><button class="score-btn w-7 h-7 rounded-lg text-xs font-semibold transition border border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-100" data-val="2" type="button">2</button><button class="score-btn w-7 h-7 rounded-lg text-xs font-semibold transition border border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-100" data-val="3" type="button">3</button><button class="score-btn w-7 h-7 rounded-lg text-xs font-semibold transition bg-[#0A0A0A] text-white border border-[#0A0A0A] shadow-sm" data-val="4" type="button">4</button><button class="score-btn w-7 h-7 rounded-lg text-xs font-semibold transition border border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-100" data-val="5" type="button">5</button></div></div><div class="pt-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3" data-dimension="market"><div><div class="flex items-center gap-2"><h4 class="text-[15px] sm:text-sm font-semibold text-zinc-900">2. Market definition</h4><span class="text-xs px-2 py-0.5 rounded bg-amber-50 text-amber-700 font-mono font-medium dimension-score-label">2 / 5</span></div><p class="text-[13px] sm:text-xs text-zinc-500 mt-0.5">TAM/SAM calculations need deeper corridor segmentation.</p></div><div class="flex items-center gap-1.5 score-button-group shrink-0" data-dim-id="market"><button class="score-btn w-7 h-7 rounded-lg text-xs font-semibold transition border border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-100" data-val="1" type="button">1</button><button class="score-btn w-7 h-7 rounded-lg text-xs font-semibold transition bg-[#0A0A0A] text-white border border-[#0A0A0A] shadow-sm" data-val="2" type="button">2</button><button class="score-btn w-7 h-7 rounded-lg text-xs font-semibold transition border border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-100" data-val="3" type="button">3</button><button class="score-btn w-7 h-7 rounded-lg text-xs font-semibold transition border border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-100" data-val="4" type="button">4</button><button class="score-btn w-7 h-7 rounded-lg text-xs font-semibold transition border border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-100" data-val="5" type="button">5</button></div></div><div class="pt-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3" data-dimension="diff"><div><div class="flex items-center gap-2"><h4 class="text-[15px] sm:text-sm font-semibold text-zinc-900">3. Differentiation</h4><span class="text-xs px-2 py-0.5 rounded bg-zinc-100 text-zinc-600 font-mono font-medium dimension-score-label">3 / 5</span></div><p class="text-[13px] sm:text-xs text-zinc-500 mt-0.5">Clear local moat, requires defensibility against regional incumbents.</p></div><div class="flex items-center gap-1.5 score-button-group shrink-0" data-dim-id="diff"><button class="score-btn w-7 h-7 rounded-lg text-xs font-semibold transition border border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-100" data-val="1" type="button">1</button><button class="score-btn w-7 h-7 rounded-lg text-xs font-semibold transition border border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-100" data-val="2" type="button">2</button><button class="score-btn w-7 h-7 rounded-lg text-xs font-semibold transition border border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-100" data-val="3" type="button">3</button><button class="score-btn w-7 h-7 rounded-lg text-xs font-semibold transition border border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-100" data-val="4" type="button">4</button><button class="score-btn w-7 h-7 rounded-lg text-xs font-semibold transition border border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-100" data-val="5" type="button">5</button></div></div><div class="pt-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3" data-dimension="biz"><div><div class="flex items-center gap-2"><h4 class="text-[15px] sm:text-sm font-semibold text-zinc-900">4. Business model</h4><span class="text-xs px-2 py-0.5 rounded bg-zinc-100 text-zinc-600 font-mono font-medium dimension-score-label">3 / 5</span></div><p class="text-[13px] sm:text-xs text-zinc-500 mt-0.5">Take-rate unit economics proven in beta; test margins at scale.</p></div><div class="flex items-center gap-1.5 score-button-group shrink-0" data-dim-id="biz"><button class="score-btn w-7 h-7 rounded-lg text-xs font-semibold transition border border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-100" data-val="1" type="button">1</button><button class="score-btn w-7 h-7 rounded-lg text-xs font-semibold transition border border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-100" data-val="2" type="button">2</button><button class="score-btn w-7 h-7 rounded-lg text-xs font-semibold transition border border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-100" data-val="3" type="button">3</button><button class="score-btn w-7 h-7 rounded-lg text-xs font-semibold transition border border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-100" data-val="4" type="button">4</button><button class="score-btn w-7 h-7 rounded-lg text-xs font-semibold transition border border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-100" data-val="5" type="button">5</button></div></div><div class="pt-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3" data-dimension="traction"><div><div class="flex items-center gap-2"><h4 class="text-[15px] sm:text-sm font-semibold text-zinc-900">5. Traction</h4><span class="text-xs px-2 py-0.5 rounded bg-zinc-100 text-zinc-600 font-mono font-medium dimension-score-label">3 / 5</span></div><p class="text-[13px] sm:text-xs text-zinc-500 mt-0.5">Early pilot revenue verified with 14 active trade merchants.</p></div><div class="flex items-center gap-1.5 score-button-group shrink-0" data-dim-id="traction"><button class="score-btn w-7 h-7 rounded-lg text-xs font-semibold transition border border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-100" data-val="1" type="button">1</button><button class="score-btn w-7 h-7 rounded-lg text-xs font-semibold transition border border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-100" data-val="2" type="button">2</button><button class="score-btn w-7 h-7 rounded-lg text-xs font-semibold transition border border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-100" data-val="3" type="button">3</button><button class="score-btn w-7 h-7 rounded-lg text-xs font-semibold transition border border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-100" data-val="4" type="button">4</button><button class="score-btn w-7 h-7 rounded-lg text-xs font-semibold transition border border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-100" data-val="5" type="button">5</button></div></div><div class="pt-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3" data-dimension="team"><div><div class="flex items-center gap-2"><h4 class="text-[15px] sm:text-sm font-semibold text-zinc-900">6. Team</h4><span class="text-xs px-2 py-0.5 rounded bg-zinc-100 text-zinc-600 font-mono font-medium dimension-score-label">4 / 5</span></div><p class="text-[13px] sm:text-xs text-zinc-500 mt-0.5">Complementary domain and technical execution backgrounds.</p></div><div class="flex items-center gap-1.5 score-button-group shrink-0" data-dim-id="team"><button class="score-btn w-7 h-7 rounded-lg text-xs font-semibold transition border border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-100" data-val="1" type="button">1</button><button class="score-btn w-7 h-7 rounded-lg text-xs font-semibold transition border border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-100" data-val="2" type="button">2</button><button class="score-btn w-7 h-7 rounded-lg text-xs font-semibold transition border border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-100" data-val="3" type="button">3</button><button class="score-btn w-7 h-7 rounded-lg text-xs font-semibold transition bg-[#0A0A0A] text-white border border-[#0A0A0A] shadow-sm" data-val="4" type="button">4</button><button class="score-btn w-7 h-7 rounded-lg text-xs font-semibold transition border border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-100" data-val="5" type="button">5</button></div></div><div class="pt-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3" data-dimension="scalability"><div><div class="flex items-center gap-2"><h4 class="text-[15px] sm:text-sm font-semibold text-zinc-900">7. Scalability</h4><span class="text-xs px-2 py-0.5 rounded bg-zinc-100 text-zinc-600 font-mono font-medium dimension-score-label">3 / 5</span></div><p class="text-[13px] sm:text-xs text-zinc-500 mt-0.5">Cross-border regulatory roadmap is in early drafting stage.</p></div><div class="flex items-center gap-1.5 score-button-group shrink-0" data-dim-id="scalability"><button class="score-btn w-7 h-7 rounded-lg text-xs font-semibold transition border border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-100" data-val="1" type="button">1</button><button class="score-btn w-7 h-7 rounded-lg text-xs font-semibold transition border border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-100" data-val="2" type="button">2</button><button class="score-btn w-7 h-7 rounded-lg text-xs font-semibold transition border border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-100" data-val="3" type="button">3</button><button class="score-btn w-7 h-7 rounded-lg text-xs font-semibold transition border border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-100" data-val="4" type="button">4</button><button class="score-btn w-7 h-7 rounded-lg text-xs font-semibold transition border border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-100" data-val="5" type="button">5</button></div></div></div><div class="p-4 sm:p-5 border-t border-zinc-100 bg-zinc-50/70 flex flex-col sm:flex-row items-center justify-between gap-3 shrink-0"><button class="min-h-[44px] px-3 text-xs font-medium text-zinc-500 hover:text-zinc-800 transition cursor-pointer focus:outline-none focus:underline" id="reset-rubric-btn" type="button">Reset to original baseline (3.1)</button><div class="flex items-center gap-2.5 w-full sm:w-auto"><button class="flex-1 sm:flex-none min-h-[44px] px-4 py-2 rounded-xl border border-zinc-300 text-zinc-700 hover:bg-zinc-100 text-[13px] font-semibold transition cursor-pointer focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2" id="cancel-modal-btn" type="button">Cancel</button><button class="flex-1 sm:flex-none min-h-[44px] inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-xl bg-[#B15F2C] hover:bg-[#974d20] text-white font-semibold text-[13px] shadow-sm transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#B15F2C] focus:ring-offset-2 hover:scale-[1.02]" id="apply-rubric-btn" type="button"><span>Apply to dashboard</span><span class="material-symbols-outlined text-[16px]">check</span></button></div></div></div>
+</div>
+<script>
+  (function() {
+    // Current state scores
+    const dimensions = {
+      problem: 4,
+      market: 2,
+      diff: 3,
+      biz: 3,
+      traction: 3,
+      team: 4,
+      scalability: 3
+    };
+
+    const modal = document.getElementById('rubric-modal');
+    const openBadgeBtn = document.getElementById('open-modal-badge-btn');
+    const openActionBtn = document.getElementById('open-modal-action-btn');
+    const closeBtn = document.getElementById('close-modal-btn');
+    const cancelBtn = document.getElementById('cancel-modal-btn');
+    const backdrop = document.getElementById('modal-backdrop');
+    const applyBtn = document.getElementById('apply-rubric-btn');
+    const resetBtn = document.getElementById('reset-rubric-btn');
+    const modalAvgDisplay = document.getElementById('modal-average-display');
+    const modalTierBadge = document.getElementById('modal-tier-badge');
+
+    // Dashboard Hero elements
+    const heroScoreVal = document.getElementById('hero-score-val');
+    const heroProgressBar = document.getElementById('hero-progress-bar');
+    const heroThumbWrapper = document.getElementById('hero-thumb-wrapper');
+    const heroThumbBadge = document.getElementById('hero-thumb-badge');
+    const heroStatusLabel = document.getElementById('hero-status-label');
+    const heroStatusDesc = document.getElementById('hero-status-desc');
+
+    function calculateAverage() {
+      const keys = Object.keys(dimensions);
+      const total = keys.reduce((acc, k) => acc + dimensions[k], 0);
+      return (total / keys.length).toFixed(1);
+    }
+
+    function getTier(score) {
+      const val = parseFloat(score);
+      if (val < 1.5) return 'Foundational';
+      if (val < 2.5) return 'Emerging';
+      if (val < 3.8) return 'Traction Ready';
+      if (val < 4.5) return 'Scale';
+      return 'Institutional';
+    }
+
+    function updateModalDisplay() {
+      const avg = calculateAverage();
+      modalAvgDisplay.textContent = avg;
+      const tier = getTier(avg);
+      modalTierBadge.textContent = tier;
+    }
+
+    function openModal() {
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.body.style.overflow = '';
+    }
+
+    // Bind score buttons
+    document.querySelectorAll('.score-button-group').forEach(group => {
+      const dimId = group.dataset.dimId;
+      const buttons = group.querySelectorAll('.score-btn');
+      buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const val = parseInt(btn.dataset.val, 10);
+          dimensions[dimId] = val;
+
+          // Update active styles in this group
+          buttons.forEach(b => {
+            b.className = 'score-btn w-7 h-7 rounded-lg text-xs font-semibold transition border border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-100';
+          });
+          btn.className = 'score-btn w-7 h-7 rounded-lg text-xs font-semibold transition bg-[#0A0A0A] text-white border border-[#0A0A0A] shadow-sm';
+
+          // Update label
+          const row = group.closest('[data-dimension]');
+          if (row) {
+            const label = row.querySelector('.dimension-score-label');
+            if (label) {
+              label.textContent = val + ' / 5';
+              if (val <= 2) {
+                label.className = 'text-xs px-2 py-0.5 rounded bg-amber-50 text-amber-700 font-mono font-medium dimension-score-label';
+              } else {
+                label.className = 'text-xs px-2 py-0.5 rounded bg-zinc-100 text-zinc-600 font-mono font-medium dimension-score-label';
+              }
+            }
+          }
+
+          updateModalDisplay();
+        });
+      });
+    });
+
+    // Reset button
+    resetBtn.addEventListener('click', () => {
+      const baseline = { problem: 4, market: 2, diff: 3, biz: 3, traction: 3, team: 4, scalability: 3 };
+      Object.assign(dimensions, baseline);
+      document.querySelectorAll('.score-button-group').forEach(group => {
+        const dimId = group.dataset.dimId;
+        const targetVal = dimensions[dimId];
+        const buttons = group.querySelectorAll('.score-btn');
+        buttons.forEach(b => {
+          if (parseInt(b.dataset.val, 10) === targetVal) {
+            b.className = 'score-btn w-7 h-7 rounded-lg text-xs font-semibold transition bg-[#0A0A0A] text-white border border-[#0A0A0A] shadow-sm';
+          } else {
+            b.className = 'score-btn w-7 h-7 rounded-lg text-xs font-semibold transition border border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-100';
+          }
+        });
+        const row = group.closest('[data-dimension]');
+        if (row) {
+          const label = row.querySelector('.dimension-score-label');
+          if (label) {
+            label.textContent = targetVal + ' / 5';
+            label.className = targetVal <= 2 
+              ? 'text-xs px-2 py-0.5 rounded bg-amber-50 text-amber-700 font-mono font-medium dimension-score-label'
+              : 'text-xs px-2 py-0.5 rounded bg-zinc-100 text-zinc-600 font-mono font-medium dimension-score-label';
+          }
+        }
+      });
+      updateModalDisplay();
+    });
+
+    // Apply score back to dashboard
+    applyBtn.addEventListener('click', () => {
+      const avg = calculateAverage();
+      heroScoreVal.textContent = avg;
+      heroThumbBadge.textContent = avg;
+      heroStatusLabel.textContent = avg;
+      
+      const tier = getTier(avg);
+      heroStatusDesc.textContent = tier;
+
+      // Percentage calculation (1.0 = 0%, 5.0 = 100%)
+      const valNum = parseFloat(avg);
+      const percentage = Math.min(Math.max(((valNum - 1.0) / 4.0) * 100, 4), 98);
+      heroProgressBar.style.width = percentage + '%';
+      heroThumbWrapper.style.left = percentage + '%';
+
+      closeModal();
+    });
+
+    // Modal listeners
+    openBadgeBtn.addEventListener('click', openModal);
+    openActionBtn.addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
+    cancelBtn.addEventListener('click', closeModal);
+    backdrop.addEventListener('click', closeModal);
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+        closeModal();
+      }
+    });
+  })();
+</script>
+
+
+
+
+</body></html>
