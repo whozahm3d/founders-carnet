@@ -204,3 +204,18 @@ Other items (spec-kit and the per-person installs) are listed in `THIRD_PARTY.md
 - Overrides: rule 2 also allows numerals at 72 and 96 and mono at 12 to 13. Rule 3 is replaced by the font list above. Rule 4 is replaced by the page background token, the only gradient allowed. Rule 11 is amended: no SECP, PSEB, FBR or PECA mentions in the UI.
 - `ROLE_NAVIGATION` is the only nav source. Admin has Console only; appeals are tabs inside it.
 - Ignore the old `docs/design/stitch/` path.
+
+## Skills for frontend work
+
+- Use for UI work: `frontend-ui-engineering`, `vercel-react-best-practices`, `vercel-composition-patterns`, `web-design-guidelines` (accessibility and layout checks only), `incremental-implementation`.
+- Use for checking: `webapp-testing` and `verification-loop` after each screen, `code-review-and-quality` before a PR.
+- `frontend-design`: structure and spacing ideas only. It must never change colors, fonts, the page background, the logo or the nav.
+- `landing-page-design`: Part A only (page structure, copy, FAQ). Ignore Part B, DESIGN.md decides every visual value.
+- `anti-ai-writing` and `humanizer`: apply to all UI copy.
+- DESIGN.md wins over every skill. Do not use backend, data or ML skills for UI tasks.
+
+## Guide overrides
+
+- Styling is CSS Modules only. Ignore the Tailwind option in `docs/frontend_implementation_guide.md`.
+- In that guide, `/design/` means `DESIGN.md` at the repo root plus `frontend/design_reference/`. Ignore stitch-v1, stitch-v2 and rename_map.
+- No AI marks, badges or labels anywhere in the UI. Ignore the guide's language model mark rule and test FT-06.
